@@ -1,7 +1,6 @@
 module RailsPerformance
 
   class Utils
-
     # date key in redis store
     def Utils.cache_key(now = Date.current)
       "date-#{now}"
@@ -11,6 +10,17 @@ module RailsPerformance
     # time - date -minute
     def Utils.field_key(now = Time.now)
       now.strftime("%H:%M")
+    end
+
+    def Utils.log_in_redis(e)
+      value = e.slice(:view_runtime, :db_runtime, :duration)
+      key   = "performance|controller|#{e[:controller]}|action|#{e[:action]}|format|#{e[:format]}|status|#{e[:status]}|datetime|#{e[:datetime]}|datetimei|#{e[:datetimei]}|method|#{e[:method]}|path|#{e[:path]}|END"
+
+      puts "  [SAVE]  --->  #{key} = #{value.to_json}\n\n"
+
+      RP.redis.set(key, value.to_json)
+      RP.redis.expire(key, RP.duration.to_i)
+      true
     end
 
     def Utils.days
@@ -29,7 +39,7 @@ module RailsPerformance
       else
         sorted[center]
       end
-    end  
+    end
 
     # populate test data
     # run in rails c

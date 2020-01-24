@@ -9,3 +9,5 @@ test/dummy/storage/
 test/dummy/tmp/
 
 *.gem
+
+coverage/

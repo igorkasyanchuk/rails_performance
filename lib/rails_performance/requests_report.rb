@@ -1,5 +1,5 @@
 module RailsPerformance
-  class GlobalReport < BaseReport
+  class RequestsReport < BaseReport
     def data
       collect do |k, v|
         {

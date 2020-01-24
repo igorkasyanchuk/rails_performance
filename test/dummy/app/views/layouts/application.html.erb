@@ -9,9 +9,17 @@
   </head>
 
   <body>
-    <%= link_to "Home", '/' %>
-    <%= link_to "About", '/home/about' %>
-    <%= link_to "Account", '/account/site/about' %>
+    <ul>
+      <li><%= link_to "Home", '/' %></li>
+      <li><%= link_to "About", '/home/about' %></li>
+      <li><%= link_to "Account", '/account/site/about' %></li>
+      <li><%= link_to "Crash", '/account/site/crash' %></li>
+      <li><%= link_to "Not Found", '/account/site/not_found' %></li>
+      <li><%= link_to "Redirect", '/account/site/is_redirect' %></li>
+      <br>
+      <li><%= link_to "Rails Performance Report", '/rails/performance' %></li>
+    </ul>
+    <br/>
     <%= yield %>
   </body>
 </html>
