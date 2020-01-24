@@ -14,7 +14,7 @@ module RailsPerformance
     end
 
     def Utils.days
-      (RailsPerformance.duration % 24.days).parts[:days] + 1
+      (RP.duration % 24.days).parts[:days] + 1
     end
 
     def Utils.median(array)
@@ -36,7 +36,7 @@ module RailsPerformance
     def Utils.populate_test_data(seed = 20, limit = 10000, days = 7)
       limit.times do
         t = rand(86400*days).seconds.ago # within last 7 days
-        RailsPerformance.redis.hincrby(cache_key(t.to_date), field_key(t), rand(seed))
+        RP.redis.hincrby(cache_key(t.to_date), field_key(t), rand(seed))
       end
     end
   end

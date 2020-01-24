@@ -12,12 +12,8 @@ module RailsPerformance
 
     def group_by(type)
       @data = case type
-      when :controller_action
-        data.group_by(&:controller_action)
-      when :controller_action_format
-        data.group_by(&:controller_action_format)
-      when :path
-        data.group_by(&:path)
+      when :controller_action, :controller_action_format, :datetime, :path
+        data.group_by(&type)
       else
         []
       end

@@ -13,7 +13,7 @@ module RailsPerformance
       #   puts "key: #{key}, field: #{field}"
       #   RailsPerformance.redis.hincrby(key, field, 1)
       # else
-        RailsPerformance.redis.hincrby(RailsPerformance::Utils.cache_key, RailsPerformance::Utils.field_key, 1)
+        RP.redis.hincrby(RP::Utils.cache_key, RP::Utils.field_key, 1)
 #      end
 
       [@status, @headers, @response]

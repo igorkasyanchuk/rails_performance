@@ -4,13 +4,13 @@ module RailsPerformance
 
     def initialize(q: {})
       q[:on] ||= Date.current
-      @q = q
+      @q       = q
     end
 
     def DataSource.all
-      result = RailsPerformance::Collection.new
-      RailsPerformance::Utils.days.times do |e|
-        RailsPerformance::DataSource.new(q: { on: e.days.ago.to_date }).add_to(result)
+      result = RP::Collection.new
+      RP::Utils.days.times do |e|
+        RP::DataSource.new(q: { on: e.days.ago.to_date }).add_to(result)
       end
       result
     end
@@ -43,26 +43,26 @@ module RailsPerformance
     end
 
     def query
-      e = "performance|*#{compile_query}*|*duration"
-#      puts "================================ #{e} ==============="
-      e
+      "performance|*#{compile_query}*|*duration"
     end
 
-    def collection(storage = RailsPerformance::Collection.new)
+    def collection(storage = RP::Collection.new)
       collect do |record|
-        storage.add record
+        storage.add(record)
       end
       storage
     end
     alias :add_to :collection
 
     def collect
-      keys   = RailsPerformance.redis.keys(query)
+      puts "REDIS: #{query}"
+
+      keys   = RP.redis.keys(query)
       return [] if keys.blank?
-      values = RailsPerformance.redis.mget(keys)
+      values = RP.redis.mget(keys)
 
       keys.each_with_index do |key, index|
-        yield RailsPerformance::Record.new(key, values[index])
+        yield RP::Record.new(key, values[index])
       end
     end
 

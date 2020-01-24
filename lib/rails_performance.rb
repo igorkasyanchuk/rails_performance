@@ -6,7 +6,7 @@ require_relative "rails_performance/utils.rb"
 require_relative "rails_performance/base_report.rb"
 require_relative "rails_performance/global_report.rb"
 require_relative "rails_performance/throughput_report.rb"
-require_relative "rails_performance/full_report.rb"
+require_relative "rails_performance/throughput_report2.rb"
 
 require "rails_performance/engine"
 
@@ -25,3 +25,5 @@ module RailsPerformance
   end
 
 end
+
+RP = RailsPerformance

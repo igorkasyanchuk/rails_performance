@@ -5,13 +5,13 @@ module RailsPerformance
       @data = []
 
       all = {}
-      RailsPerformance::Utils.days.times do |e|
+      RP::Utils.days.times do |e|
         date    = e.days.ago.to_date
-        all[date] = RailsPerformance.redis.hgetall(RailsPerformance::Utils.cache_key(date))
+        all[date] = RP.redis.hgetall(RP::Utils.cache_key(date))
       end
 
       stop    = Time.at(60 * (Time.now.to_i / 60))
-      current = stop - RailsPerformance.duration
+      current = stop - RP.duration
 
       while current <= stop
         views = all.dig(current.to_date, current.strftime("%H:%M")) || 0

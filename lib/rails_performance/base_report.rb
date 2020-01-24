@@ -4,7 +4,7 @@ module RailsPerformance
 
     def initialize(datasource, group: nil)
       @datasource = datasource
-      @group = group
+      @group      = group
     end
 
     def collect
