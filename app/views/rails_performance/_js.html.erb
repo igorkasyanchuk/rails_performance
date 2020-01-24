@@ -7,6 +7,9 @@
 <script>
   function showRequestsChart(div, data) {
     Highcharts.chart(div, {
+        time: {
+          timezone: 'Europe/Kiev'
+        },
         chart: {
             type: 'column',
             zoomType: 'x',

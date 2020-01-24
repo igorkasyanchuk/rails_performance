@@ -3,7 +3,7 @@ module RailsPerformance
     attr_reader :q
 
     def initialize(q: {})
-      q[:on] ||= Date.current
+      q[:on] ||= Date.today
       @q       = q
     end
 
@@ -24,7 +24,7 @@ module RailsPerformance
     alias :add_to :db
 
     def store
-      #puts "REDIS: #{query}"
+      #puts "\n\n   [REDIS]   -->   #{query}\n\n"
 
       keys   = RP.redis.keys(query)
       return [] if keys.blank?
