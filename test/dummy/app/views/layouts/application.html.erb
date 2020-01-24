@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dummy</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+  </head>
+
+  <body>
+    <%= link_to "Home", '/' %>
+    <%= link_to "About", '/home/about' %>
+    <%= link_to "Account", '/account/site/about' %>
+    <%= yield %>
+  </body>
+</html>

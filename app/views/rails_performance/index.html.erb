@@ -1,0 +1,107 @@
+<%= render '/rails_performance/js' %>
+<%= render '/rails_performance/css' %>
+
+<title>Number of Requests to the Application</title>
+
+<br/>
+<br/>
+<br/>
+
+<div class="card">
+  <h1>Number of Requests to the Application<h1>
+  <div id="chart"></div>
+  <p class="hint">All requests (site visitors, search engines, bots, etc)</p>
+</div>
+
+<br/>
+<br/>
+<br/>
+
+<div class="card">
+  <h1>Requests (path, total number, average response time)<h1>
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Requests</th>
+        <th>Average (ms)</th>
+        <th>Slowest (ms)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @global.each do |e| %>
+        <tr>
+          <td><%= e[:group] %></td>
+          <td><%= e[:count] %></td>
+          <td><%= e[:average].round(2) %></td>
+          <td><%= e[:slowest].round(2) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<br/>
+<br/>
+<br/>
+
+
+<script>
+  var data = <%= raw @data.to_json %>;
+
+  Highcharts.chart('chart', {
+      chart: {
+          type: 'column',
+          zoomType: 'x',
+          backgroundColor: '#323a46'
+      },
+      title: {
+          text: ''
+      },
+      xAxis: {
+          type: 'datetime',
+          labels: {
+            style: {
+              color: "#a6b0cf"
+            }
+          }
+      },
+      yAxis: {
+          min: 0,
+          title: {
+              text: 'RPM',
+              style: {
+                color: "#f6f6f6"
+              }
+          },
+          labels: {
+            style: {
+              color: "#a6b0cf"
+            }
+          }
+      },
+      legend: {
+          enabled: false
+      },
+      exporting: {
+        buttons: {
+          contextButton: {
+            theme: {
+              fill: "#a6b0cf"
+            }
+          }
+        }
+      },
+      plotOptions: {
+          column: {
+            color: '#ff5b5b',
+          }
+      },
+      series: [{
+          type: 'column',
+          name: 'Requests per minute',
+          data: data
+      }]
+  });
+
+</script>
