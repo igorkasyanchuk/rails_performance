@@ -1,7 +1,7 @@
 module RailsPerformance
   class FullReport < BaseReport
-    def data(group)
-      collect(group) do |k, v|
+    def data
+      collect do |k, v|
         {
           group: k,
           average: v.sum.to_f / v.size,

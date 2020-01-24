@@ -3,3 +3,63 @@
 <%= javascript_include_tag 'https://code.highcharts.com/modules/exporting.js' %>
 <%= javascript_include_tag 'https://code.highcharts.com/modules/export-data.js' %>
 <%= javascript_include_tag 'https://code.highcharts.com/modules/accessibility.js' %>
+
+<script>
+  function showRequestsChart(div, data) {
+    Highcharts.chart(div, {
+        chart: {
+            type: 'column',
+            zoomType: 'x',
+            backgroundColor: '#323a46'
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            type: 'datetime',
+            labels: {
+              style: {
+                color: "#a6b0cf"
+              }
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'RPM',
+                style: {
+                  color: "#f6f6f6"
+                }
+            },
+            labels: {
+              style: {
+                color: "#a6b0cf"
+              }
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        exporting: {
+          buttons: {
+            contextButton: {
+              theme: {
+                fill: "#a6b0cf"
+              }
+            }
+          }
+        },
+        plotOptions: {
+            column: {
+              color: '#ff5b5b',
+              borderColor: '#ff5b5b',
+            }
+        },
+        series: [{
+            type: 'column',
+            name: 'Requests per minute',
+            data: data
+        }]
+    });
+  };
+</script>

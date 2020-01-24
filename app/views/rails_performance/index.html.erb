@@ -1,4 +1,3 @@
-<%= render '/rails_performance/js' %>
 <%= render '/rails_performance/css' %>
 
 <title>Number of Requests to the Application</title>
@@ -8,7 +7,7 @@
 <br/>
 
 <div class="card">
-  <h1>Number of Requests to the Application<h1>
+  <h1>Throughput Report<h1>
   <div id="chart"></div>
   <p class="hint">All requests (site visitors, search engines, bots, etc)</p>
 </div>
@@ -46,62 +45,10 @@
 <br/>
 
 
+<%= render '/rails_performance/js' %>
+
 <script>
   var data = <%= raw @data.to_json %>;
-
-  Highcharts.chart('chart', {
-      chart: {
-          type: 'column',
-          zoomType: 'x',
-          backgroundColor: '#323a46'
-      },
-      title: {
-          text: ''
-      },
-      xAxis: {
-          type: 'datetime',
-          labels: {
-            style: {
-              color: "#a6b0cf"
-            }
-          }
-      },
-      yAxis: {
-          min: 0,
-          title: {
-              text: 'RPM',
-              style: {
-                color: "#f6f6f6"
-              }
-          },
-          labels: {
-            style: {
-              color: "#a6b0cf"
-            }
-          }
-      },
-      legend: {
-          enabled: false
-      },
-      exporting: {
-        buttons: {
-          contextButton: {
-            theme: {
-              fill: "#a6b0cf"
-            }
-          }
-        }
-      },
-      plotOptions: {
-          column: {
-            color: '#ff5b5b',
-          }
-      },
-      series: [{
-          type: 'column',
-          name: 'Requests per minute',
-          data: data
-      }]
-  });
-
+  showRequestsChart('chart', data);
 </script>
+

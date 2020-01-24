@@ -8,12 +8,12 @@ module RailsPerformance
       @status, @headers, @response = @app.call(env)
 
       # if RailsPerformance.debug
-      #   key   = RailsPerformance.cache_key
-      #   field = RailsPerformance.field_key
+      #   key   = RailsPerformance::Utils.cache_key
+      #   field = RailsPerformance::Utils.field_key
       #   puts "key: #{key}, field: #{field}"
       #   RailsPerformance.redis.hincrby(key, field, 1)
       # else
-        RailsPerformance.redis.hincrby(RailsPerformance.cache_key, RailsPerformance.field_key, 1)
+        RailsPerformance.redis.hincrby(RailsPerformance::Utils.cache_key, RailsPerformance::Utils.field_key, 1)
 #      end
 
       [@status, @headers, @response]

@@ -1,12 +1,12 @@
 module RailsPerformance
   class GlobalReport < BaseReport
-    def data(group)
-      collect(group) do |k, v|
+    def data
+      collect do |k, v|
         {
           group: k,
-          average: v.sum.to_f / v.size,
+          average: v.sum{|e| e["duration"]}.to_f / v.size,
           count: v.size,
-          slowest: v.max
+          slowest: v.max{|e| e["duration"]}.try(:[], "duration")
         }
       end.sort{|a, b| b[:count] <=> a[:count]}
     end

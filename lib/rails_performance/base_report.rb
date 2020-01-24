@@ -1,16 +1,14 @@
 module RailsPerformance
   class BaseReport
-    def collect(group)
-      keys   = RailsPerformance.redis.keys("*#{Date.current.strftime("%Y%m%d")}*|*total_duration")
-      values = RailsPerformance.redis.mget(keys)
+    attr_reader :datasource, :group
 
-      @collection = RailsPerformance::Collection.new
+    def initialize(datasource, group: nil)
+      @datasource = datasource
+      @group = group
+    end
 
-      keys.each_with_index do |key, index|
-        @collection.data << RailsPerformance::Record.new(key, values[index])
-      end
-
-      @collection.group_by(group).values.inject([]) do |res, (k,v)|
+    def collect
+      datasource.collection.group_by(group).values.inject([]) do |res, (k,v)|
         res << yield(k, v)
         res
       end
