@@ -22,6 +22,7 @@
     <thead>
       <tr>
         <th></th>
+        <th>Format</th>
         <th>Requests</th>
         <th>Average (ms)</th>
         <th>Slowest (ms)</th>
@@ -29,8 +30,10 @@
     </thead>
     <tbody>
       <% @global.each do |e| %>
+        <% groups = e[:group].split("|") %>
         <tr>
-          <td><%= e[:group] %></td>
+          <td><%= groups[0] %></td>
+          <td><%= groups[1]&.upcase %></td>
           <td><%= e[:count] %></td>
           <td><%= e[:average].round(2) %></td>
           <td><%= e[:slowest].round(2) %></td>

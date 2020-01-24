@@ -39,7 +39,7 @@ module RailsPerformance
     end
 
     def controller_action_format
-      "#{controller}##{action} (#{format})"
+      "#{controller}##{action}|#{format}"
     end
   end
 end

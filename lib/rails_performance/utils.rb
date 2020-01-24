@@ -16,7 +16,7 @@ module RailsPerformance
       value = e.slice(:view_runtime, :db_runtime, :duration)
       key   = "performance|controller|#{e[:controller]}|action|#{e[:action]}|format|#{e[:format]}|status|#{e[:status]}|datetime|#{e[:datetime]}|datetimei|#{e[:datetimei]}|method|#{e[:method]}|path|#{e[:path]}|END"
 
-      puts "  [SAVE]  --->  #{key} = #{value.to_json}\n\n"
+      #puts "  [SAVE]  --->  #{key} = #{value.to_json}\n\n"
 
       RP.redis.set(key, value.to_json)
       RP.redis.expire(key, RP.duration.to_i)

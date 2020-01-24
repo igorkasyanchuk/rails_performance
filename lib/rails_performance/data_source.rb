@@ -24,7 +24,7 @@ module RailsPerformance
     alias :add_to :db
 
     def store
-      puts "REDIS: #{query}"
+      #puts "REDIS: #{query}"
 
       keys   = RP.redis.keys(query)
       return [] if keys.blank?
