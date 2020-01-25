@@ -1,8 +1,8 @@
 module RailsPerformance
   class ThroughputReport < BaseReport
 
-    def initialize(ds)
-      super(ds, group: :datetime)
+    def set_defaults
+      @group ||= :datetime
     end
 
     def data

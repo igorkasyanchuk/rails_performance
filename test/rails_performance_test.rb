@@ -18,22 +18,25 @@ class RailsPerformance::Test < ActiveSupport::TestCase
   end
 
   test "datastore" do
-    RailsPerformance::Utils.log_in_redis(dummy_event)
+    setup_db
 
     ds = RP::DataSource.new(q: {})
     assert_not_nil RP::DataSource.all
     assert_not_nil ds.db
   end
 
-  test "report ControllerActionReport" do
-    RailsPerformance::Utils.log_in_redis(dummy_event)
+  test "report ControllerActionReport and group" do
+    setup_db
 
     ds = RP::DataSource.new(q: {})
     assert_not_nil RP::RequestsReport.new(ds.db, group: :controller_action).data
+    assert_not_nil RP::RequestsReport.new(ds.db, group: :controller).data
+    assert_not_nil RP::RequestsReport.new(ds.db, group: :controller_action_format).data
+    assert_not_nil RP::RequestsReport.new(ds.db, group: :controller_action_format, sort: :db_runtime_slowest).data
   end
 
   test "report ThroughputReport" do
-    RailsPerformance::Utils.log_in_redis(dummy_event)
+    setup_db
 
     ds = RP::DataSource.new(q: {})
     assert_not_nil RP::ThroughputReport.new(ds.db).data
@@ -56,4 +59,8 @@ def dummy_event
     db_runtime: 50,
     duration: 150
   }
+end
+
+def setup_db
+  RailsPerformance::Utils.log_in_redis(dummy_event)
 end

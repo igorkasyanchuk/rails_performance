@@ -8,7 +8,7 @@ class RailsPerformanceController < ActionController::Base
       })
 
     @data   = RailsPerformance::ThroughputReport.new(@datasource.db).data
-    @global = RailsPerformance::RequestsReport.new(@datasource.db, group: :controller_action_format).data
+    @global = RailsPerformance::RequestsReport.new(@datasource.db, group: :controller_action_format, sort: :db_runtime_slowest).data
     #@full   = RailsPerformance::FullReport.new.data(:controller_action).sort{|a, b| b[:count] <=> a[:count]}
   end
 

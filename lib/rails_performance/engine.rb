@@ -15,5 +15,11 @@ module RailsPerformance
       )
     end
 
+    # initializer 'rails_performance.helpers' do
+    #   ActiveSupport.on_load :action_view do
+    #     ActionView::Base.send :include, RailsPerformance::RailsPerformanceHelper
+    #   end
+    # end
+
   end
 end

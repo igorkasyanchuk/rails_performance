@@ -1,14 +1,26 @@
 module RailsPerformance
   class RequestsReport < BaseReport
+    def set_defaults
+      @sort ||= :count
+    end
+
     def data
       collect do |k, v|
+        durations     = v.collect{|e| e["duration"]}.compact
+        view_runtimes = v.collect{|e| e["view_runtime"]}.compact
+        db_runtimes   = v.collect{|e| e["db_runtime"]}.compact
+
         {
-          group: k,
-          average: v.sum{|e| e["duration"]}.to_f / v.size,
-          count: v.size,
-          slowest: v.max_by{|e| e["duration"]}.try(:[], "duration")
+          group:                k,
+          count:                v.size,
+          duration_average:     durations.sum.to_f / durations.size,
+          view_runtime_average: view_runtimes.sum.to_f / view_runtimes.size,
+          db_runtime_average:   db_runtimes.sum.to_f / db_runtimes.size,
+          duration_slowest:     durations.max,
+          view_runtime_slowest: view_runtimes.max,
+          db_runtime_slowest:   db_runtimes.max,
         }
-      end.sort{|a, b| b[:count] <=> a[:count]}
+      end.sort{|a, b| b[sort] <=> a[sort]}
     end
   end
 end

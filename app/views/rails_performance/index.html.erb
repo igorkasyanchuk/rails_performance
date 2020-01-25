@@ -21,11 +21,20 @@
   <table>
     <thead>
       <tr>
-        <th></th>
+        <th colspan='3'>Name</th>
+        <th colspan='3'>Average (ms)</th>
+        <th colspan='3'>Slowest (ms)</th>
+      </tr>
+      <tr>
+        <th>Controller#Action</th>
         <th>Format</th>
         <th>Requests</th>
-        <th>Average (ms)</th>
-        <th>Slowest (ms)</th>
+        <th>Duration</th>
+        <th>Views</th>
+        <th>DB</th>
+        <th>Duration</th>
+        <th>Views</th>
+        <th>DB</th>
       </tr>
     </thead>
     <tbody>
@@ -35,8 +44,12 @@
           <td><%= groups[0] %></td>
           <td><%= groups[1]&.upcase %></td>
           <td><%= e[:count] %></td>
-          <td><%= e[:average].round(2) %></td>
-          <td><%= e[:slowest].round(2) %></td>
+          <td><%= round_it e[:duration_average] %></td>
+          <td><%= round_it e[:view_runtime_average] %></td>
+          <td><%= round_it e[:db_runtime_average] %></td>
+          <td><%= round_it e[:duration_slowest] %></td>
+          <td><%= round_it e[:view_runtime_slowest] %></td>
+          <td><%= round_it e[:db_runtime_slowest] %></td>
         </tr>
       <% end %>
     </tbody>
