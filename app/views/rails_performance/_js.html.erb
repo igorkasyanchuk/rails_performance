@@ -5,7 +5,7 @@
 <%= javascript_include_tag 'https://code.highcharts.com/modules/accessibility.js' %>
 
 <script>
-  function showRequestsChart(div, data) {
+  function showTIRChart(div, data) {
     Highcharts.chart(div, {
         time: {
           timezone: 'Europe/Kiev'
@@ -61,6 +61,76 @@
         series: [{
             type: 'column',
             name: 'Requests per minute',
+            data: data
+        }]
+    });
+  };
+
+  function showRTChart(div, data) {
+    Highcharts.chart(div, {
+        time: {
+          timezone: 'Europe/Kiev'
+        },
+        chart: {
+            type: 'area',
+            zoomType: 'x',
+            backgroundColor: '#323a46'
+        },
+        title: {
+            text: ''
+        },
+        tooltip: {
+            formatter: function() {
+                if (this.y == 0) {
+                  return null;
+                }
+
+                return this.y + ' ms';
+            }
+        },
+        xAxis: {
+            type: 'datetime',
+            labels: {
+              style: {
+                color: "#a6b0cf"
+              }
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Time',
+                style: {
+                  color: "#f6f6f6"
+                }
+            },
+            labels: {
+              style: {
+                color: "#a6b0cf"
+              }
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        exporting: {
+          buttons: {
+            contextButton: {
+              theme: {
+                fill: "#a6b0cf"
+              }
+            }
+          }
+        },
+        plotOptions: {
+            area: {
+              color: '#ff5b5b',
+              borderColor: '#ff5b5b',
+            }
+        },
+        series: [{
+            type: 'area',
+            name: 'Response Time',
             data: data
         }]
     });

@@ -43,13 +43,5 @@ module RailsPerformance
       end
     end
 
-    # populate test data
-    # run in rails c
-    def Utils.populate_test_data(seed = 20, limit = 10000, days = 7)
-      limit.times do
-        t = rand(86400*days).seconds.ago # within last 7 days
-        RP.redis.hincrby(cache_key(t.to_date), field_key(t), rand(seed))
-      end
-    end
   end
 end

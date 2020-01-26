@@ -20,6 +20,6 @@ module RailsPerformanceHelper
       {}
     end
 
-    link_to title, rails_performance_path(options)
+    link_to title, rails_performance_path(options), target: '_blank'
   end
 end
