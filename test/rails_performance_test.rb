@@ -19,9 +19,7 @@ class RailsPerformance::Test < ActiveSupport::TestCase
 
   test "datastore" do
     setup_db
-
     ds = RP::DataSource.new(q: {})
-    assert_not_nil RP::DataSource.all
     assert_not_nil ds.db
   end
 
@@ -42,25 +40,4 @@ class RailsPerformance::Test < ActiveSupport::TestCase
     assert_not_nil RP::ThroughputReport.new(ds.db).data
   end
 
-end
-
-def dummy_event
-  t = Time.now
-  {
-    controller: "Home",
-    action: "index",
-    format: "html",
-    status: 200,
-    datetime: t.strftime(RailsPerformance::MetricsListener::FORMAT),
-    datetimei: t.to_i,
-    method: "GET",
-    path: "/",
-    view_runtime: 100,
-    db_runtime: 50,
-    duration: 150
-  }
-end
-
-def setup_db
-  RailsPerformance::Utils.log_in_redis(dummy_event)
 end

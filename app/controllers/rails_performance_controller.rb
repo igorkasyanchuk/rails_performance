@@ -1,15 +1,13 @@
 class RailsPerformanceController < ActionController::Base
 
   def index
-    @datasource = RailsPerformance::DataSource.new(
-      q: {
-        #  controller: "HomeController",
-        #  action: "about"
-      })
+    @datasource = RailsPerformance::DataSource.new(RailsPerformance::QueryBuilder.compose_from(params))
 
-    @data   = RailsPerformance::ThroughputReport.new(@datasource.db).data
-    @global = RailsPerformance::RequestsReport.new(@datasource.db, group: :controller_action_format, sort: :db_runtime_slowest).data
-    #@full   = RailsPerformance::FullReport.new.data(:controller_action).sort{|a, b| b[:count] <=> a[:count]}
+    @throughput_report      = RailsPerformance::ThroughputReport.new(@datasource.db)
+    @throughput_report_data = @throughput_report.data
+
+    @global_report          = RailsPerformance::RequestsReport.new(@datasource.db, group: :controller_action_format, sort: :db_runtime_slowest)
+    @global_report_data     = @global_report.data
   end
 
   # def RailsPerformanceController.x

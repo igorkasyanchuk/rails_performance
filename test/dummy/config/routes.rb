@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get 'site/is_redirect'
   end
   get 'home/index'
+  get 'home/contact'
   get 'home/about'
   get 'home/about.csv', to: 'home#about'
   root to: 'home#index'

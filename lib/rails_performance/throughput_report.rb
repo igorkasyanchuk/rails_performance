@@ -12,6 +12,9 @@ module RailsPerformance
       @data   = []
       offset  = Time.current.utc_offset
 
+      # puts "current: #{current}"
+      # puts "stop: #{stop}"
+
       # read current values
       db.group_by(group).values.each do |(k, v)|
         all[k] = v.count
@@ -19,7 +22,7 @@ module RailsPerformance
 
       # add blank columns
       while current <= stop
-        views = all[current.strftime(MetricsListener::FORMAT)] || 0
+        views = all[current.strftime(MetricsCollector::FORMAT)] || 0
         @data << [(current.to_i + offset) * 1000, views.to_i]
         current += 1.minute
       end

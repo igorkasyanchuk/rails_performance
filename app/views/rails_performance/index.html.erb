@@ -2,6 +2,10 @@
 
 <title>Number of Requests to the Application</title>
 
+<% unless @datasource.default? %>
+  <%= link_to raw("&larr; Back"), rails_performance_path, class: "back_link" %>
+<% end %>
+
 <br/>
 <br/>
 <br/>
@@ -38,10 +42,10 @@
       </tr>
     </thead>
     <tbody>
-      <% @global.each do |e| %>
+      <% @global_report_data.each do |e| %>
         <% groups = e[:group].split("|") %>
         <tr>
-          <td><%= groups[0] %></td>
+          <td><%= statistics_link groups[0], @global_report, e[:group] %></td>
           <td><%= groups[1]&.upcase %></td>
           <td><%= e[:count] %></td>
           <td><%= round_it e[:duration_average] %></td>
@@ -64,7 +68,7 @@
 <%= render '/rails_performance/js' %>
 
 <script>
-  var data = <%= raw @data.to_json %>;
+  var data = <%= raw @throughput_report_data.to_json %>;
   showRequestsChart('chart', data);
 </script>
 

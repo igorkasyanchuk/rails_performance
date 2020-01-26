@@ -5,26 +5,31 @@ module RailsPerformance
     def initialize(q: {})
       q[:on] ||= Date.today
       @q       = q
+
+      #puts "  [DataSource Q]  -->  #{@q.inspect}\n\n"
     end
 
-    def DataSource.all
+    def db
       result = RP::Collection.new
       RP::Utils.days.times do |e|
-        RP::DataSource.new(q: { on: e.days.ago.to_date }).add_to(result)
+        RP::DataSource.new(q: self.q.merge({ on: e.days.ago.to_date })).add_to(result)
       end
       result
     end
 
-    def db(storage = RP::Collection.new)
+    def default?
+      @q.keys == [:on]
+    end
+
+    def add_to(storage = RP::Collection.new)
       store do |record|
         storage.add(record)
       end
       storage
     end
-    alias :add_to :db
 
     def store
-      #puts "\n\n   [REDIS]   -->   #{query}\n\n"
+#      puts "\n\n   [REDIS QUERY]   -->   #{query}\n\n"
 
       keys   = RP.redis.keys(query)
       return [] if keys.blank?

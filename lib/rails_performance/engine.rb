@@ -1,6 +1,6 @@
 require_relative './middleware.rb'
 require_relative './collection.rb'
-require_relative './metrics_listener.rb'
+require_relative './metrics_collector.rb'
 
 module RailsPerformance
   class Engine < ::Rails::Engine
@@ -11,7 +11,7 @@ module RailsPerformance
     initializer :configure_metrics, after: :initialize_logger do
       ActiveSupport::Notifications.subscribe(
         "process_action.action_controller",
-        RailsPerformance::MetricsListener.new
+        RailsPerformance::MetricsCollector.new
       )
     end
 
