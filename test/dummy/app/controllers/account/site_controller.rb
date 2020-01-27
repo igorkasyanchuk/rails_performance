@@ -2,6 +2,7 @@ class Account::SiteController < ApplicationController
   protect_from_forgery except: :about
 
   def about
+    sleep(rand(2.0))
     5.times { User.where(first_name: "X#{rand(100)}").count }
 
     respond_to do |format|
@@ -19,6 +20,7 @@ class Account::SiteController < ApplicationController
   end
 
   def is_redirect
+    sleep(rand(2.0))
     redirect_to "/"
   end
 end

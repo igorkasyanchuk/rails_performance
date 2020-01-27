@@ -19,6 +19,7 @@
             text: ''
         },
         xAxis: {
+            crosshair: true,
             type: 'datetime',
             labels: {
               style: {
@@ -61,7 +62,8 @@
         series: [{
             type: 'area',
             name: 'Requests per minute',
-            data: data
+            data: data,
+            fillOpacity: 0.3,
         }]
     });
   };
@@ -79,16 +81,33 @@
         title: {
             text: ''
         },
+
         tooltip: {
+            // positioner: function () {
+            //     return {
+            //         // right aligned
+            //         x: this.chart.chartWidth - this.label.width - 30,
+            //         y: 5 // align to title
+            //     };
+            // },
+            borderWidth: 0,
+            backgroundColor: 'none',
+            pointFormat: '{point.y}',
+            //headerFormat: '',
+            shadow: false,
+            style: {
+                fontSize: '16px',
+                color: 'white',
+            },
             formatter: function() {
                 if (this.y == 0) {
-                  return "N/A";
+                  return "";
                 }
-
                 return this.y + ' ms';
             }
         },
         xAxis: {
+            crosshair: false,
             type: 'datetime',
             labels: {
               style: {
@@ -131,7 +150,8 @@
         series: [{
             type: 'area',
             name: 'Response Time',
-            data: data
+            data: data,
+            fillOpacity: 0.3,
         }]
     });
   };

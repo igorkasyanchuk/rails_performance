@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'home/index'
   get 'home/contact'
   get 'home/about'
+  get 'home/blog'
   get 'home/about.csv', to: 'home#about'
   root to: 'home#index'
 end
