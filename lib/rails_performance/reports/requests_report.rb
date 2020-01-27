@@ -10,7 +10,6 @@ module RailsPerformance
           durations     = v.collect{|e| e["duration"]}.compact
           view_runtimes = v.collect{|e| e["view_runtime"]}.compact
           db_runtimes   = v.collect{|e| e["db_runtime"]}.compact
-
           {
             group:                k,
             count:                v.size,

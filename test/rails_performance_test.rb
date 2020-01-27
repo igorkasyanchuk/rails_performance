@@ -10,7 +10,7 @@ class RailsPerformance::Test < ActiveSupport::TestCase
   test "record" do
     key    = 'performance|controller|HomeController|action|index|format|html|status|200|datetime|20200124T0531|datetimei|1579861868|method|GET|path|/|END'
     value  = '{"view_runtime":15.35346795571968,"db_runtime":0,"duration":17.105664}'
-    record = RP::Record.new(key, value)
+    record = RP::Models::Record.new(key, value)
 
     assert_equal record.controller, "HomeController"
     assert_equal record.status, "200"

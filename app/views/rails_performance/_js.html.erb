@@ -11,7 +11,7 @@
           timezone: 'Europe/Kiev'
         },
         chart: {
-            type: 'column',
+            type: 'area',
             zoomType: 'x',
             backgroundColor: '#323a46'
         },
@@ -53,13 +53,13 @@
           }
         },
         plotOptions: {
-            column: {
+            area: {
               color: '#ff5b5b',
               borderColor: '#ff5b5b',
             }
         },
         series: [{
-            type: 'column',
+            type: 'area',
             name: 'Requests per minute',
             data: data
         }]
@@ -82,7 +82,7 @@
         tooltip: {
             formatter: function() {
                 if (this.y == 0) {
-                  return null;
+                  return "N/A";
                 }
 
                 return this.y + ' ms';

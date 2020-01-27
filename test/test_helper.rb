@@ -20,20 +20,19 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
   ActiveSupport::TestCase.fixtures :all
 end
 
-def dummy_event
-  t = Time.now
+def dummy_event(time: Time.now, controller: "Home", action: "index", status: 200, path: '/', method: "GET")
   {
-    controller: "Home",
-    action: "index",
+    controller: controller,
+    action: action,
     format: "html",
-    status: 200,
-    datetime: t.strftime(RailsPerformance::MetricsCollector::FORMAT),
-    datetimei: t.to_i,
-    method: "GET",
-    path: "/",
-    view_runtime: 100,
-    db_runtime: 50,
-    duration: 150
+    status: status,
+    datetime: time.strftime(RailsPerformance::MetricsCollector::FORMAT),
+    datetimei: time.to_i,
+    method: method,
+    path: path,
+    view_runtime: rand(100.0),
+    db_runtime: rand(100.0),
+    duration: 100 + rand(100.0)
   }
 end
 

@@ -1,5 +1,5 @@
 require_relative './middleware.rb'
-require_relative './collection.rb'
+require_relative './models/collection.rb'
 require_relative './metrics_collector.rb'
 
 module RailsPerformance

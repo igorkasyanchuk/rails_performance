@@ -17,7 +17,7 @@ module RailsPerformance
         # puts "stop: #{stop}"
 
         # read current values
-        db.group_by(group).values.each do |(k, v)|
+        db.group_by(group).each do |(k, v)|
           all[k] = v.count
         end
 

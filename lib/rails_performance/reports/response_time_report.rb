@@ -16,7 +16,7 @@ module RailsPerformance
         # puts "stop: #{stop}"
 
         # read current values
-        db.group_by(group).values.each do |(k, v)|
+        db.group_by(group).each do |(k, v)|
           durations = v.collect{|e| e["duration"]}.compact
           next if durations.empty?
           all[k] = durations.sum.to_f / durations.count

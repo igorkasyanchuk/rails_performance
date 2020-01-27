@@ -10,7 +10,7 @@ module RailsPerformance
     end
 
     def db
-      result = RP::Collection.new
+      result = RP::Models::Collection.new
       RP::Utils.days.times do |e|
         RP::DataSource.new(q: self.q.merge({ on: e.days.ago.to_date })).add_to(result)
       end
@@ -21,7 +21,7 @@ module RailsPerformance
       @q.keys == [:on]
     end
 
-    def add_to(storage = RP::Collection.new)
+    def add_to(storage = RP::Models::Collection.new)
       store do |record|
         storage.add(record)
       end
@@ -36,7 +36,7 @@ module RailsPerformance
       values = RP.redis.mget(keys)
 
       keys.each_with_index do |key, index|
-        yield RP::Record.new(key, values[index])
+        yield RP::Models::Record.new(key, values[index])
       end
     end
 

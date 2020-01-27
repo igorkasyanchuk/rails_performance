@@ -3,7 +3,7 @@
 <title>Number of Requests to the Application</title>
 
 <% unless @datasource.default? %>
-  <%= link_to raw("&larr; Back"), rails_performance_path, class: "back_link" %>
+  <%#= link_to raw("&larr; Back"), rails_performance_path, class: "back_link" %>
 <% end %>
 
 <br/>
@@ -12,7 +12,7 @@
 
 <div class="card">
   <h1>Throughput Report<h1>
-  <div id="throughput_report_chart"></div>
+  <div id="throughput_report_chart" class="chart"></div>
   <p class="hint">All requests (site visitors, search engines, bots, etc)</p>
 </div>
 
@@ -22,7 +22,7 @@
 
 <div class="card">
   <h1>Average Response Time Report<h1>
-  <div id="response_time_report_chart"></div>
+  <div id="response_time_report_chart" class="chart"></div>
   <p class="hint">All requests (site visitors, search engines, bots, etc)</p>
 </div>
 
@@ -54,8 +54,14 @@
     <tbody>
       <% @global_report_data.each do |e| %>
         <% groups = e[:group].split("|") %>
+        <% c, a = groups[0].split("#") %>
         <tr>
-          <td><%= statistics_link groups[0], @global_report, e[:group] %></td>
+          <td>
+            <%= statistics_link groups[0], @global_report, e[:group] %>
+            <%= link_to rails_performance.rails_performance_breakdown_path(controller_eq: c, action_eq: a), class: 'stats_icon', target: '_blank' do %>
+              <%= raw(stats_icon) %>
+            <% end %>
+          </td>
           <td><%= groups[1]&.upcase %></td>
           <td><%= e[:count] %></td>
           <td><%= round_it e[:duration_average] %></td>
