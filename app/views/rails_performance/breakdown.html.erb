@@ -1,41 +1,35 @@
-<%= render '/rails_performance/css' %>
-
 <title><%= @breakdown_report.title %></title>
 
-<br/>
-<br/>
-<br/>
-
 <div class="card">
-  <h1><%= @breakdown_report.title %><h1>
-  <table>
-    <thead>
-      <tr>
-        <th>Controller # Action</th>
-        <th>Path</th>
-        <th>Method</th>
-        <th>Format</th>
-        <th>Duration</th>
-        <th>Views</th>
-        <th>DB</th>
-        <th>Datetime</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @breakdown_report_data.each do |e| %>
+  <div class="card-content">
+    <h1 class="title"><%= @breakdown_report.title %><h1>
+    <table class="table is-fullwidth">
+      <thead>
         <tr>
-          <td><%= e[:controller] + '#' + e[:action]  %></td>
-          <td><%= e[:path] %></td>
-          <td><%= e[:method] %></td>
-          <td><%= e[:format] %></td>
-          <td><%= round_it e[:duration] %></td>
-          <td><%= round_it e[:view_runtime] %></td>
-          <td><%= round_it e[:db_runtime] %></td>
-          <td><%= l e[:datetime], format: :short %></td>
+          <th>Controller # Action</th>
+          <th>Path</th>
+          <th>Method</th>
+          <th>Format</th>
+          <th>Duration</th>
+          <th>Views</th>
+          <th>DB</th>
+          <th>Datetime</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @breakdown_report_data.each do |e| %>
+          <tr>
+            <td><%= e[:controller] + '#' + e[:action]  %></td>
+            <td><%= e[:path] %></td>
+            <td><%= e[:method] %></td>
+            <td><%= e[:format] %></td>
+            <td><%= round_it e[:duration] %></td>
+            <td><%= round_it e[:view_runtime] %></td>
+            <td><%= round_it e[:db_runtime] %></td>
+            <td><%= l e[:datetime], format: :short %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
-
-<%= render '/rails_performance/js' %>

@@ -1,93 +1,79 @@
-<%= render '/rails_performance/css' %>
-
 <title>Number of Requests to the Application</title>
 
 <% unless @datasource.default? %>
   <%#= link_to raw("&larr; Back"), rails_performance_path, class: "back_link" %>
 <% end %>
 
-<br/>
-<br/>
-<br/>
-
 <div class="card">
-  <h1>Throughput Report<h1>
-  <div id="throughput_report_chart" class="chart"></div>
-  <p class="hint">All requests (site visitors, search engines, bots, etc)</p>
+  <div class="card-content">
+    <h2 class="title">Throughput Report<h1>
+    <div id="throughput_report_chart" class="chart"></div>
+    <p class="content is-small">All requests (site visitors, search engines, bots, etc)</p>
+  </div>
 </div>
 
-<br/>
-<br/>
-<br/>
-
 <div class="card">
-  <h1>Average Response Time Report<h1>
-  <div id="response_time_report_chart" class="chart"></div>
-  <p class="hint">All requests (site visitors, search engines, bots, etc)</p>
+  <div class="card-content">
+    <h2 class="title">Average Response Time Report<h1>
+    <div id="response_time_report_chart" class="chart"></div>
+    <p class="content is-small">All requests (site visitors, search engines, bots, etc)</p>
+  </div>
 </div>
 
-<br/>
-<br/>
-<br/>
-
 <div class="card">
-  <h1>Requests (path, total number, average response time)<h1>
-  <table>
-    <thead>
-      <tr>
-        <th colspan='3'>Name</th>
-        <th colspan='3'>Average (ms)</th>
-        <th colspan='3'>Slowest (ms)</th>
-      </tr>
-      <tr>
-        <th>Controller#Action</th>
-        <th>Format</th>
-        <th>Requests</th>
-        <th>Duration</th>
-        <th>Views</th>
-        <th>DB</th>
-        <th>Duration</th>
-        <th>Views</th>
-        <th>DB</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @global_report_data.each do |e| %>
-        <% groups = e[:group].split("|") %>
-        <% c, a = groups[0].split("#") %>
+  <div class="card-content">
+    <h2 class="title">Requests (path, total number, average response time)<h1>
+    <table class="table is-fullwidth">
+      <thead>
         <tr>
-          <td>
-            <%= statistics_link groups[0], @global_report, e[:group] %>
-            <%= link_to rails_performance.rails_performance_breakdown_path(controller_eq: c, action_eq: a), class: 'stats_icon', target: '_blank' do %>
-              <%= raw(stats_icon) %>
-            <% end %>
-          </td>
-          <td><%= groups[1]&.upcase %></td>
-          <td><%= e[:count] %></td>
-          <td><%= round_it e[:duration_average] %></td>
-          <td><%= round_it e[:view_runtime_average] %></td>
-          <td><%= round_it e[:db_runtime_average] %></td>
-          <td><%= round_it e[:duration_slowest] %></td>
-          <td><%= round_it e[:view_runtime_slowest] %></td>
-          <td><%= round_it e[:db_runtime_slowest] %></td>
+          <th colspan='3'>Name</th>
+          <th colspan='3'>Average (ms)</th>
+          <th colspan='3'>Slowest (ms)</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+        <tr>
+          <th>Controller#Action</th>
+          <th>Format</th>
+          <th>Requests</th>
+          <th>Duration</th>
+          <th>Views</th>
+          <th>DB</th>
+          <th>Duration</th>
+          <th>Views</th>
+          <th>DB</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @global_report_data.each do |e| %>
+          <% groups = e[:group].split("|") %>
+          <% c, a = groups[0].split("#") %>
+          <tr>
+            <td>
+              <%= statistics_link groups[0], @global_report, e[:group] %>
+              <%= link_to rails_performance.rails_performance_breakdown_path(controller_eq: c, action_eq: a), class: 'stats_icon', target: '_blank' do %>
+                <%= raw(stats_icon) %>
+              <% end %>
+            </td>
+            <td><%= groups[1]&.upcase %></td>
+            <td><%= e[:count] %></td>
+            <td><%= round_it e[:duration_average] %></td>
+            <td><%= round_it e[:view_runtime_average] %></td>
+            <td><%= round_it e[:db_runtime_average] %></td>
+            <td><%= round_it e[:duration_slowest] %></td>
+            <td><%= round_it e[:view_runtime_slowest] %></td>
+            <td><%= round_it e[:db_runtime_slowest] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
 
-<br/>
-<br/>
-<br/>
+<% content_for :on_load do %>
+  <script>
+    var data1 = <%= raw @throughput_report_data.to_json %>;
+    showTIRChart('throughput_report_chart', data1);
 
-
-<%= render '/rails_performance/js' %>
-
-<script>
-  var data1 = <%= raw @throughput_report_data.to_json %>;
-  showTIRChart('throughput_report_chart', data1);
-
-  var data2 = <%= raw @response_time_report_data.to_json %>;
-  showRTChart('response_time_report_chart', data2);
-</script>
-
+    var data2 = <%= raw @response_time_report_data.to_json %>;
+    showRTChart('response_time_report_chart', data2);
+  </script>
+<% end %>

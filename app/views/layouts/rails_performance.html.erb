@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <%= render '/stylesheets/stylesheets' %>
+  </head>
+  <body>
+    <section class="section">
+      <div class="container is-fluid">
+        <%= yield %>
+      </div>
+    </section>
+    <%= render '/javascripts/javascripts' %>
+    <%= yield :on_load %>
+  </body>
+</html>

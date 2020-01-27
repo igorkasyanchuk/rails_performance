@@ -26,4 +26,12 @@ module RailsPerformanceHelper
   def stats_icon
     '<?xml version="1.0" ?><svg height="48" id="graph-bar" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg"><defs><style>      .vi-primary {        fill: #FF6E6E;      }      .vi-primary, .vi-accent {        stroke: #fff;        stroke-linecap: round;        stroke-width: 0;      }      .vi-accent {        fill: #0C0058;      }    </style></defs><rect class="vi-accent" height="4" width="36" x="6" y="35"/><path class="vi-primary" d="M9,20h5V35H9V20Zm8,5h5V35H17V25Zm8-9h5V35H25V16Zm8-7h5V35H33V9Z"/></svg>'
   end
+
+  def insert_css_file(file)
+    raw "<style>#{raw File.read File.expand_path(File.dirname(__FILE__) + "/../views/stylesheets/#{file}")}</style>"
+  end
+
+  def insert_js_file(file)
+    raw "<script>#{raw File.read File.expand_path(File.dirname(__FILE__) + "/../views/javascripts/#{file}")}</script>"
+  end
 end
