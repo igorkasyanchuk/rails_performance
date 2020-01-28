@@ -26,7 +26,7 @@ def dummy_event(time: Time.now, controller: "Home", action: "index", status: 200
     action: action,
     format: "html",
     status: status,
-    datetime: time.strftime(RailsPerformance::MetricsCollector::FORMAT),
+    datetime: time.strftime(RailsPerformance::FORMAT),
     datetimei: time.to_i,
     method: method,
     path: path,

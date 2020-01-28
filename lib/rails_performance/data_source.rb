@@ -29,7 +29,7 @@ module RailsPerformance
     end
 
     def store
-      puts "\n\n   [REDIS QUERY]   -->   #{query}\n\n"
+      #puts "\n\n   [REDIS QUERY]   -->   #{query}\n\n"
 
       keys   = RP.redis.keys(query)
       return [] if keys.blank?

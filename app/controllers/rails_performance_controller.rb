@@ -1,7 +1,7 @@
 class RailsPerformanceController < ActionController::Base
 
   def index
-    @datasource = RP::DataSource.new(RP::QueryBuilder.compose_from(params))
+    @datasource = RP::DataSource.new(RP::Rails::QueryBuilder.compose_from(params))
     db          = @datasource.db
 
     @throughput_report         = RP::Reports::ThroughputReport.new(db)
@@ -15,7 +15,7 @@ class RailsPerformanceController < ActionController::Base
   end
 
   def breakdown
-    @datasource = RP::DataSource.new(RP::QueryBuilder.compose_from(params))
+    @datasource = RP::DataSource.new(RP::Rails::QueryBuilder.compose_from(params))
     db          = @datasource.db
 
     @breakdown_report      = RP::Reports::BreakdownReport.new(db, title: "Breakdown Report: #{@datasource.q.to_param}")

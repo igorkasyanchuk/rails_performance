@@ -1,17 +1,17 @@
-require_relative './middleware.rb'
+require_relative './rails/middleware.rb'
 require_relative './models/collection.rb'
-require_relative './metrics_collector.rb'
+require_relative './instrument/metrics_collector.rb'
 
 module RailsPerformance
   class Engine < ::Rails::Engine
 
     #config.app_middleware.use RailsPerformance::Middleware
-    config.app_middleware.insert_after ActionDispatch::Executor, RailsPerformance::Middleware
+    config.app_middleware.insert_after ActionDispatch::Executor, RailsPerformance::Rails::Middleware
 
     initializer :configure_metrics, after: :initialize_logger do
       ActiveSupport::Notifications.subscribe(
         "process_action.action_controller",
-        RailsPerformance::MetricsCollector.new
+        RailsPerformance::Instrument::MetricsCollector.new
       )
     end
 

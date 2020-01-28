@@ -24,7 +24,7 @@ module RailsPerformance
 
         # add blank columns
         while current <= stop
-          views = all[current.strftime(MetricsCollector::FORMAT)] || 0
+          views = all[current.strftime(RailsPerformance::FORMAT)] || 0
           @data << [(current.to_i + offset) * 1000, views.round(2)]
           current += 1.minute
         end

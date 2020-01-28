@@ -3,13 +3,14 @@
 <div class="card">
   <div class="card-content">
     <h1 class="title"><%= @breakdown_report.title %><h1>
-    <table class="table is-fullwidth">
+    <table class="table is-fullwidth is-hoverable is-narrow">
       <thead>
         <tr>
           <th>Controller # Action</th>
-          <th>Path</th>
           <th>Method</th>
+          <th>Path</th>
           <th>Format</th>
+          <th>Status</th>
           <th>Duration</th>
           <th>Views</th>
           <th>DB</th>
@@ -20,12 +21,13 @@
         <% @breakdown_report_data.each do |e| %>
           <tr>
             <td><%= e[:controller] + '#' + e[:action]  %></td>
-            <td><%= e[:path] %></td>
             <td><%= e[:method] %></td>
+            <td><%= link_to e[:path], e[:path], target: '_blank' %></td>
             <td><%= e[:format] %></td>
-            <td><%= round_it e[:duration] %></td>
-            <td><%= round_it e[:view_runtime] %></td>
-            <td><%= round_it e[:db_runtime] %></td>
+            <td><%= status_tag e[:status] %></td>
+            <td><%= round_it e[:duration] %> ms</td>
+            <td><%= round_it e[:view_runtime] %> ms</td>
+            <td><%= round_it e[:db_runtime] %> ms</td>
             <td><%= l e[:datetime], format: :short %></td>
           </tr>
         <% end %>

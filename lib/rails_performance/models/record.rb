@@ -31,7 +31,7 @@ module RailsPerformance
       end
 
       def value
-        @value ||= JSON.parse(@json)
+        @value ||= JSON.parse(@json || "{}")
       end
 
       def controller_action

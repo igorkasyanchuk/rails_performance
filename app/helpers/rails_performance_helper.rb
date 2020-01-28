@@ -23,6 +23,24 @@ module RailsPerformanceHelper
     link_to title, rails_performance_path(options), target: '_blank'
   end
 
+  def status_tag(status)
+    klass = case status.to_s
+    when /^5/
+      "tag is-danger"
+    when /^4/
+      "tag is-warning"
+    when /^3/
+      "tag is-info"
+    when /^2/
+      "tag is-success"
+    else
+      nil
+    end
+    content_tag(:span, class: klass) do
+      status
+    end
+  end
+
   def stats_icon
     # https://www.iconfinder.com/iconsets/vivid
     '<?xml version="1.0" ?><svg height="48" id="graph-bar" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg"><defs><style>      .vi-primary {        fill: #FF6E6E;      }      .vi-primary, .vi-accent {        stroke: #fff;        stroke-linecap: round;        stroke-width: 0;      }      .vi-accent {        fill: #0C0058;      }    </style></defs><rect class="vi-accent" height="4" width="36" x="6" y="35"/><path class="vi-primary" d="M9,20h5V35H9V20Zm8,5h5V35H17V25Zm8-9h5V35H25V16Zm8-7h5V35H33V9Z"/></svg>'
