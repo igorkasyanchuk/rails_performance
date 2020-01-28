@@ -52,10 +52,15 @@ function showTIRChart(div, data) {
       },
       series: [{
           type: 'area',
-          name: 'Requests per minute',
+          name: 'RPM',
           data: data,
           fillOpacity: 0.3,
-          lineWidth: 1
+          lineWidth: 1,
+          states: {
+            hover: {
+              lineWidth: 1
+            }
+          }
       }]
   });
 };
@@ -142,7 +147,12 @@ function showRTChart(div, data) {
           name: 'Response Time',
           data: data,
           fillOpacity: 0.3,
-          lineWidth: 1
+          lineWidth: 1,
+          states: {
+            hover: {
+              lineWidth: 1
+            }
+          }
       }]
   });
 };

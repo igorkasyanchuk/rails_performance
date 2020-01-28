@@ -11,7 +11,7 @@ module RailsPerformance
 
     def db
       result = RP::Models::Collection.new
-      RP::Utils.days.times do |e|
+      (RP::Utils.days + 1).times do |e|
         RP::DataSource.new(q: self.q.merge({ on: e.days.ago.to_date })).add_to(result)
       end
       result
@@ -29,7 +29,7 @@ module RailsPerformance
     end
 
     def store
-#      puts "\n\n   [REDIS QUERY]   -->   #{query}\n\n"
+      puts "\n\n   [REDIS QUERY]   -->   #{query}\n\n"
 
       keys   = RP.redis.keys(query)
       return [] if keys.blank?
