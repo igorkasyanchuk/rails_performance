@@ -33,6 +33,7 @@ $ bundle
 - documentation
 - add 1 if 0 (it means one request was)
 - better hint
+- export to csv
 
 ## Contributing
 
