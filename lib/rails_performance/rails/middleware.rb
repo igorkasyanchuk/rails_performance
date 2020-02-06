@@ -11,7 +11,7 @@ module RailsPerformance
         if record = Thread.current["RP_request_info"]
           record[:status] ||= @status
 
-          rand(200).times do |e|
+          rand(500).times do |e|
             finished               = Time.now - rand(2000).minutes
             record[:datetime]      = finished.strftime(RailsPerformance::FORMAT)
             record[:datetimei]     = finished.to_i

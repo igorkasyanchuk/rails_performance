@@ -10,6 +10,23 @@ function showTIRChart(div, data) {
       title: {
           text: ''
       },
+      tooltip: {
+          borderWidth: 0,
+          backgroundColor: 'yellow',
+          pointFormat: '{point.y}',
+          //headerFormat: '',
+          shadow: false,
+          style: {
+              fontSize: '16px',
+              color: '#000',
+          },
+          formatter: function() {
+              if (this.y == 0) {
+                return "";
+              }
+              return this.y + ' rpm';
+          }
+      },
       xAxis: {
           crosshair: true,
           type: 'datetime',
@@ -79,15 +96,8 @@ function showRTChart(div, data) {
       },
 
       tooltip: {
-          // positioner: function () {
-          //     return {
-          //         // right aligned
-          //         x: this.chart.chartWidth - this.label.width - 30,
-          //         y: 5 // align to title
-          //     };
-          // },
           borderWidth: 0,
-          backgroundColor: 'none',
+          backgroundColor: 'yellow',
           pointFormat: '{point.y}',
           //headerFormat: '',
           shadow: false,

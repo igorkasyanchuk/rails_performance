@@ -1,16 +1,14 @@
-<title><%= @breakdown_report.title %></title>
-
 <div class="card">
   <div class="card-content">
-    <h1 class="title"><%= @breakdown_report.title %><h1>
+    <h2 class="title">Crash Report<h1>
     <table class="table is-fullwidth is-hoverable is-narrow">
       <thead>
         <tr>
           <th>Datetime</th>
           <th>Controller#Action</th>
+          <th>Format</th>
           <th>Method</th>
           <th>Path</th>
-          <th>Format</th>
           <th>Status</th>
           <th>Duration</th>
           <th>Views</th>
@@ -18,10 +16,11 @@
         </tr>
       </thead>
       <tbody>
-        <% @breakdown_report_data.each do |e| %>
+        <% @crash_report_data.each do |e| %>
           <tr>
             <td><%= l e[:datetime], format: :short %></td>
-            <td><%= e[:controller] + '#' + e[:action]  %></td>
+            <td><%= e[:controller] + '#' + e[:action] %></td>
+            <td><%= e[:format] %></td>
             <td><%= e[:method] %></td>
             <td>
               <% if e[:method] == 'GET' %>
@@ -30,7 +29,6 @@
                 <%= e[:path] %>
               <% end %>
             </td>
-            <td><%= e[:format] %></td>
             <td><%= status_tag e[:status] %></td>
             <td><%= round_it e[:duration] %> ms</td>
             <td><%= round_it e[:view_runtime] %> ms</td>

@@ -72,6 +72,10 @@
   </div>
 </div>
 
+<br/>
+
+<%= render '/rails_performance/crash_report' %>
+
 <% content_for :on_load do %>
   <script>
     var data1 = <%= raw @throughput_report_data.to_json %>;
