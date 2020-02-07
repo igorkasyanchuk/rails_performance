@@ -34,6 +34,7 @@ $ bundle
 - add 1 if 0 (it means one request was)
 - better hint
 - export to csv
+- last 30 minutes report all requests
 
 ## Contributing
 
