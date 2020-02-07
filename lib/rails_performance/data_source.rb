@@ -29,11 +29,9 @@ module RailsPerformance
     end
 
     def store
-      #puts "\n\n   [REDIS QUERY]   -->   #{query}\n\n"
+      keys, values = Utils.fetch_from_redis(query)
 
-      keys   = RP.redis.keys(query)
       return [] if keys.blank?
-      values = RP.redis.mget(keys)
 
       keys.each_with_index do |key, index|
         yield RP::Models::Record.new(key, values[index])

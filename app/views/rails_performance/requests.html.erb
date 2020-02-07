@@ -1,0 +1,47 @@
+<div class="card">
+  <div class="card-content">
+    <h2 class="title">Requests (path, total number, average response time)<h1>
+    <table class="table is-fullwidth is-hoverable is-narrow">
+      <thead>
+        <tr>
+          <th colspan='3'>Name</th>
+          <th colspan='3'>Average</th>
+          <th colspan='3'>Slowest</th>
+        </tr>
+        <tr>
+          <th>Controller#Action</th>
+          <th>Format</th>
+          <th>Requests</th>
+          <th>Duration</th>
+          <th>Views</th>
+          <th>DB</th>
+          <th>Duration</th>
+          <th>Views</th>
+          <th>DB</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @global_report_data.each do |e| %>
+          <% groups = e[:group].split("|") %>
+          <% c, a = groups[0].split("#") %>
+          <tr>
+            <td>
+              <%= statistics_link groups[0], @global_report, e[:group] %>
+              <%= link_to rails_performance.rails_performance_breakdown_path(controller_eq: c, action_eq: a), class: 'stats_icon', target: '_blank' do %>
+                <%= raw(stats_icon) %>
+              <% end %>
+            </td>
+            <td><%= statistics_link groups[1]&.upcase, @global_report, e[:group] %></td>
+            <td><%= e[:count] %></td>
+            <td><%= round_it e[:duration_average] %> ms</td>
+            <td><%= round_it e[:view_runtime_average] %> ms</td>
+            <td><%= round_it e[:db_runtime_average] %> ms</td>
+            <td><%= round_it e[:duration_slowest] %> ms</td>
+            <td><%= round_it e[:view_runtime_slowest] %> ms</td>
+            <td><%= round_it e[:db_runtime_slowest] %> ms</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

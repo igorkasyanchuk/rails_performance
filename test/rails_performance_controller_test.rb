@@ -18,4 +18,16 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
     get '/rails/performance/breakdown', params: { controller_eq: "Home", action_eq: 'index' }
     assert_response :success
   end
+
+  test "should get crashes with params" do
+    setup_db
+    get '/rails/performance/crashes'
+    assert_response :success
+  end
+
+  test "should get requests with params" do
+    setup_db
+    get '/rails/performance/requests'
+    assert_response :success
+  end
 end

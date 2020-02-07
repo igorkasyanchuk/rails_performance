@@ -3,12 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Bulma!</title>
+    <title>Rails Performance</title>
     <%= render '/stylesheets/stylesheets' %>
   </head>
   <body>
     <section class="section">
       <div class="container is-fluid">
+        <%= render '/shared/header' %>
         <%= yield %>
       </div>
     </section>

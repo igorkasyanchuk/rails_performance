@@ -1,0 +1,31 @@
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <%= link_to rails_performance.rails_performance_url, class: "navbar-item" do %>
+      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+    <% end %>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <%= link_to 'Dahboard', rails_performance.rails_performance_url, class: 'navbar-item' %>
+      <%= link_to 'Requests', rails_performance.rails_performance_requests_url, class: 'navbar-item' %>
+      <%= link_to '500 Errors', rails_performance.rails_performance_crashes_url, class: 'navbar-item' %>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <%= link_to 'Export to CSV', '#', target: '_blank', class: "button is-primary" %>
+          <%= link_to 'Documentation', 'https://github.com/igorkasyanchuk/rails_performance', target: '_blank', class: "button is-light" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
