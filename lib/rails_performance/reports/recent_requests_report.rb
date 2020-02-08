@@ -1,6 +1,7 @@
 module RailsPerformance
   module Reports
-    class BreakdownReport < BaseReport
+    class RecentRequestsReport < BaseReport
+      TIME_WINDOW = 60 # 60 minutes
 
       def set_defaults
         @sort ||= :datetime
@@ -15,12 +16,13 @@ module RailsPerformance
             status: record.status,
             method: record.method,
             path: record.path,
-            datetime: Time.parse(record.datetime),
+            datetime: Time.at(record.datetimei.to_i),
             duration: record.value['duration'],
             db_runtime: record.value['db_runtime'],
             view_runtime: record.value['view_runtime'],
           }
         end
+        .select{|e| e if e[:datetime] >= TIME_WINDOW.minutes.ago}
         .sort{|a, b| b[sort] <=> a[sort]}
       end
     end

@@ -30,4 +30,10 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
     get '/rails/performance/requests'
     assert_response :success
   end
+
+  test "should get recent with params" do
+    setup_db
+    get '/rails/performance/recent'
+    assert_response :success
+  end
 end

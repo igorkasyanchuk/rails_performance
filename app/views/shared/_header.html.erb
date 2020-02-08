@@ -1,8 +1,8 @@
 
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <%= link_to rails_performance.rails_performance_url, class: "navbar-item" do %>
-      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+    <%= link_to rails_performance.rails_performance_url, class: "navbar-item logo" do %>
+      <h2>Rails Performance</h2>
     <% end %>
 
     <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -14,15 +14,17 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <%= link_to 'Dahboard', rails_performance.rails_performance_url, class: 'navbar-item' %>
-      <%= link_to 'Requests', rails_performance.rails_performance_requests_url, class: 'navbar-item' %>
-      <%= link_to '500 Errors', rails_performance.rails_performance_crashes_url, class: 'navbar-item' %>
+      <%= link_to 'Dahboard', rails_performance.rails_performance_url, class: "navbar-item #{active?(:dashboard)}" %>
+      <%= link_to 'Requests', rails_performance.rails_performance_requests_url, class: "navbar-item #{active?(:requests)}" %>
+      <%= link_to '500 Errors', rails_performance.rails_performance_crashes_url, class: "navbar-item #{active?(:crashes)}" %>
+      <%= link_to 'Recent Requests', rails_performance.rails_performance_recent_url, class: "navbar-item #{active?(:recent)}" %>
+      <a href='#' class="navbar-item" onclick="javascript: showPanel(); return false;">Toggle</a>
     </div>
 
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <%= link_to 'Export to CSV', '#', target: '_blank', class: "button is-primary" %>
+          <%#= link_to 'Export to CSV', '#', target: '_blank', class: "button is-primary" %>
           <%= link_to 'Documentation', 'https://github.com/igorkasyanchuk/rails_performance', target: '_blank', class: "button is-light" %>
         </div>
       </div>

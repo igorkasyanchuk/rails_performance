@@ -1,1 +1,41 @@
-<%= render '/rails_performance/crash_report' %>
+<div class="card">
+  <div class="card-content">
+    <h2 class="subtitle">Crash Report</h2>
+    <table class="table is-fullwidth is-hoverable is-narrow">
+      <thead>
+        <tr>
+          <th>Datetime</th>
+          <th>Controller#Action</th>
+          <th>Format</th>
+          <th>Method</th>
+          <th>Path</th>
+          <th>Status</th>
+          <th>Duration</th>
+          <th>Views</th>
+          <th>DB</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @crash_report_data.each do |e| %>
+          <tr>
+            <td><%= l e[:datetime], format: :short %></td>
+            <td><%= e[:controller] + '#' + e[:action] %></td>
+            <td><%= e[:format] %></td>
+            <td><%= e[:method] %></td>
+            <td>
+              <% if e[:method] == 'GET' %>
+                <%= link_to e[:path], e[:path], target: '_blank' %>
+              <% else %>
+                <%= e[:path] %>
+              <% end %>
+            </td>
+            <td><%= status_tag e[:status] %></td>
+            <td><%= round_it e[:duration] %> ms</td>
+            <td><%= round_it e[:view_runtime] %> ms</td>
+            <td><%= round_it e[:db_runtime] %> ms</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -53,4 +53,21 @@ module RailsPerformanceHelper
   def insert_js_file(file)
     raw "<script>#{raw File.read File.expand_path(File.dirname(__FILE__) + "/../views/javascripts/#{file}")}</script>"
   end
+
+  def format_datetime(e)
+    e.strftime("%Y-%m-%d %H:%M:%S")
+  end
+
+  def active?(section)
+    case section
+    when :dashboard
+      "is-active" if controller_name == "rails_performance" && action_name == "index"
+    when :crashes
+      "is-active" if controller_name == "rails_performance" && action_name == "crashes"
+    when :requests
+      "is-active" if controller_name == "rails_performance" && action_name == "requests"
+    when :recent
+      "is-active" if controller_name == "rails_performance" && action_name == "recent"
+    end
+  end
 end

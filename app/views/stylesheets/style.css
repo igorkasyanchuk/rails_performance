@@ -4,5 +4,18 @@
 }
 
 .chart {
-  height: 250px;
+  height: 255px;
+}
+
+
+.logo h2 {
+  text-transform: uppercase;
+  color: red;
+  font-weight: bold;
+  letter-spacing: -2px;
+  font-size: 18px;
+}
+
+.navbar-item.is-active {
+  border-bottom: 1px solid red;
 }

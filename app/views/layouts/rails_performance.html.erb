@@ -13,6 +13,8 @@
         <%= yield %>
       </div>
     </section>
+    <%= render '/rails_performance/panel' %>
+    <div class="panel-overlay">
     <%= render '/javascripts/javascripts' %>
     <%= yield :on_load %>
   </body>

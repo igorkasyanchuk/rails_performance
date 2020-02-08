@@ -10,6 +10,7 @@ require_relative "rails_performance/reports/requests_report.rb"
 require_relative "rails_performance/reports/crash_report.rb"
 require_relative "rails_performance/reports/response_time_report.rb"
 require_relative "rails_performance/reports/throughput_report.rb"
+require_relative "rails_performance/reports/recent_requests_report.rb"
 require_relative "rails_performance/reports/breakdown_report.rb"
 
 require "rails_performance/engine"

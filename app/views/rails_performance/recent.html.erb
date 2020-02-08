@@ -1,6 +1,8 @@
 <div class="card">
   <div class="card-content">
-    <h2 class="title">Crash Report<h1>
+
+    <h2 class="subtitle">Recent Requests (last <%= RailsPerformance::Reports::RecentRequestsReport::TIME_WINDOW %> minutes)<h2>
+
     <table class="table is-fullwidth is-hoverable is-narrow">
       <thead>
         <tr>
@@ -16,9 +18,9 @@
         </tr>
       </thead>
       <tbody>
-        <% @crash_report_data.each do |e| %>
+        <% @data.each do |e| %>
           <tr>
-            <td><%= l e[:datetime], format: :short %></td>
+            <td><%= format_datetime e[:datetime] %></td>
             <td><%= e[:controller] + '#' + e[:action] %></td>
             <td><%= e[:format] %></td>
             <td><%= e[:method] %></td>

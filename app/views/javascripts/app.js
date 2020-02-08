@@ -22,7 +22,7 @@ function showTIRChart(div, data) {
           },
           formatter: function() {
               if (this.y == 0) {
-                return "";
+                return '';
               }
               return this.y + ' rpm';
           }
