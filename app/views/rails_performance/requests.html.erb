@@ -21,24 +21,24 @@
         </tr>
       </thead>
       <tbody>
-        <% @global_report_data.each do |e| %>
+        <% @data.each do |e| %>
           <% groups = e[:group].split("|") %>
           <% c, a = groups[0].split("#") %>
           <tr>
             <td>
-              <%= statistics_link groups[0], @global_report, e[:group] %>
+              <%= statistics_link groups[0], @report, e[:group] %>
               <%= link_to rails_performance.rails_performance_breakdown_path(controller_eq: c, action_eq: a), class: 'stats_icon', target: '_blank' do %>
-                <%= raw(stats_icon) %>
+                <%= icon("stat") %>
               <% end %>
             </td>
-            <td><%= statistics_link groups[1]&.upcase, @global_report, e[:group] %></td>
+            <td><%= statistics_link groups[1]&.upcase, @report, e[:group] %></td>
             <td><%= e[:count] %></td>
-            <td><%= round_it e[:duration_average] %> ms</td>
-            <td><%= round_it e[:view_runtime_average] %> ms</td>
-            <td><%= round_it e[:db_runtime_average] %> ms</td>
-            <td><%= round_it e[:duration_slowest] %> ms</td>
-            <td><%= round_it e[:view_runtime_slowest] %> ms</td>
-            <td><%= round_it e[:db_runtime_slowest] %> ms</td>
+            <td><%= ms e[:duration_average] %></td>
+            <td><%= ms e[:view_runtime_average] %></td>
+            <td><%= ms e[:db_runtime_average] %></td>
+            <td><%= ms e[:duration_slowest] %></td>
+            <td><%= ms e[:view_runtime_slowest] %></td>
+            <td><%= ms e[:db_runtime_slowest] %></td>
           </tr>
         <% end %>
       </tbody>

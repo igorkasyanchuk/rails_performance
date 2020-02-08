@@ -1,8 +1,8 @@
-<title><%= @breakdown_report.title %></title>
+<title><%= @report.title %></title>
 
 <div class="card">
   <div class="card-content">
-    <h2 class="subtitle"><%= @breakdown_report.title %></h2>
+    <h2 class="subtitle"><%= @report.title %></h2>
     <table class="table is-fullwidth is-hoverable is-narrow">
       <thead>
         <tr>
@@ -18,23 +18,17 @@
         </tr>
       </thead>
       <tbody>
-        <% @breakdown_report_data.each do |e| %>
+        <% @data.each do |e| %>
           <tr>
             <td><%= l e[:datetime], format: :short %></td>
             <td><%= e[:controller] + '#' + e[:action]  %></td>
             <td><%= e[:method] %></td>
-            <td>
-              <% if e[:method] == 'GET' %>
-                <%= link_to e[:path], e[:path], target: '_blank' %>
-              <% else %>
-                <%= e[:path] %>
-              <% end %>
-            </td>
+            <td><%= link_to_path(e) %></td>
             <td><%= e[:format] %></td>
             <td><%= status_tag e[:status] %></td>
-            <td><%= round_it e[:duration] %> ms</td>
-            <td><%= round_it e[:view_runtime] %> ms</td>
-            <td><%= round_it e[:db_runtime] %> ms</td>
+            <td><%= ms e[:duration] %></td>
+            <td><%= ms e[:view_runtime] %></td>
+            <td><%= ms e[:db_runtime] %></td>
           </tr>
         <% end %>
       </tbody>

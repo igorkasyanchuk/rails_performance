@@ -12,32 +12,29 @@ class RailsPerformanceController < ActionController::Base
   end
 
   def crashes
-    @datasource                = RP::DataSource.new(prepare_query({status_eq: 500}))
-    db                         = @datasource.db
-    @crash_report              = RP::Reports::CrashReport.new(db)
-    @crash_report_data         = @crash_report.data
+    @datasource   = RP::DataSource.new(prepare_query({status_eq: 500}))
+    db            = @datasource.db
+    @report       = RP::Reports::CrashReport.new(db)
+    @data         = @report.data
   end
 
   def requests
-    @datasource                = RP::DataSource.new(prepare_query)
-    db                         = @datasource.db
-
-    @global_report             = RP::Reports::RequestsReport.new(db, group: :controller_action_format, sort: :db_runtime_slowest)
-    @global_report_data        = @global_report.data
+    @datasource = RP::DataSource.new(prepare_query)
+    db          = @datasource.db
+    @report     = RP::Reports::RequestsReport.new(db, group: :controller_action_format, sort: :count)
+    @data       = @report.data
   end
 
   def breakdown
     @datasource = RP::DataSource.new(prepare_query)
     db          = @datasource.db
-
-    @breakdown_report      = RP::Reports::BreakdownReport.new(db, title: "Breakdown Report")
-    @breakdown_report_data = @breakdown_report.data
+    @report     = RP::Reports::BreakdownReport.new(db, title: "Breakdown Report")
+    @data       = @report.data
   end
 
   def recent
     @datasource = RP::DataSource.new(prepare_query)
     db          = @datasource.db
-
     @report     = RP::Reports::RecentRequestsReport.new(db)
     @data       = @report.data
   end

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails_performance (0.0.1.10)
+    rails_performance (0.0.1.11)
       rails
       redis
       redis-namespace
@@ -93,7 +93,7 @@ GEM
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
-    rack (2.1.2)
+    rack (2.2.0)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.0.2.1)

@@ -6,6 +6,25 @@ module RailsPerformanceHelper
     value.nan? ? nil : value.round(2)
   end
 
+  def ms(value)
+    result = round_it(value)
+    result ? "#{result} ms" : '-'
+  end
+
+  def short_path(path, length: 60)
+    tag.span title: path do
+      truncate(path, length: length)
+    end
+  end
+
+  def link_to_path(e)
+    if e[:method] == 'GET'
+      link_to short_path(e[:path]), e[:path], target: '_blank'
+    else
+      short_path(e[:path])
+    end
+  end
+
   def statistics_link(title, report, group)
     options = case report.group
     when :controller_action_format
@@ -41,9 +60,9 @@ module RailsPerformanceHelper
     end
   end
 
-  def stats_icon
+  def icon(name)
     # https://www.iconfinder.com/iconsets/vivid
-    raw File.read(File.expand_path(File.dirname(__FILE__) +  "/../assets/images/stat.svg"))
+    raw File.read(File.expand_path(File.dirname(__FILE__) +  "/../assets/images/#{name}.svg"))
   end
 
   def insert_css_file(file)

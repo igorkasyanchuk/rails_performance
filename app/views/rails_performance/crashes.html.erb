@@ -6,8 +6,8 @@
         <tr>
           <th>Datetime</th>
           <th>Controller#Action</th>
-          <th>Format</th>
           <th>Method</th>
+          <th>Format</th>
           <th>Path</th>
           <th>Status</th>
           <th>Duration</th>
@@ -16,23 +16,17 @@
         </tr>
       </thead>
       <tbody>
-        <% @crash_report_data.each do |e| %>
+        <% @data.each do |e| %>
           <tr>
-            <td><%= l e[:datetime], format: :short %></td>
+            <td><%= format_datetime e[:datetime] %></td>
             <td><%= e[:controller] + '#' + e[:action] %></td>
-            <td><%= e[:format] %></td>
             <td><%= e[:method] %></td>
-            <td>
-              <% if e[:method] == 'GET' %>
-                <%= link_to e[:path], e[:path], target: '_blank' %>
-              <% else %>
-                <%= e[:path] %>
-              <% end %>
-            </td>
+            <td><%= e[:format] %></td>
+            <td><%= link_to_path(e) %></td>
             <td><%= status_tag e[:status] %></td>
-            <td><%= round_it e[:duration] %> ms</td>
-            <td><%= round_it e[:view_runtime] %> ms</td>
-            <td><%= round_it e[:db_runtime] %> ms</td>
+            <td><%= ms e[:duration] %></td>
+            <td><%= ms e[:view_runtime] %></td>
+            <td><%= ms e[:db_runtime] %></td>
           </tr>
         <% end %>
       </tbody>

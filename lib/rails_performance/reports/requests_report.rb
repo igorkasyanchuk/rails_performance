@@ -20,7 +20,7 @@ module RailsPerformance
             view_runtime_slowest: view_runtimes.max,
             db_runtime_slowest:   db_runtimes.max,
           }
-        end.sort{|a, b| b[sort] <=> a[sort]}
+        end.sort_by{|e| -e[sort].to_f} # to_f because could ne NaN or nil
       end
     end
   end
