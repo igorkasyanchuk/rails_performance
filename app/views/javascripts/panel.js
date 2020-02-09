@@ -8,6 +8,8 @@ function showPanel() {
   $(".panel-overlay").show();
   $('.cd-panel').addClass('cd-panel--is-visible');
   $('body').addClass('panel-visible');
+
+  $('.cd-panel__content table').stupidtable();
 }
 
 

@@ -28,3 +28,8 @@
 .navbar-item.is-active {
   border-bottom: 1px solid red;
 }
+
+
+table th[data-sort] {
+  cursor: pointer;
+}

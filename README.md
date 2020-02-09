@@ -27,14 +27,13 @@ $ bundle
 
 ## TODO
 
-- time/zone
-- redis namespaces
-- skip for tests ?
 - documentation
-- add 1 if 0 (it means one request was)
+- time/zone config?
+- CI for tests
 - better hint
 - export to csv
-- last 30 minutes report all requests
+- http basic auth
+- better stats tooltip, do not show if nothing to show
 
 ## Contributing
 
