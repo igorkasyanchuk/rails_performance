@@ -105,6 +105,7 @@ The idea of this gem grew from curriosity how many RPM my app receiving per day.
 - integration with elastic search
 - monitor active job (sidekiq)?
 - logo?
+- number of requests last 24 hours, hour, etc.
 
 ## Contributing
 
