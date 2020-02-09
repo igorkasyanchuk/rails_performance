@@ -14,12 +14,19 @@ function showPanel() {
 
 
 $(function() {
-
   var panel = {};
   window.panel = panel;
   window.panel.header  = $(".panel-heading span");
   window.panel.content = $(".cd-panel__content");
   window.panel.close   = '<a class="panel-close" href="#" onclick="javascript: hidePanel(); return false;">&times;</a>'
+
+  $(document).ajaxStart(function(e) {
+    $('.loader-wrapper').addClass('is-active');
+  });
+
+  $(document).ajaxComplete(function(e) {
+    $('.loader-wrapper').removeClass('is-active');
+  });
 
   $(".toggle-panel").on('click', function(e) {
     showPanel();

@@ -3,7 +3,7 @@ module RailsPerformanceHelper
     return nil unless value
     return value if value.is_a?(Integer)
 
-    value.nan? ? nil : value.round(2)
+    value.nan? ? nil : value.round(1)
   end
 
   def ms(value)

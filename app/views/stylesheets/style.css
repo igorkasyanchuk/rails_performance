@@ -1,3 +1,37 @@
+.loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: #333;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity .3s;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  display: none;
+}
+
+.loader-wrapper .loader {
+  height: 80px;
+  width: 80px;
+}
+
+.loader-wrapper.is-active {
+  display: flex;
+  opacity: 0.3;
+  z-index: 1000;
+}
+
+.footer-box {
+  padding-top: 6px;
+  font-size: 10px;
+  opacity: 0.7;
+}
+
 .stats_icon svg {
   width: 16px;
   height: 16px;
@@ -9,12 +43,16 @@
 }
 
 .chart {
-  height: 255px;
+  height: 245px;
 }
 
 .chart_mini {
   height: 150px;
   width: 720px;
+}
+
+.red {
+  color: red;
 }
 
 .logo h2 {

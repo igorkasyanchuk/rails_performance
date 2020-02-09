@@ -27,6 +27,25 @@ module RailsPerformance
   mattr_accessor :debug
   @@debug = false
 
+  mattr_accessor :enabled
+  @@enabled = true
+
+  # Enable http basic authentication
+  mattr_accessor :http_basic_authentication_enabled
+  @@http_basic_authentication_enabled = false
+
+  # Enable http basic authentication
+  mattr_accessor :http_basic_authentication_user_name
+  @@http_basic_authentication_user_name = 'rails_performance'
+
+  # Enable http basic authentication
+  mattr_accessor :http_basic_authentication_password
+  @@http_basic_authentication_password = 'password12'
+
+  # If you want to enable access by specific conditions
+  mattr_accessor :verify_access_proc
+  @@verify_access_proc = proc { |controller| true }
+
   def self.setup
     yield(self)
   end
