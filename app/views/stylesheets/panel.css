@@ -12,7 +12,13 @@
   display: none;
 }
 
+.panel-close {
+  color: red;
+  padding-right: 10px;
+}
+
 .cd-panel {
+  position: relative;
   visibility: hidden;
   transition: visibility 0s 0.6s;
 }
@@ -25,11 +31,11 @@
 .cd-panel__container {
   z-index: 100;
   position: fixed;
-  width: 30%;
-  max-width: 500px;
+  width: 800px;
   height: 100%;
   top: 0;
   transition: transform 0.3s 0s;
+  overflow: scroll;
 }
 
 .cd-panel--from-right .cd-panel__container {

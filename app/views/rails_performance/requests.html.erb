@@ -7,6 +7,7 @@
           <th colspan='3'>Name</th>
           <th colspan='3'>Average</th>
           <th colspan='3'>Slowest</th>
+          <th></th>
         </tr>
         <tr>
           <th>Controller#Action</th>
@@ -18,6 +19,7 @@
           <th>Duration</th>
           <th>Views</th>
           <th>DB</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -25,13 +27,8 @@
           <% groups = e[:group].split("|") %>
           <% c, a = groups[0].split("#") %>
           <tr>
-            <td>
-              <%= statistics_link groups[0], @report, e[:group] %>
-              <%= link_to rails_performance.rails_performance_breakdown_path(controller_eq: c, action_eq: a), class: 'stats_icon', target: '_blank' do %>
-                <%= icon("stat") %>
-              <% end %>
-            </td>
-            <td><%= statistics_link groups[1]&.upcase, @report, e[:group] %></td>
+            <td><%= link_to groups[0],  rails_performance.rails_performance_summary_path({controller_eq: c, action_eq: a}), remote: true %></td>
+            <td><%= link_to groups[1]&.upcase,  rails_performance.rails_performance_summary_path({controller_eq: c, action_eq: a, format_eq: groups[1]}), remote: true %></td>
             <td><%= e[:count] %></td>
             <td><%= ms e[:duration_average] %></td>
             <td><%= ms e[:view_runtime_average] %></td>

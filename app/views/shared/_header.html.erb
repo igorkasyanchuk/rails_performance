@@ -14,11 +14,10 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <%= link_to 'Dahboard', rails_performance.rails_performance_url, class: "navbar-item #{active?(:dashboard)}" %>
-      <%= link_to 'Requests', rails_performance.rails_performance_requests_url, class: "navbar-item #{active?(:requests)}" %>
+      <%= link_to 'Dashboard', rails_performance.rails_performance_url, class: "navbar-item #{active?(:dashboard)}" %>
+      <%= link_to 'Requests Analysis', rails_performance.rails_performance_requests_url, class: "navbar-item #{active?(:requests)}" %>
       <%= link_to '500 Errors', rails_performance.rails_performance_crashes_url, class: "navbar-item #{active?(:crashes)}" %>
       <%= link_to 'Recent Requests', rails_performance.rails_performance_recent_url, class: "navbar-item #{active?(:recent)}" %>
-      <a href='#' class="navbar-item" onclick="javascript: showPanel(); return false;">Toggle</a>
     </div>
 
     <div class="navbar-end">

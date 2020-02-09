@@ -1,0 +1,35 @@
+<h2 class="subtitle">Throughput</h2>
+<div id="throughput_report_chart_mini" class="chart_mini"></div>
+
+<h2 class="subtitle">Average Response Time</h2>
+<div id="response_time_report_chart_mini" class="chart_mini"></div>
+
+<h2 class="subtitle"><%= @report.title %></h2>
+<table class="table is-fullwidth is-hoverable is-narrow is-size-7">
+  <thead>
+    <tr>
+      <th>Datetime</th>
+      <th>Method</th>
+      <th>Path</th>
+      <th>Format</th>
+      <th>Status</th>
+      <th>Duration</th>
+      <th>Views</th>
+      <th>DB</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @data.each do |e| %>
+      <tr>
+        <td><%= format_datetime e[:datetime] %></td>
+        <td><%= e[:method] %></td>
+        <td><%= link_to_path(e) %></td>
+        <td><%= e[:format] %></td>
+        <td><%= status_tag e[:status] %></td>
+        <td><%= ms e[:duration] %></td>
+        <td><%= ms e[:view_runtime] %></td>
+        <td><%= ms e[:db_runtime] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

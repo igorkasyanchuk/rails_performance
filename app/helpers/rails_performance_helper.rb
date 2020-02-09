@@ -8,38 +8,33 @@ module RailsPerformanceHelper
 
   def ms(value)
     result = round_it(value)
-    result ? "#{result} ms" : '-'
+    result && result != 0 ? "#{result} ms" : '-'
   end
 
   def short_path(path, length: 60)
-    tag.span title: path do
+    content_tag :span, title: path do
       truncate(path, length: length)
     end
   end
 
   def link_to_path(e)
     if e[:method] == 'GET'
-      link_to short_path(e[:path]), e[:path], target: '_blank'
+      link_to(short_path(e[:path]), e[:path], target: '_blank')
     else
       short_path(e[:path])
     end
   end
 
-  def statistics_link(title, report, group)
-    options = case report.group
-    when :controller_action_format
-      ca = group.split("|")
-      c, a = ca[0].split("#")
-      {
-        controller_eq: c,
-        action_eq: a,
-        format_eq: ca[1]
-      }
-    else
-      {}
-    end
-
-    link_to title, rails_performance_path(options), target: '_blank'
+  def report_name(h)
+    h.except(:on).collect do |k, v|
+      %Q{
+      <div class="control">
+        <span class="tags has-addons">
+          <span class="tag">#{k}</span>
+          <span class="tag is-success">#{v}</span>
+        </span>
+      </div>}
+    end.join.html_safe
   end
 
   def status_tag(status)

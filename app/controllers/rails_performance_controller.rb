@@ -11,6 +11,25 @@ class RailsPerformanceController < ActionController::Base
     @response_time_report_data = @response_time_report.data
   end
 
+  def summary
+    @datasource                = RP::DataSource.new(prepare_query)
+    db                         = @datasource.db
+
+    @throughput_report         = RP::Reports::ThroughputReport.new(db)
+    @throughput_report_data    = @throughput_report.data
+
+    @response_time_report      = RP::Reports::ResponseTimeReport.new(db)
+    @response_time_report_data = @response_time_report.data
+
+    @report                    = RP::Reports::BreakdownReport.new(db, title: "Requests")
+    @data                      = @report.data
+
+    respond_to do |format|
+      format.js {}
+      format.any { render plain: "Doesn't open in new window" }
+    end
+  end
+
   def crashes
     @datasource   = RP::DataSource.new(prepare_query({status_eq: 500}))
     db            = @datasource.db
@@ -22,13 +41,6 @@ class RailsPerformanceController < ActionController::Base
     @datasource = RP::DataSource.new(prepare_query)
     db          = @datasource.db
     @report     = RP::Reports::RequestsReport.new(db, group: :controller_action_format, sort: :count)
-    @data       = @report.data
-  end
-
-  def breakdown
-    @datasource = RP::DataSource.new(prepare_query)
-    db          = @datasource.db
-    @report     = RP::Reports::BreakdownReport.new(db, title: "Breakdown Report")
     @data       = @report.data
   end
 

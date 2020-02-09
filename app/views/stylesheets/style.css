@@ -12,6 +12,10 @@
   height: 255px;
 }
 
+.chart_mini {
+  height: 150px;
+  width: 720px;
+}
 
 .logo h2 {
   text-transform: uppercase;

@@ -13,9 +13,12 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get breakdown with params" do
+  test "should get summary with params" do
     setup_db
-    get '/rails/performance/breakdown', params: { controller_eq: "Home", action_eq: 'index' }
+    get '/rails/performance/summary', params: { controller_eq: "Home", action_eq: 'index' }, xhr: true
+    assert_response :success
+
+    get '/rails/performance/summary', params: { controller_eq: "Home", action_eq: 'index' }, xhr: false
     assert_response :success
   end
 

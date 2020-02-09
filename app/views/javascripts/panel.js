@@ -10,7 +10,14 @@ function showPanel() {
   $('body').addClass('panel-visible');
 }
 
+
 $(function() {
+
+  var panel = {};
+  window.panel = panel;
+  window.panel.header  = $(".panel-heading span");
+  window.panel.content = $(".cd-panel__content");
+  window.panel.close   = '<a class="panel-close" href="#" onclick="javascript: hidePanel(); return false;">&times;</a>'
 
   $(".toggle-panel").on('click', function(e) {
     showPanel();
