@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails_performance (0.0.1.18)
+    rails_performance (0.0.1.19)
       rails
       redis
       redis-namespace
