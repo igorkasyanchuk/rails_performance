@@ -20,6 +20,10 @@
   width: 80px;
 }
 
+.nowrap {
+  white-space: nowrap;
+}
+
 .loader-wrapper.is-active {
   display: flex;
   opacity: 0.3;

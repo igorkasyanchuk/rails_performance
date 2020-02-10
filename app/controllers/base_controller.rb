@@ -1,4 +1,6 @@
 class BaseController < ActionController::Base
+  layout 'rails_performance/layouts/rails_performance'
+
   before_action :verify_access
 
   if RailsPerformance.http_basic_authentication_enabled

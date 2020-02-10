@@ -61,11 +61,11 @@ module RailsPerformanceHelper
   end
 
   def insert_css_file(file)
-    raw "<style>#{raw File.read File.expand_path(File.dirname(__FILE__) + "/../views/stylesheets/#{file}")}</style>"
+    raw "<style>#{raw File.read File.expand_path(File.dirname(__FILE__) + "/../views/rails_performance/stylesheets/#{file}")}</style>"
   end
 
   def insert_js_file(file)
-    raw "<script>#{raw File.read File.expand_path(File.dirname(__FILE__) + "/../views/javascripts/#{file}")}</script>"
+    raw "<script>#{raw File.read File.expand_path(File.dirname(__FILE__) + "/../views/rails_performance/javascripts/#{file}")}</script>"
   end
 
   def format_datetime(e)
