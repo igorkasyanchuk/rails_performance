@@ -33,6 +33,15 @@ class RailsPerformanceController < BaseController
       end
     end
 
+    def trace
+      @report = RP::Reports::TraceReport.new(request_id: params[:id])
+      @data   = @report.data
+      respond_to do |format|
+        format.js {}
+        format.any { render plain: "Doesn't open in new window" }
+      end
+    end
+
     def crashes
       @datasource   = RP::DataSource.new(prepare_query({status_eq: 500}))
       db            = @datasource.db

@@ -1,6 +1,7 @@
 class BaseController < ActionController::Base
   layout 'rails_performance/layouts/rails_performance'
 
+  before_action :leave_finger_print
   before_action :verify_access
 
   if RailsPerformance.http_basic_authentication_enabled
@@ -10,6 +11,10 @@ class BaseController < ActionController::Base
   end
 
   private
+
+  def leave_finger_print
+    Thread.current[:in_rails_performance] = true
+  end
 
   def verify_access
     result = RailsPerformance.verify_access_proc.call(self)

@@ -32,4 +32,11 @@ class RailsPerformance::Test < ActiveSupport::TestCase
     assert_not_nil RP::Reports::ResponseTimeReport.new(ds.db).data
   end
 
+  test "report TraceReport" do
+    setup_db(dummy_event(request_id: "112233"))
+    RP::Utils.log_trace_in_redis("112233", [{x: 1}, {y: 2}])
+
+    assert_equal RP::Reports::TraceReport.new(request_id: "112233").data, [{"x" => 1}, {"y" => 2}]
+  end
+
 end

@@ -16,6 +16,7 @@ module RailsPerformance
             status: record.status,
             method: record.method,
             path: record.path,
+            request_id: record.request_id,
             datetime: Time.at(record.datetimei.to_i),
             duration: record.value['duration'],
             db_runtime: record.value['db_runtime'],

@@ -1,6 +1,12 @@
 require 'test_helper'
 
 class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
+  test "should get home page" do
+    setup_db
+    get '/'
+    assert_response :success
+  end
+
   test "should get index" do
     setup_db
     get '/rails/performance'
@@ -37,6 +43,15 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
   test "should get recent with params" do
     setup_db
     get '/rails/performance/recent'
+    assert_response :success
+  end
+
+  test "should get trace with params" do
+    setup_db
+    get '/rails/performance/trace/123', xhr: true
+    assert_response :success
+
+    get '/rails/performance/trace/123', xhr: false
     assert_response :success
   end
 end

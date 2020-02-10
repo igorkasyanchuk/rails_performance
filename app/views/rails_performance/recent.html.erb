@@ -15,6 +15,7 @@
           <th data-sort="float">Duration</th>
           <th data-sort="float">Views</th>
           <th data-sort="float">DB</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -29,6 +30,11 @@
             <td><%= ms e[:duration] %></td>
             <td><%= ms e[:view_runtime] %></td>
             <td><%= ms e[:db_runtime] %></td>
+            <td>
+              <%= link_to rails_performance.rails_performance_trace_path(id: e[:request_id]), remote: true do %>
+                <span class="stats_icon_max"><%= icon 'activity' %></span>
+              <% end %>
+            </td>
           </tr>
         <% end %>
       </tbody>

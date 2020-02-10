@@ -19,8 +19,8 @@ module RailsPerformance
       @storage    = []
     end
 
-    def store(group:, message:)
-      @storage << { group: group, message: message, time: Time.now.to_i }
+    def store(options = {})
+      @storage << options.merge(time: Time.now.to_i)
     end
 
   end

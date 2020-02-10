@@ -1,0 +1,21 @@
+<table class="table is-fullwidth is-hoverable is-narrow is-size-7">
+  <tbody>
+    <% @data.each do |e| %>
+      <tr>
+        <td><%= e["group"] %></td>
+        <% if e["group"] == 'db' %>
+          <td>
+            <%= e["duration"] %> ms
+          </td>
+          <td>
+            <%= e["sql"] %>
+          </td>
+        <% elsif e["group"] == 'view' %>
+          <td colspan="2">
+            <%= e["message"] %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

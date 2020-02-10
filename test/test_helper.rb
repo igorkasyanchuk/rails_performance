@@ -20,7 +20,7 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
   ActiveSupport::TestCase.fixtures :all
 end
 
-def dummy_event(time: Time.now, controller: "Home", action: "index", status: 200, path: '/', method: "GET")
+def dummy_event(time: Time.now, controller: "Home", action: "index", status: 200, path: '/', method: "GET", request_id: SecureRandom.hex(16))
   {
     controller: controller,
     action: action,
@@ -33,10 +33,10 @@ def dummy_event(time: Time.now, controller: "Home", action: "index", status: 200
     view_runtime: rand(100.0),
     db_runtime: rand(100.0),
     duration: 100 + rand(100.0),
-    request_id: SecureRandom.hex(16)
+    request_id: request_id
   }
 end
 
-def setup_db
-  RailsPerformance::Utils.log_request_in_redis(dummy_event)
+def setup_db(event = dummy_event)
+  RailsPerformance::Utils.log_request_in_redis(event)
 end

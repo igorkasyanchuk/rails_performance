@@ -41,6 +41,11 @@
   height: 16px;
 }
 
+.stats_icon_max svg {
+  width: 24px;
+  height: 24px;
+}
+
 .home_icon svg {
   width: 24px;
   height: 24px;
