@@ -31,8 +31,10 @@
             <td><%= ms e[:view_runtime] %></td>
             <td><%= ms e[:db_runtime] %></td>
             <td>
-              <%= link_to rails_performance.rails_performance_trace_path(id: e[:request_id]), remote: true do %>
-                <span class="stats_icon_max"><%= icon 'activity' %></span>
+              <% if e[:request_id].present? %>
+                <%= link_to rails_performance.rails_performance_trace_path(id: e[:request_id]), remote: true do %>
+                  <span class="stats_icon_max"><%= icon 'activity' %></span>
+                <% end %>
               <% end %>
             </td>
           </tr>
