@@ -26,9 +26,9 @@
         <td><%= link_to_path(e) %></td>
         <td><%= e[:format] %></td>
         <td><%= status_tag e[:status] %></td>
-        <td><%= ms e[:duration] %></td>
-        <td><%= ms e[:view_runtime] %></td>
-        <td><%= ms e[:db_runtime] %></td>
+        <td class="nowrap"><%= ms e[:duration] %></td>
+        <td class="nowrap"><%= ms e[:view_runtime] %></td>
+        <td class="nowrap"><%= ms e[:db_runtime] %></td>
       </tr>
     <% end %>
   </tbody>

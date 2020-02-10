@@ -111,6 +111,7 @@ The idea of this gem grew from curriosity how many RPM my app receiving per day.
 - capture referal for 404 page?
 - SQL
 - Rendering
+- scroll to the top details
 
 ## Contributing
 

@@ -28,12 +28,12 @@
             <td><%= link_to groups[0],  rails_performance.rails_performance_summary_path({controller_eq: c, action_eq: a}), remote: true %></td>
             <td><%= link_to groups[1]&.upcase,  rails_performance.rails_performance_summary_path({controller_eq: c, action_eq: a, format_eq: groups[1]}), remote: true %></td>
             <td><%= e[:count] %></td>
-            <td><%= ms e[:duration_average] %></td>
-            <td><%= ms e[:view_runtime_average] %></td>
-            <td><%= ms e[:db_runtime_average] %></td>
-            <td><%= ms e[:duration_slowest] %></td>
-            <td><%= ms e[:view_runtime_slowest] %></td>
-            <td><%= ms e[:db_runtime_slowest] %></td>
+            <td class="nowrap"><%= ms e[:duration_average] %></td>
+            <td class="nowrap"><%= ms e[:view_runtime_average] %></td>
+            <td class="nowrap"><%= ms e[:db_runtime_average] %></td>
+            <td class="nowrap"><%= ms e[:duration_slowest] %></td>
+            <td class="nowrap"><%= ms e[:view_runtime_slowest] %></td>
+            <td class="nowrap"><%= ms e[:db_runtime_slowest] %></td>
           </tr>
         <% end %>
       </tbody>

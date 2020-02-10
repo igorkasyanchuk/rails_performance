@@ -5,13 +5,12 @@ function hidePanel() {
 }
 
 function showPanel() {
+  $(".cd-panel__container").scrollTop(0);
   $(".panel-overlay").show();
   $('.cd-panel').addClass('cd-panel--is-visible');
   $('body').addClass('panel-visible');
-
   $('.cd-panel__content table').stupidtable();
 }
-
 
 $(function() {
   var panel = {};
