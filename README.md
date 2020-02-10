@@ -25,7 +25,7 @@ Create `config/initializers/rails_performance.rb`
 ```ruby
 RailsPerformance.setup do |config|
   config.redis    = Redis::Namespace.new("#{Rails.env}-rails-performance", redis: Redis.new)
-  config.duration = 24.hours
+  config.duration = 4.hours
 
   config.debug    = false # currently not used>
   config.enabled  = true
@@ -106,6 +106,11 @@ The idea of this gem grew from curriosity how many RPM my app receiving per day.
 - monitor active job (sidekiq)?
 - logo?
 - number of requests last 24 hours, hour, etc.
+- integration with logger, to see the details of request?
+- no results if empty table (on crash page)
+- capture referal for 404 page?
+- SQL
+- Rendering
 
 ## Contributing
 

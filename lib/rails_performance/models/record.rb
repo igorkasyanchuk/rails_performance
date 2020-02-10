@@ -1,7 +1,7 @@
 module RailsPerformance
   module Models
     class Record
-      attr_reader :controller, :action, :format, :status, :datetime, :datetimei, :method, :path
+      attr_reader :controller, :action, :format, :status, :datetime, :datetimei, :method, :path, :request_id
 
       # key = performance|
       # controller|HomeController|
@@ -12,6 +12,7 @@ module RailsPerformance
       # datetimei|1579861423|
       # method|GET|
       # path|/|
+      # request_id|454545454545454545|
       # END
       # = {"view_runtime":8.444603008683771,"db_runtime":0,"duration":9.216095000000001}
       # value = JSON
@@ -28,6 +29,7 @@ module RailsPerformance
         @datetimei  = items[12]
         @method     = items[14]
         @path       = items[16]
+        @request_id = items[18]
       end
 
       def value

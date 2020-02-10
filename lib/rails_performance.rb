@@ -13,8 +13,8 @@ require_relative "rails_performance/reports/response_time_report.rb"
 require_relative "rails_performance/reports/throughput_report.rb"
 require_relative "rails_performance/reports/recent_requests_report.rb"
 require_relative "rails_performance/reports/breakdown_report.rb"
-
-require "rails_performance/engine"
+require_relative "rails_performance/extensions/capture_everything.rb"
+require_relative "rails_performance/models/current_request.rb"
 
 module RailsPerformance
   FORMAT = "%Y%m%dT%H%M"
@@ -23,7 +23,7 @@ module RailsPerformance
   @@redis = Redis::Namespace.new("#{::Rails.env}-rails-performance", redis: Redis.new)
 
   mattr_accessor :duration
-  @@duration = 24.hours
+  @@duration = 4.hours
 
   mattr_accessor :debug
   @@debug = false
@@ -54,3 +54,5 @@ module RailsPerformance
 end
 
 RP = RailsPerformance
+
+require "rails_performance/engine"

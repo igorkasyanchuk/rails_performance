@@ -9,7 +9,8 @@ module RailsPerformance
         @status, @headers, @response = @app.call(env)
 
         if record = Thread.current["RP_request_info"]
-          record[:status] ||= @status
+          record[:status]   ||= @status
+          record[:request_id] = CurrentRequest.current.request_id
 
           # rand(500).times do |e|
           #   finished               = Time.now - rand(2000).minutes
@@ -21,9 +22,12 @@ module RailsPerformance
           #   RP::Utils.log_in_redis(record)
           # end
 
-          RP::Utils.log_in_redis(record)
+          RP::Utils.log_trace_in_redis(CurrentRequest.current.request_id, CurrentRequest.current.storage)
+
+          RP::Utils.log_request_in_redis(record)
 
           Thread.current["RP_request_info"] = nil
+          CurrentRequest.cleanup
         end
 
         [@status, @headers, @response]
