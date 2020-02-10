@@ -16,7 +16,7 @@ module RailsPerformance
       value = e.slice(:view_runtime, :db_runtime, :duration)
       key   = "performance|controller|#{e[:controller]}|action|#{e[:action]}|format|#{e[:format]}|status|#{e[:status]}|datetime|#{e[:datetime]}|datetimei|#{e[:datetimei]}|method|#{e[:method]}|path|#{e[:path]}|request_id|#{e[:request_id]}|END"
 
-      # puts "  [SAVE]    key  --->  #{key}\n"
+      puts "  [SAVE]    key  --->  #{key}\n"
       # puts "          value  --->  #{value.to_json}\n\n"
 
       RP.redis.set(key, value.to_json)
@@ -29,7 +29,6 @@ module RailsPerformance
       key = "trace|#{request_id}"
       RP.redis.set(key, value.to_json)
       RP.redis.expire(key, RailsPerformance::Reports::RecentRequestsReport::TIME_WINDOW.to_i)
-      binding.pry
     end
 
     def Utils.fetch_from_redis(query)

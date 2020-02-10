@@ -19,7 +19,7 @@ module RailsPerformance
           #   record[:duration]      = 50 + rand(100) + rand(50.0) + rand(e)
           #   record[:db_runtime]    = rand(50.0)
           #   record[:view_runtime]  = rand(50.0)
-          #   RP::Utils.log_in_redis(record)
+          #   RP::Utils.log_request_in_redis(record)
           # end
 
           RP::Utils.log_trace_in_redis(CurrentRequest.current.request_id, CurrentRequest.current.storage)

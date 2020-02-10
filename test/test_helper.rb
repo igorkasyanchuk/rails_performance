@@ -32,10 +32,11 @@ def dummy_event(time: Time.now, controller: "Home", action: "index", status: 200
     path: path,
     view_runtime: rand(100.0),
     db_runtime: rand(100.0),
-    duration: 100 + rand(100.0)
+    duration: 100 + rand(100.0),
+    request_id: SecureRandom.hex(16)
   }
 end
 
 def setup_db
-  RailsPerformance::Utils.log_in_redis(dummy_event)
+  RailsPerformance::Utils.log_request_in_redis(dummy_event)
 end
