@@ -112,6 +112,11 @@ The idea of this gem grew from curriosity how many RPM my app receiving per day.
 - SQL
 - Rendering
 - scroll to the top details
+- in details show URL from params, number of sql queries
+- extract duration of rendering
+- fix misspellings
+- improve documentation
+- benchmark writes in development?
 
 ## Contributing
 
