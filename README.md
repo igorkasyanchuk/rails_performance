@@ -2,7 +2,7 @@
 
 Self-hosted tool to monitor the performance of your Ruby on Rails application.
 
-This is **simple and free alternative** to New Relic, Datadog or other similar services.
+This is **simple and free alternative** to the New Relic APM, Datadog or other similar services.
 
 It allows you to track:
 
@@ -13,13 +13,15 @@ It allows you to track:
 - SQL queries, rendering log in recent requests
 - simple 500-crashes reports
 
-All data is stored in local Redis and not sent to 3rd party servers.
+All data are stored in `local` Redis and not sent to any 3rd party servers.
 
 ## Production
 
-Gem is production-ready. At least on my applications with ~800 unique users per day it works well.
+Gem is production-ready. At least on my 2 applications with ~800 unique users per day it works perfect.
 
 ## Usage
+
+Default configulation is listed below. But you can overide it.
 
 Create `config/initializers/rails_performance.rb`
 
@@ -62,7 +64,6 @@ After installation and configuration, start your Rails application, make a few r
 ## Limitations
 
 - it doesn't track params of POST/PUT requests
-- it doesn't track SQL queries (at least for now)
 - it doesn't track Redis/ElasticSearch or other apps
 - it can't compare historical data
 - depending on your load you may need to reduce time of for how long you store data, because all calculations are done in memory and it could take some time for high-load apps
@@ -93,6 +94,7 @@ The idea of this gem grew from curriosity how many RPM my app receiving per day.
 ## TODO
 
 - documentation in Readme
+- capture stacktrace of 500 errors and show in side panel
 - generator for initial config
 - CI for tests
 - time/zone config?
@@ -108,10 +110,11 @@ The idea of this gem grew from curriosity how many RPM my app receiving per day.
 - number of requests last 24 hours, hour, etc.
 - collect deprecation.rails
 - fix misspellings?
+- show "loading banner" until jquery is loaded?
 
 ## Contributing
 
-You are welcome to contribute.
+You are welcome to contribute. I've a big list of TODO.
 
 ## License
 

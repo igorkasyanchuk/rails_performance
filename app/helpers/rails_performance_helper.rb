@@ -9,7 +9,7 @@ module RailsPerformanceHelper
   def duraction_alert_class(duration_str)
     if duration_str.to_s =~ /(\d+.?\d+?)/
       duration = $1.to_f
-      if duration >= 100
+      if duration >= 500
         'has-background-danger has-text-white-bis'
       elsif duration >= 200
         'has-background-warning has-text-black-ter'

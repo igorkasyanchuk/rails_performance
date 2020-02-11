@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.authors     = ["Igor Kasyanchuk"]
   spec.email       = ["igorkasyanchuk@gmail.com"]
   spec.homepage    = "https://github.com/igorkasyanchuk/rails_performance"
-  spec.summary     = "Track number of requests to your app"
-  spec.description = "Track number of requests to your app"
+  spec.summary     = "Simple Rails Performance tracker. Alternative to the NewRelic, Datadog or other services."
+  spec.description = "3rd party dependency-free solution how to monitor performance of your Rails applications."
   spec.license     = "MIT"
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]

@@ -29,7 +29,7 @@ class RailsPerformanceController < BaseController
 
       respond_to do |format|
         format.js {}
-        format.any { render plain: "Doesn't open in new window" }
+        format.any { render plain: "Doesn't open in new window. Wait until full page load." }
       end
     end
 
@@ -39,7 +39,7 @@ class RailsPerformanceController < BaseController
       @data   = @report.data
       respond_to do |format|
         format.js {}
-        format.any { render plain: "Doesn't open in new window" }
+        format.any { render plain: "Doesn't open in new window. Wait until full page load." }
       end
     end
 
