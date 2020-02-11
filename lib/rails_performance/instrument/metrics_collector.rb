@@ -34,7 +34,7 @@ module RailsPerformance
           duration: event.duration
         }
 
-        Thread.current["RP_request_info"] = record
+        CurrentRequest.current.record = record
       end
     end
   end

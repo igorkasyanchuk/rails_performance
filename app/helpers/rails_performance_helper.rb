@@ -50,6 +50,8 @@ module RailsPerformanceHelper
 
   def report_name(h)
     h.except(:on).collect do |k, v|
+      next if v.blank?
+
       %Q{
       <div class="control">
         <span class="tags has-addons">
@@ -57,7 +59,7 @@ module RailsPerformanceHelper
           <span class="tag is-info is-light">#{v}</span>
         </span>
       </div>}
-    end.join.html_safe
+    end.compact.join.html_safe
   end
 
   def status_tag(status)

@@ -11,7 +11,7 @@ module RailsPerformance
         return nil if values.blank?
 
         RP::Models::Record.new(keys[0], values[0])
-      end      
+      end
 
       # key = performance|
       # controller|HomeController|
@@ -63,7 +63,8 @@ module RailsPerformance
           path: path,
           duration: ms(value['duration']),
           view_runtime: ms(value['view_runtime']),
-          db_runtime: ms(value['db_runtime'])
+          db_runtime: ms(value['db_runtime']),
+          HTTP_REFERER: value['HTTP_REFERER']
         }
       end
 

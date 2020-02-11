@@ -2,7 +2,6 @@
   <tbody>
     <% @data.each do |e| %>
       <tr>
-        <td><%= e["group"] %></td>
         <% if e["group"] == 'db' %>
           <td class="nowrap has-text-right <%= duraction_alert_class(e['duration']) %>">
             <%= e["duration"] %> ms

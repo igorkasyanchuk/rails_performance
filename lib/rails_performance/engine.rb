@@ -6,7 +6,9 @@ module RailsPerformance
   class Engine < ::Rails::Engine
 
     if RailsPerformance.try(:enabled) # for rails c
+
       config.app_middleware.insert_after ActionDispatch::Executor, RailsPerformance::Rails::Middleware
+
       initializer :configure_metrics, after: :initialize_logger do
         ActiveSupport::Notifications.subscribe(
           "process_action.action_controller",
@@ -17,7 +19,9 @@ module RailsPerformance
           ActionView::LogSubscriber.send :prepend, RailsPerformance::Extensions::View
           ActiveRecord::LogSubscriber.send :prepend, RailsPerformance::Extensions::Db
         end
+
       end
+
     end
 
   end

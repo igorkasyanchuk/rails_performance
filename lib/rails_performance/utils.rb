@@ -13,7 +13,7 @@ module RailsPerformance
     end
 
     def Utils.log_request_in_redis(e)
-      value = e.slice(:view_runtime, :db_runtime, :duration)
+      value = e.slice(:view_runtime, :db_runtime, :duration, :HTTP_REFERER)
       key   = "performance|controller|#{e[:controller]}|action|#{e[:action]}|format|#{e[:format]}|status|#{e[:status]}|datetime|#{e[:datetime]}|datetimei|#{e[:datetimei]}|method|#{e[:method]}|path|#{e[:path]}|request_id|#{e[:request_id]}|END"
 
       # puts "  [SAVE]    key  --->  #{key}\n"

@@ -6,11 +6,12 @@ This is **simple and free alternative** to New Relic, Datadog or other similar s
 
 It allows you to track:
 
-- throughput report (see amount of requests per minute)
+- throughput report (see amount of RPM (requests per minute))
 - an average response time
 - the slowest controllers & actions
-- duration of total time spent per request, views rendering, DB execution
-- simple crash reports
+- total duration of time spent per request, views rendering, DB
+- SQL queries, rendering log in recent requests
+- simple 500-crashes reports
 
 All data is stored in local Redis and not sent to 3rd party servers.
 
@@ -93,25 +94,20 @@ The idea of this gem grew from curriosity how many RPM my app receiving per day.
 
 - documentation in Readme
 - generator for initial config
-- gif with demo
-- time/zone config?
 - CI for tests
-- connected charts
-- ability to zoom to see requests withing specific datime range
-- better hint
+- time/zone config?
+- connected charts on dashboard, when zoom, when hover?
+- ability to zoom to see requests withing specific datetime range
+- better hints?
 - export to csv
-- http basic auth config
-- current_user auth config
 - better stats tooltip, do not show if nothing to show
-- dark mode toggle? save to the cookies
-- integration with elastic search
+- dark mode toggle? save to the cookies?
+- integration with elastic search? or other?
 - monitor active job (sidekiq)?
-- logo?
+- better logo?
 - number of requests last 24 hours, hour, etc.
-- integration with logger, to see the details of request?
-- no results if empty table (on crash page)
-- capture referal for 404 page?
-- fix misspellings
+- collect deprecation.rails
+- fix misspellings?
 
 ## Contributing
 

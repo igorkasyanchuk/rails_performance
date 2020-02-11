@@ -9,14 +9,23 @@ module RailsPerformance
         @status, @headers, @response = @app.call(env)
 
         #t = Time.now
-        if record = Thread.current["RP_request_info"]
+        if record = CurrentRequest.current.record
           begin
-            record[:status]   ||= @status
+            record[:status]   ||= @status # for 500 errors
             record[:request_id] = CurrentRequest.current.request_id
+
+            # capture referer from where this page was opened
+            if record[:status] == 404
+              record[:HTTP_REFERER] = env["HTTP_REFERER"]
+            end
+
+            # store for section "recent requests"
             RP::Utils.log_trace_in_redis(CurrentRequest.current.request_id, CurrentRequest.current.storage)
+
+            # store request information
             RP::Utils.log_request_in_redis(record)
           ensure
-            Thread.current["RP_request_info"] = nil
+            # we don't want to have a memory leak
             CurrentRequest.cleanup
           end
         end

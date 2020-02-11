@@ -1,3 +1,3 @@
 module RailsPerformance
-  VERSION = '0.0.1.19'
+  VERSION = '0.9.0'
 end
