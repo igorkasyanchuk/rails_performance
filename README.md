@@ -19,7 +19,7 @@ All data are stored in `local` Redis and not sent to any 3rd party servers.
 
 ## Production
 
-Gem is production-ready. At least on my 2 applications with ~800 unique users per day it works perfect.
+Gem is production-ready. At least on my 2 applications with ~800 unique users per day it works perfectly.
 
 ## Usage
 
