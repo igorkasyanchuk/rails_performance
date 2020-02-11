@@ -4,6 +4,8 @@ Self-hosted tool to monitor the performance of your Ruby on Rails application.
 
 This is **simple and free alternative** to the New Relic APM, Datadog or other similar services.
 
+![Demo](docs/rails_performance.gif)
+
 It allows you to track:
 
 - throughput report (see amount of RPM (requests per minute))
@@ -60,6 +62,10 @@ $ bundle
 You must also have installed Redis server, because this gem is storing data into it.
 
 After installation and configuration, start your Rails application, make a few requests, and open `https://localhost:3000/rails/performance` URL.
+
+## How it works
+
+![Schema](docs/rails_performance.png)
 
 ## Limitations
 
