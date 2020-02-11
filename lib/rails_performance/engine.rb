@@ -5,7 +5,7 @@ require_relative './instrument/metrics_collector.rb'
 module RailsPerformance
   class Engine < ::Rails::Engine
 
-    if RailsPerformance.enabled
+    if RailsPerformance.try(:enabled) # for rails c
       config.app_middleware.insert_after ActionDispatch::Executor, RailsPerformance::Rails::Middleware
       initializer :configure_metrics, after: :initialize_logger do
         ActiveSupport::Notifications.subscribe(

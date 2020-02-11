@@ -1,12 +1,12 @@
 class HomeController < ApplicationController
   def index
     sleep(rand(2.0))
-    100.times { User.where(first_name: "X#{rand(100)}").count }
+    10.times { User.where(first_name: "X#{rand(100)}").count }
   end
 
   def about
     sleep(rand(2.0))
-    50.times { User.where(first_name: "X#{rand(100)}").count }
+    10.times { User.where(first_name: "X#{rand(100)}").count }
   end
 
   def contact

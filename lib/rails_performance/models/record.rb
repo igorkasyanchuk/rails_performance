@@ -3,6 +3,16 @@ module RailsPerformance
     class Record
       attr_reader :controller, :action, :format, :status, :datetime, :datetimei, :method, :path, :request_id
 
+
+      def Record.find_by(request_id:)
+        keys, values = RP::Utils.fetch_from_redis("performance|*|request_id|#{request_id}|*")
+
+        return nil if keys.blank?
+        return nil if values.blank?
+
+        RP::Models::Record.new(keys[0], values[0])
+      end      
+
       # key = performance|
       # controller|HomeController|
       # action|index|
@@ -43,6 +53,30 @@ module RailsPerformance
       def controller_action_format
         "#{controller}##{action}|#{format}"
       end
+
+      def to_h
+        {
+          controller: controller,
+          action: action,
+          format: format,
+          method: method,
+          path: path,
+          duration: ms(value['duration']),
+          view_runtime: ms(value['view_runtime']),
+          db_runtime: ms(value['db_runtime'])
+        }
+      end
+
+      private
+
+      def ms(e)
+        if e
+          e.to_f.round(1).to_s + " ms"
+        else
+          nil
+        end
+      end
+
     end
   end
 end

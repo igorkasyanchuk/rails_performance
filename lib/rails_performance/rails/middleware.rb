@@ -8,6 +8,7 @@ module RailsPerformance
       def call(env)
         @status, @headers, @response = @app.call(env)
 
+        #t = Time.now
         if record = Thread.current["RP_request_info"]
           begin
             record[:status]   ||= @status
@@ -19,6 +20,7 @@ module RailsPerformance
             CurrentRequest.cleanup
           end
         end
+        #puts "==> store performance data: #{(Time.now - t).round(3)}ms"
 
         [@status, @headers, @response]
       end

@@ -16,6 +16,12 @@
         </tr>
       </thead>
       <tbody>
+        <% if @data.empty? %>
+          <tr>
+            <td colspan="9">We are glad that this list is empty ;)</td>
+          </tr>
+        <% end %>
+
         <% @data.each do |e| %>
           <tr>
             <td><%= format_datetime e[:datetime] %></td>

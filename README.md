@@ -83,6 +83,8 @@ Like a regular web development.
 
 Please note that to simplify integration with other apps all CSS/JS are bundled inside, and delivered in body of the request. This is to avoid integration with assets pipeline or webpacker.
 
+For UI changes you need to use Bulma CSS (https://bulma.io/documentation).
+
 ## Why
 
 The idea of this gem grew from curriosity how many RPM my app receiving per day. Later it evolutionated to something more powerful.
@@ -109,15 +111,7 @@ The idea of this gem grew from curriosity how many RPM my app receiving per day.
 - integration with logger, to see the details of request?
 - no results if empty table (on crash page)
 - capture referal for 404 page?
-- SQL
-- Rendering
-- scroll to the top details
-- in details show URL from params, number of sql queries
-- extract duration of rendering
 - fix misspellings
-- improve documentation
-- benchmark writes in development?
-- highlight slow SQL or rendering based on some rules?
 
 ## Contributing
 

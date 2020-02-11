@@ -4,14 +4,16 @@
       <tr>
         <td><%= e["group"] %></td>
         <% if e["group"] == 'db' %>
-          <td class="nowrap">
+          <td class="nowrap has-text-right <%= duraction_alert_class(e['duration']) %>">
             <%= e["duration"] %> ms
           </td>
           <td>
             <%= e["sql"] %>
           </td>
         <% elsif e["group"] == 'view' %>
-          <td>-</td>
+          <td class="nowrap has-text-right <%= duraction_alert_class(extract_duration(e['message'])) %>">
+            <%= extract_duration(e["message"]) %>
+          </td>
           <td>
             <%= e["message"] %>
           </td>
@@ -20,3 +22,5 @@
     <% end %>
   </tbody>
 </table>
+
+<br/>

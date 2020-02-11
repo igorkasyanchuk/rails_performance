@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-content">
 
-    <h2 class="subtitle">Recent Requests (last <%= RailsPerformance::Reports::RecentRequestsReport::TIME_WINDOW %> minutes)<h2>
+    <h2 class="subtitle">Recent Requests (last <%= RailsPerformance::Reports::RecentRequestsReport::TIME_WINDOW / 60 %> minutes)<h2>
 
     <table class="table is-fullwidth is-hoverable is-narrow">
       <thead>
@@ -19,6 +19,11 @@
         </tr>
       </thead>
       <tbody>
+        <% if @data.empty? %>
+          <tr>
+            <td colspan="10">Nothing to show here. Try to make a few requests in main app.</td>
+          </tr>
+        <% end %>
         <% @data.each do |e| %>
           <tr>
             <td><%= format_datetime e[:datetime] %></td>

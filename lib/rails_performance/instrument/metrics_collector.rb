@@ -18,6 +18,8 @@ module RailsPerformance
       def call(event_name, started, finished, event_id, payload)
         event = ActiveSupport::Notifications::Event.new(event_name, started, finished, event_id, payload)
 
+        return if event.payload[:path] =~ /^\/rails\/performance/
+
         record = {
           controller: event.payload[:controller],
           action: event.payload[:action],

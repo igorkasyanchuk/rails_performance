@@ -6,6 +6,29 @@ module RailsPerformanceHelper
     value.nan? ? nil : value.round(1)
   end
 
+  def duraction_alert_class(duration_str)
+    if duration_str.to_s =~ /(\d+.?\d+?)/
+      duration = $1.to_f
+      if duration >= 100
+        'has-background-danger has-text-white-bis'
+      elsif duration >= 200
+        'has-background-warning has-text-black-ter'
+      else
+        'has-background-success has-text-white-bis'
+      end
+    else
+      'has-background-light'
+    end
+  end
+
+  def extract_duration(str)
+    if (str =~ /Duration: (\d+.?\d+?ms)/i)
+      $1
+    else
+      '-'
+    end
+  end
+
   def ms(value)
     result = round_it(value)
     result && result != 0 ? "#{result} ms" : '-'
@@ -31,7 +54,7 @@ module RailsPerformanceHelper
       <div class="control">
         <span class="tags has-addons">
           <span class="tag">#{k}</span>
-          <span class="tag is-success">#{v}</span>
+          <span class="tag is-info is-light">#{v}</span>
         </span>
       </div>}
     end.join.html_safe

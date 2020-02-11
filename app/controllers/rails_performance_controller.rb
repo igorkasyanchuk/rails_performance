@@ -34,6 +34,7 @@ class RailsPerformanceController < BaseController
     end
 
     def trace
+      @record = RP::Models::Record.find_by(request_id: params[:id])
       @report = RP::Reports::TraceReport.new(request_id: params[:id])
       @data   = @report.data
       respond_to do |format|
