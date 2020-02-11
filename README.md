@@ -117,6 +117,7 @@ The idea of this gem grew from curriosity how many RPM my app receiving per day.
 - fix misspellings
 - improve documentation
 - benchmark writes in development?
+- highlight slow SQL or rendering based on some rules?
 
 ## Contributing
 
