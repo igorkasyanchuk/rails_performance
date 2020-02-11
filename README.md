@@ -1,6 +1,6 @@
 # Rails Performance
 
-Self-hosted tool to monitor the performance of your Ruby on Rails application.
+A self-hosted tool to monitor the performance of your Ruby on Rails application.
 
 This is **simple and free alternative** to the New Relic APM, Datadog or other similar services.
 
