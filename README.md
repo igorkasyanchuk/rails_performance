@@ -12,7 +12,7 @@ It allows you to track:
 - an average response time
 - the slowest controllers & actions
 - total duration of time spent per request, views rendering, DB
-- SQL queries, rendering log in recent requests
+- SQL queries, rendering logs in "Recent Requests" section
 - simple 500-crashes reports
 
 All data are stored in `local` Redis and not sent to any 3rd party servers.
@@ -25,9 +25,17 @@ Just don't forget to protect performance dashboard with http basic auth or check
 
 ## Usage
 
+```
+1. Add gem to the Gemfile (in appropriate group if needed)
+2. Start rails server
+3. Make a few requests to your app
+4. open localhost:3000/rails/performance
+5. Tune the configuration and deploy to production
+```
+
 Default configulation is listed below. But you can overide it.
 
-Create `config/initializers/rails_performance.rb`
+Create `config/initializers/rails_performance.rb` in your app:
 
 ```ruby
 RailsPerformance.setup do |config|
@@ -54,6 +62,12 @@ Add this line to your application's Gemfile:
 
 ```ruby
 gem 'rails_performance'
+
+# or 
+
+group :development, :production do
+  gem 'rails_performance'
+end
 ```
 
 And then execute:
@@ -77,6 +91,8 @@ After installation and configuration, start your Rails application, make a few r
 - depending on your load you may need to reduce time of for how long you store data, because all calculations are done in memory and it could take some time for high-load apps
 
 ## Redis
+
+Gem is using Redis. This is the only one dependency.
 
 All information is stored into Redis. The default expiration time is set to `config.duration` from the configuration.
 
