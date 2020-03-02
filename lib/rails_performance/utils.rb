@@ -12,6 +12,17 @@ module RailsPerformance
       now.strftime("%H:%M")
     end
 
+    def Utils.log_job_in_redis(e)
+      key   = "job-performance|queue|#{e[:queue]}|worker|#{e[:worker]}|jid|#{e[:jid]}|created_ati|#{e[:created_ati]}|enqueued_ati|#{e[:enqueued_ati]}|start_timei|#{e[:start_timei]}|duration|#{e[:duration]}|status|#{e[:status]}|END"
+      value = { message: e[:message] }
+
+      #puts "  [SAVE]    key  --->  #{key}\n"
+
+      RP.redis.set(key, value.to_json)
+      RP.redis.expire(key, RP.duration.to_i)
+      true
+    end
+
     def Utils.log_request_in_redis(e)
       value = e.slice(:view_runtime, :db_runtime, :duration, :HTTP_REFERER)
       key   = "performance|controller|#{e[:controller]}|action|#{e[:action]}|format|#{e[:format]}|status|#{e[:status]}|datetime|#{e[:datetime]}|datetimei|#{e[:datetimei]}|method|#{e[:method]}|path|#{e[:path]}|request_id|#{e[:request_id]}|END"

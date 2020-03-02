@@ -17,3 +17,5 @@ gemspec
 gem 'pry'
 
 gem 'simplecov', require: false, group: :test
+
+gem 'sidekiq', '5.2.7'
