@@ -46,6 +46,13 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get jobs with params" do
+    setup_db
+    setup_job_db
+    get '/rails/performance/jobs'
+    assert_response :success
+  end
+
   test "should get trace with params" do
     setup_db(dummy_event(request_id: "112233"))
     RP::Utils.log_trace_in_redis("112233", [

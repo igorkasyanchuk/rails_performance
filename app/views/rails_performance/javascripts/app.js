@@ -1,4 +1,4 @@
-function showTIRChart(div, data) {
+function showTIRChart(div, data, addon, name) {
   Highcharts.chart(div, {
       time: {
         timezone: 'Europe/Kiev'
@@ -24,7 +24,7 @@ function showTIRChart(div, data) {
               if (this.y == 0) {
                 return '';
               }
-              return this.y + ' rpm';
+            return this.y + addon;
           }
       },
       xAxis: {
@@ -69,7 +69,7 @@ function showTIRChart(div, data) {
       },
       series: [{
           type: 'area',
-          name: 'RPM',
+          name: name,
           data: data,
           fillOpacity: 0.3,
           lineWidth: 1,

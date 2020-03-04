@@ -25,7 +25,7 @@
 <% content_for :on_load do %>
   <script>
     var data1 = <%= raw @throughput_report_data.to_json %>;
-    showTIRChart('throughput_report_chart', data1);
+    showTIRChart('throughput_report_chart', data1, ' rpm', 'RPM');
 
     var data2 = <%= raw @response_time_report_data.to_json %>;
     showRTChart('response_time_report_chart', data2);

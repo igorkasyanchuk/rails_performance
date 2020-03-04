@@ -13,10 +13,11 @@ module RailsPerformance
     end
 
     def Utils.log_job_in_redis(e)
-      key   = "job-performance|queue|#{e[:queue]}|worker|#{e[:worker]}|jid|#{e[:jid]}|created_ati|#{e[:created_ati]}|enqueued_ati|#{e[:enqueued_ati]}|start_timei|#{e[:start_timei]}|duration|#{e[:duration]}|status|#{e[:status]}|END"
-      value = { message: e[:message] }
+      key   = "jobs|queue|#{e[:queue]}|worker|#{e[:worker]}|jid|#{e[:jid]}|datetime|#{e[:datetime]}|created_ati|#{e[:created_ati]}|enqueued_ati|#{e[:enqueued_ati]}|start_timei|#{e[:start_timei]}|status|#{e[:status]}|END"
+      value = { message: e[:message], duration: e[:duration] }
 
-      #puts "  [SAVE]    key  --->  #{key}\n"
+      # puts "  [SAVE]    key  --->  #{key}\n"
+      # puts "          value  --->  #{value.to_json}\n\n"
 
       RP.redis.set(key, value.to_json)
       RP.redis.expire(key, RP.duration.to_i)

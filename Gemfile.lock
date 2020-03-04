@@ -64,6 +64,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2)
+    ansi (1.5.0)
     builder (3.2.4)
     coderay (1.1.2)
     concurrent-ruby (1.1.6)
@@ -149,6 +150,8 @@ GEM
     sqlite3 (1.4.2)
     thor (1.0.1)
     thread_safe (0.3.6)
+    turn (0.9.6)
+      ansi
     tzinfo (1.2.6)
       thread_safe (~> 0.1)
     websocket-driver (0.7.1)
@@ -160,11 +163,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  minitest
   pry
   rails_performance!
   sidekiq (= 5.2.7)
   simplecov
   sqlite3
+  turn
 
 BUNDLED WITH
    2.1.3
