@@ -1,4 +1,4 @@
-0.9.1 (unreleased)
+0.9.1
   - sidekiq stats
 
 0.9.0.X

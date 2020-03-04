@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails_performance (0.9.0.1)
+    rails_performance (0.9.1)
       rails
       redis
       redis-namespace
@@ -64,7 +64,6 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2)
-    ansi (1.5.0)
     builder (3.2.4)
     coderay (1.1.2)
     concurrent-ruby (1.1.6)
@@ -90,7 +89,7 @@ GEM
     mini_portile2 (2.4.0)
     minitest (5.14.0)
     nio4r (2.5.2)
-    nokogiri (1.10.8)
+    nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
     pry (0.12.2)
       coderay (~> 1.1.0)
@@ -150,26 +149,22 @@ GEM
     sqlite3 (1.4.2)
     thor (1.0.1)
     thread_safe (0.3.6)
-    turn (0.9.6)
-      ansi
     tzinfo (1.2.6)
       thread_safe (~> 0.1)
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
-    zeitwerk (2.2.2)
+    zeitwerk (2.3.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  minitest
   pry
   rails_performance!
   sidekiq (= 5.2.7)
   simplecov
   sqlite3
-  turn
 
 BUNDLED WITH
    2.1.3

@@ -16,6 +16,7 @@ It allows you to track:
 - total duration of time spent per request, views rendering, DB
 - SQL queries, rendering logs in "Recent Requests" section
 - simple 500-crashes reports
+- track Sidekiq jobs performance
 
 All data are stored in `local` Redis and not sent to any 3rd party servers.
 
