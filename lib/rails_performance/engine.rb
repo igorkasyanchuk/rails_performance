@@ -19,7 +19,15 @@ module RailsPerformance
           ActionView::LogSubscriber.send :prepend, RailsPerformance::Extensions::View
           ActiveRecord::LogSubscriber.send :prepend, RailsPerformance::Extensions::Db
         end
+      end
 
+      if const_defined?("Sidekiq")
+        require_relative './gems/sidekiq.rb'
+        Sidekiq.configure_server do |config|
+          config.server_middleware do |chain|
+            chain.add RailsPerformance::Gems::Sidekiq
+          end
+        end
       end
 
     end

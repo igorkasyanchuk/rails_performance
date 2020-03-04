@@ -7,6 +7,8 @@ RailsPerformance::Engine.routes.draw do
 
   get '/trace/:id'  => 'rails_performance#trace', as: :rails_performance_trace
   get '/summary'    => 'rails_performance#summary', as: :rails_performance_summary
+
+  get '/jobs'       => 'rails_performance#jobs', as: :rails_performance_jobs
 end
 
 Rails.application.routes.draw do

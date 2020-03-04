@@ -1,8 +1,7 @@
 module RailsPerformance
   module Models
-    class Record
+    class Record < BaseRecord
       attr_reader :controller, :action, :format, :status, :datetime, :datetimei, :method, :path, :request_id
-
 
       def Record.find_by(request_id:)
         keys, values = RP::Utils.fetch_from_redis("performance|*|request_id|#{request_id}|*")
@@ -42,10 +41,6 @@ module RailsPerformance
         @request_id = items[18]
       end
 
-      def value
-        @value ||= JSON.parse(@json || "{}")
-      end
-
       def controller_action
         "#{controller}##{action}"
       end
@@ -61,21 +56,11 @@ module RailsPerformance
           format: format,
           method: method,
           path: path,
-          duration: ms(value['duration']),
+          duration: ms(duration),
           view_runtime: ms(value['view_runtime']),
           db_runtime: ms(value['db_runtime']),
           HTTP_REFERER: value['HTTP_REFERER']
         }
-      end
-
-      private
-
-      def ms(e)
-        if e
-          e.to_f.round(1).to_s + " ms"
-        else
-          nil
-        end
       end
 
     end

@@ -4,7 +4,7 @@ class RailsPerformanceController < BaseController
 
   if RailsPerformance.enabled
     def index
-      @datasource                = RP::DataSource.new(prepare_query)
+      @datasource                = RP::DataSource.new(**prepare_query, type: :requests, klass: RP::Models::Record)
       db                         = @datasource.db
 
       @throughput_report         = RP::Reports::ThroughputReport.new(db)
@@ -15,7 +15,7 @@ class RailsPerformanceController < BaseController
     end
 
     def summary
-      @datasource                = RP::DataSource.new(prepare_query)
+      @datasource                = RP::DataSource.new(**prepare_query, type: :requests, klass: RP::Models::Record)
       db                         = @datasource.db
 
       @throughput_report         = RP::Reports::ThroughputReport.new(db)
@@ -44,24 +44,38 @@ class RailsPerformanceController < BaseController
     end
 
     def crashes
-      @datasource   = RP::DataSource.new(prepare_query({status_eq: 500}))
+      @datasource   = RP::DataSource.new(**prepare_query({status_eq: 500}), type: :requests, klass: RP::Models::Record)
       db            = @datasource.db
       @report       = RP::Reports::CrashReport.new(db)
       @data         = @report.data
     end
 
     def requests
-      @datasource = RP::DataSource.new(prepare_query)
+      @datasource = RP::DataSource.new(**prepare_query, type: :requests, klass: RP::Models::Record)
       db          = @datasource.db
       @report     = RP::Reports::RequestsReport.new(db, group: :controller_action_format, sort: :count)
       @data       = @report.data
     end
 
     def recent
-      @datasource = RP::DataSource.new(prepare_query)
+      @datasource = RP::DataSource.new(**prepare_query, type: :requests, klass: RP::Models::Record)
       db          = @datasource.db
       @report     = RP::Reports::RecentRequestsReport.new(db)
       @data       = @report.data
+    end
+
+    def jobs
+      @datasource                = RP::DataSource.new(**prepare_query, type: :jobs, klass: RP::Models::JobRecord)
+      db                         = @datasource.db
+
+      @throughput_report         = RP::Reports::ThroughputReport.new(db)
+      @throughput_report_data    = @throughput_report.data
+
+      @response_time_report      = RP::Reports::ResponseTimeReport.new(db)
+      @response_time_report_data = @response_time_report.data
+
+      @recent_report             = RP::Reports::RecentRequestsReport.new(db)
+      @recent_report_data        = @recent_report.data(:jobs)
     end
 
     private

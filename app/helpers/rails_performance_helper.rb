@@ -107,6 +107,8 @@ module RailsPerformanceHelper
       "is-active" if controller_name == "rails_performance" && action_name == "requests"
     when :recent
       "is-active" if controller_name == "rails_performance" && action_name == "recent"
+    when :jobs
+      "is-active" if controller_name == "rails_performance" && action_name == "jobs"
     end
   end
 end
