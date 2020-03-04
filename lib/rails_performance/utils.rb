@@ -15,37 +15,18 @@ module RailsPerformance
     def Utils.log_job_in_redis(e)
       key   = "jobs|queue|#{e[:queue]}|worker|#{e[:worker]}|jid|#{e[:jid]}|datetime|#{e[:datetime]}|created_ati|#{e[:created_ati]}|enqueued_ati|#{e[:enqueued_ati]}|start_timei|#{e[:start_timei]}|status|#{e[:status]}|END"
       value = { message: e[:message], duration: e[:duration] }
-
-      # puts "  [SAVE]    key  --->  #{key}\n"
-      # puts "          value  --->  #{value.to_json}\n\n"
-
-      RP.redis.set(key, value.to_json)
-      RP.redis.expire(key, RP.duration.to_i)
-      true
+      Utils.save_to_redis(key, value)
     end
 
     def Utils.log_request_in_redis(e)
       value = e.slice(:view_runtime, :db_runtime, :duration, :HTTP_REFERER)
       key   = "performance|controller|#{e[:controller]}|action|#{e[:action]}|format|#{e[:format]}|status|#{e[:status]}|datetime|#{e[:datetime]}|datetimei|#{e[:datetimei]}|method|#{e[:method]}|path|#{e[:path]}|request_id|#{e[:request_id]}|END"
-
-      # puts "  [SAVE]    key  --->  #{key}\n"
-      # puts "          value  --->  #{value.to_json}\n\n"
-
-      RP.redis.set(key, value.to_json)
-      RP.redis.expire(key, RP.duration.to_i)
-
-      true
+      Utils.save_to_redis(key, value)
     end
 
     def Utils.log_trace_in_redis(request_id, value)
       key = "trace|#{request_id}"
-
-      # puts "  [SAVE]    key  --->  #{key}\n"
-      # puts "          value  --->  #{value.to_json}\n\n"
-      # pp value
-
-      RP.redis.set(key, value.to_json)
-      RP.redis.expire(key, RailsPerformance::Reports::RecentRequestsReport::TIME_WINDOW.to_i)
+      Utils.save_to_redis(key, value, RailsPerformance::Reports::RecentRequestsReport::TIME_WINDOW.to_i)
     end
 
     def Utils.fetch_from_redis(query)
@@ -74,6 +55,13 @@ module RailsPerformance
       else
         sorted[center]
       end
+    end
+
+    def Utils.save_to_redis(key, value, expire = RP.duration.to_i)
+      # puts "  [SAVE]    key  --->  #{key}\n"
+      # puts "          value  --->  #{value.to_json}\n\n"
+      RP.redis.set(key, value.to_json)
+      RP.redis.expire(key, expire.to_i)
     end
 
   end

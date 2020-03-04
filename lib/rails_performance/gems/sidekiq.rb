@@ -25,7 +25,7 @@ module RailsPerformance
         ensure
           # store in ms instead of seconds
           data[:duration] = (Time.now - now) * 1000
-          puts data
+          #puts data
           RailsPerformance::Utils.log_job_in_redis(data)
         end
       end

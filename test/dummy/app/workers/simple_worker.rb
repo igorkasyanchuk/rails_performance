@@ -2,6 +2,6 @@ class SimpleWorker
   include Sidekiq::Worker
 
   def perform(*args)
-    sleep(rand(15.0))
+    sleep(rand(1000) / 100.0)
   end
 end
