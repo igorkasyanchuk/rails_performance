@@ -1,4 +1,4 @@
-class BaseController < ActionController::Base
+class BaseController < ApplicationController
   layout 'rails_performance/layouts/rails_performance'
 
   before_action :verify_access
