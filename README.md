@@ -106,7 +106,7 @@ Just clone the repo, setup dummy app (`rails db:migrate`).
 After this:
 
 - rails s
-- rake tests
+- rake test
 
 Like a regular web development.
 
