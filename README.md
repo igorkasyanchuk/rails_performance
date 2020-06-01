@@ -145,6 +145,10 @@ The idea of this gem grew from curriosity how many RPM my app receiving per day.
 
 You are welcome to contribute. I've a big list of TODO.
 
+## Big thanks to contributors
+
+- https://github.com/synth
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
