@@ -17,6 +17,7 @@ It allows you to track:
 - SQL queries, rendering logs in "Recent Requests" section
 - simple 500-crashes reports
 - track Sidekiq jobs performance
+- works with Rails 4.2+ (and probably 4.1, 4.0 too)
 
 All data are stored in `local` Redis and not sent to any 3rd party servers.
 
