@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails_performance (0.9.2)
+    rails_performance (0.9.3)
       rails
       redis
       redis-namespace
@@ -151,9 +151,9 @@ GEM
     thread_safe (0.3.6)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
-    websocket-driver (0.7.1)
+    websocket-driver (0.7.2)
       websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.4)
+    websocket-extensions (0.1.5)
     zeitwerk (2.3.0)
 
 PLATFORMS

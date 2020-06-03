@@ -7,7 +7,11 @@ module RailsPerformance
 
     if RailsPerformance.try(:enabled) # for rails c
 
-      config.app_middleware.insert_after ActionDispatch::Executor, RailsPerformance::Rails::Middleware
+      if ::Rails::VERSION::MAJOR.to_i >= 5
+        config.app_middleware.insert_after ActionDispatch::Executor, RailsPerformance::Rails::Middleware
+      else
+        config.app_middleware.insert_after ActionDispatch::Static, RailsPerformance::Rails::Middleware
+      end
 
       initializer :configure_metrics, after: :initialize_logger do
         ActiveSupport::Notifications.subscribe(

@@ -1,3 +1,9 @@
+0.9.3
+  - Rails 4.2 support added (and probably >= 4.0)
+
+0.9.2
+  - fixed days calculation
+
 0.9.1
   - sidekiq stats
 
