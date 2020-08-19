@@ -1,3 +1,7 @@
+0.9.4
+  - Better thread safe
+  - added an additional icon to see the details of the request
+
 0.9.3
   - Rails 4.2 support added (and probably >= 4.0)
 

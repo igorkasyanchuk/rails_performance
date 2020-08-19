@@ -6,6 +6,10 @@ module RailsPerformance
       end
 
       def call(env)
+        dup.call!(env)
+      end
+
+      def call!(env)
         @status, @headers, @response = @app.call(env)
 
         #t = Time.now
