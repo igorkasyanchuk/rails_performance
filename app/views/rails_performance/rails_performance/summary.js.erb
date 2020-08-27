@@ -1,5 +1,5 @@
 window.panel.header.html(window.panel.close + '<%= j report_name(@datasource.q) %>');
-window.panel.content.html("<%= j render '/rails_performance/summary' %>");
+window.panel.content.html("<%= j render '/rails_performance/rails_performance/summary' %>");
 
 var data1 = <%= raw @throughput_report_data.to_json %>;
 showTIRChart('throughput_report_chart_mini', data1, ' rpm', 'RPM');

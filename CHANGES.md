@@ -1,3 +1,6 @@
+0.9.5
+  - Isolate namespace and helpers to skip overiding helpers
+
 0.9.4
   - Better thread safe
   - added an additional icon to see the details of the request

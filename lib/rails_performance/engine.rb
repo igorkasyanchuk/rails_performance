@@ -4,6 +4,7 @@ require_relative './instrument/metrics_collector.rb'
 
 module RailsPerformance
   class Engine < ::Rails::Engine
+    isolate_namespace RailsPerformance
 
     if RailsPerformance.try(:enabled) # for rails c
 
