@@ -1,3 +1,7 @@
+0.9.6
+  - support for Ruby 2.2
+  - mount at needed path, using configulation option
+
 0.9.5
   - Isolate namespace and helpers to skip overiding helpers
 

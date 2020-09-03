@@ -34,6 +34,10 @@ module RailsPerformance
   mattr_accessor :enabled
   @@enabled = true
 
+  # default path where to mount gem
+  mattr_accessor :mount_at
+  @@mount_at = "/rails/performance"
+
   # Enable http basic authentication
   mattr_accessor :http_basic_authentication_enabled
   @@http_basic_authentication_enabled = false

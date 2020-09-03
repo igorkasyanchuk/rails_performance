@@ -5,6 +5,8 @@ RailsPerformance.setup do |config|
   config.debug    = false # currently not used>
   config.enabled  = true
 
+  #config.mount_at = '/admin/performance'
+
   # protect your Performance Dashboard with HTTP BASIC password
   config.http_basic_authentication_enabled   = false
   config.http_basic_authentication_user_name = 'rails_performance'

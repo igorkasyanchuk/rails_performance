@@ -17,7 +17,7 @@ It allows you to track:
 - SQL queries, rendering logs in "Recent Requests" section
 - simple 500-crashes reports
 - track Sidekiq jobs performance
-- works with Rails 4.2+ (and probably 4.1, 4.0 too)
+- works with Rails 4.2+ (and probably 4.1, 4.0 too) and Ruby 2.2+
 
 All data are stored in `local` Redis and not sent to any 3rd party servers.
 
@@ -49,6 +49,9 @@ RailsPerformance.setup do |config|
   config.debug    = false # currently not used>
   config.enabled  = true
 
+  # default path where to mount gem
+  config.mount_at = '/rails/performance'
+
   # protect your Performance Dashboard with HTTP BASIC password
   config.http_basic_authentication_enabled   = false
   config.http_basic_authentication_user_name = 'rails_performance'
@@ -67,7 +70,7 @@ Add this line to your application's Gemfile:
 ```ruby
 gem 'rails_performance'
 
-# or 
+# or
 
 group :development, :production do
   gem 'rails_performance'
@@ -149,6 +152,7 @@ You are welcome to contribute. I've a big list of TODO.
 ## Big thanks to contributors
 
 - https://github.com/synth
+- https://github.com/alagos
 
 ## License
 
