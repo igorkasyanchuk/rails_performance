@@ -1,21 +1,12 @@
 RailsPerformance::Engine.routes.draw do
-  get '/'          => 'rails_performance#index', as: :rails_performance
+  root to: "rails_performance#index"
 
-  get '/requests'  => 'rails_performance#requests', as: :rails_performance_requests
-  get '/crashes'   => 'rails_performance#crashes', as: :rails_performance_crashes
-  get '/recent'    => 'rails_performance#recent', as: :rails_performance_recent
+  get '/requests', to: 'rails_performance#requests'
+  get '/crashes', to: 'rails_performance#crashes'
+  get '/recent', to: 'rails_performance#recent'
 
-  get '/trace/:id'  => 'rails_performance#trace', as: :rails_performance_trace
-  get '/summary'    => 'rails_performance#summary', as: :rails_performance_summary
+  get '/trace/:id', to: 'rails_performance#trace', as: :trace
+  get '/summary', to: 'rails_performance#summary'
 
-  get '/jobs'       => 'rails_performance#jobs', as: :rails_performance_jobs
-end
-
-Rails.application.routes.draw do
-  begin
-    mount RailsPerformance::Engine => '/rails/performance', as: 'rails_performance'
-  rescue ArgumentError
-      # already added
-      # this cod exist here because engine not includes routing automatically
-  end
+  get '/jobs', to: 'rails_performance#jobs'
 end

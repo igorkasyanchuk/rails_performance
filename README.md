@@ -23,21 +23,41 @@ All data are stored in `local` Redis and not sent to any 3rd party servers.
 
 ## Production
 
-Gem is production-ready. At least on my 2 applications with ~800 unique users per day it works perfectly. 
+Gem is production-ready. At least on my 2 applications with ~800 unique users per day it works perfectly.
 
 Just don't forget to protect performance dashboard with http basic auth or check of current_user.
 
-## Usage
+## Installation
+Add this line to your application's Gemfile:
 
-```
-1. Add gem to the Gemfile (in appropriate group if needed)
-2. Start rails server
-3. Make a few requests to your app
-4. open localhost:3000/rails/performance
-5. Tune the configuration and deploy to production
+```ruby
+gem 'rails_performance'
+
+# or
+
+group :development, :production do
+  gem 'rails_performance'
+end
 ```
 
-Default configulation is listed below. But you can overide it.
+Then execute:
+```bash
+$ bundle
+```
+
+And mount the dashboard in your `config/routes.rb`:
+
+```ruby
+mount RailsPerformance::Engine, at: 'admin/performance'
+```
+
+You must also have installed Redis server, because this gem is storing data into it.
+
+After installation and configuration, start your Rails application, make a few requests, and open [localhost:3000/admin/performance](http://localhost:3000/admin/performance).
+
+## Configuring
+
+Default configuration is listed below. But you can overide it.
 
 Create `config/initializers/rails_performance.rb` in your app:
 
@@ -61,27 +81,13 @@ RailsPerformance.setup do |config|
 end if defined?(RailsPerformance)
 ```
 
-## Installation
-Add this line to your application's Gemfile:
+In case you want to authenticate with Devise, use:
 
 ```ruby
-gem 'rails_performance'
-
-# or 
-
-group :development, :production do
-  gem 'rails_performance'
+authenticate :user, -> (user) { user.admin? } do
+  mount RailsPerformance::Engine, at: 'admin/performance'
 end
 ```
-
-And then execute:
-```bash
-$ bundle
-```
-
-You must also have installed Redis server, because this gem is storing data into it.
-
-After installation and configuration, start your Rails application, make a few requests, and open `https://localhost:3000/rails/performance` URL.
 
 ## How it works
 

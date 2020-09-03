@@ -25,7 +25,7 @@
         <% @data.each do |e| %>
           <tr>
             <td><%= format_datetime e[:datetime] %></td>
-            <td><%= link_to e[:controller] + '#' + e[:action], rails_performance.rails_performance_summary_path({controller_eq: e[:controller], action_eq: e[:action]}), remote: true %></td>
+            <td><%= link_to e[:controller] + '#' + e[:action], summary_path({controller_eq: e[:controller], action_eq: e[:action]}), remote: true %></td>
             <td><%= e[:method] %></td>
             <td><%= e[:format] %></td>
             <td><%= link_to_path(e) %></td>
