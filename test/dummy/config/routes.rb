@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount RailsPerformance::Engine, at: 'rails/performance'
+
   namespace :account do
     get 'site/about'
     get 'site/crash'
