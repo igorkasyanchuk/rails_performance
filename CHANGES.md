@@ -1,6 +1,7 @@
 0.9.6
   - support for Ruby 2.2
-  - mount at needed path, using configulation option
+  - mount at needed path, using configuration option
+  - confirmed support for Rails 5.X
 
 0.9.5
   - Isolate namespace and helpers to skip overiding helpers

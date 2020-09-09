@@ -153,6 +153,7 @@ You are welcome to contribute. I've a big list of TODO.
 
 - https://github.com/synth
 - https://github.com/alagos
+- https://github.com/klondaiker
 
 ## License
 
