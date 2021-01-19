@@ -1,6 +1,7 @@
 # Rails Performance
 
 [![Build Status](https://travis-ci.org/igorkasyanchuk/rails_performance.svg?branch=master)](https://travis-ci.org/igorkasyanchuk/rails_performance)
+[![RailsJazz](https://github.com/igorkasyanchuk/rails_time_travel/blob/main/docs/my_other.svg?raw=true)](https://www.railsjazz.com)
 
 A self-hosted tool to monitor the performance of your Ruby on Rails application.
 
