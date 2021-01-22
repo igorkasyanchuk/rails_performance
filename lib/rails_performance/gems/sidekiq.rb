@@ -22,6 +22,7 @@ module RailsPerformance
         rescue Exception => ex
           data[:status]   = "exception"
           data[:message]  = ex.message
+          raise ex
         ensure
           # store in ms instead of seconds
           data[:duration] = (Time.now - now) * 1000
