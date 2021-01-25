@@ -1,3 +1,7 @@
+0.9.7
+  - re-raise error in sidekiq https://github.com/igorkasyanchuk/rails_performance/pull/18
+  - match mount url in collector https://github.com/igorkasyanchuk/rails_performance/pull/19
+
 0.9.6
   - support for Ruby 2.2
   - mount at needed path, using configuration option
