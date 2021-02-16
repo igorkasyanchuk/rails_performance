@@ -1,0 +1,8 @@
+Description:
+    Generates initial config for rails_performance gem
+
+Example:
+    bin/rails generate rails_performance:install
+
+    This will create:
+        config/initializers/rails_performance.rb
