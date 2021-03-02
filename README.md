@@ -135,9 +135,8 @@ The idea of this gem grew from curriosity how many RPM my app receiving per day.
 
 ## TODO
 
-- documentation in Readme
+- documentation in Readme?
 - capture stacktrace of 500 errors and show in side panel
-- CI for tests
 - time/zone config?
 - connected charts on dashboard, when zoom, when hover?
 - ability to zoom to see requests withing specific datetime range
