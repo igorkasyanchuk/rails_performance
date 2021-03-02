@@ -19,9 +19,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['2.6', '2.7', '3.0']
+        #ruby-version: ['2.6', '2.7', '3.0']
+        ruby-version: ['2.6']
 
     steps:
+    - name: Setup System
+      run: |
+        sudo apt-get install libsqlite3-dev    
     - uses: actions/checkout@v2
     - name: Set up Ruby
     # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
