@@ -60,8 +60,7 @@ module RailsPerformance
     def Utils.save_to_redis(key, value, expire = RP.duration.to_i)
       # puts "  [SAVE]    key  --->  #{key}\n"
       # puts "          value  --->  #{value.to_json}\n\n"
-      RP.redis.set(key, value.to_json)
-      RP.redis.expire(key, expire.to_i)
+      RP.redis.set(key, value.to_json, ex: expire.to_i)
     end
 
   end
