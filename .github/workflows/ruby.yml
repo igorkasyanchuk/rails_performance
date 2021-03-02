@@ -12,11 +12,26 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+    
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
+    services:
+      # Label used to access the service container
+      redis:
+        # Docker Hub image
+        image: redis
+        # Set health checks to wait until redis has started
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5    
+        ports:
+          # Maps port 6379 on service container to the host
+          - 6379:6379
+    
     strategy:
       matrix:
         #ruby-version: ['2.6', '2.7', '3.0']
@@ -35,14 +50,14 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - name: Setup Redis
-      # You may pin to the exact commit or the version.
-      # uses: zhulik/redis-action@765216a54a1114f109ce90a1de4775080be16ea5
-      uses: zhulik/redis-action@1.1.0
-      with:
-        # Version of Redis to use
-        redis version: # optional, default is latest
-        # Number of Redis databases
-        number of databases: # optional, default is 16
+#     - name: Setup Redis
+#       # You may pin to the exact commit or the version.
+#       # uses: zhulik/redis-action@765216a54a1114f109ce90a1de4775080be16ea5
+#       uses: zhulik/redis-action@1.1.0
+#       with:
+#         # Version of Redis to use
+#         redis version: # optional, default is latest
+#         # Number of Redis databases
+#         number of databases: # optional, default is 16
     - name: Run tests
       run: bundle exec rspec
