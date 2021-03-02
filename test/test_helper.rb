@@ -50,6 +50,10 @@ def dummy_job_event(worker: 'Worker', queue: 'default', jid: "jxzet-#{Time.now.t
   }
 end
 
+def reset_redis
+  RP.redis.redis.flushall
+end
+
 def setup_db(event = dummy_event)
   RailsPerformance::Utils.log_request_in_redis(event)
 end
