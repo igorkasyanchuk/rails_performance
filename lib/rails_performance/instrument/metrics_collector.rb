@@ -18,8 +18,8 @@ module RailsPerformance
       def call(event_name, started, finished, event_id, payload)
         event = ActiveSupport::Notifications::Event.new(event_name, started, finished, event_id, payload)
 
-        mount_url = RailsPerformance.mount_at || "/rails/performance/"
-        return if event.payload[:path] =~ /^#{Regexp.escape(mount_url)}/ 
+        return if %r{#{RailsPerformance.mount_at}}.match? event.payload[:path]
+        return if RailsPerformance.ignored_endpoints.include? "#{event.payload[:controller]}##{event.payload[:action]}"
 
         record = {
           controller: event.payload[:controller],

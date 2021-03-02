@@ -54,6 +54,9 @@ module RailsPerformance
   mattr_accessor :verify_access_proc
   @@verify_access_proc = proc { |controller| true }
 
+  mattr_accessor :ignored_endpoints
+  @@ignored_endpoints = []
+
   def self.setup
     yield(self)
   end
