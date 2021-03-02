@@ -24,7 +24,7 @@ All data are stored in `local` Redis and not sent to any 3rd party servers.
 
 ## Production
 
-Gem is production-ready. At least on my 2 applications with ~800 unique users per day it works perfectly. 
+Gem is production-ready. At least on my 2 applications with ~800 unique users per day it works perfectly.
 
 Just don't forget to protect performance dashboard with http basic auth or check of current_user.
 
@@ -66,6 +66,7 @@ end if defined?(RailsPerformance)
 ```
 
 ## Installation
+
 Add this line to your application's Gemfile:
 
 ```ruby
@@ -79,9 +80,18 @@ end
 ```
 
 And then execute:
+
 ```bash
 $ bundle
 ```
+
+Create default configuration file:
+
+```bash
+$ rails generate rails_performance:install
+```
+
+Have a look at `config/initializers/rails_performance.rb` and adjust the configuration to your needs.
 
 You must also have installed Redis server, because this gem is storing data into it.
 
@@ -127,7 +137,6 @@ The idea of this gem grew from curriosity how many RPM my app receiving per day.
 
 - documentation in Readme
 - capture stacktrace of 500 errors and show in side panel
-- generator for initial config
 - CI for tests
 - time/zone config?
 - connected charts on dashboard, when zoom, when hover?
