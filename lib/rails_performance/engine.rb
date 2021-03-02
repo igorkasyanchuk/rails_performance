@@ -1,3 +1,4 @@
+require 'action_view/log_subscriber'
 require_relative './rails/middleware.rb'
 require_relative './models/collection.rb'
 require_relative './instrument/metrics_collector.rb'
