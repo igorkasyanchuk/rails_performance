@@ -1,3 +1,9 @@
+0.9.8
+  - added "ignored_endpoints" options https://github.com/igorkasyanchuk/rails_performance/pull/22
+  - small changes in readme https://github.com/igorkasyanchuk/rails_performance/pull/21
+  - added generator https://github.com/igorkasyanchuk/rails_performance/pull/20
+  - added github actions
+
 0.9.7
   - re-raise error in sidekiq https://github.com/igorkasyanchuk/rails_performance/pull/18
   - match mount url in collector https://github.com/igorkasyanchuk/rails_performance/pull/19

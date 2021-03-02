@@ -1,6 +1,6 @@
 # Rails Performance
 
-[![Build Status](https://travis-ci.org/igorkasyanchuk/rails_performance.svg?branch=master)](https://travis-ci.org/igorkasyanchuk/rails_performance)
+[![Tests](https://github.com/igorkasyanchuk/rails_performance/actions/workflows/ruby.yml/badge.svg)](https://github.com/igorkasyanchuk/rails_performance/actions/workflows/ruby.yml)
 [![RailsJazz](https://github.com/igorkasyanchuk/rails_time_travel/blob/main/docs/my_other.svg?raw=true)](https://www.railsjazz.com)
 
 A self-hosted tool to monitor the performance of your Ruby on Rails application.
@@ -165,6 +165,8 @@ You are welcome to contribute. I've a big list of TODO.
 - https://github.com/alagos
 - https://github.com/klondaiker
 - https://github.com/jules2689
+- https://github.com/PedroAugustoRamalhoDuarte
+- https://github.com/haffla
 
 ## License
 
