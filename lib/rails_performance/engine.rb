@@ -7,27 +7,16 @@ module RailsPerformance
   class Engine < ::Rails::Engine
     isolate_namespace RailsPerformance
 
-    if RailsPerformance.try(:enabled) # for rails c
+    initializer "rails_performance.middleware" do |app|
+      next unless RailsPerformance.enabled
 
       if ::Rails::VERSION::MAJOR.to_i >= 5
-        config.app_middleware.insert_after ActionDispatch::Executor, RailsPerformance::Rails::Middleware
+        app.middleware.insert_after ActionDispatch::Executor, RailsPerformance::Rails::Middleware
       else
-        config.app_middleware.insert_after ActionDispatch::Static, RailsPerformance::Rails::Middleware
+        app.middleware.insert_after ActionDispatch::Static, RailsPerformance::Rails::Middleware
       end
 
-      initializer :configure_metrics, after: :initialize_logger do
-        ActiveSupport::Notifications.subscribe(
-          "process_action.action_controller",
-          RailsPerformance::Instrument::MetricsCollector.new
-        )
-
-        config.after_initialize do |app|
-          ActionView::LogSubscriber.send :prepend, RailsPerformance::Extensions::View
-          ActiveRecord::LogSubscriber.send :prepend, RailsPerformance::Extensions::Db
-        end
-      end
-
-      if const_defined?("Sidekiq")
+      if defined?(Sidekiq)
         require_relative './gems/sidekiq.rb'
         Sidekiq.configure_server do |config|
           config.server_middleware do |chain|
@@ -35,8 +24,22 @@ module RailsPerformance
           end
         end
       end
-
     end
 
+    initializer :configure_metrics, after: :initialize_logger do
+      next unless RailsPerformance.enabled
+
+      ActiveSupport::Notifications.subscribe(
+        "process_action.action_controller",
+        RailsPerformance::Instrument::MetricsCollector.new
+      )
+    end
+
+    config.after_initialize do
+      next unless RailsPerformance.enabled
+
+      ActionView::LogSubscriber.send :prepend, RailsPerformance::Extensions::View
+      ActiveRecord::LogSubscriber.send :prepend, RailsPerformance::Extensions::Db
+    end
   end
 end
