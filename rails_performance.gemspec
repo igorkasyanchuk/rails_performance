@@ -23,4 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "simplecov"
   spec.add_development_dependency "sidekiq"
+  spec.add_development_dependency "mimemagic"
 end

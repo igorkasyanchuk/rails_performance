@@ -20,3 +20,5 @@ gem 'sqlite3'
 gem 'simplecov', require: false, group: :test
 
 gem 'sidekiq', '5.2.7'
+
+gem 'mimemagic', '0.4.3'

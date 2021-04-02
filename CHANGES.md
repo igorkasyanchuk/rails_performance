@@ -1,3 +1,9 @@
+unreleased:
+  - ...
+
+0.9.9
+  - fix "enabled" behavior https://github.com/igorkasyanchuk/rails_performance/pull/23
+
 0.9.8
   - added "ignored_endpoints" options https://github.com/igorkasyanchuk/rails_performance/pull/22
   - small changes in readme https://github.com/igorkasyanchuk/rails_performance/pull/21
