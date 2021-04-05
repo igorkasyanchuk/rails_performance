@@ -23,7 +23,7 @@ module RailsPerformance
   FORMAT = "%Y%m%dT%H%M"
 
   mattr_accessor :redis
-  @@redis = Redis::Namespace.new("#{::Rails.env}-rails-performance", redis: Redis.new)
+  @@redis = Redis::Namespace.new("{#{::Rails.env}-rails-performance}", redis: Redis.new)
 
   mattr_accessor :duration
   @@duration = 4.hours
