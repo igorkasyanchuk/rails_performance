@@ -51,7 +51,8 @@ RailsPerformance.setup do |config|
   config.debug    = false # currently not used>
   config.enabled  = true
 
-  # default path where to mount gem
+  # default path where to mount gem,
+  # alternatively you can mount the RailsPerformance::Engine in your routes.rb
   config.mount_at = '/rails/performance'
 
   # protect your Performance Dashboard with HTTP BASIC password
@@ -97,6 +98,24 @@ Have a look at `config/initializers/rails_performance.rb` and adjust the configu
 You must also have installed Redis server, because this gem is storing data into it.
 
 After installation and configuration, start your Rails application, make a few requests, and open `https://localhost:3000/rails/performance` URL.
+
+### Alternative: Mounting the engine yourself
+
+If you, for whatever reason (company policy, devise, ...) need to mount RailsPerformance yourself, feel free to do so by using the following snippet as inspiration.
+You can skip the `mount_at` and `http_basic_authentication_*` configurations then, if you like.
+
+```ruby
+# config/routes.rb
+Rails.application.routes.draw do
+  ...
+  # example for usage with Devise
+  authenticate :user, -> (user) { user.admin? } do
+    mount RailsPerformance::Engine, at: 'rails/performance'
+  end
+end
+```
+
+
 
 ## How it works
 
