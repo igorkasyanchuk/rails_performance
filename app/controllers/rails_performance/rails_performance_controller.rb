@@ -80,6 +80,17 @@ module RailsPerformance
         @recent_report_data        = @recent_report.data(:jobs)
       end
 
+      def grape
+        @datasource                = RP::DataSource.new(**prepare_query, type: :grape, klass: RP::Models::GrapeRecord)
+        db                         = @datasource.db
+
+        @throughput_report         = RP::Reports::ThroughputReport.new(db)
+        @throughput_report_data    = @throughput_report.data
+
+        @recent_report             = RP::Reports::RecentRequestsReport.new(db)
+        @recent_report_data        = @recent_report.data(:grape)
+      end
+
       private
 
       def prepare_query(query = params)

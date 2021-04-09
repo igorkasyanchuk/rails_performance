@@ -21,6 +21,9 @@
       <% if defined?(Sidekiq) %>
         <%= link_to 'Sidekiq', rails_performance.rails_performance_jobs_url, class: "navbar-item #{active?(:jobs)}" %>
       <% end %>
+      <% if defined?(Grape) %>
+        <%= link_to 'Grape', rails_performance.rails_performance_grape_url, class: "navbar-item #{active?(:grape)}" %>
+      <% end %>
     </div>
 
     <div class="navbar-end">

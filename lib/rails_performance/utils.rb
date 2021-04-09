@@ -18,6 +18,12 @@ module RailsPerformance
       Utils.save_to_redis(key, value)
     end
 
+    def Utils.log_grape_request_in_redis(e)
+      key   = "grape|datetime|#{e[:datetime]}|created_ati|#{e[:created_ati]}|format|#{e[:format]}|path|#{e[:path]}|status|#{e[:status]}|method|#{e[:method]}|request_id|#{e[:request_id]}|END"
+      value = e.slice("endpoint_render.grape", "endpoint_run.grape", "format_response.grape")
+      Utils.save_to_redis(key, value)
+    end
+
     def Utils.log_request_in_redis(e)
       value = e.slice(:view_runtime, :db_runtime, :duration, :HTTP_REFERER)
       key   = "performance|controller|#{e[:controller]}|action|#{e[:action]}|format|#{e[:format]}|status|#{e[:status]}|datetime|#{e[:datetime]}|datetimei|#{e[:datetimei]}|method|#{e[:method]}|path|#{e[:path]}|request_id|#{e[:request_id]}|END"
@@ -58,6 +64,9 @@ module RailsPerformance
     end
 
     def Utils.save_to_redis(key, value, expire = RP.duration.to_i)
+      # TODO think here if add return
+      #return if value.empty?
+
       # puts "  [SAVE]    key  --->  #{key}\n"
       # puts "          value  --->  #{value.to_json}\n\n"
       RP.redis.set(key, value.to_json, ex: expire.to_i)

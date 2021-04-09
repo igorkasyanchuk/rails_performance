@@ -15,6 +15,8 @@ module RailsPerformance
       else
         app.middleware.insert_after ActionDispatch::Static, RailsPerformance::Rails::Middleware
       end
+      # look like it works in reverse order?
+      app.middleware.insert_before RailsPerformance::Rails::Middleware, RailsPerformance::Rails::MiddlewareTraceStorerAndCleanup
 
       if defined?(Sidekiq)
         require_relative './gems/sidekiq.rb'
@@ -23,6 +25,11 @@ module RailsPerformance
             chain.add RailsPerformance::Gems::Sidekiq
           end
         end
+      end
+
+      if defined?(Grape)
+        require_relative './gems/grape.rb'
+        RailsPerformance::Gems::Grape.register_subscribers
       end
     end
 

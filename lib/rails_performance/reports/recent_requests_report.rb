@@ -14,6 +14,8 @@ module RailsPerformance
             record_hash(record)
           when :jobs
             job_hash(record)
+          when :grape
+            grape_hash(record)
           end
         end
         .select{|e| e if e[:datetime] >= TIME_WINDOW.ago}
@@ -42,12 +44,22 @@ module RailsPerformance
         {
           worker: record.worker,
           queue: record.queue,
-          
           jid: record.jid,
           status: record.status,
           datetime: Time.at(record.start_timei.to_i),
           duration: record.value['duration'],
         }
+      end
+
+      def grape_hash(record)
+        {
+          format: record.format,
+          status: record.status,
+          method: record.method,
+          path: record.path,
+          datetime: Time.at(record.created_ati.to_i),
+          request_id: record.request_id,
+        }.merge(record.value)
       end
     end
 

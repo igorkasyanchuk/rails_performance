@@ -50,6 +50,20 @@ def dummy_job_event(worker: 'Worker', queue: 'default', jid: "jxzet-#{Time.now.t
   }
 end
 
+def dummy_grape_record(created_ati: Time.now.to_i, status: 200, format: "json", method: "GET", path: "/api/users")
+  {
+    path: path,
+    method: method,
+    format: format,
+    status: status,
+    created_ati: created_ati,
+    datetime: Time.at(created_ati).strftime(RailsPerformance::FORMAT),
+    "endpoint_render.grape" => rand(1.0),
+    "endpoint_run.grape" => rand(1.0),
+    "format_response.grape" => rand(1.0),
+  }
+end
+
 def reset_redis
   RP.redis.redis.flushall
 end

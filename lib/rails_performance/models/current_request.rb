@@ -1,6 +1,6 @@
 module RailsPerformance
   class CurrentRequest
-    attr_reader :request_id, :storage
+    attr_reader :request_id, :storage, :ignore
     attr_accessor :record
 
     def CurrentRequest.init
@@ -12,6 +12,7 @@ module RailsPerformance
     end
 
     def CurrentRequest.cleanup
+      #::Rails.logger.debug "----------------------------------------------------> CurrentRequest.cleanup !!!!!!!!!!!! -------------------------\n\n"
       Thread.current[:rp_current_request] = nil
     end
 
@@ -19,6 +20,7 @@ module RailsPerformance
       @request_id = request_id
       @storage    = []
       @record     = nil
+      @ignore     = []
     end
 
     def store(options = {})

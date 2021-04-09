@@ -1,5 +1,11 @@
 1.0.0 (unreleased)
   - support Redis cluster by default https://github.com/igorkasyanchuk/rails_performance/pull/26/files
+  - added instructions how to mount engine manutally in secured scope https://github.com/igorkasyanchuk/rails_performance/pull/27
+```ruby
+    authenticate :user, -> (user) { user.admin? } do
+      mount RailsPerformance::Engine, at: 'rails/performance'
+    end
+```
 
 0.9.9
   - fix "enabled" behavior https://github.com/igorkasyanchuk/rails_performance/pull/23

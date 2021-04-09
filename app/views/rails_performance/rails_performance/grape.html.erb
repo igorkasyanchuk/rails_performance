@@ -1,0 +1,62 @@
+<title>Grape</title>
+
+<% unless @datasource.default? %>
+  <%#= link_to raw("&larr; Back"), rails_performance_path, class: "back_link" %>
+<% end %>
+
+<div class="card">
+  <div class="card-content">
+    <h2 class="subtitle">Grape Throughput Report</h2>
+    <div id="throughput_report_chart" class="chart"></div>
+    <p class="content is-small"></p>
+  </div>
+</div>
+
+<br/>
+
+<div class="card">
+  <div class="card-content">
+    <h2 class="subtitle">Recent Requests (last <%= RailsPerformance::Reports::RecentRequestsReport::TIME_WINDOW / 60 %> minutes)<h2>
+
+    <table class="table is-fullwidth is-hoverable is-narrow">
+      <thead>
+        <tr>
+          <th data-sort="string">Datetime</th>
+          <th data-sort="string">Method</th>
+          <th data-sort="string">Path</th>
+          <th data-sort="string">Status</th>
+          <th data-sort="float">endpoint_render.grape</th>
+          <th data-sort="float">endpoint_run.grape</th>
+          <th data-sort="float">format_response.grape</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @recent_report_data.empty? %>
+          <tr>
+            <td colspan="10">Nothing to show here. Try to make a few requests in main app.</td>
+          </tr>
+        <% end %>
+        <% @recent_report_data.each do |e| %>
+          <tr>
+            <td><%= format_datetime e[:datetime] %></td>
+            <td><%= e[:method] %></td>
+            <td><%= e[:path] %></td>
+            <td><%= status_tag e[:status] %></td>
+            <td class="nowrap"><%= e["endpoint_render.grape"] %></td>
+            <td class="nowrap"><%= e["endpoint_run.grape"] %></td>
+            <td class="nowrap"><%= e["format_response.grape"] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<% content_for :on_load do %>
+  <script>
+    var data1 = <%= raw @throughput_report_data.to_json %>;
+    showTIRChart('throughput_report_chart', data1, ' requests / minute', 'Requests');
+  </script>
+<% end %>

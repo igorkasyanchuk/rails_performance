@@ -48,6 +48,8 @@ module RailsPerformance
         "performance|*#{compile_requests_query}*|END"
       when :jobs
         "jobs|*#{compile_jobs_query}*|END"
+      when :grape
+        "grape|*#{compile_jobs_query}*|END"
       else
         raise "wrong type for datasource query builder"
       end
@@ -72,6 +74,15 @@ module RailsPerformance
 
       str << "queue|#{q[:queue]}|" if q[:queue].present?
       str << "worker|#{q[:worker]}|" if q[:worker].present?
+      str << "datetime|#{q[:on].strftime('%Y%m%d')}*|" if q[:on].present?
+      str << "status|#{q[:status]}|" if q[:status].present?
+
+      str.join("*")
+    end
+
+    def compile_grape_query
+      str = []
+
       str << "datetime|#{q[:on].strftime('%Y%m%d')}*|" if q[:on].present?
       str << "status|#{q[:status]}|" if q[:status].present?
 

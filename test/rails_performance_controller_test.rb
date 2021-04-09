@@ -83,6 +83,15 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get grape page" do
+    setup_db
+    setup_job_db
+    get '/api/users'
+    get '/api/ping'
+    get '/rails/performance/grape'
+    assert_response :success
+  end
+
   test "should get trace with params" do
     setup_db(dummy_event(request_id: "112233"))
     RP::Utils.log_trace_in_redis("112233", [

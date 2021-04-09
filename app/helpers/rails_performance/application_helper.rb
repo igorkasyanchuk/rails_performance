@@ -110,6 +110,8 @@ module RailsPerformance
         "is-active" if controller_name == "rails_performance" && action_name == "recent"
       when :jobs
         "is-active" if controller_name == "rails_performance" && action_name == "jobs"
+      when :grape
+        "is-active" if controller_name == "rails_performance" && action_name == "grape"
       end
     end
   end

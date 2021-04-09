@@ -9,6 +9,7 @@ RailsPerformance::Engine.routes.draw do
   get '/summary'    => 'rails_performance#summary', as: :rails_performance_summary
 
   get '/jobs'       => 'rails_performance#jobs', as: :rails_performance_jobs
+  get '/grape'      => 'rails_performance#grape', as: :rails_performance_grape
 end
 
 Rails.application.routes.draw do
