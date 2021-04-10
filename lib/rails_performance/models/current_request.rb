@@ -12,7 +12,7 @@ module RailsPerformance
     end
 
     def CurrentRequest.cleanup
-      #::Rails.logger.debug "----------------------------------------------------> CurrentRequest.cleanup !!!!!!!!!!!! -------------------------\n\n"
+      RailsPerformance.log "----------------------------------------------------> CurrentRequest.cleanup !!!!!!!!!!!! -------------------------\n\n"
       Thread.current[:rp_current_request] = nil
     end
 

@@ -16,10 +16,10 @@ module RailsPerformance
       # }
 
       def call(event_name, started, finished, event_id, payload)
+        return if RailsPerformance.skip
         # TODO do we need this new?
         event = ActiveSupport::Notifications::Event.new(event_name, started, finished, event_id, payload)
 
-        return if %r{#{RailsPerformance.mount_at}}.match? event.payload[:path]
         return if RailsPerformance.ignored_endpoints.include? "#{event.payload[:controller]}##{event.payload[:action]}"
 
         record = {

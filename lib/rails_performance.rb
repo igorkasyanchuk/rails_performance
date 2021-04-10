@@ -17,7 +17,7 @@ require_relative "rails_performance/reports/throughput_report.rb"
 require_relative "rails_performance/reports/recent_requests_report.rb"
 require_relative "rails_performance/reports/breakdown_report.rb"
 require_relative "rails_performance/reports/trace_report.rb"
-require_relative "rails_performance/extensions/capture_everything.rb"
+require_relative "rails_performance/extensions/rails_ext.rb"
 require_relative "rails_performance/models/current_request.rb"
 
 module RailsPerformance
@@ -61,8 +61,16 @@ module RailsPerformance
   end
   @@ignored_endpoints = []
 
+  # skip requests if it's inside Rails Performance view
+  mattr_accessor :skip
+  @@skip = false
+
   def self.setup
     yield(self)
+  end
+
+  def self.log(message)
+    ::Rails.logger.debug(message)
   end
 
 end

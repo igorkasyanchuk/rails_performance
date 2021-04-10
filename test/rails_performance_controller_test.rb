@@ -3,6 +3,7 @@ require 'test_helper'
 class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
   setup do
     reset_redis
+    RailsPerformance.skip = false
   end
 
   def requests_report_data
@@ -26,7 +27,7 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
     assert_equal requests_report_data.first[:group], "HomeController#contact|html"
     reset_redis
     assert_equal requests_report_data.size, 0
-    
+
     original_ignored_endpoints = RP.ignored_endpoints
     RP.ignored_endpoints = ['HomeController#contact']
     get '/home/contact'
@@ -59,9 +60,14 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get crashes with params" do
-    setup_db
+    begin
+      get '/account/site/crash'
+    rescue
+    end
+
     get '/rails/performance/crashes'
     assert_response :success
+    assert response.body.include?("Account::SiteController")
   end
 
   test "should get requests with params" do
@@ -88,6 +94,7 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
     setup_job_db
     get '/api/users'
     get '/api/ping'
+    get '/api/crash'
     get '/rails/performance/grape'
     assert_response :success
   end
