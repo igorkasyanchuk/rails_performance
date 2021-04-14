@@ -7,7 +7,7 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
   end
 
   def requests_report_data
-    source = RP::DataSource.new(type: :requests, klass: RP::Models::Record)
+    source = RP::DataSource.new(type: :requests, klass: RP::Models::RequestRecord)
     RP::Reports::RequestsReport.new(source.db, group: :controller_action_format).data
   end
 

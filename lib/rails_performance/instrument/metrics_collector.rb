@@ -36,7 +36,7 @@ module RailsPerformance
           duration: event.duration
         }
 
-        CurrentRequest.current.record = record
+        CurrentRequest.current.data = record
       end
     end
   end

@@ -7,7 +7,7 @@ module RailsPerformance
 
       def call(worker, msg, queue)
         now  = Time.now
-        data = {
+        record = RP::Models::JobRecord.new(
           enqueued_ati: msg['enqueued_at'].to_i,
           created_ati: msg['created_at'].to_i,
           jid: msg['jid'],
@@ -15,19 +15,19 @@ module RailsPerformance
           start_timei: now.to_i,
           datetime: now.strftime(RailsPerformance::FORMAT),
           worker: msg['wrapped'.freeze] || worker.class.to_s
-        }
+        )
         begin
           yield
-          data[:status]   = "success"
+          record.status   = "success"
         rescue Exception => ex
-          data[:status]   = "exception"
-          data[:message]  = ex.message
+          record.status   = "exception"
+          record.message  = ex.message
           raise ex
         ensure
           # store in ms instead of seconds
-          data[:duration] = (Time.now - now) * 1000
+          record.duration = (Time.now - now) * 1000
           #puts data
-          RailsPerformance::Utils.log_job_in_redis(data)
+          record.save
         end
       end
 

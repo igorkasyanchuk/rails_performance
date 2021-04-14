@@ -36,7 +36,11 @@ module RailsPerformance
       return [] if keys.blank?
 
       keys.each_with_index do |key, index|
-        yield klass.new(key, values[index])
+        if type == :jobs || type == :requests
+          yield klass.from_db(key, values[index])
+        else
+          yield klass.new(key, values[index])
+        end
       end
     end
 

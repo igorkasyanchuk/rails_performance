@@ -1,7 +1,7 @@
 module RailsPerformance
   class CurrentRequest
     attr_reader :request_id, :storage, :ignore
-    attr_accessor :record
+    attr_accessor :data
 
     def CurrentRequest.init
       Thread.current[:rp_current_request] ||= CurrentRequest.new(SecureRandom.hex(16))
@@ -19,8 +19,8 @@ module RailsPerformance
     def initialize(request_id)
       @request_id = request_id
       @storage    = []
-      @record     = nil
       @ignore     = []
+      @data       = nil
     end
 
     def store(options = {})

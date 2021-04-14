@@ -6,7 +6,7 @@ module RailsPerformance
 
     if RailsPerformance.enabled
       def index
-        @datasource                = RP::DataSource.new(**prepare_query, type: :requests, klass: RP::Models::Record)
+        @datasource                = RP::DataSource.new(**prepare_query, type: :requests, klass: RP::Models::RequestRecord)
         db                         = @datasource.db
 
         @throughput_report         = RP::Reports::ThroughputReport.new(db)
@@ -17,7 +17,7 @@ module RailsPerformance
       end
 
       def summary
-        @datasource                = RP::DataSource.new(**prepare_query, type: :requests, klass: RP::Models::Record)
+        @datasource                = RP::DataSource.new(**prepare_query, type: :requests, klass: RP::Models::RequestRecord)
         db                         = @datasource.db
 
         @throughput_report         = RP::Reports::ThroughputReport.new(db)
@@ -36,7 +36,7 @@ module RailsPerformance
       end
 
       def trace
-        @record = RP::Models::Record.find_by(request_id: params[:id])
+        @record = RP::Models::RequestRecord.find_by(request_id: params[:id])
         @report = RP::Reports::TraceReport.new(request_id: params[:id])
         @data   = @report.data
         respond_to do |format|
@@ -46,21 +46,21 @@ module RailsPerformance
       end
 
       def crashes
-        @datasource   = RP::DataSource.new(**prepare_query({status_eq: 500}), type: :requests, klass: RP::Models::Record)
+        @datasource   = RP::DataSource.new(**prepare_query({status_eq: 500}), type: :requests, klass: RP::Models::RequestRecord)
         db            = @datasource.db
         @report       = RP::Reports::CrashReport.new(db)
         @data         = @report.data
       end
 
       def requests
-        @datasource = RP::DataSource.new(**prepare_query, type: :requests, klass: RP::Models::Record)
+        @datasource = RP::DataSource.new(**prepare_query, type: :requests, klass: RP::Models::RequestRecord)
         db          = @datasource.db
         @report     = RP::Reports::RequestsReport.new(db, group: :controller_action_format, sort: :count)
         @data       = @report.data
       end
 
       def recent
-        @datasource = RP::DataSource.new(**prepare_query, type: :requests, klass: RP::Models::Record)
+        @datasource = RP::DataSource.new(**prepare_query, type: :requests, klass: RP::Models::RequestRecord)
         db          = @datasource.db
         @report     = RP::Reports::RecentRequestsReport.new(db)
         @data       = @report.data

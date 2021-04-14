@@ -21,7 +21,7 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
 end
 
 def dummy_event(time: Time.now, controller: "Home", action: "index", status: 200, path: '/', method: "GET", request_id: SecureRandom.hex(16))
-  {
+  RailsPerformance::Models::RequestRecord.new(
     controller: controller,
     action: action,
     format: "html",
@@ -34,20 +34,21 @@ def dummy_event(time: Time.now, controller: "Home", action: "index", status: 200
     db_runtime: rand(100.0),
     duration: 100 + rand(100.0),
     request_id: request_id
-  }
+  )
 end
 
 def dummy_job_event(worker: 'Worker', queue: 'default', jid: "jxzet-#{Time.now.to_i}", created_ati: Time.now.to_i, enqueued_ati: Time.now.to_i, start_timei: Time.now.to_i, duration: rand(60), status: 'success')
-  {
+  RailsPerformance::Models::JobRecord.new(
     queue: queue,
     worker: worker,
     jid: jid,
     created_ati: created_ati,
     enqueued_ati: enqueued_ati,
+    datetime: Time.at(created_ati).strftime(RailsPerformance::FORMAT),
     start_timei: start_timei,
     duration: duration,
     status: status,
-  }
+  )
 end
 
 def dummy_grape_record(created_ati: Time.now.to_i, status: 200, format: "json", method: "GET", path: "/api/users")
@@ -69,9 +70,9 @@ def reset_redis
 end
 
 def setup_db(event = dummy_event)
-  RailsPerformance::Utils.log_request_in_redis(event)
+  event.save
 end
 
 def setup_job_db(event = dummy_job_event)
-  RailsPerformance::Utils.log_job_in_redis(event)
+  event.save
 end
