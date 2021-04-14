@@ -12,12 +12,6 @@ module RailsPerformance
       now.strftime("%H:%M")
     end
 
-    def Utils.log_grape_request_in_redis(e)
-      key   = "grape|datetime|#{e[:datetime]}|created_ati|#{e[:created_ati]}|format|#{e[:format]}|path|#{e[:path]}|status|#{e[:status]}|method|#{e[:method]}|request_id|#{e[:request_id]}|END"
-      value = e.slice("endpoint_render.grape", "endpoint_run.grape", "format_response.grape")
-      Utils.save_to_redis(key, value)
-    end
-
     def Utils.log_trace_in_redis(request_id, value)
       key = "trace|#{request_id}"
       Utils.save_to_redis(key, value, RailsPerformance::Reports::RecentRequestsReport::TIME_WINDOW.to_i)

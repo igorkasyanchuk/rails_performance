@@ -5,25 +5,29 @@ module RailsPerformance
       def self.register_subscribers
         ActiveSupport::Notifications.subscribe(/grape/) do |name, start, finish, id, payload|
           # TODO change to set
-          CurrentRequest.current.ignore.push(:performance)
-          puts name
+          CurrentRequest.current.ignore.add(:performance)
+          #puts name
           #binding.pry
 
           now                                           = Time.now
           CurrentRequest.current.data               ||= {}
-          CurrentRequest.current.data[:created_ati] ||= now.to_i
-          CurrentRequest.current.data[:datetime]    ||= now.strftime(RailsPerformance::FORMAT)
-          CurrentRequest.current.data[name]           = finish - start
-          if payload[:env]
-            CurrentRequest.current.data[:status]      = payload[:env]['api.endpoint'].status
-            CurrentRequest.current.data[:format]      = payload[:env]["api.format"]
-            CurrentRequest.current.data[:method]      = payload[:env]['REQUEST_METHOD']
-            CurrentRequest.current.data[:path]        = payload[:env]["PATH_INFO"]
+          CurrentRequest.current.record             ||= RailsPerformance::Models::GrapeRecord.new(request_id: CurrentRequest.current.request_id)
+          CurrentRequest.current.record.created_ati ||= now.to_i
+          CurrentRequest.current.record.datetime    ||= now.strftime(RailsPerformance::FORMAT)
+
+          if ['endpoint_render.grape', 'endpoint_run.grape', 'format_response.grape'].include?(name)
+            CurrentRequest.current.record.send(name.gsub(".", "_") + "=", finish - start)
           end
-          CurrentRequest.current.data[:request_id]    = CurrentRequest.current.request_id
+
+          if payload[:env]
+            CurrentRequest.current.record.status      = payload[:env]['api.endpoint'].status
+            CurrentRequest.current.record.format      = payload[:env]["api.format"]
+            CurrentRequest.current.record.method      = payload[:env]['REQUEST_METHOD']
+            CurrentRequest.current.record.path        = payload[:env]["PATH_INFO"]
+          end
 
           if name == 'format_response.grape'
-            Utils.log_grape_request_in_redis(CurrentRequest.current.data)
+            CurrentRequest.current.record.save
           end
         end
       end
