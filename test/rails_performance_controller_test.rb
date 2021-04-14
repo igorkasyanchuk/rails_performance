@@ -101,10 +101,10 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
 
   test "should get trace with params" do
     setup_db(dummy_event(request_id: "112233"))
-    RP::Utils.log_trace_in_redis("112233", [
+    RailsPerformance::Models::TraceRecord.new(request_id: "112233", value: [
       {group: :db, sql: "select", duration: 111},
       {group: :view, message: "rendering (Duration: 11.3ms)"}
-    ])
+    ]).save
 
     get '/rails/performance/trace/112233', xhr: true
     assert_response :success

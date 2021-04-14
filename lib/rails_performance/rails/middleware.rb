@@ -19,8 +19,9 @@ module RailsPerformance
         @status, @headers, @response = @app.call(env)
 
         if !RailsPerformance.skip
-          RP::Utils.log_trace_in_redis(CurrentRequest.current.request_id, CurrentRequest.current.storage)
+          RailsPerformance::Models::TraceRecord.new(request_id: CurrentRequest.current.request_id, value: CurrentRequest.current.tracings).save
         end
+
         CurrentRequest.cleanup
 
         [@status, @headers, @response]

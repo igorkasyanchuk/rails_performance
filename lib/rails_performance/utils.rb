@@ -12,11 +12,6 @@ module RailsPerformance
       now.strftime("%H:%M")
     end
 
-    def Utils.log_trace_in_redis(request_id, value)
-      key = "trace|#{request_id}"
-      Utils.save_to_redis(key, value, RailsPerformance::Reports::RecentRequestsReport::TIME_WINDOW.to_i)
-    end
-
     def Utils.fetch_from_redis(query)
       #puts "\n\n   [REDIS QUERY]   -->   #{query}\n\n"
 

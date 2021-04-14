@@ -1,6 +1,6 @@
 module RailsPerformance
   class CurrentRequest
-    attr_reader :request_id, :storage, :ignore
+    attr_reader :request_id, :tracings, :ignore
     attr_accessor :data
     attr_accessor :record
 
@@ -19,14 +19,14 @@ module RailsPerformance
 
     def initialize(request_id)
       @request_id = request_id
-      @storage    = []
+      @tracings   = []
       @ignore     = Set.new
       @data       = nil
       @record     = nil
     end
 
-    def store(options = {})
-      @storage << options.merge(time: Time.now.to_i)
+    def trace(options = {})
+      @tracings << options.merge(time: Time.now.to_i)
     end
 
   end
