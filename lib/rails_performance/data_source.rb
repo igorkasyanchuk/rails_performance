@@ -46,10 +46,10 @@ module RailsPerformance
       case type
       when :requests
         "performance|*#{compile_requests_query}*|END"
-      when :jobs
-        "jobs|*#{compile_jobs_query}*|END"
+      when :sidekiq
+        "sidekiq|*#{compile_jobs_query}*|END"
       when :grape
-        "grape|*#{compile_jobs_query}*|END"
+        "grape|*#{compile_grape_query}*|END"
       else
         raise "wrong type for datasource query builder"
       end

@@ -26,4 +26,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "otr-activerecord"
   spec.add_development_dependency "sidekiq"
   spec.add_development_dependency "mimemagic"
+  spec.add_development_dependency "delayed_job_active_record"
+  spec.add_development_dependency "daemons"
 end

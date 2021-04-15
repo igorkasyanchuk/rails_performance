@@ -2,7 +2,7 @@ module RailsPerformance
   module Gems
     class Grape
 
-      def self.register_subscribers
+      def self.init
         ActiveSupport::Notifications.subscribe(/grape/) do |name, start, finish, id, payload|
           # TODO change to set
           CurrentRequest.current.ignore.add(:performance)

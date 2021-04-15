@@ -1,6 +1,6 @@
 module RailsPerformance
   module Models
-    class JobRecord < BaseRecord
+    class SidekiqRecord < BaseRecord
       attr_accessor :queue, :worker, :jid, :created_ati, :enqueued_ati, :datetime, :start_timei, :status, :duration, :message
 
       # key = job-performance
@@ -13,10 +13,10 @@ module RailsPerformance
       # |start_timei|1583146614
       # |status|success|END
       # value = JSON
-      def JobRecord.from_db(key, value)
+      def SidekiqRecord.from_db(key, value)
         items = key.split("|")
 
-        JobRecord.new(
+        SidekiqRecord.new(
           queue: items[2],
           worker: items[4],
           jid: items[6],
@@ -57,8 +57,19 @@ module RailsPerformance
         }
       end
 
+      def record_hash
+        {
+          worker: self.worker,
+          queue: self.queue,
+          jid: self.jid,
+          status: self.status,
+          datetime: Time.at(self.start_timei.to_i),
+          duration: self.value['duration'],
+        }
+      end
+
       def save
-        key   = "jobs|queue|#{queue}|worker|#{worker}|jid|#{jid}|datetime|#{datetime}|created_ati|#{created_ati}|enqueued_ati|#{enqueued_ati}|start_timei|#{start_timei}|status|#{status}|END"
+        key   = "sidekiq|queue|#{queue}|worker|#{worker}|jid|#{jid}|datetime|#{datetime}|created_ati|#{created_ati}|enqueued_ati|#{enqueued_ati}|start_timei|#{start_timei}|status|#{status}|END"
         value = { message: message, duration: duration }
         Utils.save_to_redis(key, value)
       end

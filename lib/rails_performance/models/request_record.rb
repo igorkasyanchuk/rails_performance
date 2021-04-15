@@ -84,6 +84,22 @@ module RailsPerformance
         }
       end
 
+      def record_hash
+        {
+          controller: self.controller,
+          action: self.action,
+          format: self.format,
+          status: self.status,
+          method: self.method,
+          path: self.path,
+          request_id: self.request_id,
+          datetime: Time.at(self.datetimei.to_i),
+          duration: self.value['duration'],
+          db_runtime: self.value['db_runtime'],
+          view_runtime: self.value['view_runtime'],
+        }
+      end
+
       def save
         value = { view_runtime: view_runtime, db_runtime: db_runtime, duration: duration, http_referer: http_referer }
         key   = "performance|controller|#{controller}|action|#{action}|format|#{format}|status|#{status}|datetime|#{datetime}|datetimei|#{datetimei}|method|#{method}|path|#{path}|request_id|#{request_id}|END"

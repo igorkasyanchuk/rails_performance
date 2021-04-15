@@ -18,7 +18,7 @@ module RailsPerformance
       # look like it works in reverse order?
       app.middleware.insert_before RailsPerformance::Rails::Middleware, RailsPerformance::Rails::MiddlewareTraceStorerAndCleanup
 
-      if defined?(Sidekiq)
+      if defined?(::Sidekiq)
         require_relative './gems/sidekiq.rb'
         Sidekiq.configure_server do |config|
           config.server_middleware do |chain|
@@ -27,9 +27,14 @@ module RailsPerformance
         end
       end
 
-      if defined?(Grape)
+      if defined?(::Grape)
         require_relative './gems/grape.rb'
-        RailsPerformance::Gems::Grape.register_subscribers
+        RailsPerformance::Gems::Grape.init
+      end
+
+      if defined?(::Delayed::Job)
+        require_relative './gems/delayed_job.rb'
+        RailsPerformance::Gems::DelayedJob.init
       end
     end
 

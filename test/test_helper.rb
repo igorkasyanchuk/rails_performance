@@ -38,7 +38,7 @@ def dummy_event(time: Time.now, controller: "Home", action: "index", status: 200
 end
 
 def dummy_job_event(worker: 'Worker', queue: 'default', jid: "jxzet-#{Time.now.to_i}", created_ati: Time.now.to_i, enqueued_ati: Time.now.to_i, start_timei: Time.now.to_i, duration: rand(60), status: 'success')
-  RailsPerformance::Models::JobRecord.new(
+  RailsPerformance::Models::SidekiqRecord.new(
     queue: queue,
     worker: worker,
     jid: jid,

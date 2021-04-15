@@ -11,7 +11,7 @@ module RailsPerformance
 
       def call!(env)
         RailsPerformance.log "== MiddlewareTraceStorerAndCleanup " * 5
-        if %r{#{RailsPerformance.mount_at}}.match? env["PATH_INFO"]
+        if %r{#{RailsPerformance.mount_at}}.match?(env["PATH_INFO"])
           RailsPerformance.log "RailsPerformance in SKIP MODE"
           RailsPerformance.skip = true
         end
@@ -19,7 +19,10 @@ module RailsPerformance
         @status, @headers, @response = @app.call(env)
 
         if !RailsPerformance.skip
-          RailsPerformance::Models::TraceRecord.new(request_id: CurrentRequest.current.request_id, value: CurrentRequest.current.tracings).save
+          RailsPerformance::Models::TraceRecord.new(
+            request_id: CurrentRequest.current.request_id,
+            value: CurrentRequest.current.tracings
+          ).save
         end
 
         CurrentRequest.cleanup
@@ -48,7 +51,7 @@ module RailsPerformance
               record = RailsPerformance::Models::RequestRecord.new(**data.merge({request_id: CurrentRequest.current.request_id}))
 
               # for 500 errors
-              record.status   ||= @status
+              record.status ||= @status
 
               # capture referer from where this page was opened
               record.http_referer = env["HTTP_REFERER"] if record.status == 404

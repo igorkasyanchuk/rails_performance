@@ -67,7 +67,7 @@ module RailsPerformance
       end
 
       def jobs
-        @datasource                = RP::DataSource.new(**prepare_query, type: :jobs, klass: RP::Models::JobRecord)
+        @datasource                = RP::DataSource.new(**prepare_query, type: :sidekiq, klass: RP::Models::SidekiqRecord)
         db                         = @datasource.db
 
         @throughput_report         = RP::Reports::ThroughputReport.new(db)
@@ -77,7 +77,7 @@ module RailsPerformance
         @response_time_report_data = @response_time_report.data
 
         @recent_report             = RP::Reports::RecentRequestsReport.new(db)
-        @recent_report_data        = @recent_report.data(:jobs)
+        @recent_report_data        = @recent_report.data(:sidekiq)
       end
 
       def grape

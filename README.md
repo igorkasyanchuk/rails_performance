@@ -173,6 +173,11 @@ The idea of this gem grew from curriosity how many RPM my app receiving per day.
 - show "loading banner" until jquery is loaded?
 - better UI on smaller screens? Recent requests when URL's are long? Truncate with CSS?
 - rules for highlighting durations? how many ms to show warning, alert
+- track custom code
+- delayed jobs
+- elastic search
+- searchkiq
+- grape
 
 ## Contributing
 

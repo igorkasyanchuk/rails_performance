@@ -1,7 +1,7 @@
 module RailsPerformance
   module Models
     class GrapeRecord < BaseRecord
-      attr_accessor :datetime, :created_ati, :datetime, :format, :status, :path, :method, :request_id, :json
+      attr_accessor :datetime, :created_ati, :format, :status, :path, :method, :request_id, :json
       attr_accessor :endpoint_render_grape, :endpoint_run_grape, :format_response_grape
 
       # key = grape|datetime|20210409T1115|created_ati|1617992134|format|json|path|/api/users|status|200|method|GET|request_id|1122|END
@@ -35,6 +35,17 @@ module RailsPerformance
         @format_response_grape = format_response_grape
 
         @json         = json
+      end
+
+      def record_hash
+        {
+          format: self.format,
+          status: self.status,
+          method: self.method,
+          path: self.path,
+          datetime: Time.at(self.created_ati.to_i),
+          request_id: self.request_id,
+        }.merge(self.value)
       end
 
       def to_h

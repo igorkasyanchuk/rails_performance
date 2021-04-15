@@ -6,8 +6,8 @@ module RailsPerformance
       end
 
       def call(worker, msg, queue)
-        now  = Time.now
-        record = RP::Models::JobRecord.new(
+        now    = Time.now
+        record = RP::Models::SidekiqRecord.new(
           enqueued_ati: msg['enqueued_at'].to_i,
           created_ati: msg['created_at'].to_i,
           jid: msg['jid'],
