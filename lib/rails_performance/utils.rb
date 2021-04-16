@@ -45,7 +45,7 @@ module RailsPerformance
       #return if value.empty?
 
       RailsPerformance.log "  [SAVE]    key  --->  #{key}\n"
-      RailsPerformance.log "          value  --->  #{value.to_json}\n\n"
+      RailsPerformance.log "  [SAVE]    value  --->  #{value.to_json}\n\n"
       RP.redis.set(key, value.to_json, ex: expire.to_i)
     end
 

@@ -178,6 +178,7 @@ The idea of this gem grew from curriosity how many RPM my app receiving per day.
 - elastic search
 - searchkiq
 - grape
+- sinatra?
 
 ## Contributing
 

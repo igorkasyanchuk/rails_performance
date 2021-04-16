@@ -10,6 +10,7 @@ require_relative "rails_performance/models/sidekiq_record.rb"
 require_relative "rails_performance/models/delayed_job_record.rb"
 require_relative "rails_performance/models/grape_record.rb"
 require_relative "rails_performance/models/trace_record.rb"
+require_relative "rails_performance/models/rake_record.rb"
 require_relative "rails_performance/utils.rb"
 require_relative "rails_performance/reports/base_report.rb"
 require_relative "rails_performance/reports/requests_report.rb"
@@ -72,7 +73,11 @@ module RailsPerformance
   end
 
   def self.log(message)
-    ::Rails.logger.debug(message)
+    if ::Rails.logger
+      ::Rails.logger.debug(message)
+    else
+      puts(message)
+    end
   end
 
 end

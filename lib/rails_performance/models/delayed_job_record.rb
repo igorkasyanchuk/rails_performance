@@ -1,7 +1,7 @@
 module RailsPerformance
   module Models
     class DelayedJobRecord < BaseRecord
-      attr_accessor :jid, :duration, :datetime, :datetimei, :source_type, :class_name, :method_name, :status
+      attr_accessor :jid, :duration, :datetime, :datetimei, :source_type, :class_name, :method_name, :status, :json
 
       # delayed_job
       #|jid|22
@@ -16,17 +16,17 @@ module RailsPerformance
 
         DelayedJobRecord.new(
           jid: items[2],
-          datetime: items[],
-          datetimei: items[],
-          duration: items[],
-          status: items[],
-          source_type: items[],
-          class_name: items[],
-          method_name: items[],
+          datetime: items[4],
+          datetimei: items[6],
+          source_type: items[8],
+          class_name: items[10],
+          method_name: items[12],
+          status: items[14],
+          json: value
         )
       end
 
-      def initialize(jid:, duration:, datetime:, datetimei:, source_type:, class_name:, method_name:, status:)
+      def initialize(jid:, duration: nil, datetime:, datetimei:, source_type:, class_name:, method_name:, status:, json: '{}')
         @jid          = jid
         @duration     = duration
         @datetime     = datetime
@@ -35,7 +35,7 @@ module RailsPerformance
         @class_name   = class_name
         @method_name  = method_name
         @status       = status
-        @json         = {}
+        @json         = json
       end
 
       def to_h

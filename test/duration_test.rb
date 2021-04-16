@@ -2,7 +2,7 @@ require 'test_helper'
 
 class RailsPerformance::Test1 < ActiveSupport::TestCase
 
-  test 'duration' do
+  test 'duration report' do
     RailsPerformance.duration = 24.hours
 
     @datasource = RailsPerformance::DataSource.new(type: :requests, klass: RP::Models::RequestRecord)
