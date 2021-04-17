@@ -5,7 +5,7 @@ class SidekiqTest < ActiveSupport::TestCase
   test "works" do
     SimpleWorker.new.perform
 
-    s = RailsPerformance::Gems::Sidekiq.new
+    s = RailsPerformance::Gems::SidekiqExt.new
     res = s.call("worker", "msg", -> {}) do
       40+2
     end

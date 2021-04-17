@@ -1,7 +1,7 @@
 module RailsPerformance
   module Gems
 
-    class Rake
+    class RakeExt
       def self.init
         ::Rake::Task.class_eval do
           def invoke_with_rails_performance(*args)
@@ -14,7 +14,7 @@ module RailsPerformance
               raise(ex)
             ensure
               RailsPerformance::Models::RakeRecord.new(
-                task: RailsPerformance::Gems::Rake.find_task_name(*args),
+                task: RailsPerformance::Gems::RakeExt.find_task_name(*args),
                 datetime: now.strftime(RailsPerformance::FORMAT),
                 datetimei: now.to_i,
                 duration: Time.now - now,

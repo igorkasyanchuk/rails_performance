@@ -19,23 +19,25 @@ module RailsPerformance
       app.middleware.insert_before RailsPerformance::Rails::Middleware, RailsPerformance::Rails::MiddlewareTraceStorerAndCleanup
 
       if defined?(::Sidekiq)
-        require_relative './gems/sidekiq.rb'
+        require_relative './gems/sidekiq_ext.rb'
         Sidekiq.configure_server do |config|
           config.server_middleware do |chain|
-            chain.add RailsPerformance::Gems::Sidekiq
+            chain.add RailsPerformance::Gems::SidekiqExt
           end
         end
       end
 
       if defined?(::Grape)
-        require_relative './gems/grape.rb'
-        RailsPerformance::Gems::Grape.init
+        require_relative './gems/grape_ext.rb'
+        RailsPerformance::Gems::GrapeExt.init
       end
 
       if defined?(::Delayed::Job)
-        require_relative './gems/delayed_job.rb'
-        RailsPerformance::Gems::DelayedJob.init
+        require_relative './gems/delayed_job_ext.rb'
+        RailsPerformance::Gems::DelayedJobExt.init
       end
+
+      require_relative './gems/custom_ext.rb'
     end
 
     initializer :configure_metrics, after: :initialize_logger do
@@ -55,8 +57,8 @@ module RailsPerformance
     end
 
     if defined?(::Rake::Task)
-      require_relative './gems/rake.rb'
-      RailsPerformance::Gems::Rake.init
+      require_relative './gems/rake_ext.rb'
+      RailsPerformance::Gems::RakeExt.init
     end
   end
 end

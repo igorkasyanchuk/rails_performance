@@ -1,6 +1,6 @@
 module RailsPerformance
   module Gems
-    class Sidekiq
+    class SidekiqExt
 
       def initialize(options=nil)
       end

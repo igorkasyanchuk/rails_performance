@@ -2,7 +2,7 @@ $n = 0
 
 module RailsPerformance
   module Gems
-    class DelayedJob
+    class DelayedJobExt
 
       class Plugin < ::Delayed::Plugin
         callbacks do |lifecycle|
@@ -15,7 +15,7 @@ module RailsPerformance
               status = 'error'
               raise error
             ensure
-              meta_data = RailsPerformance::Gems::DelayedJob::Plugin.meta(job.payload_object)
+              meta_data = RailsPerformance::Gems::DelayedJobExt::Plugin.meta(job.payload_object)
               record    = RailsPerformance::Models::DelayedJobRecord.new(
                 jid: job.id,
                 duration: Time.now - now,
@@ -48,7 +48,7 @@ module RailsPerformance
       end
 
       def self.init
-        ::Delayed::Worker.plugins += [::RailsPerformance::Gems::DelayedJob::Plugin]
+        ::Delayed::Worker.plugins += [::RailsPerformance::Gems::DelayedJobExt::Plugin]
       end
 
     end

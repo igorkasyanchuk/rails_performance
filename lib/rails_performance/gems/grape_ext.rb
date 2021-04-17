@@ -1,6 +1,6 @@
 module RailsPerformance
   module Gems
-    class Grape
+    class GrapeExt
 
       def self.init
         ActiveSupport::Notifications.subscribe(/grape/) do |name, start, finish, id, payload|
