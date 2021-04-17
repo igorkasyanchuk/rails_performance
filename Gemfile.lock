@@ -98,25 +98,7 @@ GEM
       dry-core (~> 0.5, >= 0.5)
       dry-inflector (~> 0.1, >= 0.1.2)
       dry-logic (~> 1.0, >= 1.0.2)
-    elasticsearch (7.12.0)
-      elasticsearch-api (= 7.12.0)
-      elasticsearch-transport (= 7.12.0)
-    elasticsearch-api (7.12.0)
-      multi_json
-    elasticsearch-model (7.1.1)
-      activesupport (> 3)
-      elasticsearch (> 1)
-      hashie
-    elasticsearch-rails (7.1.1)
-    elasticsearch-transport (7.12.0)
-      faraday (~> 1)
-      multi_json
     erubi (1.10.0)
-    faraday (1.3.0)
-      faraday-net_http (~> 1.0)
-      multipart-post (>= 1.2, < 3)
-      ruby2_keywords
-    faraday-net_http (1.0.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     grape (1.5.3)
@@ -145,8 +127,6 @@ GEM
     mini_mime (1.0.3)
     mini_portile2 (2.5.0)
     minitest (5.14.4)
-    multi_json (1.15.0)
-    multipart-post (2.1.1)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     mustermann-grape (1.0.1)
@@ -232,8 +212,6 @@ PLATFORMS
 DEPENDENCIES
   daemons
   delayed_job_active_record
-  elasticsearch-model
-  elasticsearch-rails
   grape
   mimemagic (= 0.4.3)
   otr-activerecord
