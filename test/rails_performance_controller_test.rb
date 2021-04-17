@@ -7,7 +7,7 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
   end
 
   def requests_report_data
-    source = RP::DataSource.new(type: :requests, klass: RP::Models::RequestRecord)
+    source = RP::DataSource.new(type: :requests)
     RP::Reports::RequestsReport.new(source.db, group: :controller_action_format).data
   end
 
@@ -82,16 +82,30 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get jobs with params" do
+  test "should get sidekiq with params" do
     setup_db
-    setup_job_db
-    get '/rails/performance/jobs'
+    setup_sidekiq_db
+    get '/rails/performance/sidekiq'
+    assert_response :success
+  end
+
+  test "should get delayed_job with params" do
+    setup_db
+    setup_sidekiq_db
+    get '/rails/performance/delayed_job'
+    assert_response :success
+  end
+
+  test "should get rake" do
+    setup_db
+    setup_rake_db
+    get '/rails/performance/rake'
     assert_response :success
   end
 
   test "should get grape page" do
     setup_db
-    setup_job_db
+    setup_grape_db
     get '/api/users'
     get '/api/ping'
     get '/api/crash'

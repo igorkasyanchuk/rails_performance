@@ -1,10 +1,18 @@
 module RailsPerformance
   class DataSource
+    KLASSES = {
+      requests: RailsPerformance::Models::RequestRecord,
+      sidekiq: RailsPerformance::Models::SidekiqRecord,
+      delayed_job: RailsPerformance::Models::DelayedJobRecord,
+      grape: RailsPerformance::Models::GrapeRecord,
+      rake: RailsPerformance::Models::RakeRecord,
+    }
+
     attr_reader :q, :klass, :type
 
-    def initialize(q: {}, type:, klass:)
-      @klass   = klass
+    def initialize(q: {}, type:)
       @type    = type
+      @klass   = KLASSES[type]
       q[:on] ||= Date.today
       @q       = q
 
@@ -14,7 +22,7 @@ module RailsPerformance
     def db
       result = RP::Models::Collection.new
       (RP::Utils.days + 1).times do |e|
-        RP::DataSource.new(q: self.q.merge({ on: e.days.ago.to_date }), klass: klass, type: type).add_to(result)
+        RP::DataSource.new(q: self.q.merge({ on: e.days.ago.to_date }), type: type).add_to(result)
       end
       result
     end
@@ -47,9 +55,13 @@ module RailsPerformance
       when :requests
         "performance|*#{compile_requests_query}*|END"
       when :sidekiq
-        "sidekiq|*#{compile_jobs_query}*|END"
+        "sidekiq|*#{compile_sidekiq_query}*|END"
+      when :delayed_job
+        "delayed_job|*#{compile_delayed_job_query}*|END"
       when :grape
         "grape|*#{compile_grape_query}*|END"
+      when :rake
+        "rake|*#{compile_rake_query}*|END"
       else
         raise "wrong type for datasource query builder"
       end
@@ -69,12 +81,28 @@ module RailsPerformance
       str.join("*")
     end
 
-    def compile_jobs_query
+    def compile_sidekiq_query
       str = []
 
       str << "queue|#{q[:queue]}|" if q[:queue].present?
       str << "worker|#{q[:worker]}|" if q[:worker].present?
       str << "datetime|#{q[:on].strftime('%Y%m%d')}*|" if q[:on].present?
+      str << "status|#{q[:status]}|" if q[:status].present?
+
+      str.join("*")
+    end
+
+    def compile_delayed_job_query
+      str = []
+
+      str << "status|#{q[:status]}|" if q[:status].present?
+
+      str.join("*")
+    end
+
+    def compile_rake_query
+      str = []
+
       str << "status|#{q[:status]}|" if q[:status].present?
 
       str.join("*")

@@ -108,10 +108,14 @@ module RailsPerformance
         "is-active" if controller_name == "rails_performance" && action_name == "requests"
       when :recent
         "is-active" if controller_name == "rails_performance" && action_name == "recent"
-      when :jobs
-        "is-active" if controller_name == "rails_performance" && action_name == "jobs"
+      when :sidekiq
+        "is-active" if controller_name == "rails_performance" && action_name == "sidekiq"
+      when :delayed_job
+        "is-active" if controller_name == "rails_performance" && action_name == "delayed_job"
       when :grape
         "is-active" if controller_name == "rails_performance" && action_name == "grape"
+      when :rake
+        "is-active" if controller_name == "rails_performance" && action_name == "rake"
       end
     end
   end

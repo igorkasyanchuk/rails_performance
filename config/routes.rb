@@ -8,8 +8,10 @@ RailsPerformance::Engine.routes.draw do
   get '/trace/:id'  => 'rails_performance#trace', as: :rails_performance_trace
   get '/summary'    => 'rails_performance#summary', as: :rails_performance_summary
 
-  get '/jobs'       => 'rails_performance#jobs', as: :rails_performance_jobs
+  get '/sidekiq'    => 'rails_performance#sidekiq', as: :rails_performance_sidekiq
+  get '/delayed_job'=> 'rails_performance#delayed_job', as: :rails_performance_delayed_job
   get '/grape'      => 'rails_performance#grape', as: :rails_performance_grape
+  get '/rake'       => 'rails_performance#rake', as: :rails_performance_rake
 end
 
 Rails.application.routes.draw do

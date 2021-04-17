@@ -3,7 +3,7 @@ require 'test_helper'
 class SidekiqRecordTest < ActiveSupport::TestCase
 
   test "storing" do
-    record = dummy_job_event
+    record = dummy_sidekiq_event
     record.save
   end
 

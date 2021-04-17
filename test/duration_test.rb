@@ -5,7 +5,7 @@ class RailsPerformance::Test1 < ActiveSupport::TestCase
   test 'duration report' do
     RailsPerformance.duration = 24.hours
 
-    @datasource = RailsPerformance::DataSource.new(type: :requests, klass: RP::Models::RequestRecord)
+    @datasource = RailsPerformance::DataSource.new(type: :requests)
     @data       = RailsPerformance::Reports::ThroughputReport.new(@datasource.db).data
 
     assert_equal @data.size / 60, 24

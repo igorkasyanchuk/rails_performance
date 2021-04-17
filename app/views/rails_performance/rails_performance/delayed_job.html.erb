@@ -1,0 +1,73 @@
+<title>Delayed::Job</title>
+
+<% unless @datasource.default? %>
+  <%#= link_to raw("&larr; Back"), rails_performance_path, class: "back_link" %>
+<% end %>
+
+<div class="card">
+  <div class="card-content">
+    <h2 class="subtitle">Delayed::Job Workers Throughput Report</h2>
+    <div id="throughput_report_chart" class="chart"></div>
+    <p class="content is-small">All workers in the application</p>
+  </div>
+</div>
+
+<br/>
+
+<div class="card">
+  <div class="card-content">
+    <h2 class="subtitle">Average Execution Time</h2>
+    <div id="response_time_report_chart" class="chart"></div>
+    <p class="content is-small">All workers in the application</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-content">
+    <h2 class="subtitle">Recent Jobs (last <%= RailsPerformance::Reports::RecentRequestsReport::TIME_WINDOW / 60 %> minutes)<h2>
+
+    <table class="table is-fullwidth is-hoverable is-narrow">
+      <thead>
+        <tr>
+          <th data-sort="string">Datetime</th>
+          <th data-sort="string">Queue</th>
+          <th data-sort="string">Worker</th>
+          <th data-sort="string">Job ID</th>
+          <th data-sort="string">Status</th>
+          <th data-sort="float">Duration</th>
+          <th>Message</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @recent_report_data.empty? %>
+          <tr>
+            <td colspan="10">Nothing to show here. Try to make a few requests in main app.</td>
+          </tr>
+        <% end %>
+        <% @recent_report_data.each do |e| %>
+          <tr>
+            <td><%= format_datetime e[:datetime] %></td>
+            <td><%= e[:queue] %></td>
+            <td><%= e[:worker] %></td>
+            <td><%= e[:jid] %></td>
+            <td><%= status_tag e[:status] %></td>
+            <td class="nowrap"><%= ms e[:duration] %></td>
+            <td><%= e[:message] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<% content_for :on_load do %>
+  <script>
+    var data1 = <%= raw @throughput_report_data.to_json %>;
+    showTIRChart('throughput_report_chart', data1, ' jobs / minute', 'Jobs');
+
+    var data2 = <%= raw @response_time_report_data.to_json %>;
+    showRTChart('response_time_report_chart', data2);
+  </script>
+<% end %>

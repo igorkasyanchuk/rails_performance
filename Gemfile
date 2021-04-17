@@ -24,7 +24,7 @@ gem 'grape'
 
 gem 'mimemagic', '0.4.3'
 
-gem 'elasticsearch-model'
-gem 'elasticsearch-rails'
+# gem 'elasticsearch-model'
+# gem 'elasticsearch-rails'
 gem 'delayed_job_active_record'
 gem "daemons"

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class DelayedJobRecordTest < ActiveSupport::TestCase
 
-  test "delayed job record" do
+  test "delayed job record test" do
     RailsPerformance.duration = 3.hours
 
     key    = 'delayed_job|jid|24|datetime|20210416T1304|datetimei|1618603467|source_type|class_method|class_name|User|method_name|xxx|status|success|END '

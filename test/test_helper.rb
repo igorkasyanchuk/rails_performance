@@ -37,7 +37,7 @@ def dummy_event(time: Time.now, controller: "Home", action: "index", status: 200
   )
 end
 
-def dummy_job_event(worker: 'Worker', queue: 'default', jid: "jxzet-#{Time.now.to_i}", created_ati: Time.now.to_i, enqueued_ati: Time.now.to_i, start_timei: Time.now.to_i, duration: rand(60), status: 'success')
+def dummy_sidekiq_event(worker: 'Worker', queue: 'default', jid: "jxzet-#{Time.now.to_i}", created_ati: Time.now.to_i, enqueued_ati: Time.now.to_i, start_timei: Time.now.to_i, duration: rand(60), status: 'success')
   RailsPerformance::Models::SidekiqRecord.new(
     queue: queue,
     worker: worker,
@@ -66,14 +66,51 @@ def dummy_grape_record(created_ati: Time.now.to_i, status: 200, format: "json", 
   )
 end
 
+def dummy_rake_record(created_ati: Time.now.to_i, status: 'success', task: "111111111#{rand(10000000)}")
+  RailsPerformance::Models::RakeRecord.new(
+    task: task,
+    datetime: Time.at(created_ati).strftime(RailsPerformance::FORMAT),
+    datetimei: created_ati,
+    status: 'success',
+    json: '{duration: 100}'
+  )
+end
+
+def dummy_delayed_job_record(created_ati: Time.now.to_i, status: 'success', jid: "111111111#{rand(10000000)}")
+  RailsPerformance::Models::DelayedJobRecord.new(
+    jid: jid,
+    datetime: Time.at(created_ati).strftime(RailsPerformance::FORMAT),
+    datetimei: created_ati,
+    source_type: 'instance_method',
+    class_name: 'User',
+    method_name: 'hell_world',
+    status: status,
+    json: '{duration: 100}'
+  )
+end
+
 def reset_redis
   RP.redis.redis.flushall
 end
+
+# TODO improve
 
 def setup_db(event = dummy_event)
   event.save
 end
 
-def setup_job_db(event = dummy_job_event)
+def setup_sidekiq_db(event = dummy_sidekiq_event)
+  event.save
+end
+
+def setup_rake_db(event = dummy_rake_record)
+  event.save
+end
+
+def setup_delayed_job_db(event = dummy_delayed_job_record)
+  event.save
+end
+
+def setup_grape_db(event = dummy_grape_record)
   event.save
 end

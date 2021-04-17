@@ -6,7 +6,7 @@ module RailsPerformance
 
     if RailsPerformance.enabled
       def index
-        @datasource                = RP::DataSource.new(**prepare_query, type: :requests, klass: RP::Models::RequestRecord)
+        @datasource                = RP::DataSource.new(**prepare_query, type: :requests)
         db                         = @datasource.db
 
         @throughput_report         = RP::Reports::ThroughputReport.new(db)
@@ -17,7 +17,7 @@ module RailsPerformance
       end
 
       def summary
-        @datasource                = RP::DataSource.new(**prepare_query, type: :requests, klass: RP::Models::RequestRecord)
+        @datasource                = RP::DataSource.new(**prepare_query, type: :requests)
         db                         = @datasource.db
 
         @throughput_report         = RP::Reports::ThroughputReport.new(db)
@@ -46,28 +46,28 @@ module RailsPerformance
       end
 
       def crashes
-        @datasource   = RP::DataSource.new(**prepare_query({status_eq: 500}), type: :requests, klass: RP::Models::RequestRecord)
+        @datasource   = RP::DataSource.new(**prepare_query({status_eq: 500}), type: :requests)
         db            = @datasource.db
         @report       = RP::Reports::CrashReport.new(db)
         @data         = @report.data
       end
 
       def requests
-        @datasource = RP::DataSource.new(**prepare_query, type: :requests, klass: RP::Models::RequestRecord)
+        @datasource = RP::DataSource.new(**prepare_query, type: :requests)
         db          = @datasource.db
         @report     = RP::Reports::RequestsReport.new(db, group: :controller_action_format, sort: :count)
         @data       = @report.data
       end
 
       def recent
-        @datasource = RP::DataSource.new(**prepare_query, type: :requests, klass: RP::Models::RequestRecord)
+        @datasource = RP::DataSource.new(**prepare_query, type: :requests)
         db          = @datasource.db
         @report     = RP::Reports::RecentRequestsReport.new(db)
         @data       = @report.data
       end
 
-      def jobs
-        @datasource                = RP::DataSource.new(**prepare_query, type: :sidekiq, klass: RP::Models::SidekiqRecord)
+      def sidekiq
+        @datasource                = RP::DataSource.new(**prepare_query, type: :sidekiq)
         db                         = @datasource.db
 
         @throughput_report         = RP::Reports::ThroughputReport.new(db)
@@ -80,8 +80,33 @@ module RailsPerformance
         @recent_report_data        = @recent_report.data(:sidekiq)
       end
 
+      def delayed_job
+        @datasource                = RP::DataSource.new(**prepare_query, type: :delayed_job)
+        db                         = @datasource.db
+
+        @throughput_report         = RP::Reports::ThroughputReport.new(db)
+        @throughput_report_data    = @throughput_report.data
+
+        @response_time_report      = RP::Reports::ResponseTimeReport.new(db)
+        @response_time_report_data = @response_time_report.data
+
+        @recent_report             = RP::Reports::RecentRequestsReport.new(db)
+        @recent_report_data        = @recent_report.data(:delayed_job)
+      end
+
       def grape
-        @datasource                = RP::DataSource.new(**prepare_query, type: :grape, klass: RP::Models::GrapeRecord)
+        @datasource                = RP::DataSource.new(**prepare_query, type: :grape)
+        db                         = @datasource.db
+
+        @throughput_report         = RP::Reports::ThroughputReport.new(db)
+        @throughput_report_data    = @throughput_report.data
+
+        @recent_report             = RP::Reports::RecentRequestsReport.new(db)
+        @recent_report_data        = @recent_report.data(:grape)
+      end
+
+      def rake
+        @datasource                = RP::DataSource.new(**prepare_query, type: :rake)
         db                         = @datasource.db
 
         @throughput_report         = RP::Reports::ThroughputReport.new(db)
