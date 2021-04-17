@@ -9,7 +9,7 @@ module RailsPerformance
         items = key.split("|")
 
         RakeRecord.new(
-          task: items[2],
+          task: JSON.parse(items[2]),
           datetime: items[4],
           datetimei: items[6],
           status: items[8],
@@ -18,7 +18,7 @@ module RailsPerformance
       end
 
       def initialize(task:, duration: nil, datetime:, datetimei:, status:, json: '{}')
-        @task         = task
+        @task         = Array.wrap(task)
         @datetime     = datetime
         @datetimei    = datetimei.to_i
         @status       = status
@@ -39,11 +39,17 @@ module RailsPerformance
       end
 
       def record_hash
-        to_h
+        {
+          task: task,
+          datetime: Time.at(datetimei),
+          datetimei: datetimei,
+          duration: duration,
+          status: status,
+        }
       end
 
       def save
-        key   = "rake|task|#{task}|datetime|#{datetime}|datetimei|#{datetimei}|status|#{status}|END"
+        key   = "rake|task|#{task.to_json}|datetime|#{datetime}|datetimei|#{datetimei}|status|#{status}|END"
         value = { duration: duration }
         Utils.save_to_redis(key, value)
       end

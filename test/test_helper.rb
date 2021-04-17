@@ -66,7 +66,7 @@ def dummy_grape_record(datetimei: Time.now.to_i, status: 200, format: "json", me
   )
 end
 
-def dummy_rake_record(datetimei: Time.now.to_i, status: 'success', task: "111111111#{rand(10000000)}")
+def dummy_rake_record(datetimei: Time.now.to_i, status: 'success', task: "x111111111#{rand(10000000)}")
   RailsPerformance::Models::RakeRecord.new(
     task: task,
     datetime: Time.at(datetimei).strftime(RailsPerformance::FORMAT),
@@ -76,7 +76,7 @@ def dummy_rake_record(datetimei: Time.now.to_i, status: 'success', task: "111111
   )
 end
 
-def dummy_delayed_job_record(datetimei: Time.now.to_i, status: 'success', jid: "111111111#{rand(10000000)}")
+def dummy_delayed_job_record(datetimei: Time.now.to_i, status: 'success', jid: "x111111111#{rand(10000000)}")
   RailsPerformance::Models::DelayedJobRecord.new(
     jid: jid,
     datetime: Time.at(datetimei).strftime(RailsPerformance::FORMAT),

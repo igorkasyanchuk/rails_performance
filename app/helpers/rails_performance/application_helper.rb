@@ -65,6 +65,8 @@ module RailsPerformance
 
     def status_tag(status)
       klass = case status.to_s
+      when /error/
+        "tag is-danger"
       when /^5/
         "tag is-danger"
       when /^4/
@@ -72,6 +74,8 @@ module RailsPerformance
       when /^3/
         "tag is-info"
       when /^2/
+        "tag is-success"
+      when /success/
         "tag is-success"
       else
         nil

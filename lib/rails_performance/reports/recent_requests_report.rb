@@ -9,7 +9,10 @@ module RailsPerformance
 
       def data
         time_agoi = TIME_WINDOW.ago.to_i
-        db.data.collect{|e| e.record_hash}.select{|e| e if e[sort] >= time_agoi}.sort{|a, b| b[sort] <=> a[sort]}
+        db.data
+          .collect{|e| e.record_hash}
+          .select{|e| e if e[sort] >= time_agoi}
+          .sort{|a, b| b[sort] <=> a[sort]}
       end
     end
   end

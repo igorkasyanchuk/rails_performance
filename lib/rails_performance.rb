@@ -73,7 +73,10 @@ module RailsPerformance
   end
 
   def self.log(message)
+    return
+
     if ::Rails.logger
+      puts(message)
       ::Rails.logger.debug(message)
     else
       puts(message)

@@ -9,7 +9,7 @@ module RailsPerformance
         now    = Time.now
         record = RP::Models::SidekiqRecord.new(
           enqueued_ati: msg['enqueued_at'].to_i,
-          created_ati: msg['created_at'].to_i,
+          datetimei: msg['created_at'].to_i,
           jid: msg['jid'],
           queue: queue,
           start_timei: now.to_i,
@@ -17,8 +17,9 @@ module RailsPerformance
           worker: msg['wrapped'.freeze] || worker.class.to_s
         )
         begin
-          yield
-          record.status   = "success"
+          result = yield
+          record.status = "success"
+          result
         rescue Exception => ex
           record.status   = "exception"
           record.message  = ex.message
@@ -28,6 +29,7 @@ module RailsPerformance
           record.duration = (Time.now - now) * 1000
           #puts data
           record.save
+          result
         end
       end
 

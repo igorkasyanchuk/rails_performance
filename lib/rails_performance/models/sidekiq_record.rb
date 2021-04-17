@@ -63,6 +63,7 @@ module RailsPerformance
           queue: self.queue,
           jid: self.jid,
           status: self.status,
+          datetimei: datetimei,
           datetime: Time.at(self.start_timei.to_i),
           duration: self.value['duration'],
         }

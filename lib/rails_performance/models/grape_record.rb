@@ -44,6 +44,7 @@ module RailsPerformance
           method: self.method,
           path: self.path,
           datetime: Time.at(self.datetimei.to_i),
+          datetimei: datetimei,
           request_id: self.request_id,
         }.merge(self.value)
       end

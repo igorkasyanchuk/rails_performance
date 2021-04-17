@@ -3,7 +3,6 @@ module RailsPerformance
 
     class Rake
       def self.init
-        require 'pry'
         ::Rake::Task.class_eval do
           def invoke_with_rails_performance(*args)
             begin
@@ -15,7 +14,7 @@ module RailsPerformance
               raise(ex)
             ensure
               RailsPerformance::Models::RakeRecord.new(
-                task: RailsPerformance::Gems::Rake.find_task_name(*args).to_json,
+                task: RailsPerformance::Gems::Rake.find_task_name(*args),
                 datetime: now.strftime(RailsPerformance::FORMAT),
                 datetimei: now.to_i,
                 duration: Time.now - now,

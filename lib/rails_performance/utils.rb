@@ -13,13 +13,13 @@ module RailsPerformance
     end
 
     def Utils.fetch_from_redis(query)
-      puts "\n\n   [REDIS QUERY]   -->   #{query}\n\n"
+      RailsPerformance.log "\n\n   [REDIS QUERY]   -->   #{query}\n\n"
 
       keys   = RailsPerformance.redis.keys(query)
       return [] if keys.blank?
       values = RailsPerformance.redis.mget(keys)
 
-      puts "\n\n   [FOUND]   -->   #{values.size}\n\n"
+      RailsPerformance.log "\n\n   [FOUND]   -->   #{values.size}\n\n"
 
       [keys, values]
     end

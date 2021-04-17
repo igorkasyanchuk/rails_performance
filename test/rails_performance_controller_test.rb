@@ -59,6 +59,26 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get home pages" do
+    get '/home/about'
+    assert_response :success
+    get '/home/blog'
+    assert_response :success
+  end
+
+  test "should get about page" do
+    get '/account/site/about'
+    assert_response :success
+  end
+
+  test "should get account other pages" do
+    get '/account/site/not_found'
+    assert_response :not_found
+
+    get '/account/site/is_redirect'
+    assert_response :redirect
+end
+
   test "should get crashes with params" do
     begin
       get '/account/site/crash'
