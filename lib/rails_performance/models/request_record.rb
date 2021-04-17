@@ -94,6 +94,7 @@ module RailsPerformance
           path: self.path,
           request_id: self.request_id,
           datetime: Time.at(self.datetimei.to_i),
+          datetimei: datetimei,
           duration: self.value['duration'],
           db_runtime: self.value['db_runtime'],
           view_runtime: self.value['view_runtime'],
