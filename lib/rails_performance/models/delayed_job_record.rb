@@ -30,7 +30,7 @@ module RailsPerformance
         @jid          = jid
         @duration     = duration
         @datetime     = datetime
-        @datetimei    = datetimei
+        @datetimei    = datetimei.to_i
         @source_type  = source_type
         @class_name   = class_name
         @method_name  = method_name

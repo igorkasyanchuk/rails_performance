@@ -2,7 +2,7 @@ module RailsPerformance
   module Reports
     class CrashReport < BaseReport
       def set_defaults
-        @sort ||= :datetime
+        @sort ||= :datetimei
       end
 
       def data

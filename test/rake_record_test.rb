@@ -11,7 +11,7 @@ class RakeRecordTest < ActiveSupport::TestCase
     record = RP::Models::RakeRecord.from_db(key, value)
     assert_equal record.task, '["task3"]'
     assert_equal record.datetime, "20210416T1254"
-    assert_equal record.datetimei, "1618602843"
+    assert_equal record.datetimei, 1618602843
     assert_equal record.status, "error"
     assert_equal record.value["duration"], 0.00012442
   end

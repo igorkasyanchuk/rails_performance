@@ -12,7 +12,7 @@ module RailsPerformance
           now                                           = Time.now
           CurrentRequest.current.data               ||= {}
           CurrentRequest.current.record             ||= RailsPerformance::Models::GrapeRecord.new(request_id: CurrentRequest.current.request_id)
-          CurrentRequest.current.record.created_ati ||= now.to_i
+          CurrentRequest.current.record.datetimei   ||= now.to_i
           CurrentRequest.current.record.datetime    ||= now.strftime(RailsPerformance::FORMAT)
 
           if ['endpoint_render.grape', 'endpoint_run.grape', 'format_response.grape'].include?(name)

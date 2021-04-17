@@ -13,17 +13,28 @@ module RailsPerformance
     end
 
     def Utils.fetch_from_redis(query)
-      #puts "\n\n   [REDIS QUERY]   -->   #{query}\n\n"
+      puts "\n\n   [REDIS QUERY]   -->   #{query}\n\n"
 
-      keys   = RP.redis.keys(query)
+      keys   = RailsPerformance.redis.keys(query)
       return [] if keys.blank?
-      values = RP.redis.mget(keys)
+      values = RailsPerformance.redis.mget(keys)
+
+      puts "\n\n   [FOUND]   -->   #{values.size}\n\n"
 
       [keys, values]
     end
 
+    def Utils.save_to_redis(key, value, expire = RailsPerformance.duration.to_i)
+      # TODO think here if add return
+      #return if value.empty?
+
+      RailsPerformance.log "  [SAVE]    key  --->  #{key}\n"
+      RailsPerformance.log "  [SAVE]    value  --->  #{value.to_json}\n\n"
+      RailsPerformance.redis.set(key, value.to_json, ex: expire.to_i)
+    end
+
     def Utils.days
-      (RP.duration / 1.day) + 1
+      (RailsPerformance.duration / 1.day) + 1
     end
 
     def Utils.median(array)
@@ -39,15 +50,5 @@ module RailsPerformance
         sorted[center]
       end
     end
-
-    def Utils.save_to_redis(key, value, expire = RP.duration.to_i)
-      # TODO think here if add return
-      #return if value.empty?
-
-      RailsPerformance.log "  [SAVE]    key  --->  #{key}\n"
-      RailsPerformance.log "  [SAVE]    value  --->  #{value.to_json}\n\n"
-      RP.redis.set(key, value.to_json, ex: expire.to_i)
-    end
-
   end
 end

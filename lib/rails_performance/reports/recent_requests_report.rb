@@ -4,14 +4,12 @@ module RailsPerformance
       TIME_WINDOW = 60.minutes
 
       def set_defaults
-        @sort ||= :datetime
+        @sort ||= :datetimei
       end
 
-      def data(type = :requests) # most popular type
-        db.data
-        .collect{|e| e.record_hash}
-        .select{|e| e if e[:datetime] >= TIME_WINDOW.ago}
-        .sort{|a, b| b[sort] <=> a[sort]}
+      def data
+        time_agoi = TIME_WINDOW.ago.to_i
+        db.data.collect{|e| e.record_hash}.select{|e| e if e[:datetimei] >= time_agoi}.sort{|a, b| b[sort] <=> a[sort]}
       end
     end
   end

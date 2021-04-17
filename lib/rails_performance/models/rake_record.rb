@@ -13,17 +13,19 @@ module RailsPerformance
           datetime: items[4],
           datetimei: items[6],
           status: items[8],
-          json: value,
+          json: value
         )
       end
 
       def initialize(task:, duration: nil, datetime:, datetimei:, status:, json: '{}')
         @task         = task
         @datetime     = datetime
-        @datetimei    = datetimei
+        @datetimei    = datetimei.to_i
         @status       = status
         @duration     = duration
         @json         = json
+
+        @duration ||= value['duration']
       end
 
       def to_h

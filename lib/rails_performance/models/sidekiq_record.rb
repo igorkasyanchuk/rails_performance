@@ -1,14 +1,14 @@
 module RailsPerformance
   module Models
     class SidekiqRecord < BaseRecord
-      attr_accessor :queue, :worker, :jid, :created_ati, :enqueued_ati, :datetime, :start_timei, :status, :duration, :message
+      attr_accessor :queue, :worker, :jid, :datetimei, :enqueued_ati, :datetime, :start_timei, :status, :duration, :message
 
       # key = job-performance
       # |queue|default
       # |worker|SimpleWorker
       # |jid|7d48fbf20976c224510dbc60
       # |datetime|20200124T0523
-      # |created_ati|1583146613
+      # |datetimei|1583146613
       # |enqueued_ati|1583146613
       # |start_timei|1583146614
       # |status|success|END
@@ -21,7 +21,7 @@ module RailsPerformance
           worker: items[4],
           jid: items[6],
           datetime: items[8],
-          created_ati: items[10],
+          datetimei: items[10],
           enqueued_ati: items[12],
           start_timei: items[14],
           status: items[16],
@@ -29,12 +29,12 @@ module RailsPerformance
         )
       end
 
-      def initialize(queue:, worker:, jid:, datetime:, created_ati:, enqueued_ati:, start_timei:, status: nil, duration: nil, json: "{}")
+      def initialize(queue:, worker:, jid:, datetime:, datetimei:, enqueued_ati:, start_timei:, status: nil, duration: nil, json: "{}")
         @queue        = queue
         @worker       = worker
         @jid          = jid
         @datetime     = datetime
-        @created_ati  = created_ati
+        @datetimei    = datetimei.to_i
         @enqueued_ati = enqueued_ati
         @start_timei  = start_timei
         @status       = status
@@ -48,7 +48,7 @@ module RailsPerformance
           worker: worker,
           jid: jid,
           datetime: datetime,
-          created_ati: created_ati,
+          datetimei: datetimei,
           enqueued_ati: enqueued_ati,
           start_timei: start_timei,
           duration: duration,
@@ -69,7 +69,7 @@ module RailsPerformance
       end
 
       def save
-        key   = "sidekiq|queue|#{queue}|worker|#{worker}|jid|#{jid}|datetime|#{datetime}|created_ati|#{created_ati}|enqueued_ati|#{enqueued_ati}|start_timei|#{start_timei}|status|#{status}|END"
+        key   = "sidekiq|queue|#{queue}|worker|#{worker}|jid|#{jid}|datetime|#{datetime}|datetimei|#{datetimei}|enqueued_ati|#{enqueued_ati}|start_timei|#{start_timei}|status|#{status}|END"
         value = { message: message, duration: duration }
         Utils.save_to_redis(key, value)
       end

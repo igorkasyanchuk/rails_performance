@@ -77,7 +77,7 @@ module RailsPerformance
         @response_time_report_data = @response_time_report.data
 
         @recent_report             = RP::Reports::RecentRequestsReport.new(db)
-        @recent_report_data        = @recent_report.data(:sidekiq)
+        @recent_report_data        = @recent_report.data
       end
 
       def delayed_job
@@ -91,7 +91,7 @@ module RailsPerformance
         @response_time_report_data = @response_time_report.data
 
         @recent_report             = RP::Reports::RecentRequestsReport.new(db)
-        @recent_report_data        = @recent_report.data(:delayed_job)
+        @recent_report_data        = @recent_report.data
       end
 
       def grape
@@ -102,7 +102,7 @@ module RailsPerformance
         @throughput_report_data    = @throughput_report.data
 
         @recent_report             = RP::Reports::RecentRequestsReport.new(db)
-        @recent_report_data        = @recent_report.data(:grape)
+        @recent_report_data        = @recent_report.data
       end
 
       def rake
@@ -113,7 +113,9 @@ module RailsPerformance
         @throughput_report_data    = @throughput_report.data
 
         @recent_report             = RP::Reports::RecentRequestsReport.new(db)
-        @recent_report_data        = @recent_report.data(:grape)
+        @recent_report_data        = @recent_report.data
+
+        binding.pry
       end
 
       private

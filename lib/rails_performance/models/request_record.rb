@@ -49,7 +49,7 @@ module RailsPerformance
         @format     = format
         @status     = status
         @datetime   = datetime
-        @datetimei  = datetimei
+        @datetimei  = datetimei.to_i
         @method     = method
         @path       = path
         @request_id = request_id
