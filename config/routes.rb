@@ -12,6 +12,7 @@ RailsPerformance::Engine.routes.draw do
   get '/delayed_job'=> 'rails_performance#delayed_job', as: :rails_performance_delayed_job
   get '/grape'      => 'rails_performance#grape', as: :rails_performance_grape
   get '/rake'       => 'rails_performance#rake', as: :rails_performance_rake
+  get '/custom'     => 'rails_performance#custom', as: :rails_performance_custom
 end
 
 Rails.application.routes.draw do

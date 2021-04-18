@@ -10,6 +10,7 @@ require_relative "rails_performance/models/delayed_job_record.rb"
 require_relative "rails_performance/models/grape_record.rb"
 require_relative "rails_performance/models/trace_record.rb"
 require_relative "rails_performance/models/rake_record.rb"
+require_relative "rails_performance/models/custom_record.rb"
 require_relative "rails_performance/data_source.rb"
 require_relative "rails_performance/utils.rb"
 require_relative "rails_performance/reports/base_report.rb"
@@ -76,7 +77,7 @@ module RailsPerformance
     return
 
     if ::Rails.logger
-      puts(message)
+      # puts(message)
       ::Rails.logger.debug(message)
     else
       puts(message)
@@ -88,3 +89,6 @@ end
 RP = RailsPerformance
 
 require "rails_performance/engine"
+
+require_relative './rails_performance/gems/custom_ext.rb'
+RailsPerformance.send :extend, RailsPerformance::Gems::CustomExtension

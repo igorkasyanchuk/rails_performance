@@ -123,6 +123,13 @@ end
     assert_response :success
   end
 
+  test "should get custom" do
+    setup_db
+    get '/'
+    get '/rails/performance/custom'
+    assert_response :success
+  end
+
   test "should get grape page" do
     setup_db
     setup_grape_db

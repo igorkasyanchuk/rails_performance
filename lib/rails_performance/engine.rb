@@ -36,8 +36,6 @@ module RailsPerformance
         require_relative './gems/delayed_job_ext.rb'
         RailsPerformance::Gems::DelayedJobExt.init
       end
-
-      require_relative './gems/custom_ext.rb'
     end
 
     initializer :configure_metrics, after: :initialize_logger do

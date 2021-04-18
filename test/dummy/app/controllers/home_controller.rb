@@ -4,6 +4,10 @@ class HomeController < ApplicationController
     SecondWorker.perform_async
     sleep(rand(2.0))
     10.times { User.where(first_name: "X#{rand(100)}").count }
+    RailsPerformance.measure "index", "home controller" do
+      sleep(0.1)
+      50+50
+    end
   end
 
   def about

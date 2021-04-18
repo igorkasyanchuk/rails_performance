@@ -120,6 +120,8 @@ module RailsPerformance
         "is-active" if controller_name == "rails_performance" && action_name == "grape"
       when :rake
         "is-active" if controller_name == "rails_performance" && action_name == "rake"
+      when :custom
+        "is-active" if controller_name == "rails_performance" && action_name == "custom"
       end
     end
   end

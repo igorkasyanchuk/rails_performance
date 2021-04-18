@@ -57,7 +57,6 @@ module RailsPerformance
       def sidekiq
         @datasource                = RP::DataSource.new(**prepare_query, type: :sidekiq)
         db                         = @datasource.db
-
         @throughput_report_data    = RP::Reports::ThroughputReport.new(db).data
         @response_time_report_data = RP::Reports::ResponseTimeReport.new(db).data
         @recent_report_data        = RP::Reports::RecentRequestsReport.new(db).data
@@ -66,7 +65,14 @@ module RailsPerformance
       def delayed_job
         @datasource                = RP::DataSource.new(**prepare_query, type: :delayed_job)
         db                         = @datasource.db
+        @throughput_report_data    = RP::Reports::ThroughputReport.new(db).data
+        @response_time_report_data = RP::Reports::ResponseTimeReport.new(db).data
+        @recent_report_data        = RP::Reports::RecentRequestsReport.new(db).data
+      end
 
+      def custom
+        @datasource                = RP::DataSource.new(**prepare_query, type: :custom)
+        db                         = @datasource.db
         @throughput_report_data    = RP::Reports::ThroughputReport.new(db).data
         @response_time_report_data = RP::Reports::ResponseTimeReport.new(db).data
         @recent_report_data        = RP::Reports::RecentRequestsReport.new(db).data
@@ -75,7 +81,6 @@ module RailsPerformance
       def grape
         @datasource                = RP::DataSource.new(**prepare_query, type: :grape)
         db                         = @datasource.db
-
         @throughput_report_data    = RP::Reports::ThroughputReport.new(db).data
         @recent_report_data        = RP::Reports::RecentRequestsReport.new(db).data
       end
@@ -83,7 +88,6 @@ module RailsPerformance
       def rake
         @datasource                = RP::DataSource.new(**prepare_query, type: :rake)
         db                         = @datasource.db
-
         @throughput_report_data    = RP::Reports::ThroughputReport.new(db).data
         @recent_report_data        = RP::Reports::RecentRequestsReport.new(db).data
       end

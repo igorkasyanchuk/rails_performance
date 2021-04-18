@@ -1,19 +1,29 @@
 module RailsPerformance
   module Gems
     module CustomExtension
-      def measure_rails_performance(tag_name, namespace = "")
+      extend self
+
+      def measure(tag_name, namespace_name = nil)
         return yield unless RailsPerformance.enabled
 
         begin
           now    = Time.now
-          result = yield
           status = 'success'
+          result = yield
           result
         rescue Exception => ex
           status = 'error'
           raise(ex)
         ensure
-          puts Time.now - now
+          RailsPerformance::Models::CustomRecord.new(
+            tag_name: tag_name,
+            namespace_name: namespace_name,
+            status: status,
+            duration: Time.now - now,
+            datetime: now.strftime(RailsPerformance::FORMAT),
+            datetimei: now.to_i,
+          ).save
+
           result
         end
       end
@@ -21,5 +31,3 @@ module RailsPerformance
     end
   end
 end
-
-self.send :extend, RailsPerformance::Gems::CustomExtension
