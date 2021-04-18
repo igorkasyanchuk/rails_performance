@@ -70,20 +70,6 @@ module RailsPerformance
         "#{controller}##{action}|#{format}"
       end
 
-      def to_h
-        {
-          controller: controller,
-          action: action,
-          format: format,
-          method: method,
-          path: path,
-          duration: ms(duration),
-          view_runtime: ms(value['view_runtime']),
-          db_runtime: ms(value['db_runtime']),
-          http_referer: value['http_referer']
-        }
-      end
-
       def record_hash
         {
           controller: self.controller,

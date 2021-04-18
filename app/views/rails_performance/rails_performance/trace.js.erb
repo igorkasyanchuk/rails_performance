@@ -1,5 +1,5 @@
 <% if @record %>
-  window.panel.header.html(window.panel.close + "<%= j report_name(@record.to_h) %>");
+  window.panel.header.html(window.panel.close + "<%= j report_name(@record.record_hash) %>");
 <% else %>
   window.panel.header.html(window.panel.close);
 <% end %>

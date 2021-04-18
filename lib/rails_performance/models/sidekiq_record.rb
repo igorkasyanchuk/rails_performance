@@ -42,21 +42,6 @@ module RailsPerformance
         @json         = json
       end
 
-      def to_h
-        {
-          queue: queue,
-          worker: worker,
-          jid: jid,
-          datetime: datetime,
-          datetimei: datetimei,
-          enqueued_ati: enqueued_ati,
-          start_timei: start_timei,
-          duration: duration,
-          status: status,
-          message: value['message']
-        }
-      end
-
       def record_hash
         {
           worker: self.worker,
@@ -66,6 +51,7 @@ module RailsPerformance
           datetimei: datetimei,
           datetime: Time.at(self.start_timei.to_i),
           duration: self.value['duration'],
+          message: value['message']
         }
       end
 

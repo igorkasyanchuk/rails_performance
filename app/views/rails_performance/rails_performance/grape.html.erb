@@ -26,8 +26,8 @@
           <th data-sort="string">Path</th>
           <th data-sort="string">Status</th>
           <th data-sort="float">endpoint_render.grape</th>
-          <th data-sort="float">endpoint_run.grape</th>
           <th data-sort="float">format_response.grape</th>
+          <th data-sort="float">endpoint_run.grape</th>
           <th></th>
         </tr>
       </thead>
@@ -43,9 +43,11 @@
             <td><%= e[:method] %></td>
             <td><%= e[:path] %></td>
             <td><%= status_tag e[:status] %></td>
-            <td class="nowrap"><%= e["endpoint_render.grape"] %></td>
-            <td class="nowrap"><%= e["endpoint_run.grape"] %></td>
-            <td class="nowrap"><%= e["format_response.grape"] %></td>
+            <td class="nowrap"><%= mss e["endpoint_render.grape"] %></td>
+            <td class="nowrap"><%= mss e["format_response.grape"] %></td>
+            <td class="nowrap">
+              <%= mss e["endpoint_run.grape"] %>
+            </td>
           </tr>
         <% end %>
       </tbody>

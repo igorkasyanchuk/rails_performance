@@ -1,10 +1,10 @@
 module RailsPerformance
   module ApplicationHelper
-    def round_it(value)
+    def round_it(value, limit = 1)
       return nil unless value
       return value if value.is_a?(Integer)
 
-      value.nan? ? nil : value.round(1)
+      value.nan? ? nil : value.round(limit)
     end
 
     def duraction_alert_class(duration_str)
@@ -30,9 +30,15 @@ module RailsPerformance
       end
     end
 
-    def ms(value)
-      result = round_it(value)
-      result && result != 0 ? "#{result} ms" : '-'
+    def mss(value, limit = 1)
+      ms(value.to_f * 1000, limit)
+    end
+
+    def ms(value, limit = 1)
+      result = round_it(value, limit)
+      return '-' if result.nil?
+
+      result && result != 0 ? "#{result} ms" : '< 0 ms'
     end
 
     def short_path(path, length: 60)

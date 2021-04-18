@@ -23,7 +23,7 @@ module RailsPerformance
 
       def initialize(datetime: nil, datetimei: nil, format: nil, path: nil, status: nil, method: nil, request_id:, endpoint_render_grape: nil, endpoint_run_grape: nil, format_response_grape: nil, json: '{}')
         @datetime     = datetime
-        @datetimei    = datetimei.to_i
+        @datetimei    = datetimei.to_i unless datetimei.nil?
         @format       = format
         @path         = path
         @status       = status
@@ -44,22 +44,9 @@ module RailsPerformance
           method: self.method,
           path: self.path,
           datetime: Time.at(self.datetimei.to_i),
-          datetimei: datetimei,
+          datetimei: datetimei.to_i,
           request_id: self.request_id,
         }.merge(self.value)
-      end
-
-      def to_h
-        {
-          datetime: datetime,
-          datetimei: datetimei,
-          request_id: request_id,
-          status: status,
-          format: format,
-          method: method,
-          path: path,
-          value: value
-        }
       end
 
       def save

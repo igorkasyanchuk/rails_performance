@@ -16,8 +16,6 @@ module RailsPerformance
       @klass   = KLASSES[type]
       q[:on] ||= Date.today
       @q       = q
-
-      #puts "  [DataSource Q]  -->  #{@q.inspect}\n\n"
     end
 
     def db
@@ -93,18 +91,21 @@ module RailsPerformance
 
     def compile_delayed_job_query
       str = []
+      str << "datetime|#{q[:on].strftime('%Y%m%d')}*|" if q[:on].present?
       str << "status|#{q[:status]}|" if q[:status].present?
       str.join("*")
     end
 
     def compile_rake_query
       str = []
+      str << "datetime|#{q[:on].strftime('%Y%m%d')}*|" if q[:on].present?
       str << "status|#{q[:status]}|" if q[:status].present?
       str.join("*")
     end
 
     def compile_custom_query
       str = []
+      str << "datetime|#{q[:on].strftime('%Y%m%d')}*|" if q[:on].present?
       str << "status|#{q[:status]}|" if q[:status].present?
       str.join("*")
     end

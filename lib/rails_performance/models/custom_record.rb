@@ -26,17 +26,6 @@ module RailsPerformance
         @json           = json
       end
 
-      def to_h
-        {
-          tag_name: tag_name,
-          namespace_name: namespace_name,
-          datetime: datetime,
-          datetimei: datetimei,
-          duration: duration,
-          status: status,
-        }
-      end
-
       def record_hash
         {
           tag_name: self.tag_name,

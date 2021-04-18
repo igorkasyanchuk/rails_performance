@@ -36,7 +36,6 @@
           <th data-sort="string">Status</th>
           <th data-sort="float">Duration</th>
           <th>Message</th>
-          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -53,7 +52,7 @@
             <td><%= e[:jid] %></td>
             <td><%= status_tag e[:status] %></td>
             <td class="nowrap"><%= ms e[:duration] %></td>
-            <td><%= e[:message] %></td>
+            <td><%= e[:message].presence || '-' %></td>
           </tr>
         <% end %>
       </tbody>

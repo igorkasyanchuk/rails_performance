@@ -28,16 +28,6 @@ module RailsPerformance
         @duration ||= value['duration']
       end
 
-      def to_h
-        {
-          task: task,
-          datetime: datetime,
-          datetimei: datetimei,
-          duration: duration,
-          status: status,
-        }
-      end
-
       def record_hash
         {
           task: task,

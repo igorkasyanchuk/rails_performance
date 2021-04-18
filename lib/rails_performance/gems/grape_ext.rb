@@ -6,8 +6,6 @@ module RailsPerformance
         ActiveSupport::Notifications.subscribe(/grape/) do |name, start, finish, id, payload|
           # TODO change to set
           CurrentRequest.current.ignore.add(:performance)
-          #puts name
-          #binding.pry
 
           now                                           = Time.now
           CurrentRequest.current.data               ||= {}

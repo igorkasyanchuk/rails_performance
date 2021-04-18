@@ -1,5 +1,3 @@
-$n = 0
-
 module RailsPerformance
   module Gems
     class DelayedJobExt

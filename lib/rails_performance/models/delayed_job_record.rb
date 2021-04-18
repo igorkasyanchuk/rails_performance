@@ -38,21 +38,17 @@ module RailsPerformance
         @json         = json
       end
 
-      def to_h
+      def record_hash
         {
           jid: jid,
-          datetime: datetime,
+          datetime: Time.at(datetimei),
           datetimei: datetimei,
-          duration: duration,
+          duration: value['duration'],
           status: status,
           source_type: source_type,
           class_name: class_name,
           method_name: method_name,
         }
-      end
-
-      def record_hash
-        to_h
       end
 
       def save

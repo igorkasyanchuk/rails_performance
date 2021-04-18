@@ -6,6 +6,11 @@
       mount RailsPerformance::Engine, at: 'rails/performance'
     end
 ```
+  - refactored code, more tests added
+  - added support for Dalayed Job gem
+  - added support for Rake tasks
+  - added support for Grape API
+  - added support for Custom event tracking
 
 0.9.9
   - fix "enabled" behavior https://github.com/igorkasyanchuk/rails_performance/pull/23
