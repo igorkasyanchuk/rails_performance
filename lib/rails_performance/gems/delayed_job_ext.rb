@@ -16,7 +16,7 @@ module RailsPerformance
               meta_data = RailsPerformance::Gems::DelayedJobExt::Plugin.meta(job.payload_object)
               record    = RailsPerformance::Models::DelayedJobRecord.new(
                 jid: job.id,
-                duration: Time.now - now,
+                duration: (Time.now - now) * 1000,
                 datetime: now.strftime(RailsPerformance::FORMAT),
                 datetimei: now.to_i,
                 source_type: meta_data[0],

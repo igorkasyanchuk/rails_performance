@@ -17,7 +17,7 @@ module RailsPerformance
                 task: RailsPerformance::Gems::RakeExt.find_task_name(*args),
                 datetime: now.strftime(RailsPerformance::FORMAT),
                 datetimei: now.to_i,
-                duration: Time.now - now,
+                duration: (Time.now - now) * 1000,
                 status: status,
               ).save
             end

@@ -27,7 +27,6 @@ module RailsPerformance
         ensure
           # store in ms instead of seconds
           record.duration = (Time.now - now) * 1000
-          #puts data
           record.save
           result
         end

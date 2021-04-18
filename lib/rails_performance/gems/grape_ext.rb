@@ -14,7 +14,7 @@ module RailsPerformance
           CurrentRequest.current.record.datetime    ||= now.strftime(RailsPerformance::FORMAT)
 
           if ['endpoint_render.grape', 'endpoint_run.grape', 'format_response.grape'].include?(name)
-            CurrentRequest.current.record.send(name.gsub(".", "_") + "=", finish - start)
+            CurrentRequest.current.record.send(name.gsub(".", "_") + "=", (finish - start) * 1000)
           end
 
           if payload[:env]
