@@ -2,6 +2,15 @@ require 'test_helper'
 
 class DelayedJobRecordTest < ActiveSupport::TestCase
 
+  test "base works" do
+    User.create.say_hello
+    Delayed::Worker.new.work_off
+  end
+
+  test "storage" do
+    dummy_delayed_job_record.save
+  end
+
   test "delayed job record test" do
     RailsPerformance.duration = 3.hours
 

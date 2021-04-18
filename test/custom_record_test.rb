@@ -9,6 +9,14 @@ class CustomRecordTest < ActiveSupport::TestCase
     assert_equal 42, result
   end
 
+  test "custom record storage with error" do
+    assert_raise(ZeroDivisionError) {
+      RailsPerformance.measure "x", "y" do
+        42/0
+      end
+    }
+  end
+
   test "custom record test" do
     RailsPerformance.duration = 3.hours
 
