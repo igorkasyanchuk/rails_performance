@@ -8,7 +8,7 @@ module RailsPerformance
       end
 
       def data
-        key   = "trace|#{request_id}"
+        key   = "trace|#{request_id}|END|#{RailsPerformance::VERSION}"
         JSON.parse(RP.redis.get(key).presence || '[]')
       end
     end

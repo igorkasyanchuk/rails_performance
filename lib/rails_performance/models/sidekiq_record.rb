@@ -11,7 +11,7 @@ module RailsPerformance
       # |datetimei|1583146613
       # |enqueued_ati|1583146613
       # |start_timei|1583146614
-      # |status|success|END
+      # |status|success|END|1.0.0
       # value = JSON
       def SidekiqRecord.from_db(key, value)
         items = key.split("|")
@@ -56,7 +56,7 @@ module RailsPerformance
       end
 
       def save
-        key   = "sidekiq|queue|#{queue}|worker|#{worker}|jid|#{jid}|datetime|#{datetime}|datetimei|#{datetimei}|enqueued_ati|#{enqueued_ati}|start_timei|#{start_timei}|status|#{status}|END"
+        key   = "sidekiq|queue|#{queue}|worker|#{worker}|jid|#{jid}|datetime|#{datetime}|datetimei|#{datetimei}|enqueued_ati|#{enqueued_ati}|start_timei|#{start_timei}|status|#{status}|END|#{RailsPerformance::VERSION}"
         value = { message: message, duration: duration }
         Utils.save_to_redis(key, value)
       end

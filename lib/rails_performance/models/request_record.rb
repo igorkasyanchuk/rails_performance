@@ -23,7 +23,7 @@ module RailsPerformance
       # method|GET|
       # path|/|
       # request_id|454545454545454545|
-      # END
+      # END|1.0.0
       # = {"view_runtime":8.444603008683771,"db_runtime":0,"duration":9.216095000000001}
       # value = JSON
       def RequestRecord.from_db(key, value)
@@ -89,7 +89,7 @@ module RailsPerformance
 
       def save
         value = { view_runtime: view_runtime, db_runtime: db_runtime, duration: duration, http_referer: http_referer }
-        key   = "performance|controller|#{controller}|action|#{action}|format|#{format}|status|#{status}|datetime|#{datetime}|datetimei|#{datetimei}|method|#{method}|path|#{path}|request_id|#{request_id}|END"
+        key   = "performance|controller|#{controller}|action|#{action}|format|#{format}|status|#{status}|datetime|#{datetime}|datetimei|#{datetimei}|method|#{method}|path|#{path}|request_id|#{request_id}|END|#{RailsPerformance::VERSION}"
         Utils.save_to_redis(key, value)
       end
 

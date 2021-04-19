@@ -10,7 +10,7 @@ module RailsPerformance
       #|source_type|instance_method
       #|class_name|User
       #|method_name|say_hello_without_delay
-      #|status|success|END
+      #|status|success|END|1.0.0
       def DelayedJobRecord.from_db(key, value)
         items = key.split("|")
 
@@ -52,7 +52,7 @@ module RailsPerformance
       end
 
       def save
-        key   = "delayed_job|jid|#{jid}|datetime|#{datetime}|datetimei|#{datetimei}|source_type|#{source_type}|class_name|#{class_name}|method_name|#{method_name}|status|#{status}|END"
+        key   = "delayed_job|jid|#{jid}|datetime|#{datetime}|datetimei|#{datetimei}|source_type|#{source_type}|class_name|#{class_name}|method_name|#{method_name}|status|#{status}|END|#{RailsPerformance::VERSION}"
         value = { duration: duration }
         Utils.save_to_redis(key, value)
       end

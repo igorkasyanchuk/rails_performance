@@ -3,7 +3,7 @@ module RailsPerformance
     class RakeRecord < BaseRecord
       attr_accessor :task, :duration, :datetime, :datetimei, :status
 
-      # rake|task|["task3"]|datetime|20210416T1254|datetimei|1618602843|status|error|END
+      # rake|task|["task3"]|datetime|20210416T1254|datetimei|1618602843|status|error|END|1.0.0
       # {"duration":0.00012442}
       def RakeRecord.from_db(key, value)
         items = key.split("|")
@@ -39,7 +39,7 @@ module RailsPerformance
       end
 
       def save
-        key   = "rake|task|#{task.to_json}|datetime|#{datetime}|datetimei|#{datetimei}|status|#{status}|END"
+        key   = "rake|task|#{task.to_json}|datetime|#{datetime}|datetimei|#{datetimei}|status|#{status}|END|#{RailsPerformance::VERSION}"
         value = { duration: duration }
         Utils.save_to_redis(key, value)
       end
