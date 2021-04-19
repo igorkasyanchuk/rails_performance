@@ -6,24 +6,6 @@
 
 <div class="card">
   <div class="card-content">
-    <h2 class="subtitle">Custom Events Throughput Report</h2>
-    <div id="throughput_report_chart" class="chart"></div>
-    <p class="content is-small">All custom events in the application</p>
-  </div>
-</div>
-
-<br/>
-
-<div class="card">
-  <div class="card-content">
-    <h2 class="subtitle">Average Execution Time</h2>
-    <div id="response_time_report_chart" class="chart"></div>
-    <p class="content is-small">All custom events in the application</p>
-  </div>
-</div>
-
-<div class="card">
-  <div class="card-content">
     <h2 class="subtitle">Recent Events (last <%= RailsPerformance::Reports::RecentRequestsReport::TIME_WINDOW / 60 %> minutes)<h2>
 
     <table class="table is-fullwidth is-hoverable is-narrow">
@@ -53,6 +35,26 @@
         <% end %>
       </tbody>
     </table>
+  </div>
+</div>
+
+<br/>
+
+<div class="card">
+  <div class="card-content">
+    <h2 class="subtitle">Custom Events Throughput Report</h2>
+    <div id="throughput_report_chart" class="chart"></div>
+    <p class="content is-small">All custom events in the application</p>
+  </div>
+</div>
+
+<br/>
+
+<div class="card">
+  <div class="card-content">
+    <h2 class="subtitle">Average Execution Time</h2>
+    <div id="response_time_report_chart" class="chart"></div>
+    <p class="content is-small">All custom events in the application</p>
   </div>
 </div>
 

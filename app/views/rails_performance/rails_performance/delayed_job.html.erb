@@ -22,6 +22,8 @@
   </div>
 </div>
 
+<br/>
+
 <div class="card">
   <div class="card-content">
     <h2 class="subtitle">Recent Jobs (last <%= RailsPerformance::Reports::RecentRequestsReport::TIME_WINDOW / 60 %> minutes)<h2>
@@ -52,7 +54,7 @@
             <td><%= e[:class_name] %></td>
             <td><%= e[:method_name] %></td>
             <td><%= status_tag e[:status] %></td>
-            <td class="nowrap"><%= ms e[:duration], 3 %></td>
+            <td class="nowrap"><%= ms e[:duration], 1 %></td>
           </tr>
         <% end %>
       </tbody>

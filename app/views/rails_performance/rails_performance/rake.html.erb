@@ -6,16 +6,6 @@
 
 <div class="card">
   <div class="card-content">
-    <h2 class="subtitle">Rake Throughput Report</h2>
-    <div id="throughput_report_chart" class="chart"></div>
-    <p class="content is-small">All rake tasks in the application</p>
-  </div>
-</div>
-
-<br/>
-
-<div class="card">
-  <div class="card-content">
     <h2 class="subtitle">Recent Rake tasks (last <%= RailsPerformance::Reports::RecentRequestsReport::TIME_WINDOW / 60 %> minutes)<h2>
 
     <table class="table is-fullwidth is-hoverable is-narrow">
@@ -43,6 +33,16 @@
         <% end %>
       </tbody>
     </table>
+  </div>
+</div>
+
+<br/>
+
+<div class="card">
+  <div class="card-content">
+    <h2 class="subtitle">Rake Throughput Report</h2>
+    <div id="throughput_report_chart" class="chart"></div>
+    <p class="content is-small">All rake tasks in the application</p>
   </div>
 </div>
 
