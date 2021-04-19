@@ -10,9 +10,7 @@ module RailsPerformance
       end
 
       def call!(env)
-        RailsPerformance.log "== MiddlewareTraceStorerAndCleanup " * 5
         if %r{#{RailsPerformance.mount_at}}.match?(env["PATH_INFO"])
-          RailsPerformance.log "RailsPerformance in SKIP MODE"
           RailsPerformance.skip = true
         end
 
@@ -41,7 +39,6 @@ module RailsPerformance
       end
 
       def call!(env)
-        RailsPerformance.log "  == Middleware " * 10
         @status, @headers, @response = @app.call(env)
 
         #t = Time.now

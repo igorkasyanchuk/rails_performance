@@ -14,6 +14,7 @@ module RailsPerformance
 
     def CurrentRequest.cleanup
       RailsPerformance.log "----------------------------------------------------> CurrentRequest.cleanup !!!!!!!!!!!! -------------------------\n\n"
+      RailsPerformance.skip = false
       Thread.current[:rp_current_request] = nil
     end
 

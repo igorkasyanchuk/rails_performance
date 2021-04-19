@@ -21,7 +21,20 @@
       <tbody>
         <% if @recent_report_data.empty? %>
           <tr>
-            <td colspan="10">Nothing to show here. Try to make a few requests in the main app.</td>
+            <td colspan="5">
+              Nothing to show here. Try to make a few requests in the main app.
+
+              <pre>
+                <code>
+                  # in controller for example
+                  def index
+                    RailsPerformance.measure("stats calculation", "reports#index") do
+                      stats = User.calculate_stats
+                    end
+                  end
+                </code>
+              </pre>
+            </td>
           </tr>
         <% end %>
         <% @recent_report_data.each do |e| %>
