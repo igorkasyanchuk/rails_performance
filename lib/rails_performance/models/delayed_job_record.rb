@@ -52,7 +52,7 @@ module RailsPerformance
       end
 
       def save
-        key   = "delayed_job|jid|#{jid}|datetime|#{datetime}|datetimei|#{datetimei}|source_type|#{source_type}|class_name|#{class_name}|method_name|#{method_name}|status|#{status}|END|#{RailsPerformance::VERSION}"
+        key   = "delayed_job|jid|#{jid}|datetime|#{datetime}|datetimei|#{datetimei}|source_type|#{source_type}|class_name|#{class_name}|method_name|#{method_name}|status|#{status}|END|#{RailsPerformance::SCHEMA}"
         value = { duration: duration }
         Utils.save_to_redis(key, value)
       end

@@ -38,7 +38,7 @@ module RailsPerformance
       end
 
       def save
-        key   = "custom|tag_name|#{tag_name}|namespace_name|#{namespace_name}|datetime|#{datetime}|datetimei|#{datetimei}|status|#{status}|END|#{RailsPerformance::VERSION}"
+        key   = "custom|tag_name|#{tag_name}|namespace_name|#{namespace_name}|datetime|#{datetime}|datetimei|#{datetimei}|status|#{status}|END|#{RailsPerformance::SCHEMA}"
         value = { duration: duration }
         Utils.save_to_redis(key, value)
       end

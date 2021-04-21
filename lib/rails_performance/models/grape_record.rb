@@ -50,7 +50,7 @@ module RailsPerformance
       end
 
       def save
-        key   = "grape|datetime|#{datetime}|datetimei|#{datetimei}|format|#{format}|path|#{path}|status|#{status}|method|#{method}|request_id|#{request_id}|END|#{RailsPerformance::VERSION}"
+        key   = "grape|datetime|#{datetime}|datetimei|#{datetimei}|format|#{format}|path|#{path}|status|#{status}|method|#{method}|request_id|#{request_id}|END|#{RailsPerformance::SCHEMA}"
         value = { "endpoint_render.grape" => endpoint_render_grape, "endpoint_run.grape" => endpoint_run_grape, "format_response.grape" => format_response_grape }
 
         Utils.save_to_redis(key, value)

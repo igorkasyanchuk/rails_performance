@@ -52,17 +52,17 @@ module RailsPerformance
     def query
       case type
       when :requests
-        "performance|*#{compile_requests_query}*|END|#{RailsPerformance::VERSION}"
+        "performance|*#{compile_requests_query}*|END|#{RailsPerformance::SCHEMA}"
       when :sidekiq
-        "sidekiq|*#{compile_sidekiq_query}*|END|#{RailsPerformance::VERSION}"
+        "sidekiq|*#{compile_sidekiq_query}*|END|#{RailsPerformance::SCHEMA}"
       when :delayed_job
-        "delayed_job|*#{compile_delayed_job_query}*|END|#{RailsPerformance::VERSION}"
+        "delayed_job|*#{compile_delayed_job_query}*|END|#{RailsPerformance::SCHEMA}"
       when :grape
-        "grape|*#{compile_grape_query}*|END|#{RailsPerformance::VERSION}"
+        "grape|*#{compile_grape_query}*|END|#{RailsPerformance::SCHEMA}"
       when :rake
-        "rake|*#{compile_rake_query}*|END|#{RailsPerformance::VERSION}"
+        "rake|*#{compile_rake_query}*|END|#{RailsPerformance::SCHEMA}"
       when :custom
-        "custom|*#{compile_custom_query}*|END|#{RailsPerformance::VERSION}"
+        "custom|*#{compile_custom_query}*|END|#{RailsPerformance::SCHEMA}"
       else
         raise "wrong type for datasource query builder"
       end

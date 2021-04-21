@@ -39,7 +39,7 @@ module RailsPerformance
       end
 
       def save
-        key   = "rake|task|#{task.to_json}|datetime|#{datetime}|datetimei|#{datetimei}|status|#{status}|END|#{RailsPerformance::VERSION}"
+        key   = "rake|task|#{task.to_json}|datetime|#{datetime}|datetimei|#{datetimei}|status|#{status}|END|#{RailsPerformance::SCHEMA}"
         value = { duration: duration }
         Utils.save_to_redis(key, value)
       end

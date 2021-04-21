@@ -188,6 +188,8 @@ The idea of this gem grew from curriosity how many RPM my app receiving per day.
 
 You are welcome to contribute. I've a big list of TODO.
 
+If "schema" how records are stored i Redis is changed, and this is a breacking change, update: `RailsPerformance::SCHEMA` to a newer value.
+
 ## Big thanks to contributors
 
 - https://github.com/synth
