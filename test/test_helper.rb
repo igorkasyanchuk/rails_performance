@@ -92,7 +92,7 @@ def dummy_delayed_job_record(datetimei: Time.now.to_i, status: 'success', jid: "
 end
 
 def reset_redis
-  RP.redis.redis.flushall
+  RailsPerformance.redis.redis.flushall
 end
 
 # TODO improve

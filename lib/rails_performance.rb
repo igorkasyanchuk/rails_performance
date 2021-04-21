@@ -86,8 +86,6 @@ module RailsPerformance
 
 end
 
-RP = RailsPerformance
-
 require "rails_performance/engine"
 
 require_relative './rails_performance/gems/custom_ext.rb'

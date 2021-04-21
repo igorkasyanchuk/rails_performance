@@ -7,8 +7,8 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
   end
 
   def requests_report_data
-    source = RP::DataSource.new(type: :requests)
-    RP::Reports::RequestsReport.new(source.db, group: :controller_action_format).data
+    source = RailsPerformance::DataSource.new(type: :requests)
+    RailsPerformance::Reports::RequestsReport.new(source.db, group: :controller_action_format).data
   end
 
   test "should get home page" do
@@ -28,11 +28,11 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
     reset_redis
     assert_equal requests_report_data.size, 0
 
-    original_ignored_endpoints = RP.ignored_endpoints
-    RP.ignored_endpoints = ['HomeController#contact']
+    original_ignored_endpoints = RailsPerformance.ignored_endpoints
+    RailsPerformance.ignored_endpoints = ['HomeController#contact']
     get '/home/contact'
     assert_equal requests_report_data.size, 0
-    RP.ignored_endpoints = original_ignored_endpoints
+    RailsPerformance.ignored_endpoints = original_ignored_endpoints
   end
 
   test "should get index" do

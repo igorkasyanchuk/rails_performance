@@ -5,12 +5,12 @@ module RailsPerformance
       attr_accessor :view_runtime, :db_runtime, :duration, :http_referer
 
       def RequestRecord.find_by(request_id:)
-        keys, values = RP::Utils.fetch_from_redis("performance|*|request_id|#{request_id}|*")
+        keys, values = RailsPerformance::Utils.fetch_from_redis("performance|*|request_id|#{request_id}|*")
 
         return nil if keys.blank?
         return nil if values.blank?
 
-        RP::Models::RequestRecord.from_db(keys[0], values[0])
+        RailsPerformance::Models::RequestRecord.from_db(keys[0], values[0])
       end
 
       # key = performance|
