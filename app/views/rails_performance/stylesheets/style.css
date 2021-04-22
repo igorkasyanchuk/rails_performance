@@ -85,3 +85,7 @@
 table th[data-sort] {
   cursor: pointer;
 }
+
+.very-small-text {
+  font-size: 8px;
+}

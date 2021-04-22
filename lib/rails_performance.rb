@@ -69,11 +69,11 @@ module RailsPerformance
   mattr_accessor :skip
   @@skip = false
 
-  def self.setup
+  def RailsPerformance.setup
     yield(self)
   end
 
-  def self.log(message)
+  def RailsPerformance.log(message)
     return
 
     if ::Rails.logger

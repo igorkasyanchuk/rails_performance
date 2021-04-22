@@ -3,6 +3,7 @@ module RailsPerformance
     class RequestRecord < BaseRecord
       attr_accessor :controller, :action, :format, :status, :datetime, :datetimei, :method, :path, :request_id, :json
       attr_accessor :view_runtime, :db_runtime, :duration, :http_referer
+      attr_accessor :exception, :exception_object
 
       def RequestRecord.find_by(request_id:)
         keys, values = RailsPerformance::Utils.fetch_from_redis("performance|*|request_id|#{request_id}|*")
@@ -24,7 +25,7 @@ module RailsPerformance
       # path|/|
       # request_id|454545454545454545|
       # END|1.0.0
-      # = {"view_runtime":8.444603008683771,"db_runtime":0,"duration":9.216095000000001}
+      # = {"view_runtime":null,"db_runtime":0,"duration":27.329741000000002,"http_referer":null,"exception":"ZeroDivisionError divided by 0","backtrace":["/root/projects/rails_performance/test/dummy/app/controllers/account/site_controller.rb:17:in `/'","/root/projects/rails_performance/test/dummy/app/controllers/account/site_controller.rb:17:in `crash'","/usr/local/rvm/gems/ruby-2.6.3/gems/actionpack-6.1.3.1/lib/action_controller/metal/basic_implicit_render.rb:6:in `send_action'"]}
       # value = JSON
       def RequestRecord.from_db(key, value)
         items = key.split("|")
@@ -43,7 +44,7 @@ module RailsPerformance
         )
       end
 
-      def initialize(controller:, action:, format:, status:, datetime:, datetimei:, method:, path:, request_id:, view_runtime: nil, db_runtime: nil, duration: nil, http_referer: nil, json: '{}')
+      def initialize(controller:, action:, format:, status:, datetime:, datetimei:, method:, path:, request_id:, view_runtime: nil, db_runtime: nil, duration: nil, http_referer: nil, exception: nil, exception_object: nil, json: '{}')
         @controller = controller
         @action     = action
         @format     = format
@@ -58,6 +59,9 @@ module RailsPerformance
         @db_runtime   = db_runtime
         @duration     = duration
         @http_referer = http_referer
+
+        @exception        = Array.wrap(exception).compact.join(" ")
+        @exception_object = exception_object
 
         @json       = json
       end
@@ -84,12 +88,21 @@ module RailsPerformance
           duration: self.value['duration'],
           db_runtime: self.value['db_runtime'],
           view_runtime: self.value['view_runtime'],
+          exception: self.value['exception'],
+          backtrace: self.value['backtrace']
         }
       end
 
       def save
-        value = { view_runtime: view_runtime, db_runtime: db_runtime, duration: duration, http_referer: http_referer }
         key   = "performance|controller|#{controller}|action|#{action}|format|#{format}|status|#{status}|datetime|#{datetime}|datetimei|#{datetimei}|method|#{method}|path|#{path}|request_id|#{request_id}|END|#{RailsPerformance::SCHEMA}"
+        value = {
+          view_runtime: view_runtime,
+          db_runtime: db_runtime,
+          duration: duration,
+          http_referer: http_referer,
+        }
+        value[:exception] = exception if exception.present?
+        value[:backtrace] = exception_object.backtrace.take(3) if exception_object
         Utils.save_to_redis(key, value)
       end
 
