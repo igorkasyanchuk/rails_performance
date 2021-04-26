@@ -119,7 +119,13 @@ Rails.application.routes.draw do
 end
 ```
 
+### Custom events
 
+```ruby
+RailsPerformance.measure("some label", "some namespace") do
+   # your code
+end
+```
 
 ## How it works
 
