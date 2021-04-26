@@ -1,5 +1,20 @@
-1.0.0 (unreleased)
+- Unreleased
+  - ...
+
+1.0.0
   - support Redis cluster by default https://github.com/igorkasyanchuk/rails_performance/pull/26/files
+  - added instructions how to mount engine manutally in secured scope https://github.com/igorkasyanchuk/rails_performance/pull/27
+```ruby
+    authenticate :user, -> (user) { user.admin? } do
+      mount RailsPerformance::Engine, at: 'rails/performance'
+    end
+```
+  - refactored code, more tests added
+  - added support for Dalayed Job gem
+  - added support for Rake tasks
+  - added support for Grape API
+  - added support for Custom event tracking
+  - fix for issue with disabled `serve_static_files` https://github.com/igorkasyanchuk/rails_performance/issues/29
 
 0.9.9
   - fix "enabled" behavior https://github.com/igorkasyanchuk/rails_performance/pull/23

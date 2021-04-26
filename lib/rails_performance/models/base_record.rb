@@ -1,6 +1,18 @@
 module RailsPerformance
   module Models
     class BaseRecord
+      def self.from_db(key, value)
+        raise 'implement me'
+      end
+
+      def save
+        raise 'implement me'
+      end
+
+      def record_hash
+        raise 'implement me'
+      end
+
       def value
         @value ||= JSON.parse(@json || "{}")
       end

@@ -13,16 +13,32 @@ module RailsPerformance
       if ::Rails::VERSION::MAJOR.to_i >= 5
         app.middleware.insert_after ActionDispatch::Executor, RailsPerformance::Rails::Middleware
       else
-        app.middleware.insert_after ActionDispatch::Static, RailsPerformance::Rails::Middleware
+        begin
+          app.middleware.insert_after ActionDispatch::Static, RailsPerformance::Rails::Middleware
+        rescue
+          app.middleware.insert_after Rack::SendFile, RailsPerformance::Rails::Middleware
+        end
       end
+      # look like it works in reverse order?
+      app.middleware.insert_before RailsPerformance::Rails::Middleware, RailsPerformance::Rails::MiddlewareTraceStorerAndCleanup
 
-      if defined?(Sidekiq)
-        require_relative './gems/sidekiq.rb'
+      if defined?(::Sidekiq)
+        require_relative './gems/sidekiq_ext.rb'
         Sidekiq.configure_server do |config|
           config.server_middleware do |chain|
-            chain.add RailsPerformance::Gems::Sidekiq
+            chain.add RailsPerformance::Gems::SidekiqExt
           end
         end
+      end
+
+      if defined?(::Grape)
+        require_relative './gems/grape_ext.rb'
+        RailsPerformance::Gems::GrapeExt.init
+      end
+
+      if defined?(::Delayed::Job)
+        require_relative './gems/delayed_job_ext.rb'
+        RailsPerformance::Gems::DelayedJobExt.init
       end
     end
 
@@ -40,6 +56,11 @@ module RailsPerformance
 
       ActionView::LogSubscriber.send :prepend, RailsPerformance::Extensions::View
       ActiveRecord::LogSubscriber.send :prepend, RailsPerformance::Extensions::Db
+    end
+
+    if defined?(::Rake::Task)
+      require_relative './gems/rake_ext.rb'
+      RailsPerformance::Gems::RakeExt.init
     end
   end
 end

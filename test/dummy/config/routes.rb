@@ -10,5 +10,8 @@ Rails.application.routes.draw do
   get 'home/about'
   get 'home/blog'
   get 'home/about.csv', to: 'home#about'
+
+  mount API => '/'
+
   root to: 'home#index'
 end

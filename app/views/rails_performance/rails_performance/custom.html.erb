@@ -1,0 +1,83 @@
+<title>Custom Events</title>
+
+<% unless @datasource.default? %>
+  <%#= link_to raw("&larr; Back"), rails_performance_path, class: "back_link" %>
+<% end %>
+
+<div class="card">
+  <div class="card-content">
+    <h2 class="subtitle">Recent Events (last <%= RailsPerformance::Reports::RecentRequestsReport::TIME_WINDOW / 60 %> minutes)<h2>
+
+    <table class="table is-fullwidth is-hoverable is-narrow">
+      <thead>
+        <tr>
+          <th data-sort="string">Datetime</th>
+          <th data-sort="string">Tag</th>
+          <th data-sort="string">Namespace</th>
+          <th data-sort="string">Status</th>
+          <th data-sort="float">Duration</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @recent_report_data.empty? %>
+          <tr>
+            <td colspan="5">
+              Nothing to show here. Try to make a few requests in the main app.
+
+              <pre>
+                <code>
+                  # in controller for example
+                  def index
+                    RailsPerformance.measure("stats calculation", "reports#index") do
+                      stats = User.calculate_stats
+                    end
+                  end
+                </code>
+              </pre>
+            </td>
+          </tr>
+        <% end %>
+        <% @recent_report_data.each do |e| %>
+          <tr>
+            <td><%= format_datetime e[:datetime] %></td>
+            <td><%= e[:tag_name] %></td>
+            <td><%= e[:namespace_name] %></td>
+            <td><%= status_tag e[:status] %></td>
+            <td class="nowrap"><%= ms e[:duration] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<br/>
+
+<div class="card">
+  <div class="card-content">
+    <h2 class="subtitle">Custom Events Throughput Report</h2>
+    <div id="throughput_report_chart" class="chart"></div>
+    <p class="content is-small">All custom events in the application</p>
+  </div>
+</div>
+
+<br/>
+
+<div class="card">
+  <div class="card-content">
+    <h2 class="subtitle">Average Execution Time</h2>
+    <div id="response_time_report_chart" class="chart"></div>
+    <p class="content is-small">All custom events in the application</p>
+  </div>
+</div>
+
+
+<% content_for :on_load do %>
+  <script>
+    var data1 = <%= raw @throughput_report_data.to_json %>;
+    showTIRChart('throughput_report_chart', data1, ' events / minute', 'Events');
+
+    var data2 = <%= raw @response_time_report_data.to_json %>;
+    showRTChart('response_time_report_chart', data2);
+  </script>
+<% end %>

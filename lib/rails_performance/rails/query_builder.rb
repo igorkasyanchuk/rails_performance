@@ -1,5 +1,5 @@
 module RailsPerformance
-  module Rails  
+  module Rails
     class QueryBuilder
 
       def QueryBuilder.compose_from(params)

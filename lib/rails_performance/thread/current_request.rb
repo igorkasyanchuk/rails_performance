@@ -1,6 +1,7 @@
 module RailsPerformance
   class CurrentRequest
-    attr_reader :request_id, :storage
+    attr_reader :request_id, :tracings, :ignore
+    attr_accessor :data
     attr_accessor :record
 
     def CurrentRequest.init
@@ -12,17 +13,21 @@ module RailsPerformance
     end
 
     def CurrentRequest.cleanup
+      RailsPerformance.log "----------------------------------------------------> CurrentRequest.cleanup !!!!!!!!!!!! -------------------------\n\n"
+      RailsPerformance.skip = false
       Thread.current[:rp_current_request] = nil
     end
 
     def initialize(request_id)
       @request_id = request_id
-      @storage    = []
+      @tracings   = []
+      @ignore     = Set.new
+      @data       = nil
       @record     = nil
     end
 
-    def store(options = {})
-      @storage << options.merge(time: Time.now.to_i)
+    def trace(options = {})
+      @tracings << options.merge(time: Time.now.to_i)
     end
 
   end

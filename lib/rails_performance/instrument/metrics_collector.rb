@@ -16,9 +16,12 @@ module RailsPerformance
       # }
 
       def call(event_name, started, finished, event_id, payload)
+        return if RailsPerformance.skip
+        return if CurrentRequest.current.data
+
+        # TODO do we need this new?
         event = ActiveSupport::Notifications::Event.new(event_name, started, finished, event_id, payload)
 
-        return if %r{#{RailsPerformance.mount_at}}.match? event.payload[:path]
         return if RailsPerformance.ignored_endpoints.include? "#{event.payload[:controller]}##{event.payload[:action]}"
 
         record = {
@@ -32,10 +35,14 @@ module RailsPerformance
           path: event.payload[:path],
           view_runtime: event.payload[:view_runtime],
           db_runtime: event.payload[:db_runtime],
-          duration: event.duration
+          duration: event.duration,
+          exception: event.payload[:exception],
+          exception_object: event.payload[:exception_object]
         }
 
-        CurrentRequest.current.record = record
+        # pass the record to Thread.current
+        # and saves later in middleware
+        CurrentRequest.current.data = record
       end
     end
   end

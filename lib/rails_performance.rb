@@ -3,10 +3,15 @@ require "redis-namespace"
 require_relative "./rails_performance/version.rb"
 require_relative "rails_performance/rails/query_builder.rb"
 require_relative "rails_performance/rails/middleware.rb"
-require_relative "rails_performance/data_source.rb"
 require_relative "rails_performance/models/base_record.rb"
-require_relative "rails_performance/models/record.rb"
-require_relative "rails_performance/models/job_record.rb"
+require_relative "rails_performance/models/request_record.rb"
+require_relative "rails_performance/models/sidekiq_record.rb"
+require_relative "rails_performance/models/delayed_job_record.rb"
+require_relative "rails_performance/models/grape_record.rb"
+require_relative "rails_performance/models/trace_record.rb"
+require_relative "rails_performance/models/rake_record.rb"
+require_relative "rails_performance/models/custom_record.rb"
+require_relative "rails_performance/data_source.rb"
 require_relative "rails_performance/utils.rb"
 require_relative "rails_performance/reports/base_report.rb"
 require_relative "rails_performance/reports/requests_report.rb"
@@ -16,8 +21,8 @@ require_relative "rails_performance/reports/throughput_report.rb"
 require_relative "rails_performance/reports/recent_requests_report.rb"
 require_relative "rails_performance/reports/breakdown_report.rb"
 require_relative "rails_performance/reports/trace_report.rb"
-require_relative "rails_performance/extensions/capture_everything.rb"
-require_relative "rails_performance/models/current_request.rb"
+require_relative "rails_performance/extensions/trace.rb"
+require_relative "rails_performance/thread/current_request.rb"
 
 module RailsPerformance
   FORMAT = "%Y%m%dT%H%M"
@@ -60,12 +65,28 @@ module RailsPerformance
   end
   @@ignored_endpoints = []
 
-  def self.setup
+  # skip requests if it's inside Rails Performance view
+  mattr_accessor :skip
+  @@skip = false
+
+  def RailsPerformance.setup
     yield(self)
+  end
+
+  def RailsPerformance.log(message)
+    return
+
+    if ::Rails.logger
+      # puts(message)
+      ::Rails.logger.debug(message)
+    else
+      puts(message)
+    end
   end
 
 end
 
-RP = RailsPerformance
-
 require "rails_performance/engine"
+
+require_relative './rails_performance/gems/custom_ext.rb'
+RailsPerformance.send :extend, RailsPerformance::Gems::CustomExtension

@@ -3,7 +3,7 @@ module RailsPerformance
     module View
 
       def info(&block)
-        CurrentRequest.current.store({
+        CurrentRequest.current.trace({
           group: :view,
           message: block.call
         })
@@ -19,7 +19,7 @@ module RailsPerformance
     module Db
 
       def sql(event)
-        CurrentRequest.current.store({
+        CurrentRequest.current.trace({
           group: :db,
           duration: event.duration.round(2),
           sql: event.payload[:sql]

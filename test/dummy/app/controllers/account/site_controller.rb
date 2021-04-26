@@ -5,7 +5,8 @@ class Account::SiteController < ApplicationController
     SecondWorker.perform_async
     sleep(rand(2.0))
     5.times { User.where(first_name: "X#{rand(100)}").count }
-
+    User.create.say_hello
+    User.create.say_hello_without_delay
     respond_to do |format|
       format.html {}
       format.js { render text: "alert('hello');" }

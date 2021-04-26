@@ -18,7 +18,11 @@ It allows you to track:
 - total duration of time spent per request, views rendering, DB
 - SQL queries, rendering logs in "Recent Requests" section
 - simple 500-crashes reports
-- track Sidekiq jobs performance
+- Sidekiq jobs
+- Delayed Job jobs
+- Grape API inside Rails app
+- Rake tasks performance
+- Custom events wrapped with `RailsPerformance.measure do .. end` block
 - works with Rails 4.2+ (and probably 4.1, 4.0 too) and Ruby 2.2+
 
 All data are stored in `local` Redis and not sent to any 3rd party servers.
@@ -121,6 +125,8 @@ end
 
 ![Schema](docs/rails_performance.png)
 
+In addition it's wrapping gems internal methods and collecting performance information. See `./lib/rails_performance/gems/*` for more information.
+
 ## Limitations
 
 - it doesn't track params of POST/PUT requests
@@ -165,7 +171,7 @@ The idea of this gem grew from curriosity how many RPM my app receiving per day.
 - better stats tooltip, do not show if nothing to show
 - dark mode toggle? save to the cookies?
 - integration with elastic search? or other?
-- monitor active job (sidekiq)?
+- monitor active job?
 - better logo?
 - number of requests last 24 hours, hour, etc.
 - collect deprecation.rails
@@ -173,10 +179,16 @@ The idea of this gem grew from curriosity how many RPM my app receiving per day.
 - show "loading banner" until jquery is loaded?
 - better UI on smaller screens? Recent requests when URL's are long? Truncate with CSS?
 - rules for highlighting durations? how many ms to show warning, alert
+- elastic search
+- searchkiq
+- sinatra?
+- tests to check what is actually stored in redis db after request
 
 ## Contributing
 
 You are welcome to contribute. I've a big list of TODO.
+
+If "schema" how records are stored i Redis is changed, and this is a breacking change, update: `RailsPerformance::SCHEMA` to a newer value.
 
 ## Big thanks to contributors
 

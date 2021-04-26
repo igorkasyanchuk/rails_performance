@@ -20,5 +20,11 @@ gem 'sqlite3'
 gem 'simplecov', require: false, group: :test
 
 gem 'sidekiq', '5.2.7'
+gem 'grape'
 
 gem 'mimemagic', '0.4.3'
+
+# gem 'elasticsearch-model'
+# gem 'elasticsearch-rails'
+gem 'delayed_job_active_record'
+gem "daemons"

@@ -2,7 +2,9 @@
 ENV["RAILS_ENV"] = "test"
 
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start do
+  add_filter 'test/dummy'
+end
 
 require_relative "../test/dummy/config/environment"
 ActiveRecord::Migrator.migrations_paths = [File.expand_path("../test/dummy/db/migrate", __dir__)]
@@ -21,7 +23,7 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
 end
 
 def dummy_event(time: Time.now, controller: "Home", action: "index", status: 200, path: '/', method: "GET", request_id: SecureRandom.hex(16))
-  {
+  RailsPerformance::Models::RequestRecord.new(
     controller: controller,
     action: action,
     format: "html",
@@ -34,30 +36,92 @@ def dummy_event(time: Time.now, controller: "Home", action: "index", status: 200
     db_runtime: rand(100.0),
     duration: 100 + rand(100.0),
     request_id: request_id
-  }
+  )
 end
 
-def dummy_job_event(worker: 'Worker', queue: 'default', jid: "jxzet-#{Time.now.to_i}", created_ati: Time.now.to_i, enqueued_ati: Time.now.to_i, start_timei: Time.now.to_i, duration: rand(60), status: 'success')
-  {
+def dummy_sidekiq_event(worker: 'Worker', queue: 'default', jid: "jxzet-#{Time.now.to_i}", datetimei: Time.now.to_i, enqueued_ati: Time.now.to_i, start_timei: Time.now.to_i, duration: rand(60), status: 'success')
+  RailsPerformance::Models::SidekiqRecord.new(
     queue: queue,
     worker: worker,
     jid: jid,
-    created_ati: created_ati,
+    datetimei: datetimei,
     enqueued_ati: enqueued_ati,
+    datetime: Time.at(datetimei).strftime(RailsPerformance::FORMAT),
     start_timei: start_timei,
     duration: duration,
     status: status,
-  }
+  )
+end
+
+def dummy_grape_record(datetimei: Time.now.to_i, status: 200, format: "json", method: "GET", path: "/api/users", request_id: SecureRandom.hex(16))
+  RailsPerformance::Models::GrapeRecord.new(
+    path: path,
+    method: method,
+    format: format,
+    status: status,
+    datetimei: datetimei,
+    datetime: Time.at(datetimei).strftime(RailsPerformance::FORMAT),
+    endpoint_render_grape: rand(1.0),
+    endpoint_run_grape: rand(1.0),
+    format_response_grape: rand(1.0),
+    request_id: request_id
+  )
+end
+
+def dummy_rake_record(datetimei: Time.now.to_i, status: 'success', task: "x111111111#{rand(10000000)}")
+  RailsPerformance::Models::RakeRecord.new(
+    task: task,
+    datetime: Time.at(datetimei).strftime(RailsPerformance::FORMAT),
+    datetimei: datetimei,
+    status: 'success',
+    json: '{"duration": 100}'
+  )
+end
+
+def dummy_delayed_job_record(datetimei: Time.now.to_i, status: 'success', jid: "x111111111#{rand(10000000)}")
+  RailsPerformance::Models::DelayedJobRecord.new(
+    jid: jid,
+    datetime: Time.at(datetimei).strftime(RailsPerformance::FORMAT),
+    datetimei: datetimei,
+    source_type: 'instance_method',
+    class_name: 'User',
+    method_name: 'hell_world',
+    status: status,
+    json: '{"duration": 100}'
+  )
 end
 
 def reset_redis
-  RP.redis.redis.flushall
+  RailsPerformance.redis.redis.flushall
 end
+
+# TODO improve
 
 def setup_db(event = dummy_event)
-  RailsPerformance::Utils.log_request_in_redis(event)
+  event.save
 end
 
-def setup_job_db(event = dummy_job_event)
-  RailsPerformance::Utils.log_job_in_redis(event)
+def setup_sidekiq_db(event = dummy_sidekiq_event)
+  event.save
 end
+
+def setup_rake_db(event = dummy_rake_record)
+  event.save
+end
+
+def setup_delayed_job_db(event = dummy_delayed_job_record)
+  event.save
+end
+
+def setup_grape_db(event = dummy_grape_record)
+  event.save
+end
+
+# created_ati = Time.now.to_i
+# RailsPerformance::Models::RakeRecord.new(
+#   task: 'task',
+#   datetime: Time.at(created_ati).strftime(RailsPerformance::FORMAT),
+#   datetimei: created_ati,
+#   status: 'success',
+#   json: '{"duration": 100}'
+# ).save

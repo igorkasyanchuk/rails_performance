@@ -1,3 +1,5 @@
+<title>Recent Requests</title>
+
 <div class="card">
   <div class="card-content">
     <h2 class="subtitle">Recent Requests (last <%= RailsPerformance::Reports::RecentRequestsReport::TIME_WINDOW / 60 %> minutes)<h2>
@@ -21,7 +23,7 @@
       <tbody>
         <% if @data.empty? %>
           <tr>
-            <td colspan="10">Nothing to show here. Try to make a few requests in main app.</td>
+            <td colspan="10">Nothing to show here. Try to make a few requests in the main app.</td>
           </tr>
         <% end %>
         <% @data.each do |e| %>

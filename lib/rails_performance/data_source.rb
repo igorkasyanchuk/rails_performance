@@ -1,20 +1,27 @@
 module RailsPerformance
   class DataSource
+    KLASSES = {
+      requests: RailsPerformance::Models::RequestRecord,
+      sidekiq: RailsPerformance::Models::SidekiqRecord,
+      delayed_job: RailsPerformance::Models::DelayedJobRecord,
+      grape: RailsPerformance::Models::GrapeRecord,
+      rake: RailsPerformance::Models::RakeRecord,
+      custom: RailsPerformance::Models::CustomRecord,
+    }
+
     attr_reader :q, :klass, :type
 
-    def initialize(q: {}, type:, klass:)
-      @klass   = klass
+    def initialize(q: {}, type:)
       @type    = type
+      @klass   = KLASSES[type]
       q[:on] ||= Date.today
       @q       = q
-
-      #puts "  [DataSource Q]  -->  #{@q.inspect}\n\n"
     end
 
     def db
-      result = RP::Models::Collection.new
-      (RP::Utils.days + 1).times do |e|
-        RP::DataSource.new(q: self.q.merge({ on: e.days.ago.to_date }), klass: klass, type: type).add_to(result)
+      result = RailsPerformance::Models::Collection.new
+      (RailsPerformance::Utils.days + 1).times do |e|
+        RailsPerformance::DataSource.new(q: self.q.merge({ on: e.days.ago.to_date }), type: type).add_to(result)
       end
       result
     end
@@ -23,7 +30,7 @@ module RailsPerformance
       @q.keys == [:on]
     end
 
-    def add_to(storage = RP::Models::Collection.new)
+    def add_to(storage = RailsPerformance::Models::Collection.new)
       store do |record|
         storage.add(record)
       end
@@ -36,7 +43,7 @@ module RailsPerformance
       return [] if keys.blank?
 
       keys.each_with_index do |key, index|
-        yield klass.new(key, values[index])
+        yield klass.from_db(key, values[index])
       end
     end
 
@@ -45,9 +52,17 @@ module RailsPerformance
     def query
       case type
       when :requests
-        "performance|*#{compile_requests_query}*|END"
-      when :jobs
-        "jobs|*#{compile_jobs_query}*|END"
+        "performance|*#{compile_requests_query}*|END|#{RailsPerformance::SCHEMA}"
+      when :sidekiq
+        "sidekiq|*#{compile_sidekiq_query}*|END|#{RailsPerformance::SCHEMA}"
+      when :delayed_job
+        "delayed_job|*#{compile_delayed_job_query}*|END|#{RailsPerformance::SCHEMA}"
+      when :grape
+        "grape|*#{compile_grape_query}*|END|#{RailsPerformance::SCHEMA}"
+      when :rake
+        "rake|*#{compile_rake_query}*|END|#{RailsPerformance::SCHEMA}"
+      when :custom
+        "custom|*#{compile_custom_query}*|END|#{RailsPerformance::SCHEMA}"
       else
         raise "wrong type for datasource query builder"
       end
@@ -55,7 +70,6 @@ module RailsPerformance
 
     def compile_requests_query
       str = []
-
       str << "controller|#{q[:controller]}|" if q[:controller].present?
       str << "action|#{q[:action]}|" if q[:action].present?
       str << "format|#{q[:format]}|" if q[:format].present?
@@ -63,18 +77,43 @@ module RailsPerformance
       str << "datetime|#{q[:on].strftime('%Y%m%d')}*|" if q[:on].present?
       str << "method|#{q[:method]}|" if q[:method].present?
       str << "path|#{q[:path]}|" if q[:path].present?
-
       str.join("*")
     end
 
-    def compile_jobs_query
+    def compile_sidekiq_query
       str = []
-
       str << "queue|#{q[:queue]}|" if q[:queue].present?
       str << "worker|#{q[:worker]}|" if q[:worker].present?
       str << "datetime|#{q[:on].strftime('%Y%m%d')}*|" if q[:on].present?
       str << "status|#{q[:status]}|" if q[:status].present?
+      str.join("*")
+    end
 
+    def compile_delayed_job_query
+      str = []
+      str << "datetime|#{q[:on].strftime('%Y%m%d')}*|" if q[:on].present?
+      str << "status|#{q[:status]}|" if q[:status].present?
+      str.join("*")
+    end
+
+    def compile_rake_query
+      str = []
+      str << "datetime|#{q[:on].strftime('%Y%m%d')}*|" if q[:on].present?
+      str << "status|#{q[:status]}|" if q[:status].present?
+      str.join("*")
+    end
+
+    def compile_custom_query
+      str = []
+      str << "datetime|#{q[:on].strftime('%Y%m%d')}*|" if q[:on].present?
+      str << "status|#{q[:status]}|" if q[:status].present?
+      str.join("*")
+    end
+
+    def compile_grape_query
+      str = []
+      str << "datetime|#{q[:on].strftime('%Y%m%d')}*|" if q[:on].present?
+      str << "status|#{q[:status]}|" if q[:status].present?
       str.join("*")
     end
 

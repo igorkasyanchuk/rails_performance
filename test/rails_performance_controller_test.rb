@@ -3,11 +3,12 @@ require 'test_helper'
 class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
   setup do
     reset_redis
+    RailsPerformance.skip = false
   end
 
   def requests_report_data
-    source = RP::DataSource.new(type: :requests, klass: RP::Models::Record)
-    RP::Reports::RequestsReport.new(source.db, group: :controller_action_format).data
+    source = RailsPerformance::DataSource.new(type: :requests)
+    RailsPerformance::Reports::RequestsReport.new(source.db, group: :controller_action_format).data
   end
 
   test "should get home page" do
@@ -26,12 +27,12 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
     assert_equal requests_report_data.first[:group], "HomeController#contact|html"
     reset_redis
     assert_equal requests_report_data.size, 0
-    
-    original_ignored_endpoints = RP.ignored_endpoints
-    RP.ignored_endpoints = ['HomeController#contact']
+
+    original_ignored_endpoints = RailsPerformance.ignored_endpoints
+    RailsPerformance.ignored_endpoints = ['HomeController#contact']
     get '/home/contact'
     assert_equal requests_report_data.size, 0
-    RP.ignored_endpoints = original_ignored_endpoints
+    RailsPerformance.ignored_endpoints = original_ignored_endpoints
   end
 
   test "should get index" do
@@ -58,10 +59,35 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get home pages" do
+    get '/home/about'
+    assert_response :success
+    get '/home/blog'
+    assert_response :success
+  end
+
+  test "should get about page" do
+    get '/account/site/about'
+    assert_response :success
+  end
+
+  test "should get account other pages" do
+    get '/account/site/not_found'
+    assert_response :not_found
+
+    get '/account/site/is_redirect'
+    assert_response :redirect
+end
+
   test "should get crashes with params" do
-    setup_db
+    begin
+      get '/account/site/crash'
+    rescue
+    end
+
     get '/rails/performance/crashes'
     assert_response :success
+    assert response.body.include?("Account::SiteController")
   end
 
   test "should get requests with params" do
@@ -76,19 +102,50 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get jobs with params" do
+  test "should get sidekiq with params" do
     setup_db
-    setup_job_db
-    get '/rails/performance/jobs'
+    setup_sidekiq_db
+    get '/rails/performance/sidekiq'
+    assert_response :success
+  end
+
+  test "should get delayed_job with params" do
+    setup_db
+    setup_sidekiq_db
+    get '/rails/performance/delayed_job'
+    assert_response :success
+  end
+
+  test "should get rake" do
+    setup_db
+    setup_rake_db
+    get '/rails/performance/rake'
+    assert_response :success
+  end
+
+  test "should get custom" do
+    setup_db
+    get '/'
+    get '/rails/performance/custom'
+    assert_response :success
+  end
+
+  test "should get grape page" do
+    setup_db
+    setup_grape_db
+    get '/api/users'
+    get '/api/ping'
+    get '/api/crash'
+    get '/rails/performance/grape'
     assert_response :success
   end
 
   test "should get trace with params" do
     setup_db(dummy_event(request_id: "112233"))
-    RP::Utils.log_trace_in_redis("112233", [
+    RailsPerformance::Models::TraceRecord.new(request_id: "112233", value: [
       {group: :db, sql: "select", duration: 111},
       {group: :view, message: "rendering (Duration: 11.3ms)"}
-    ])
+    ]).save
 
     get '/rails/performance/trace/112233', xhr: true
     assert_response :success

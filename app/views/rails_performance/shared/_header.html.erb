@@ -19,8 +19,16 @@
       <%= link_to '500 Errors', rails_performance.rails_performance_crashes_url, class: "navbar-item #{active?(:crashes)}" %>
       <%= link_to 'Recent Requests', rails_performance.rails_performance_recent_url, class: "navbar-item #{active?(:recent)}" %>
       <% if defined?(Sidekiq) %>
-        <%= link_to 'Sidekiq', rails_performance.rails_performance_jobs_url, class: "navbar-item #{active?(:jobs)}" %>
+        <%= link_to 'Sidekiq', rails_performance.rails_performance_sidekiq_url, class: "navbar-item #{active?(:sidekiq)}" %>
       <% end %>
+      <% if defined?(Delayed::Job) %>
+        <%= link_to 'Delayed::Job', rails_performance.rails_performance_delayed_job_url, class: "navbar-item #{active?(:delayed_job)}" %>
+      <% end %>
+      <% if defined?(Grape) %>
+        <%= link_to 'Grape', rails_performance.rails_performance_grape_url, class: "navbar-item #{active?(:grape)}" %>
+      <% end %>
+      <%= link_to 'Rake', rails_performance.rails_performance_rake_url, class: "navbar-item #{active?(:rake)}" %>
+      <%= link_to 'Custom Events', rails_performance.rails_performance_custom_url, class: "navbar-item #{active?(:custom)}" %>
     </div>
 
     <div class="navbar-end">

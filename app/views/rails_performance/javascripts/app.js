@@ -22,7 +22,7 @@ function showTIRChart(div, data, addon, name) {
           },
           formatter: function() {
               if (this.y == 0) {
-                return '';
+                return 'n/a';
               }
             return this.y + addon;
           }
@@ -107,7 +107,7 @@ function showRTChart(div, data) {
           },
           formatter: function() {
               if (this.y == 0) {
-                return "";
+                return 'n/a';
               }
               return this.y + ' ms';
           }

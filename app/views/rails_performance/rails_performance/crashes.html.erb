@@ -9,6 +9,8 @@
           <th data-sort="string">Method</th>
           <th data-sort="string">Format</th>
           <th data-sort="string">Path</th>
+          <th data-sort="string">Exception</th>
+          <th data-sort="string">Backtrace</th>
           <th data-sort="string">Status</th>
           <th data-sort="float">Duration</th>
           <th data-sort="float">Views</th>
@@ -29,6 +31,10 @@
             <td><%= e[:method] %></td>
             <td><%= e[:format] %></td>
             <td><%= link_to_path(e) %></td>
+            <td><%= e[:exception] %></td>
+            <td class="very-small-text">
+              <%= raw e[:backtrace]&.join("<br/>") %>
+            </td>
             <td><%= status_tag e[:status] %></td>
             <td class="nowrap"><%= ms e[:duration] %></td>
             <td class="nowrap"><%= ms e[:view_runtime] %></td>
