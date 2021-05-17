@@ -1,5 +1,8 @@
 - Unreleased
-  - ...
+  ...
+
+1.0.1
+  - Rake task integration: respect enabled setting https://github.com/igorkasyanchuk/rails_performance/pull/30
 
 1.0.0
   - support Redis cluster by default https://github.com/igorkasyanchuk/rails_performance/pull/26/files
