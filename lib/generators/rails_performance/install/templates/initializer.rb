@@ -17,7 +17,10 @@ RailsPerformance.setup do |config|
   config.verify_access_proc = proc { |controller| true }
   # for example when you have `current_user`
   # config.verify_access_proc = proc { |controller| controller.current_user && controller.current_user.admin? }
-  
+
   # You can ignore endpoints with Rails standard notation controller#action
   # config.ignored_endpoints = ['HomeController#contact']
+
+  # config home button link
+  config.home_link = '/'
 end if defined?(RailsPerformance)
