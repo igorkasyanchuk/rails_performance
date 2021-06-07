@@ -69,6 +69,10 @@ module RailsPerformance
   mattr_accessor :skip
   @@skip = false
 
+  # config home button link
+  mattr_accessor :home_link
+  @@home_link = '/'
+
   def RailsPerformance.setup
     yield(self)
   end

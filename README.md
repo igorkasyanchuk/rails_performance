@@ -68,6 +68,9 @@ RailsPerformance.setup do |config|
   config.verify_access_proc = proc { |controller| true }
   # for example when you have `current_user`
   # config.verify_access_proc = proc { |controller| controller.current_user && controller.current_user.admin? }
+
+  # config home button link
+  config.home_link = '/'
 end if defined?(RailsPerformance)
 ```
 
