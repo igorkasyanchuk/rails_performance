@@ -1,9 +1,5 @@
 <title>Custom Events</title>
 
-<% unless @datasource.default? %>
-  <%#= link_to raw("&larr; Back"), rails_performance_path, class: "back_link" %>
-<% end %>
-
 <div class="card">
   <div class="card-content">
     <h2 class="subtitle">Recent Events (last <%= RailsPerformance::Reports::RecentRequestsReport::TIME_WINDOW / 60 %> minutes)<h2>
