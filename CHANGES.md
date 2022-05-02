@@ -1,6 +1,10 @@
 - Unreleased
   ...
 
+- 1.0.2
+  - Add home button link customization https://github.com/igorkasyanchuk/rails_performance/pull/36
+  - Fix navbar toggle https://github.com/igorkasyanchuk/rails_performance/pull/38
+
 1.0.1
   - Rake task integration: respect enabled setting https://github.com/igorkasyanchuk/rails_performance/pull/30
 
