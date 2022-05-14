@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails_performance (1.0.2)
+    rails_performance (1.0.3)
       rails
       redis
       redis-namespace
@@ -114,7 +114,7 @@ GEM
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     json (2.3.0)
-    loofah (2.17.0)
+    loofah (2.18.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -141,6 +141,8 @@ GEM
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
+    puma (5.6.4)
+      nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
     rack-accept (0.4.5)
@@ -204,6 +206,8 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    wrapped_print (0.1.0)
+      activesupport
     zeitwerk (2.4.2)
 
 PLATFORMS
@@ -216,10 +220,12 @@ DEPENDENCIES
   mimemagic (= 0.4.3)
   otr-activerecord
   pry
+  puma
   rails_performance!
   sidekiq (= 5.2.7)
   simplecov
   sqlite3
+  wrapped_print
 
 BUNDLED WITH
    2.2.3

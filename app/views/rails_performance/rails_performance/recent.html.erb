@@ -2,9 +2,19 @@
 
 <div class="card">
   <div class="card-content">
-    <h2 class="subtitle">Recent Requests (last <%= RailsPerformance::Reports::RecentRequestsReport::TIME_WINDOW / 60 %> minutes)<h2>
+    <div class="columns">
+      <div class="column">
+        <h2 class="subtitle">Recent Requests (last <%= RailsPerformance::Reports::RecentRequestsReport::TIME_WINDOW / 60 %> minutes)<h2>
+      </div>
+      <div class="column right-text is-size-5 has-text-right">
+        <label id="autoupdate_label">
+          <input id="autoupdate" type="checkbox" checked/>
+          Auto-update
+        </label>
+      </div>
+    </div>
 
-    <table class="table is-fullwidth is-hoverable is-narrow">
+    <table id="recent" class="table is-fullwidth is-hoverable is-narrow">
       <thead>
         <tr>
           <th data-sort="string"></th>
@@ -27,33 +37,10 @@
           </tr>
         <% end %>
         <% @data.each do |e| %>
-          <tr>
-            <td>
-              <% if e[:request_id].present? %>
-                <%= link_to rails_performance.rails_performance_trace_path(id: e[:request_id]), remote: true do %>
-                  <span class="stats_icon_max"><%= icon 'activity' %></span>
-                <% end %>
-              <% end %>
-            </td>
-            <td><%= format_datetime e[:datetime] %></td>
-            <td><%= link_to e[:controller] + '#' + e[:action], rails_performance.rails_performance_summary_path({controller_eq: e[:controller], action_eq: e[:action]}), remote: true %></td>
-            <td><%= e[:method] %></td>
-            <td><%= e[:format] %></td>
-            <td><%= link_to_path(e) %></td>
-            <td><%= status_tag e[:status] %></td>
-            <td class="nowrap"><%= ms e[:duration] %></td>
-            <td class="nowrap"><%= ms e[:view_runtime] %></td>
-            <td class="nowrap"><%= ms e[:db_runtime] %></td>
-            <td>
-              <% if e[:request_id].present? %>
-                <%= link_to rails_performance.rails_performance_trace_path(id: e[:request_id]), remote: true do %>
-                  <span class="stats_icon_max"><%= icon 'activity' %></span>
-                <% end %>
-              <% end %>
-            </td>
-          </tr>
+          <%= render 'recent_row', e: e %>
         <% end %>
       </tbody>
     </table>
   </div>
 </div>
+

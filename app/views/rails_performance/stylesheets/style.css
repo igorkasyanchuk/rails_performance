@@ -89,3 +89,7 @@ table th[data-sort] {
 .very-small-text {
   font-size: 8px;
 }
+
+#autoupdate_label {
+  cursor: pointer;
+}

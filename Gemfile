@@ -28,3 +28,5 @@ gem 'mimemagic', '0.4.3'
 # gem 'elasticsearch-rails'
 gem 'delayed_job_active_record'
 gem "daemons"
+
+gem 'puma'

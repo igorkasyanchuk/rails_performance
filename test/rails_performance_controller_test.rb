@@ -100,6 +100,9 @@ end
     setup_db
     get '/rails/performance/recent'
     assert_response :success
+
+    get '/rails/performance/recent', xhr: true
+    assert_response :success
   end
 
   test "should get sidekiq with params" do

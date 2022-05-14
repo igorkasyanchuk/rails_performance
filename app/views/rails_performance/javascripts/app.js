@@ -166,3 +166,29 @@ function showRTChart(div, data) {
       }]
   });
 };
+
+const recent = document.getElementById("recent")
+const autoupdate = document.getElementById("autoupdate")
+
+if(recent) {
+  const tbody = recent.querySelector("tbody")
+
+  setInterval(() => {
+    tr = tbody.children[0];
+    from_timei = tr.getAttribute("from_timei") || ''
+
+    if (!autoupdate.checked) {
+      return;
+    }
+
+    fetch(`/rails/performance/recent.js?from_timei=${from_timei}`, {
+      headers: {
+        "X-CSRF-Token": document.querySelector("[name='csrf-token']").content,
+      },
+    })
+      .then(res => res.text())
+      .then(html => {
+        tbody.innerHTML = html + tbody.innerHTML;
+    })
+  }, 3000);
+}
