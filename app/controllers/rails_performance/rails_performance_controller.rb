@@ -4,6 +4,8 @@ module RailsPerformance
   class RailsPerformanceController < RailsPerformance::BaseController
     include RailsPerformance::ApplicationHelper
 
+    protect_from_forgery except: :recent
+
     if RailsPerformance.enabled
       def index
         @datasource                = RailsPerformance::DataSource.new(**prepare_query, type: :requests)
@@ -51,7 +53,12 @@ module RailsPerformance
       def recent
         @datasource = RailsPerformance::DataSource.new(**prepare_query, type: :requests)
         db          = @datasource.db
-        @data       = RailsPerformance::Reports::RecentRequestsReport.new(db).data
+        @data       = RailsPerformance::Reports::RecentRequestsReport.new(db).data(params[:from_timei])
+
+        respond_to do |page|
+          page.html
+          page.js
+        end
       end
 
       def sidekiq
