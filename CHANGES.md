@@ -2,7 +2,7 @@
   ...
 
 - 1.0.3
-  - autoupdate Recent tab with recent requests
+  - autoupdate Recent tab with recent requests https://github.com/igorkasyanchuk/rails_performance/pull/40
 
 - 1.0.2
   - Add home button link customization https://github.com/igorkasyanchuk/rails_performance/pull/36
