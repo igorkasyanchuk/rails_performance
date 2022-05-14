@@ -12,7 +12,7 @@ This is **simple and free alternative** to the New Relic APM, Datadog or other s
 
 It allows you to track:
 
-- real-time monitoring on Recent tab
+- real-time monitoring on the Recent tab
 - throughput report (see amount of RPM (requests per minute))
 - an average response time
 - the slowest controllers & actions
