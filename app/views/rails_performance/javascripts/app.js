@@ -181,7 +181,7 @@ if(recent) {
       return;
     }
 
-    fetch(`/rails/performance/recent.js?from_timei=${from_timei}`, {
+    fetch(`recent.js?from_timei=${from_timei}`, {
       headers: {
         "X-CSRF-Token": document.querySelector("[name='csrf-token']").content,
       },
