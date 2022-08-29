@@ -81,6 +81,9 @@
   border-bottom: 1px solid red;
 }
 
+.card-content {
+  overflow-x: scroll;
+}
 
 table th[data-sort] {
   cursor: pointer;
