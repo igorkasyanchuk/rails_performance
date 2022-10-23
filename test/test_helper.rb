@@ -2,6 +2,8 @@
 ENV["RAILS_ENV"] = "test"
 
 require 'simplecov'
+require 'minitest/autorun'
+
 SimpleCov.start do
   add_filter 'test/dummy'
 end

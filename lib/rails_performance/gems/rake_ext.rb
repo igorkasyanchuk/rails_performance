@@ -13,13 +13,15 @@ module RailsPerformance
               status = 'error'
               raise(ex)
             ensure
-              RailsPerformance::Models::RakeRecord.new(
-                task: RailsPerformance::Gems::RakeExt.find_task_name(*args),
-                datetime: now.strftime(RailsPerformance::FORMAT),
-                datetimei: now.to_i,
-                duration: (Time.now - now) * 1000,
-                status: status,
-              ).save
+              if !RailsPerformance.skipable_rake_tasks.include?(self.name)
+                RailsPerformance::Models::RakeRecord.new(
+                  task: RailsPerformance::Gems::RakeExt.find_task_name(*args),
+                  datetime: now.strftime(RailsPerformance::FORMAT),
+                  datetimei: now.to_i,
+                  duration: (Time.now - now) * 1000,
+                  status: status,
+                ).save
+              end
             end
           end
 

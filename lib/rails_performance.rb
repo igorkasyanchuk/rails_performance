@@ -73,6 +73,10 @@ module RailsPerformance
   mattr_accessor :home_link
   @@home_link = '/'
 
+  # skip performance tracking for these rake tasks
+  mattr_accessor :skipable_rake_tasks
+  @@skipable_rake_tasks = []
+
   def RailsPerformance.setup
     yield(self)
   end
