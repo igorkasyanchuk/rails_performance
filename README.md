@@ -211,6 +211,7 @@ If "schema" how records are stored i Redis is changed, and this is a breacking c
 - https://github.com/PedroAugustoRamalhoDuarte
 - https://github.com/haffla
 - https://github.com/D1ceWard
+- https://github.com/carl-printreleaf
 
 ## License
 

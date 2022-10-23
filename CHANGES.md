@@ -1,6 +1,9 @@
 - Unreleased
   ...
 
+- 1.0.4
+  - Add skipable rake config https://github.com/igorkasyanchuk/rails_performance/pull/44
+
 - 1.0.3
   - autoupdate Recent tab with recent requests https://github.com/igorkasyanchuk/rails_performance/pull/40
 
