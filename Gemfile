@@ -31,5 +31,7 @@ gem "daemons"
 
 gem 'puma'
 
+gem 'sprockets-rails'
+
 
 gem 'devise'

@@ -30,4 +30,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "daemons"
   spec.add_development_dependency "wrapped_print"
   spec.add_development_dependency "puma"
+  spec.add_development_dependency "sprockets-rails"
 end
