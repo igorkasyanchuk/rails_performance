@@ -12,7 +12,7 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-    
+
 
 jobs:
   test:
@@ -27,20 +27,19 @@ jobs:
           --health-cmd "redis-cli ping"
           --health-interval 10s
           --health-timeout 5s
-          --health-retries 5    
+          --health-retries 5
         ports:
           # Maps port 6379 on service container to the host
           - 6379:6379
-    
+
     strategy:
       matrix:
-        #ruby-version: ['2.6', '2.7', '3.0']
-        ruby-version: ['2.7', '3.0']
+        ruby-version: ['2.7', '3.0', '3.1', '3.2']
 
     steps:
     - name: Setup System
       run: |
-        sudo apt-get install libsqlite3-dev    
+        sudo apt-get install libsqlite3-dev
     - uses: actions/checkout@v2
     - name: Set up Ruby
     # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
