@@ -1,4 +1,15 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+
+  # for test purposes
+  before_validation do
+    self.email = "email#{rand(1000000000)}@email.com"
+    self.password = "password"
+    self.password_confirmation = "password"
+  end
 
   def say_hello
     sleep(rand(1.0))

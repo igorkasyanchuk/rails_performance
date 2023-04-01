@@ -19,7 +19,7 @@ gem 'sqlite3'
 
 gem 'simplecov', require: false, group: :test
 
-gem 'sidekiq', '5.2.7'
+gem 'sidekiq'
 gem 'grape'
 
 gem 'mimemagic', '0.4.3'
@@ -30,3 +30,6 @@ gem 'delayed_job_active_record'
 gem "daemons"
 
 gem 'puma'
+
+
+gem 'devise'

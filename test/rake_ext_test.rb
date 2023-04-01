@@ -5,8 +5,11 @@ APP_RAKEFILE = File.expand_path("../test/dummy/Rakefile", __dir__)
 load 'rails/tasks/engine.rake'
 load 'rails/tasks/statistics.rake'
 require 'bundler/gem_tasks'
+require 'rake'
 require 'rake/testtask'
 require_relative '../lib/rails_performance/gems/rake_ext.rb'
+
+RailsPerformance::Gems::RakeExt.init
 
 class RakeExtTest < ActiveSupport::TestCase
   # this test works only when runing "bundle exec rake test"

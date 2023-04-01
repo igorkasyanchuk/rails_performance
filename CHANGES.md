@@ -2,6 +2,10 @@
   ...
 
 - 1.0.4
+  - updated dev dependencies
+  - added support for storing custom_data (see readme)
+
+- 1.0.4
   - Add skipable rake config https://github.com/igorkasyanchuk/rails_performance/pull/44
 
 - 1.0.3

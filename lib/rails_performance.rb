@@ -77,12 +77,16 @@ module RailsPerformance
   mattr_accessor :skipable_rake_tasks
   @@skipable_rake_tasks = []
 
+  # add custom payload to the request
+  mattr_accessor :custom_data_proc
+  @@custom_data_proc = []
+
   def RailsPerformance.setup
     yield(self)
   end
 
   def RailsPerformance.log(message)
-    return
+    return unless RailsPerformance.debug
 
     if ::Rails.logger
       # puts(message)

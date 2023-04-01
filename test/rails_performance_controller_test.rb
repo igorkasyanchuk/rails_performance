@@ -4,6 +4,7 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
   setup do
     reset_redis
     RailsPerformance.skip = false
+    User.create(first_name: "John", age: 20)
   end
 
   def requests_report_data
