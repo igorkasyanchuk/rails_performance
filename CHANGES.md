@@ -1,7 +1,7 @@
 - Unreleased
   ...
 
-- 1.0.4
+- 1.0.5
   - updated dev dependencies
   - added support for storing custom_data (see readme)
 
