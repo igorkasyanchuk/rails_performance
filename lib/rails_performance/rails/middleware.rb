@@ -53,6 +53,13 @@ module RailsPerformance
               # capture referer from where this page was opened
               record.http_referer = env["HTTP_REFERER"] if record.status == 404
 
+              # we can add custom data, for example Http User-Agent
+              # or even devise current_user
+              if RailsPerformance.custom_data_proc
+                # just to be sure it won't break format how we store in redis
+                record.custom_data = RailsPerformance.custom_data_proc.call(env)
+              end
+
               # store for section "recent requests"
               # store request information (regular rails request)
               record.save

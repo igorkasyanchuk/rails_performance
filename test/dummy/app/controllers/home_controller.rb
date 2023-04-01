@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+
   def index
     rand(10).times { AdvancedWorker.perform_async }
     SecondWorker.perform_async
@@ -14,6 +15,8 @@ class HomeController < ApplicationController
     sleep(rand(2.0))
     rand(10).times { SimpleWorker.perform_async }
     10.times { User.where(first_name: "X#{rand(100)}").count }
+
+    sign_in User.all.sample
   end
 
   def contact

@@ -9,9 +9,10 @@
   </head>
 
   <body>
+    current_user: <%= current_user&.email.presence || "N/A" %>
     <ul>
       <li><%= link_to "Home", '/' %></li>
-      <li><%= link_to "About", '/home/about' %></li>
+      <li><%= link_to "About (random sign in)", '/home/about' %></li>
       <li><%= link_to "Contact", '/home/contact' %></li>
       <li><%= link_to "Blog", '/home/blog' %></li>
       <li><%= link_to "Account", '/account/site/about' %></li>
