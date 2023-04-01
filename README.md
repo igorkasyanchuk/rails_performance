@@ -135,6 +135,13 @@ Rails.application.routes.draw do
 end
 ```
 
+### Custom data
+
+You need to configure `config.custom_data_proc`. And you can capture current_user, HTTP User Agent, etc. This proc is executed inside middleware, and you have access to Rack "env".
+
+![Custom Data](docs/custom_data.png)
+
+
 ### Custom events
 
 ```ruby
