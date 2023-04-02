@@ -1,6 +1,9 @@
 - Unreleased
   ...
 
+- 1.0.5.1, 1.0.5.2
+  - hotfixes
+
 - 1.0.5
   - updated dev dependencies
   - added support for storing custom_data (see readme)

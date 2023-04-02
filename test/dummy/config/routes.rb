@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
+
   namespace :account do
     get 'site/about'
     get 'site/crash'

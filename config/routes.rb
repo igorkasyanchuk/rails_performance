@@ -1,6 +1,4 @@
 RailsPerformance::Engine.routes.draw do
-  devise_for :users
-
   get '/'          => 'rails_performance#index', as: :rails_performance
 
   get '/requests'  => 'rails_performance#requests', as: :rails_performance_requests
