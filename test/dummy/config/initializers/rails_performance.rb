@@ -5,6 +5,9 @@ RailsPerformance.setup do |config|
   config.debug    = true # currently not used>
   config.enabled  = true
 
+  config.recent_requests_time_window = 60.minutes
+  config.recent_requests_limit = nil
+
   #config.mount_at = '/admin/performance'
 
   # protect your Performance Dashboard with HTTP BASIC password

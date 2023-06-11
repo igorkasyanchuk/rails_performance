@@ -33,6 +33,12 @@ module RailsPerformance
   mattr_accessor :duration
   @@duration = 4.hours
 
+  mattr_accessor :recent_requests_time_window
+  @@recent_requests_time_window = 60.minutes
+
+  mattr_accessor :recent_requests_limit
+  @@recent_requests_limit = nil
+
   mattr_accessor :debug
   @@debug = false
 

@@ -1,6 +1,12 @@
 - Unreleased
   ...
 
+- 1.0.5.3
+  - two new options to configure Recent tab
+    config.recent_requests_time_window = 60.minutes
+    config.recent_requests_limit = nil
+  - little UI improvements
+
 - 1.0.5.1, 1.0.5.2
   - hotfixes
 

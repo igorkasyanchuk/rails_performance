@@ -4,7 +4,7 @@
   <div class="card-content">
     <div class="columns">
       <div class="column">
-        <h2 class="subtitle">Recent Requests (last <%= RailsPerformance::Reports::RecentRequestsReport::TIME_WINDOW / 60 %> minutes)<h2>
+        <h2 class="subtitle">Recent Requests (last <%= RailsPerformance.recent_requests_time_window / 60 %> minutes)<h2>
       </div>
       <div class="column right-text is-size-5 has-text-right">
         <label id="autoupdate_label">
@@ -43,4 +43,3 @@
     </table>
   </div>
 </div>
-
