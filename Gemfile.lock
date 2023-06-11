@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails_performance (1.0.5.2)
+    rails_performance (1.0.5.3)
       rails
       redis
       redis-namespace
@@ -202,7 +202,7 @@ GEM
       redis-client (>= 0.9.0)
     redis-client (0.14.1)
       connection_pool
-    redis-namespace (1.10.0)
+    redis-namespace (1.11.0)
       redis (>= 4)
     responders (3.1.0)
       actionpack (>= 5.2)

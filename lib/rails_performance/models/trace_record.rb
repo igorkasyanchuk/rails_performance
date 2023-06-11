@@ -11,7 +11,7 @@ module RailsPerformance
       def save
         return if value.empty?
 
-        Utils.save_to_redis("trace|#{request_id}|END|#{RailsPerformance::SCHEMA}", value, RailsPerformance::Reports::RecentRequestsReport::TIME_WINDOW.to_i)
+        Utils.save_to_redis("trace|#{request_id}|END|#{RailsPerformance::SCHEMA}", value, RailsPerformance.recent_requests_time_window.to_i)
       end
 
     end

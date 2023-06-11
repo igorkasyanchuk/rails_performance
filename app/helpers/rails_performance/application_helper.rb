@@ -41,7 +41,7 @@ module RailsPerformance
       result && result != 0 ? "#{result} ms" : '< 0 ms'
     end
 
-    def short_path(path, length: 60)
+    def short_path(path, length: 55)
       content_tag :span, title: path do
         truncate(path, length: length)
       end
