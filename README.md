@@ -59,7 +59,7 @@ RailsPerformance.setup do |config|
 
   # configure Recent tab (time window and limit of requests)
   # config.recent_requests_time_window = 60.minutes
-  # config.recent_requests_limit = nil
+  # config.recent_requests_limit = nil # or 1000
 
   # default path where to mount gem,
   # alternatively you can mount the RailsPerformance::Engine in your routes.rb
