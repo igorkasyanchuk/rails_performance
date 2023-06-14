@@ -118,6 +118,8 @@ module RailsPerformance
         "is-active" if controller_name == "rails_performance" && action_name == "requests"
       when :recent
         "is-active" if controller_name == "rails_performance" && action_name == "recent"
+      when :slow
+        "is-active" if controller_name == "rails_performance" && action_name == "slow"
       when :sidekiq
         "is-active" if controller_name == "rails_performance" && action_name == "sidekiq"
       when :delayed_job

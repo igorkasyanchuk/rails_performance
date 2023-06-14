@@ -14,6 +14,7 @@ This is a **simple and free alternative** to the New Relic APM, Datadog or other
 It allows you to track:
 
 - real-time monitoring on the Recent tab
+- monitor slow requests
 - throughput report (see amount of RPM (requests per minute))
 - an average response time
 - the slowest controllers & actions
@@ -60,6 +61,11 @@ RailsPerformance.setup do |config|
   # configure Recent tab (time window and limit of requests)
   # config.recent_requests_time_window = 60.minutes
   # config.recent_requests_limit = nil # or 1000
+
+  # configure Slow Requests tab (time window, limit of requests and threshold)
+  # config.slow_requests_time_window = 4.hours # time window for slow requests
+  # config.slow_requests_limit = 500 # number of max rows
+  # config.slow_requests_threshold = 500 # number of ms
 
   # default path where to mount gem,
   # alternatively you can mount the RailsPerformance::Engine in your routes.rb

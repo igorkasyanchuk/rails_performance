@@ -61,6 +61,12 @@ module RailsPerformance
         end
       end
 
+      def slow
+        @datasource = RailsPerformance::DataSource.new(**prepare_query, type: :requests)
+        db          = @datasource.db
+        @data       = RailsPerformance::Reports::SlowRequestsReport.new(db).data
+      end
+
       def sidekiq
         @datasource                = RailsPerformance::DataSource.new(**prepare_query, type: :sidekiq)
         db                         = @datasource.db

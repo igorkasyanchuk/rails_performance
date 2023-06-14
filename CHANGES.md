@@ -1,5 +1,9 @@
 - Unreleased
-  ...
+  ....
+
+- 1.1.0
+  - remember "auto-update" state for Recent tab
+  - added Slow Requests tab
 
 - 1.0.5.3
   - two new options to configure Recent tab
