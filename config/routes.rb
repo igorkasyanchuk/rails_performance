@@ -4,6 +4,7 @@ RailsPerformance::Engine.routes.draw do
   get '/requests'  => 'rails_performance#requests', as: :rails_performance_requests
   get '/crashes'   => 'rails_performance#crashes', as: :rails_performance_crashes
   get '/recent'    => 'rails_performance#recent', as: :rails_performance_recent
+  get '/slow'      => 'rails_performance#slow', as: :rails_performance_slow
 
   get '/trace/:id'  => 'rails_performance#trace', as: :rails_performance_trace
   get '/summary'    => 'rails_performance#summary', as: :rails_performance_summary

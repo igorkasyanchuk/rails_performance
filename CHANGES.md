@@ -1,5 +1,9 @@
 - Unreleased
-  ...
+  ....
+
+- 1.1.0
+  - remember "auto-update" state for Recent tab https://github.com/igorkasyanchuk/rails_performance/pull/51
+  - added Slow Requests tab https://github.com/igorkasyanchuk/rails_performance/pull/51
 
 - 1.0.5.3
   - two new options to configure Recent tab

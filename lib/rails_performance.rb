@@ -19,6 +19,7 @@ require_relative "rails_performance/reports/crash_report.rb"
 require_relative "rails_performance/reports/response_time_report.rb"
 require_relative "rails_performance/reports/throughput_report.rb"
 require_relative "rails_performance/reports/recent_requests_report.rb"
+require_relative "rails_performance/reports/slow_requests_report.rb"
 require_relative "rails_performance/reports/breakdown_report.rb"
 require_relative "rails_performance/reports/trace_report.rb"
 require_relative "rails_performance/extensions/trace.rb"
@@ -38,6 +39,15 @@ module RailsPerformance
 
   mattr_accessor :recent_requests_limit
   @@recent_requests_limit = nil
+
+  mattr_accessor :slow_requests_time_window
+  @@slow_requests_time_window = 4.hours
+
+  mattr_accessor :slow_requests_limit
+  @@recent_requests_limit = 500
+
+  mattr_accessor :slow_requests_threshold
+  @@slow_requests_threshold = 500
 
   mattr_accessor :debug
   @@debug = false

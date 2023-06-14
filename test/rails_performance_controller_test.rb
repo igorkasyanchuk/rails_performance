@@ -106,6 +106,12 @@ end
     assert_response :success
   end
 
+  test "should get slow with params" do
+    setup_db
+    get '/rails/performance/slow'
+    assert_response :success
+  end
+
   test "should get sidekiq with params" do
     setup_db
     setup_sidekiq_db

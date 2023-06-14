@@ -170,6 +170,17 @@ function showRTChart(div, data) {
 const recent = document.getElementById("recent")
 const autoupdate = document.getElementById("autoupdate")
 
+if(autoupdate) {
+  // set autoupdate checked from localStorage is missing
+  if (localStorage.getItem("autoupdate") === null) {
+    localStorage.setItem("autoupdate", "true");
+  }
+  autoupdate.checked = localStorage.getItem("autoupdate") === "true";
+  autoupdate.addEventListener('change', () => {
+    localStorage.setItem("autoupdate", autoupdate.checked);
+  });
+}
+
 if(recent) {
   const tbody = recent.querySelector("tbody")
 
