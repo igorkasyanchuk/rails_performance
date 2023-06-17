@@ -240,6 +240,9 @@ If "schema" how records are stored i Redis is changed, and this is a breacking c
 - https://github.com/D1ceWard
 - https://github.com/carl-printreleaf
 
+[<img src="https://opensource-heroes.com/svg/embed/igorkasyanchuk/rails_performance"
+/>](https://opensource-heroes.com/r/igorkasyanchuk/rails_performance)
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
