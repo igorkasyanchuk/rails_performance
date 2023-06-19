@@ -1,5 +1,6 @@
 require "redis"
 require "redis-namespace"
+require "local_time"
 require_relative "./rails_performance/version.rb"
 require_relative "rails_performance/rails/query_builder.rb"
 require_relative "rails_performance/rails/middleware.rb"

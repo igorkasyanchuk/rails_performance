@@ -203,3 +203,5 @@ if(recent) {
     })
   }, 3000);
 }
+
+LocalTime.start()

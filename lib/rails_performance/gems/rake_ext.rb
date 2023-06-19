@@ -6,7 +6,7 @@ module RailsPerformance
         ::Rake::Task.class_eval do
           def invoke_with_rails_performance(*args)
             begin
-              now    = Time.now
+              now    = Time.current
               status = 'success'
               invoke_without_new_rails_performance(*args)
             rescue Exception => ex
@@ -18,7 +18,7 @@ module RailsPerformance
                   task: RailsPerformance::Gems::RakeExt.find_task_name(*args),
                   datetime: now.strftime(RailsPerformance::FORMAT),
                   datetimei: now.to_i,
-                  duration: (Time.now - now) * 1000,
+                  duration: (Time.current - now) * 1000,
                   status: status,
                 ).save
               end

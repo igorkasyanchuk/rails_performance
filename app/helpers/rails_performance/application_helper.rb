@@ -1,5 +1,7 @@
 module RailsPerformance
   module ApplicationHelper
+    include LocalTimeHelper
+
     def round_it(value, limit = 1)
       return nil unless value
       return value if value.is_a?(Integer)
@@ -49,7 +51,7 @@ module RailsPerformance
 
     def link_to_path(e)
       if e[:method] == 'GET'
-        link_to(short_path(e[:path]), e[:path], target: '_blank')
+        link_to(short_path(e[:path]), e[:path], target: '_blank', title: short_path(e[:path]))
       else
         short_path(e[:path])
       end
@@ -105,7 +107,9 @@ module RailsPerformance
     end
 
     def format_datetime(e)
-      e.strftime("%Y-%m-%d %H:%M:%S")
+      #e.strftime("%Y-%m-%d %H:%M:%S")
+      # I18n.l(e, format: "%Y-%m-%d %H:%M:%S")
+      local_time(e, "%Y-%m-%d %H:%M:%S")
     end
 
     def active?(section)

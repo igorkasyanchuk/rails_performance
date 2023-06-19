@@ -8,7 +8,7 @@ module RailsPerformance
 
       def data
         all     = {}
-        stop    = Time.at(60 * (Time.now.to_i / 60))
+        stop    = Time.at(60 * (Time.current.to_i / 60))
         current = stop - RailsPerformance.duration
         @data   = []
         offset  = Time.current.utc_offset

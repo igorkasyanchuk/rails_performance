@@ -19,5 +19,11 @@
         <% end %>
       </tr>
     <% end %>
+
+    <% if @data.empty? %>
+      <tr>
+        <td>Nothing to show here. Perphaps details about the requests already expired. Setting "slow_requests_time_window" should be equal to "duration".</td>
+      </td>
+    <% end %>
   </tbody>
 </table>
