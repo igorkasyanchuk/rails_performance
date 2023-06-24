@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails_performance (1.2.0.alpha4)
+    rails_performance (1.2.0.alpha5)
       browser
       rails
       redis

@@ -61,6 +61,10 @@
   height: 12px;
 }
 
+.user-agent-icon-user svg path {
+  fill: hsl(141, 53%, 53%) !important;
+}
+
 .chart {
   height: 245px;
 }

@@ -8,7 +8,7 @@ module RailsPerformance
 
     # write to current slot
     # time - date -minute
-    def Utils.field_key(now = Time.now)
+    def Utils.field_key(now = Time.current)
       now.strftime("%H:%M")
     end
 

@@ -100,12 +100,12 @@ module RailsPerformance
 
       browser = Browser.new(user_agent)
 
-      if browser.bot? || rand(2) == 1
+      if browser.bot?
         content_tag(:span, class: "user-agent-icon", title: browser.bot&.name) do
           icon("bot")
         end
       else
-        content_tag(:span, class: "user-agent-icon") do
+        content_tag(:span, class: "user-agent-icon user-agent-icon-user") do
           icon("user")
         end
       end

@@ -6,7 +6,7 @@ module RailsPerformance
       end
 
       def call(worker, msg, queue)
-        now    = Time.now
+        now    = Time.current
         record = RailsPerformance::Models::SidekiqRecord.new(
           enqueued_ati: msg['enqueued_at'].to_i,
           datetimei: msg['created_at'].to_i,
@@ -26,7 +26,7 @@ module RailsPerformance
           raise ex
         ensure
           # store in ms instead of seconds
-          record.duration = (Time.now - now) * 1000
+          record.duration = (Time.current - now) * 1000
           record.save
           result
         end

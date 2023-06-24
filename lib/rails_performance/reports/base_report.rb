@@ -29,6 +29,42 @@ module RailsPerformance
           time
         end
       end
+
+      def calculate_data
+        now        = Time.current
+        stop       = Time.at(60 * ((now.to_i)/ 60))
+        offset     = RailsPerformance::Reports::BaseReport::time_in_app_time_zone(now).utc_offset
+        current    = stop - RailsPerformance.duration
+
+        @data      = []
+        all        = {}
+
+        # puts "current: #{current}"
+        # puts "stop: #{stop}"
+
+        # read current values
+        db.group_by(group).each do |(k, v)|
+          yield(all, k, v)
+        end
+
+        # puts '----'
+        # puts all
+        # puts '----'
+        # puts "offset: #{offset}"
+        # puts '======='
+
+        # add blank columns
+        while current <= stop
+          key = (current).strftime(RailsPerformance::FORMAT)
+          views = all[key].presence || 0
+          # puts "#{key} -> #{views}"
+          @data << [(current.to_i + offset) * 1000, views.round(2)]
+          current += 1.minute
+        end
+
+        # sort by time
+        @data.sort!
+      end
     end
   end
 end
