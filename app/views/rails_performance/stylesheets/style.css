@@ -56,6 +56,11 @@
   height: 24px;
 }
 
+.user-agent-icon svg {
+  width: 12px;
+  height: 12px;
+}
+
 .chart {
   height: 245px;
 }

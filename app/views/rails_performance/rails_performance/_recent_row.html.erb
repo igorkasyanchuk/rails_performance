@@ -7,6 +7,7 @@
     <% end %>
   </td>
   <td><%= format_datetime e[:datetime] %></td>
+  <td><%= bot_icon e["user_agent"] %></td>
   <td>
     <% controller_action_info = e[:controller] + '#' + e[:action]%>
     <%= link_to truncate(controller_action_info, length: 40), rails_performance.rails_performance_summary_path({controller_eq: e[:controller], action_eq: e[:action]}), remote: true, title: controller_action_info %>

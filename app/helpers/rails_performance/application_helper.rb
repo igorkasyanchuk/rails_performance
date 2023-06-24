@@ -92,9 +92,31 @@ module RailsPerformance
       end
     end
 
+    def bot_icon(user_agent)
+      return nil if user_agent.blank?
+
+      # TODO: clean this up
+      # user_agent = "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/W.X.Y.Z Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+
+      browser = Browser.new(user_agent)
+
+      if browser.bot? || rand(2) == 1
+        content_tag(:span, class: "user-agent-icon", title: browser.bot&.name) do
+          icon("bot")
+        end
+      else
+        content_tag(:span, class: "user-agent-icon") do
+          icon("user")
+        end
+      end
+    end
+
     def icon(name)
-      # https://www.iconfinder.com/iconsets/vivid
-      raw File.read(File.expand_path(File.dirname(__FILE__) +  "/../../assets/images/#{name}.svg"))
+      @icons ||= {}
+      @icons[name] ||= begin
+        # https://www.iconfinder.com/iconsets/vivid
+        raw File.read(File.expand_path(File.dirname(__FILE__) +  "/../../assets/images/#{name}.svg"))
+      end
     end
 
     def insert_css_file(file)

@@ -55,6 +55,25 @@ module RailsPerformance
         db          = @datasource.db
         @data       = RailsPerformance::Reports::RecentRequestsReport.new(db).data(params[:from_timei])
 
+        # example
+        # :controller=>"HomeController",
+        # :action=>"index",
+        # :format=>"html",
+        # :status=>"200",
+        # :method=>"GET",
+        # :path=>"/",
+        # :request_id=>"9c9bff5f792a5b3f77cb07fa325f8ddf",
+        # :datetime=>2023-06-24 21:22:46 +0300,
+        # :datetimei=>1687630966,
+        # :duration=>207.225830078125,
+        # :db_runtime=>2.055999994277954,
+        # :view_runtime=>67.8370000096038,
+        # :exception=>nil,
+        # :backtrace=>nil,
+        # :http_referer=>nil,
+        # "email"=>nil,
+        # "user_agent"=>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"}]
+
         respond_to do |page|
           page.html
           page.js
