@@ -24,7 +24,7 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
   ActiveSupport::TestCase.fixtures :all
 end
 
-def dummy_event(time: Time.current, controller: "Home", action: "index", status: 200, path: '/', method: "GET", request_id: SecureRandom.hex(16))
+def dummy_event(time: Time.now, controller: "Home", action: "index", status: 200, path: '/', method: "GET", request_id: SecureRandom.hex(16))
   RailsPerformance::Models::RequestRecord.new(
     controller: controller,
     action: action,
@@ -41,7 +41,7 @@ def dummy_event(time: Time.current, controller: "Home", action: "index", status:
   )
 end
 
-def dummy_sidekiq_event(worker: 'Worker', queue: 'default', jid: "jxzet-#{Time.current.to_i}", datetimei: Time.current.to_i, enqueued_ati: Time.current.to_i, start_timei: Time.current.to_i, duration: rand(60), status: 'success')
+def dummy_sidekiq_event(worker: 'Worker', queue: 'default', jid: "jxzet-#{Time.now.to_i}", datetimei: Time.now.to_i, enqueued_ati: Time.now.to_i, start_timei: Time.now.to_i, duration: rand(60), status: 'success')
   RailsPerformance::Models::SidekiqRecord.new(
     queue: queue,
     worker: worker,
@@ -55,7 +55,7 @@ def dummy_sidekiq_event(worker: 'Worker', queue: 'default', jid: "jxzet-#{Time.c
   )
 end
 
-def dummy_grape_record(datetimei: Time.current.to_i, status: 200, format: "json", method: "GET", path: "/api/users", request_id: SecureRandom.hex(16))
+def dummy_grape_record(datetimei: Time.now.to_i, status: 200, format: "json", method: "GET", path: "/api/users", request_id: SecureRandom.hex(16))
   RailsPerformance::Models::GrapeRecord.new(
     path: path,
     method: method,
@@ -70,7 +70,7 @@ def dummy_grape_record(datetimei: Time.current.to_i, status: 200, format: "json"
   )
 end
 
-def dummy_rake_record(datetimei: Time.current.to_i, status: 'success', task: "x111111111#{rand(10000000)}")
+def dummy_rake_record(datetimei: Time.now.to_i, status: 'success', task: "x111111111#{rand(10000000)}")
   RailsPerformance::Models::RakeRecord.new(
     task: task,
     datetime: Time.at(datetimei).strftime(RailsPerformance::FORMAT),
@@ -80,7 +80,7 @@ def dummy_rake_record(datetimei: Time.current.to_i, status: 'success', task: "x1
   )
 end
 
-def dummy_delayed_job_record(datetimei: Time.current.to_i, status: 'success', jid: "x111111111#{rand(10000000)}")
+def dummy_delayed_job_record(datetimei: Time.now.to_i, status: 'success', jid: "x111111111#{rand(10000000)}")
   RailsPerformance::Models::DelayedJobRecord.new(
     jid: jid,
     datetime: Time.at(datetimei).strftime(RailsPerformance::FORMAT),
@@ -119,7 +119,7 @@ def setup_grape_db(event = dummy_grape_record)
   event.save
 end
 
-# created_ati = Time.current.to_i
+# created_ati = Time.now.to_i
 # RailsPerformance::Models::RakeRecord.new(
 #   task: 'task',
 #   datetime: Time.at(created_ati).strftime(RailsPerformance::FORMAT),
