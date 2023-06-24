@@ -1,8 +1,8 @@
 function showTIRChart(div, data, addon, name) {
   Highcharts.chart(div, {
-      time: {
-        timezone: 'Europe/Kiev'
-      },
+      // time: {
+      //   timezone: 'Europe/Kiev'
+      // },
       chart: {
           type: 'area',
           zoomType: 'x',
@@ -84,9 +84,9 @@ function showTIRChart(div, data, addon, name) {
 
 function showRTChart(div, data) {
   Highcharts.chart(div, {
-      time: {
-        timezone: 'Europe/Kiev'
-      },
+      // time: {
+      //   timezone: 'Europe/Kiev'
+      // },
       chart: {
           type: 'area',
           zoomType: 'x',
@@ -203,5 +203,3 @@ if(recent) {
     })
   }, 3000);
 }
-
-LocalTime.start()

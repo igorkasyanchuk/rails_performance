@@ -20,6 +20,15 @@ module RailsPerformance
       end
 
       def set_defaults; end
+
+      def self.time_in_app_time_zone(time)
+        app_time_zone = ::Rails.application.config.time_zone
+        if app_time_zone.present?
+          time.in_time_zone(app_time_zone)
+        else
+          time
+        end
+      end
     end
   end
 end

@@ -1,6 +1,5 @@
 module RailsPerformance
   module ApplicationHelper
-    include LocalTimeHelper
 
     def round_it(value, limit = 1)
       return nil unless value
@@ -107,9 +106,8 @@ module RailsPerformance
     end
 
     def format_datetime(e)
-      #e.strftime("%Y-%m-%d %H:%M:%S")
-      # I18n.l(e, format: "%Y-%m-%d %H:%M:%S")
-      local_time(e, "%Y-%m-%d %H:%M:%S")
+      dt = RailsPerformance::Reports::BaseReport::time_in_app_time_zone(e)
+      I18n.l(dt, format: "%Y-%m-%d %H:%M:%S")
     end
 
     def active?(section)

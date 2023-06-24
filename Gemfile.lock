@@ -1,8 +1,7 @@
 PATH
   remote: .
   specs:
-    rails_performance (1.2.0.alpha1)
-      local_time
+    rails_performance (1.2.0.alpha2)
       rails
       redis
       redis-namespace
@@ -124,7 +123,6 @@ GEM
       hashie (>= 3.0)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
-    local_time (2.1.0)
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
