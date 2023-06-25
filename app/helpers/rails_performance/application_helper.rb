@@ -95,9 +95,6 @@ module RailsPerformance
     def bot_icon(user_agent)
       return nil if user_agent.blank?
 
-      # TODO: clean this up
-      # user_agent = "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/W.X.Y.Z Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
-
       browser = Browser.new(user_agent)
       if browser.bot?
         content_tag(:span, class: "user-agent-icon", title: browser.bot&.name) do
