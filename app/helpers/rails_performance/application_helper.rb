@@ -99,13 +99,12 @@ module RailsPerformance
       # user_agent = "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/W.X.Y.Z Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
 
       browser = Browser.new(user_agent)
-
       if browser.bot?
         content_tag(:span, class: "user-agent-icon", title: browser.bot&.name) do
           icon("bot")
         end
       else
-        content_tag(:span, class: "user-agent-icon user-agent-icon-user") do
+        content_tag(:span, class: "user-agent-icon user-agent-icon-user", title: "Real User") do
           icon("user")
         end
       end

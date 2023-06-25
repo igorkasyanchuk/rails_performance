@@ -1,5 +1,10 @@
 - Unreleased
-  ....
+
+- 1.2.0
+  - support for Rails app without Active Record
+  - added icon to indicate that request was received by bot or human
+  - little internal refactoring
+  - support for app timezone (show datetime in the App timezone)
 
 - 1.1.0
   - remember "auto-update" state for Recent tab https://github.com/igorkasyanchuk/rails_performance/pull/51

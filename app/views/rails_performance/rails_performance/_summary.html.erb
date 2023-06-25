@@ -5,11 +5,12 @@
 <div id="response_time_report_chart_mini" class="chart_mini"></div>
 
 <h2 class="subtitle"><%= title %></h2>
-<table class="table is-fullwidth is-hoverable is-narrow is-size-7">
+<table class="table is-fullwidth is-hoverable is-narrow is-size-9">
   <thead>
     <tr>
       <th data-sort="string">Datetime</th>
       <th data-sort="string">Method</th>
+      <th></th>
       <th data-sort="string">Path</th>
       <th data-sort="string">Format</th>
       <th data-sort="int">Status</th>
@@ -23,6 +24,7 @@
       <tr>
         <td><%= format_datetime e[:datetime] %></td>
         <td><%= e[:method] %></td>
+        <td><%= bot_icon e["user_agent"] %></td>
         <td><%= link_to_path(e) %></td>
         <td><%= e[:format] %></td>
         <td><%= status_tag e[:status] %></td>

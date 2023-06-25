@@ -105,3 +105,13 @@ table th[data-sort] {
 #autoupdate_label {
   cursor: pointer;
 }
+
+.is-size-8, .is-size-8 * {
+  font-size: 10px !important;
+  line-height: 20px !important;
+}
+
+.is-size-9, .is-size-9 * {
+  font-size: 7px !important;
+  line-height: 20px !important;
+}
