@@ -56,6 +56,15 @@
   height: 24px;
 }
 
+.user-agent-icon svg {
+  width: 12px;
+  height: 12px;
+}
+
+.user-agent-icon-user svg path {
+  fill: hsl(141, 53%, 53%) !important;
+}
+
 .chart {
   height: 245px;
 }
@@ -95,4 +104,14 @@ table th[data-sort] {
 
 #autoupdate_label {
   cursor: pointer;
+}
+
+.is-size-8, .is-size-8 * {
+  font-size: 10px !important;
+  line-height: 20px !important;
+}
+
+.is-size-9, .is-size-9 * {
+  font-size: 7px !important;
+  line-height: 20px !important;
 }

@@ -10,6 +10,8 @@ module Dummy
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
+    config.time_zone = 'Kyiv'
+
     config.hosts.clear
 
     config.paths.add 'app/api', glob: '**/*.rb'

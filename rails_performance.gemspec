@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails"
   spec.add_dependency "redis"
   spec.add_dependency "redis-namespace"
+  spec.add_dependency "browser"
 
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "simplecov"

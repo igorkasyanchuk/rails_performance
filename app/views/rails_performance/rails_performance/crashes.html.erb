@@ -8,6 +8,7 @@
           <th data-sort="string">Controller#action</th>
           <th data-sort="string">Method</th>
           <th data-sort="string">Format</th>
+          <th></th>
           <th data-sort="string">Path</th>
           <th data-sort="string">Exception</th>
           <th data-sort="string">Backtrace</th>
@@ -30,6 +31,7 @@
             <td><%= link_to e[:controller] + '#' + e[:action], rails_performance.rails_performance_summary_path({controller_eq: e[:controller], action_eq: e[:action]}), remote: true %></td>
             <td><%= e[:method] %></td>
             <td><%= e[:format] %></td>
+            <td><%= bot_icon e["user_agent"] %></td>
             <td><%= link_to_path(e) %></td>
             <td><%= e[:exception] %></td>
             <td class="very-small-text">

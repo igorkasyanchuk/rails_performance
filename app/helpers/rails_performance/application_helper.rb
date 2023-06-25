@@ -1,5 +1,6 @@
 module RailsPerformance
   module ApplicationHelper
+
     def round_it(value, limit = 1)
       return nil unless value
       return value if value.is_a?(Integer)
@@ -49,7 +50,7 @@ module RailsPerformance
 
     def link_to_path(e)
       if e[:method] == 'GET'
-        link_to(short_path(e[:path]), e[:path], target: '_blank')
+        link_to(short_path(e[:path]), e[:path], target: '_blank', title: short_path(e[:path]))
       else
         short_path(e[:path])
       end
@@ -91,9 +92,27 @@ module RailsPerformance
       end
     end
 
+    def bot_icon(user_agent)
+      return nil if user_agent.blank?
+
+      browser = Browser.new(user_agent)
+      if browser.bot?
+        content_tag(:span, class: "user-agent-icon", title: browser.bot&.name) do
+          icon("bot")
+        end
+      else
+        content_tag(:span, class: "user-agent-icon user-agent-icon-user", title: "Real User") do
+          icon("user")
+        end
+      end
+    end
+
     def icon(name)
-      # https://www.iconfinder.com/iconsets/vivid
-      raw File.read(File.expand_path(File.dirname(__FILE__) +  "/../../assets/images/#{name}.svg"))
+      @icons ||= {}
+      @icons[name] ||= begin
+        # https://www.iconfinder.com/iconsets/vivid
+        raw File.read(File.expand_path(File.dirname(__FILE__) +  "/../../assets/images/#{name}.svg"))
+      end
     end
 
     def insert_css_file(file)
@@ -105,7 +124,8 @@ module RailsPerformance
     end
 
     def format_datetime(e)
-      e.strftime("%Y-%m-%d %H:%M:%S")
+      dt = RailsPerformance::Reports::BaseReport::time_in_app_time_zone(e)
+      I18n.l(dt, format: "%Y-%m-%d %H:%M:%S")
     end
 
     def active?(section)

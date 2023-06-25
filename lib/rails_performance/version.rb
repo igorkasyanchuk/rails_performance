@@ -1,4 +1,4 @@
 module RailsPerformance
-  VERSION = '1.1.0'
+  VERSION = '1.2.0.alpha6'
   SCHEMA  = '1.0.1'
 end

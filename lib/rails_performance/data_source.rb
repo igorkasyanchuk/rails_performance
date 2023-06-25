@@ -20,8 +20,8 @@ module RailsPerformance
 
     def db
       result = RailsPerformance::Models::Collection.new
-      (RailsPerformance::Utils.days + 1).times do |e|
-        RailsPerformance::DataSource.new(q: self.q.merge({ on: e.days.ago.to_date }), type: type).add_to(result)
+      (0..(RailsPerformance::Utils.days + 1)).to_a.reverse.each do |e|
+        RailsPerformance::DataSource.new(q: self.q.merge({ on: (Time.current - e.days).to_date }), type: type).add_to(result)
       end
       result
     end

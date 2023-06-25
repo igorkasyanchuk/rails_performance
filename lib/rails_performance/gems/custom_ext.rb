@@ -7,7 +7,7 @@ module RailsPerformance
         return yield unless RailsPerformance.enabled
 
         begin
-          now    = Time.now
+          now    = Time.current
           status = 'success'
           result = yield
           result
@@ -19,7 +19,7 @@ module RailsPerformance
             tag_name: tag_name,
             namespace_name: namespace_name,
             status: status,
-            duration: (Time.now - now) * 1000,
+            duration: (Time.current - now) * 1000,
             datetime: now.strftime(RailsPerformance::FORMAT),
             datetimei: now.to_i,
           ).save

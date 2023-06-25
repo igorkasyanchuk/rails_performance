@@ -55,7 +55,7 @@ module RailsPerformance
       next unless RailsPerformance.enabled
 
       ActionView::LogSubscriber.send :prepend, RailsPerformance::Extensions::View
-      ActiveRecord::LogSubscriber.send :prepend, RailsPerformance::Extensions::Db
+      ActiveRecord::LogSubscriber.send :prepend, RailsPerformance::Extensions::Db if defined?(ActiveRecord)
 
       if defined?(::Rake::Task)
         require_relative './gems/rake_ext.rb'
