@@ -1,6 +1,7 @@
 - Unreleased
 
 - 1.2.0
+  - IMPORTANT: for some time might show incorrect values in the chart (until old records will be expired). Just give it some time
   - PR https://github.com/igorkasyanchuk/rails_performance/pull/53/files
     - support for Rails app without Active Record
     - added icon to indicate that request was received by bot or human
