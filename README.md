@@ -46,7 +46,7 @@ Just don't forget to protect performance dashboard with http basic auth or check
 5. Tune the configuration and deploy to production
 ```
 
-Default configulation is listed below. But you can overide it.
+Default configuration is listed below. But you can override it.
 
 Create `config/initializers/rails_performance.rb` in your app:
 
@@ -196,7 +196,7 @@ For UI changes you need to use Bulma CSS (https://bulma.io/documentation).
 
 ## Why
 
-The idea of this gem grew from curriosity how many RPM my app receiving per day. Later it evolutionated to something more powerful.
+The idea of this gem grew from curiosity how many RPM my app receiving per day. Later it evolved to something more powerful.
 
 ## TODO
 
@@ -227,7 +227,7 @@ The idea of this gem grew from curriosity how many RPM my app receiving per day.
 
 You are welcome to contribute. I've a big list of TODO.
 
-If "schema" how records are stored i Redis is changed, and this is a breacking change, update: `RailsPerformance::SCHEMA` to a newer value.
+If "schema" how records are stored i Redis is changed, and this is a breaking change, update: `RailsPerformance::SCHEMA` to a newer value.
 
 ## Big thanks to contributors
 
