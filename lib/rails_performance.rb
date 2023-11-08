@@ -1,6 +1,7 @@
 require "redis"
 require "redis-namespace"
 require "browser"
+require 'active_support/core_ext/integer'
 require_relative "./rails_performance/version.rb"
 require_relative "rails_performance/rails/query_builder.rb"
 require_relative "rails_performance/rails/middleware.rb"
