@@ -1,5 +1,10 @@
 - Unreleased
 
+- 1.2.1
+  - Depend only on railties instead of rails https://github.com/igorkasyanchuk/rails_performance/pull/63
+  - Delete unused .travis.yml https://github.com/igorkasyanchuk/rails_performance/pull/62
+  - CI: Tell dependabot to update GH Actions https://github.com/igorkasyanchuk/rails_performance/pull/61
+
 - 1.2.0
   - IMPORTANT: for some time might show incorrect values in the chart (until old records will be expired). Just give it some time
   - PR https://github.com/igorkasyanchuk/rails_performance/pull/53/files
