@@ -28,8 +28,12 @@
       <% if defined?(Grape) %>
         <%= link_to 'Grape', rails_performance.rails_performance_grape_url, class: "navbar-item #{active?(:grape)}" %>
       <% end %>
-      <%= link_to 'Rake', rails_performance.rails_performance_rake_url, class: "navbar-item #{active?(:rake)}" %>
-      <%= link_to 'Custom Events', rails_performance.rails_performance_custom_url, class: "navbar-item #{active?(:custom)}" %>
+      <% if RailsPerformance.include_rake_tasks %>
+        <%= link_to 'Rake', rails_performance.rails_performance_rake_url, class: "navbar-item #{active?(:rake)}" %>
+      <% end %>
+      <% if RailsPerformance.include_custom_events %>
+        <%= link_to 'Custom Events', rails_performance.rails_performance_custom_url, class: "navbar-item #{active?(:custom)}" %>
+      <% end %>
     </div>
 
     <div class="navbar-end">

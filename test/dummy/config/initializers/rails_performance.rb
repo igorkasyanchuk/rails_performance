@@ -31,4 +31,7 @@ RailsPerformance.setup do |config|
 
   # config home button link
   config.home_link = '/'
+
+  config.include_rake_tasks = true
+  config.include_custom_events = false
 end if defined?(RailsPerformance)

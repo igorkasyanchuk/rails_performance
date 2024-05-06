@@ -1,5 +1,9 @@
 - Unreleased
 
+- 1.2.2
+  - fixed issue with undefined helpers https://github.com/igorkasyanchuk/rails_performance/pull/78
+  - configuration for include_rake_tasks, include_custom_events monitoring
+
 - 1.2.1
   - Depend only on railties instead of rails https://github.com/igorkasyanchuk/rails_performance/pull/63
   - Delete unused .travis.yml https://github.com/igorkasyanchuk/rails_performance/pull/62

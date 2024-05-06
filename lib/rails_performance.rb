@@ -99,6 +99,14 @@ module RailsPerformance
   mattr_accessor :custom_data_proc
   @@custom_data_proc = nil
 
+  # include rake tasks
+  mattr_accessor :include_rake_tasks
+  @@include_rake_tasks = false
+
+  # include custom events
+  mattr_accessor :include_custom_events
+  @@include_custom_events = true
+
   def RailsPerformance.setup
     yield(self)
   end

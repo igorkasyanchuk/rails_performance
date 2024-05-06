@@ -14,8 +14,10 @@ module RailsPerformance
               raise(ex)
             ensure
               if !RailsPerformance.skipable_rake_tasks.include?(self.name)
+                task_info = RailsPerformance::Gems::RakeExt.find_task_name(*args)
+                task_info = [self.name] if task_info.empty?
                 RailsPerformance::Models::RakeRecord.new(
-                  task: RailsPerformance::Gems::RakeExt.find_task_name(*args),
+                  task: task_info,
                   datetime: now.strftime(RailsPerformance::FORMAT),
                   datetimei: now.to_i,
                   duration: (Time.current - now) * 1000,

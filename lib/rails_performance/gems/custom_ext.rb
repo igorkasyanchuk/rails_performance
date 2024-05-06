@@ -5,6 +5,7 @@ module RailsPerformance
 
       def measure(tag_name, namespace_name = nil)
         return yield unless RailsPerformance.enabled
+        return yield unless RailsPerformance.include_custom_events
 
         begin
           now    = Time.current

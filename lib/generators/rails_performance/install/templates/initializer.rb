@@ -32,4 +32,7 @@ RailsPerformance.setup do |config|
 
   # config home button link
   config.home_link = '/'
+  config.skipable_rake_tasks = ['webpacker:compile']
+  config.include_rake_tasks = false
+  config.include_custom_events = true
 end if defined?(RailsPerformance)

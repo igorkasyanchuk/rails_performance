@@ -93,7 +93,14 @@ RailsPerformance.setup do |config|
   # config home button link
   config.home_link = '/'
 
+  # To skip some Rake tasks from monitoring
   config.skipable_rake_tasks = ['webpacker:compile']
+
+  # To monitor rake tasks performance, you need to include rake tasks
+  # config.include_rake_tasks = false
+
+  # To monitor custom events with `RailsPerformance.measure` block
+  # config.include_custom_events = true
 end if defined?(RailsPerformance)
 ```
 
@@ -241,6 +248,7 @@ If "schema" how records are stored i Redis is changed, and this is a breaking ch
 - https://github.com/carl-printreleaf
 - https://github.com/langalex
 - https://github.com/olleolleolle
+- https://github.com/desheikh
 
 [<img src="https://opensource-heroes.com/svg/embed/igorkasyanchuk/rails_performance"
 />](https://opensource-heroes.com/r/igorkasyanchuk/rails_performance)
