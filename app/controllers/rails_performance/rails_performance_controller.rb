@@ -2,7 +2,6 @@ require_relative './base_controller.rb'
 
 module RailsPerformance
   class RailsPerformanceController < RailsPerformance::BaseController
-    include RailsPerformance::ApplicationHelper
 
     protect_from_forgery except: :recent
 

@@ -1,5 +1,5 @@
 module RailsPerformance
-  module ApplicationHelper
+  module RailsPerformanceHelper
 
     def round_it(value, limit = 1)
       return nil unless value
