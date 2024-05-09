@@ -9,8 +9,8 @@ module RailsPerformance
         db.data
           .collect{|e| e.record_hash}
           .select{|e| e if e[sort] > RailsPerformance.slow_requests_time_window.ago.to_i}
+          .select{|e| e if e[:duration] > RailsPerformance.slow_requests_threshold.to_i}
           .sort{|a, b| b[sort] <=> a[sort]}
-          .filter{|e| e[:duration] > RailsPerformance.slow_requests_threshold.to_i}
           .first(limit)
       end
 
