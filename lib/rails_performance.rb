@@ -13,6 +13,7 @@ require_relative "rails_performance/models/grape_record.rb"
 require_relative "rails_performance/models/trace_record.rb"
 require_relative "rails_performance/models/rake_record.rb"
 require_relative "rails_performance/models/custom_record.rb"
+require_relative "rails_performance/models/active_job_record.rb"
 require_relative "rails_performance/data_source.rb"
 require_relative "rails_performance/utils.rb"
 require_relative "rails_performance/reports/base_report.rb"
@@ -26,6 +27,7 @@ require_relative "rails_performance/reports/breakdown_report.rb"
 require_relative "rails_performance/reports/trace_report.rb"
 require_relative "rails_performance/extensions/trace.rb"
 require_relative "rails_performance/thread/current_request.rb"
+require_relative './rails_performance/gems/active_job_ext.rb'
 
 module RailsPerformance
   FORMAT = "%Y%m%dT%H%M"
@@ -115,7 +117,7 @@ module RailsPerformance
     return unless RailsPerformance.debug
 
     if ::Rails.logger
-      # puts(message)
+      puts(message)
       ::Rails.logger.debug(message)
     else
       puts(message)

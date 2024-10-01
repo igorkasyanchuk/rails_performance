@@ -1,6 +1,8 @@
 class HomeController < ApplicationController
 
   def index
+    MyJob.perform_later
+
     rand(10).times { AdvancedWorker.perform_async }
     SecondWorker.perform_async
     sleep(rand(2.0))

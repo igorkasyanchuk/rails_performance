@@ -14,6 +14,8 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
+gem 'rails', '~> 7.1.0'
+
 gem 'pry'
 gem 'sqlite3'
 
@@ -33,5 +35,6 @@ gem 'puma'
 
 gem 'sprockets-rails'
 
-
 gem 'devise'
+
+gem "solid_queue"
