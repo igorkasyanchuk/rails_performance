@@ -25,6 +25,9 @@
       <% if defined?(Delayed::Job) %>
         <%= link_to 'Delayed::Job', rails_performance.rails_performance_delayed_job_url, class: "navbar-item #{active?(:delayed_job)}" %>
       <% end %>
+      <% if defined?(::ActiveJob) %>
+        <%= link_to 'ActiveJob', rails_performance.rails_performance_jobs_url, class: "navbar-item #{active?(:jobs)}" %>
+      <% end %>
       <% if defined?(Grape) %>
         <%= link_to 'Grape', rails_performance.rails_performance_grape_url, class: "navbar-item #{active?(:grape)}" %>
       <% end %>

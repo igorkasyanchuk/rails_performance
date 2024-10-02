@@ -18,10 +18,10 @@ Minitest.backtrace_filter = Minitest::BacktraceFilter.new
 
 # Load fixtures from the engine
 if ActiveSupport::TestCase.respond_to?(:fixture_path=)
-  ActiveSupport::TestCase.fixture_path = File.expand_path("fixtures", __dir__)
-  ActionDispatch::IntegrationTest.fixture_path = ActiveSupport::TestCase.fixture_path
-  ActiveSupport::TestCase.file_fixture_path = ActiveSupport::TestCase.fixture_path + "/files"
-  ActiveSupport::TestCase.fixtures :all
+  # ActiveSupport::TestCase.fixture_path = File.expand_path("fixtures", __dir__)
+  # ActionDispatch::IntegrationTest.fixture_path = ActiveSupport::TestCase.fixture_path
+  # ActiveSupport::TestCase.file_fixture_path = ActiveSupport::TestCase.fixture_path + "/files"
+  # ActiveSupport::TestCase.fixtures :all
 end
 
 def dummy_event(time: Time.current, controller: "Home", action: "index", status: 200, path: '/', method: "GET", request_id: SecureRandom.hex(16))
@@ -43,6 +43,20 @@ end
 
 def dummy_sidekiq_event(worker: 'Worker', queue: 'default', jid: "jxzet-#{Time.current.to_i}", datetimei: Time.current.to_i, enqueued_ati: Time.current.to_i, start_timei: Time.current.to_i, duration: rand(60), status: 'success')
   RailsPerformance::Models::SidekiqRecord.new(
+    queue: queue,
+    worker: worker,
+    jid: jid,
+    datetimei: datetimei,
+    enqueued_ati: enqueued_ati,
+    datetime: Time.at(datetimei).strftime(RailsPerformance::FORMAT),
+    start_timei: start_timei,
+    duration: duration,
+    status: status,
+  )
+end
+
+def dummy_active_job_event(worker: 'AAWorker', queue: 'default', jid: "jxzet-#{Time.current.to_i}", datetimei: Time.current.to_i, enqueued_ati: Time.current.to_i, start_timei: Time.current.to_i, duration: rand(60), status: 'success')
+  RailsPerformance::Models::ActiveJobRecord.new(
     queue: queue,
     worker: worker,
     jid: jid,
@@ -104,6 +118,10 @@ def setup_db(event = dummy_event)
 end
 
 def setup_sidekiq_db(event = dummy_sidekiq_event)
+  event.save
+end
+
+def setup_active_jobs_db(event = dummy_active_job_event)
   event.save
 end
 

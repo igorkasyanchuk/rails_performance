@@ -7,6 +7,7 @@ module RailsPerformance
       grape: RailsPerformance::Models::GrapeRecord,
       rake: RailsPerformance::Models::RakeRecord,
       custom: RailsPerformance::Models::CustomRecord,
+      jobs: RailsPerformance::Models::ActiveJobRecord
     }
 
     attr_reader :q, :klass, :type
@@ -63,8 +64,10 @@ module RailsPerformance
         "rake|*#{compile_rake_query}*|END|#{RailsPerformance::SCHEMA}"
       when :custom
         "custom|*#{compile_custom_query}*|END|#{RailsPerformance::SCHEMA}"
+      when :jobs
+        "active_job|*#{compile_active_job_query}*|END|#{klass::SCHEMA}"
       else
-        raise "wrong type for datasource query builder"
+        raise "wrong type \"#{type}\" for datasource query builder"
       end
     end
 
@@ -91,6 +94,15 @@ module RailsPerformance
 
     def compile_delayed_job_query
       str = []
+      str << "datetime|#{q[:on].strftime('%Y%m%d')}*|" if q[:on].present?
+      str << "status|#{q[:status]}|" if q[:status].present?
+      str.join("*")
+    end
+
+    def compile_active_job_query
+      str = []
+      str << "queue|#{q[:queue]}|" if q[:queue].present?
+      str << "worker|#{q[:worker]}|" if q[:worker].present?
       str << "datetime|#{q[:on].strftime('%Y%m%d')}*|" if q[:on].present?
       str << "status|#{q[:status]}|" if q[:status].present?
       str.join("*")

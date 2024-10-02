@@ -27,7 +27,6 @@ require_relative "rails_performance/reports/breakdown_report.rb"
 require_relative "rails_performance/reports/trace_report.rb"
 require_relative "rails_performance/extensions/trace.rb"
 require_relative "rails_performance/thread/current_request.rb"
-require_relative './rails_performance/gems/active_job_ext.rb'
 
 module RailsPerformance
   FORMAT = "%Y%m%dT%H%M"

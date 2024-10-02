@@ -4,10 +4,10 @@ class MyJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
-    puts '--1--'
-    sleep(rand(1..5))
-    File.open("tmp/my_job.txt", "a") { |f| f.puts "MyJob performed at #{Time.current}" }
+    sleep(rand(1..3))
+    # to test during development
+    # File.open("tmp/my_job.txt", "a") { |f| f.puts "MyJob performed at #{Time.current}" }
+    1/0 if rand(1..3) == 1
     42
-    puts '--2--'
   end
 end

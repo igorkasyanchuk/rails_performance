@@ -2,7 +2,6 @@ require 'action_view/log_subscriber'
 require_relative './rails/middleware.rb'
 require_relative './models/collection.rb'
 require_relative './instrument/controller_metrics_collector.rb'
-require_relative './instrument/active_job_metrics_collector.rb'
 
 module RailsPerformance
   class Engine < ::Rails::Engine
@@ -51,7 +50,10 @@ module RailsPerformance
         RailsPerformance::Instrument::ControllerMetricsCollector.new
       )
 
-      RailsPerformance::Gems::ActiveJobExt.init if defined?(::ActiveJob)
+      if defined?(::ActiveJob)
+        require_relative './gems/active_job_ext.rb'
+        RailsPerformance::Gems::ActiveJobExt.init
+      end
     end
 
     config.after_initialize do

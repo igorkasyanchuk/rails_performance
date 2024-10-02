@@ -144,6 +144,8 @@ module RailsPerformance
         "is-active" if controller_name == "rails_performance" && action_name == "sidekiq"
       when :delayed_job
         "is-active" if controller_name == "rails_performance" && action_name == "delayed_job"
+      when :jobs
+        "is-active" if controller_name == "rails_performance" && action_name == "jobs"
       when :grape
         "is-active" if controller_name == "rails_performance" && action_name == "grape"
       when :rake

@@ -126,6 +126,14 @@ end
     assert_response :success
   end
 
+  test "should get active jobs with params" do
+    setup_db
+    setup_active_jobs_db
+    get '/rails/performance/jobs'
+    assert_response :success
+    assert response.body.include?("AAWorker")
+  end
+
   test "should get rake" do
     setup_db
     setup_rake_db
