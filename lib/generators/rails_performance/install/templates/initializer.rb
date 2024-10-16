@@ -21,6 +21,10 @@ RailsPerformance.setup do |config|
   # You can ignore endpoints with Rails standard notation controller#action
   # config.ignored_endpoints = ['HomeController#contact']
 
+  # You can ignore request paths by specifying the beginning of the path.
+  # For example, all routes starting with '/admin' can be ignored:
+  # config.ignored_paths = ['/admin']
+
   # store custom data for the request
   # config.custom_data_proc = proc do |env|
   #   request = Rack::Request.new(env)

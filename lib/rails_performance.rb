@@ -83,6 +83,12 @@ module RailsPerformance
   end
   @@ignored_endpoints = []
 
+  mattr_reader :ignored_paths
+  def RailsPerformance.ignored_paths=(paths)
+    @@ignored_paths = Set.new(paths)
+  end
+  @@ignored_paths = []
+
   # skip requests if it's inside Rails Performance view
   mattr_accessor :skip
   @@skip = false
