@@ -2,7 +2,6 @@
 
 [![Tests](https://github.com/igorkasyanchuk/rails_performance/actions/workflows/ruby.yml/badge.svg)](https://github.com/igorkasyanchuk/rails_performance/actions/workflows/ruby.yml)
 [![RailsJazz](https://github.com/igorkasyanchuk/rails_time_travel/blob/main/docs/my_other.svg?raw=true)](https://www.railsjazz.com)
-[![https://www.patreon.com/igorkasyanchuk](https://github.com/igorkasyanchuk/rails_time_travel/blob/main/docs/patron.svg?raw=true)](https://www.patreon.com/igorkasyanchuk)
 [![Listed on OpenSource-Heroes.com](https://opensource-heroes.com/badge-v1.svg)](https://opensource-heroes.com/r/igorkasyanchuk/rails_performance)
 
 A self-hosted tool to monitor the performance of your Ruby on Rails application.
