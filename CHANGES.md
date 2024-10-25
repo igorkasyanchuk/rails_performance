@@ -1,5 +1,10 @@
 - Unreleased
 
+- 1.2.3
+  - typo fix https://github.com/igorkasyanchuk/rails_performance/pull/91
+  - added ignored_paths https://github.com/igorkasyanchuk/rails_performance/pull/96
+  - CI for new versions of Ruby
+
 - 1.2.2
   - fixed issue with undefined helpers https://github.com/igorkasyanchuk/rails_performance/pull/78
   - configuration for include_rake_tasks, include_custom_events monitoring
