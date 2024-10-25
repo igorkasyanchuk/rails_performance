@@ -23,6 +23,7 @@ module RailsPerformance
         event = ActiveSupport::Notifications::Event.new(event_name, started, finished, event_id, payload)
 
         return if RailsPerformance.ignored_endpoints.include? "#{event.payload[:controller]}##{event.payload[:action]}"
+        return if RailsPerformance.ignored_paths.any? { |p| event.payload[:path].start_with?(p) }
 
         record = {
           controller: event.payload[:controller],

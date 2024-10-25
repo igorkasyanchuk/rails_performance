@@ -36,6 +36,14 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
     RailsPerformance.ignored_endpoints = original_ignored_endpoints
   end
 
+  test "should respect ignored_paths configuration value" do
+    original_ignored_paths = RailsPerformance.ignored_paths
+    RailsPerformance.ignored_paths = ['/home']
+    get '/home/contact'
+    assert_equal requests_report_data.size, 0
+    RailsPerformance.ignored_paths = original_ignored_paths
+  end
+
   test "should get index" do
     setup_db
     assert_equal requests_report_data.size, 1
