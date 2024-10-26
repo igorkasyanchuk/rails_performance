@@ -1,5 +1,8 @@
 - Unreleased
 
+- 1.3.0
+  - added csv export
+
 - 1.2.3
   - typo fix https://github.com/igorkasyanchuk/rails_performance/pull/91
   - added ignored_paths https://github.com/igorkasyanchuk/rails_performance/pull/96
