@@ -1,13 +1,14 @@
-require_relative './base_controller.rb'
+require_relative "base_controller"
 
 module RailsPerformance
   class RailsPerformanceController < RailsPerformance::BaseController
-
     protect_from_forgery except: :recent
 
     if RailsPerformance.enabled
       def index
-        @datasource                = RailsPerformance::DataSource.new(**prepare_query, type: :requests)
+        @datasource = RailsPerformance::DataSource.new(
+          **prepare_query, type: :requests
+        )
         db                         = @datasource.db
 
         @throughput_report_data    = RailsPerformance::Reports::ThroughputReport.new(db).data
@@ -15,16 +16,21 @@ module RailsPerformance
       end
 
       def summary
-        @datasource                = RailsPerformance::DataSource.new(**prepare_query, type: :requests)
+        @datasource                = RailsPerformance::DataSource.new(
+          **prepare_query, type: :requests
+        )
         db                         = @datasource.db
 
         @throughput_report_data    = RailsPerformance::Reports::ThroughputReport.new(db).data
         @response_time_report_data = RailsPerformance::Reports::ResponseTimeReport.new(db).data
-        @data                      = RailsPerformance::Reports::BreakdownReport.new(db, title: "Requests").data
-
+        @data                      = RailsPerformance::Reports::BreakdownReport.new(
+          db, title: "Requests"
+        ).data
         respond_to do |format|
           format.js {}
-          format.any { render plain: "Doesn't open in new window. Wait until full page load." }
+          format.any do
+            render plain: "Doesn't open in new window. Wait until full page load."
+          end
         end
       end
 
@@ -33,24 +39,44 @@ module RailsPerformance
         @data   = RailsPerformance::Reports::TraceReport.new(request_id: params[:id]).data
         respond_to do |format|
           format.js {}
-          format.any { render plain: "Doesn't open in new window. Wait until full page load." }
+          format.any do
+            render plain: "Doesn't open in new window. Wait until full page load."
+          end
         end
       end
 
       def crashes
-        @datasource   = RailsPerformance::DataSource.new(**prepare_query({status_eq: 500}), type: :requests)
+        @datasource = RailsPerformance::DataSource.new(
+          **prepare_query({ status_eq: 500 }), type: :requests
+        )
         db            = @datasource.db
         @data         = RailsPerformance::Reports::CrashReport.new(db).data
+
+        respond_to do |format|
+          format.html
+          format.csv do
+            export_to_csv "error_report", @data
+          end
+        end
       end
 
       def requests
-        @datasource = RailsPerformance::DataSource.new(**prepare_query, type: :requests)
+        @datasource = RailsPerformance::DataSource.new(**prepare_query,
+type: :requests)
         db          = @datasource.db
-        @data       = RailsPerformance::Reports::RequestsReport.new(db, group: :controller_action_format, sort: :count).data
+        @data       = RailsPerformance::Reports::RequestsReport.new(db,
+                                                                    group: :controller_action_format, sort: :count).data
+        respond_to do |format|
+          format.html
+          format.csv do
+            export_to_csv "requests_report", @data
+          end
+        end
       end
 
       def recent
-        @datasource = RailsPerformance::DataSource.new(**prepare_query, type: :requests)
+        @datasource = RailsPerformance::DataSource.new(**prepare_query,
+type: :requests)
         db          = @datasource.db
         @data       = RailsPerformance::Reports::RecentRequestsReport.new(db).data(params[:from_timei])
 
@@ -73,20 +99,33 @@ module RailsPerformance
         # "email"=>nil,
         # "user_agent"=>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"}]
 
-        respond_to do |page|
-          page.html
-          page.js
+        respond_to do |format|
+          format.html
+          format.js
+          format.csv do
+            export_to_csv "recent_requests_report", @data
+          end
         end
       end
 
       def slow
-        @datasource = RailsPerformance::DataSource.new(**prepare_query, type: :requests)
+        @datasource = RailsPerformance::DataSource.new(**prepare_query,
+type: :requests)
         db          = @datasource.db
         @data       = RailsPerformance::Reports::SlowRequestsReport.new(db).data
+
+        respond_to do |format|
+          format.html
+          format.csv do
+            export_to_csv "slow_requests_report", @data
+          end
+        end
       end
 
       def sidekiq
-        @datasource                = RailsPerformance::DataSource.new(**prepare_query, type: :sidekiq)
+        @datasource = RailsPerformance::DataSource.new(
+          **prepare_query, type: :sidekiq
+        )
         db                         = @datasource.db
         @throughput_report_data    = RailsPerformance::Reports::ThroughputReport.new(db).data
         @response_time_report_data = RailsPerformance::Reports::ResponseTimeReport.new(db).data
@@ -94,7 +133,9 @@ module RailsPerformance
       end
 
       def delayed_job
-        @datasource                = RailsPerformance::DataSource.new(**prepare_query, type: :delayed_job)
+        @datasource                = RailsPerformance::DataSource.new(
+          **prepare_query, type: :delayed_job
+        )
         db                         = @datasource.db
         @throughput_report_data    = RailsPerformance::Reports::ThroughputReport.new(db).data
         @response_time_report_data = RailsPerformance::Reports::ResponseTimeReport.new(db).data
@@ -102,7 +143,9 @@ module RailsPerformance
       end
 
       def custom
-        @datasource                = RailsPerformance::DataSource.new(**prepare_query, type: :custom)
+        @datasource                = RailsPerformance::DataSource.new(
+          **prepare_query, type: :custom
+        )
         db                         = @datasource.db
         @throughput_report_data    = RailsPerformance::Reports::ThroughputReport.new(db).data
         @response_time_report_data = RailsPerformance::Reports::ResponseTimeReport.new(db).data
@@ -110,14 +153,18 @@ module RailsPerformance
       end
 
       def grape
-        @datasource                = RailsPerformance::DataSource.new(**prepare_query, type: :grape)
+        @datasource                = RailsPerformance::DataSource.new(
+          **prepare_query, type: :grape
+        )
         db                         = @datasource.db
         @throughput_report_data    = RailsPerformance::Reports::ThroughputReport.new(db).data
         @recent_report_data        = RailsPerformance::Reports::RecentRequestsReport.new(db).data
       end
 
       def rake
-        @datasource                = RailsPerformance::DataSource.new(**prepare_query, type: :rake)
+        @datasource                = RailsPerformance::DataSource.new(
+          **prepare_query, type: :rake
+        )
         db                         = @datasource.db
         @throughput_report_data    = RailsPerformance::Reports::ThroughputReport.new(db).data
         @recent_report_data        = RailsPerformance::Reports::RecentRequestsReport.new(db).data
@@ -129,6 +176,5 @@ module RailsPerformance
         RailsPerformance::Rails::QueryBuilder.compose_from(query)
       end
     end
-
   end
 end

@@ -56,6 +56,12 @@
   height: 24px;
 }
 
+.download_icon svg {
+  width: 24px;
+  height: 24px;
+  color: red;
+}
+
 .user-agent-icon svg {
   width: 12px;
   height: 12px;
