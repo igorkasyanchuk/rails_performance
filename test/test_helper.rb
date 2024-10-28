@@ -1,11 +1,11 @@
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
 
-require 'simplecov'
-require 'minitest/autorun'
+require "simplecov"
+require "minitest/autorun"
 
 SimpleCov.start do
-  add_filter 'test/dummy'
+  add_filter "test/dummy"
 end
 
 require_relative "../test/dummy/config/environment"
@@ -15,7 +15,6 @@ require "rails/test_help"
 # Filter out the backtrace from minitest while preserving the one from other libraries.
 Minitest.backtrace_filter = Minitest::BacktraceFilter.new
 
-
 # Load fixtures from the engine
 if ActiveSupport::TestCase.respond_to?(:fixture_path=)
   ActiveSupport::TestCase.fixture_path = File.expand_path("fixtures", __dir__)
@@ -24,7 +23,7 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
   ActiveSupport::TestCase.fixtures :all
 end
 
-def dummy_event(time: Time.current, controller: "Home", action: "index", status: 200, path: '/', method: "GET", request_id: SecureRandom.hex(16))
+def dummy_event(time: Time.current, controller: "Home", action: "index", status: 200, path: "/", method: "GET", request_id: SecureRandom.hex(16))
   RailsPerformance::Models::RequestRecord.new(
     controller: controller,
     action: action,
@@ -41,7 +40,7 @@ def dummy_event(time: Time.current, controller: "Home", action: "index", status:
   )
 end
 
-def dummy_sidekiq_event(worker: 'Worker', queue: 'default', jid: "jxzet-#{Time.current.to_i}", datetimei: Time.current.to_i, enqueued_ati: Time.current.to_i, start_timei: Time.current.to_i, duration: rand(60), status: 'success')
+def dummy_sidekiq_event(worker: "Worker", queue: "default", jid: "jxzet-#{Time.current.to_i}", datetimei: Time.current.to_i, enqueued_ati: Time.current.to_i, start_timei: Time.current.to_i, duration: rand(60), status: "success")
   RailsPerformance::Models::SidekiqRecord.new(
     queue: queue,
     worker: worker,
@@ -51,7 +50,7 @@ def dummy_sidekiq_event(worker: 'Worker', queue: 'default', jid: "jxzet-#{Time.c
     datetime: Time.at(datetimei).strftime(RailsPerformance::FORMAT),
     start_timei: start_timei,
     duration: duration,
-    status: status,
+    status: status
   )
 end
 
@@ -63,31 +62,31 @@ def dummy_grape_record(datetimei: Time.current.to_i, status: 200, format: "json"
     status: status,
     datetimei: datetimei,
     datetime: Time.at(datetimei).strftime(RailsPerformance::FORMAT),
-    endpoint_render_grape: rand(1.0),
-    endpoint_run_grape: rand(1.0),
-    format_response_grape: rand(1.0),
+    endpoint_render_grape: rand(10),
+    endpoint_run_grape: rand(10),
+    format_response_grape: rand(10),
     request_id: request_id
   )
 end
 
-def dummy_rake_record(datetimei: Time.current.to_i, status: 'success', task: "x111111111#{rand(10000000)}")
+def dummy_rake_record(datetimei: Time.current.to_i, status: "success", task: "x111111111#{rand(10000000)}")
   RailsPerformance::Models::RakeRecord.new(
     task: task,
     datetime: Time.at(datetimei).strftime(RailsPerformance::FORMAT),
     datetimei: datetimei,
-    status: 'success',
+    status: "success",
     json: '{"duration": 100}'
   )
 end
 
-def dummy_delayed_job_record(datetimei: Time.current.to_i, status: 'success', jid: "x111111111#{rand(10000000)}")
+def dummy_delayed_job_record(datetimei: Time.current.to_i, status: "success", jid: "x111111111#{rand(10000000)}")
   RailsPerformance::Models::DelayedJobRecord.new(
     jid: jid,
     datetime: Time.at(datetimei).strftime(RailsPerformance::FORMAT),
     datetimei: datetimei,
-    source_type: 'instance_method',
-    class_name: 'User',
-    method_name: 'hell_world',
+    source_type: "instance_method",
+    class_name: "User",
+    method_name: "hell_world",
     status: status,
     json: '{"duration": 100}'
   )

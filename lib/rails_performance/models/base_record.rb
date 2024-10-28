@@ -2,15 +2,15 @@ module RailsPerformance
   module Models
     class BaseRecord
       def self.from_db(key, value)
-        raise 'implement me'
+        raise "implement me"
       end
 
       def save
-        raise 'implement me'
+        raise "implement me"
       end
 
       def record_hash
-        raise 'implement me'
+        raise "implement me"
       end
 
       def value
@@ -18,7 +18,7 @@ module RailsPerformance
       end
 
       def duration
-        value['duration']
+        value["duration"]
       end
 
       private
@@ -26,11 +26,8 @@ module RailsPerformance
       def ms(e)
         if e
           e.to_f.round(1).to_s + " ms"
-        else
-          nil
         end
       end
-
     end
   end
 end

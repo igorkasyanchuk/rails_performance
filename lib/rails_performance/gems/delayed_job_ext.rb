@@ -1,31 +1,28 @@
 module RailsPerformance
   module Gems
     class DelayedJobExt
-
       class Plugin < ::Delayed::Plugin
         callbacks do |lifecycle|
           lifecycle.around(:invoke_job) do |job, *args, &block|
-            begin
-              now = Time.current
-              block.call(job, *args)
-              status = 'success'
-            rescue Exception => error
-              status = 'error'
-              raise error
-            ensure
-              meta_data = RailsPerformance::Gems::DelayedJobExt::Plugin.meta(job.payload_object)
-              record    = RailsPerformance::Models::DelayedJobRecord.new(
-                jid: job.id,
-                duration: (Time.current - now) * 1000,
-                datetime: now.strftime(RailsPerformance::FORMAT),
-                datetimei: now.to_i,
-                source_type: meta_data[0],
-                class_name: meta_data[1],
-                method_name: meta_data[2],
-                status: status
-              )
-              record.save
-            end
+            now = Time.current
+            block.call(job, *args)
+            status = "success"
+          rescue Exception => error # rubocop:disable Lint/RescueException
+            status = "error"
+            raise error
+          ensure
+            meta_data = RailsPerformance::Gems::DelayedJobExt::Plugin.meta(job.payload_object)
+            record = RailsPerformance::Models::DelayedJobRecord.new(
+              jid: job.id,
+              duration: (Time.current - now) * 1000,
+              datetime: now.strftime(RailsPerformance::FORMAT),
+              datetimei: now.to_i,
+              source_type: meta_data[0],
+              class_name: meta_data[1],
+              method_name: meta_data[2],
+              status: status
+            )
+            record.save
           end
         end
 
@@ -48,7 +45,6 @@ module RailsPerformance
       def self.init
         ::Delayed::Worker.plugins += [::RailsPerformance::Gems::DelayedJobExt::Plugin]
       end
-
     end
   end
 end

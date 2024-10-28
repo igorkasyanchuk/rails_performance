@@ -41,10 +41,10 @@ module RailsPerformance
       def call!(env)
         @status, @headers, @response = @app.call(env)
 
-        #t = Time.current
+        # t = Time.current
         if !RailsPerformance.skip
           if !CurrentRequest.current.ignore.include?(:performance) # grape is executed first, and than ignore regular future storage of "controller"-like request
-            if data = CurrentRequest.current.data
+            if (data = CurrentRequest.current.data)
               record = RailsPerformance::Models::RequestRecord.new(**data.merge({request_id: CurrentRequest.current.request_id}))
 
               # for 500 errors
@@ -66,11 +66,10 @@ module RailsPerformance
             end
           end
         end
-        #puts "==> store performance data: #{(Time.current - t).round(3)}ms"
+        # puts "==> store performance data: #{(Time.current - t).round(3)}ms"
 
         [@status, @headers, @response]
       end
-
     end
   end
 end

@@ -1,7 +1,6 @@
 module RailsPerformance
   module Reports
     class ThroughputReport < BaseReport
-
       def set_defaults
         @group ||= :datetime
       end
@@ -11,7 +10,6 @@ module RailsPerformance
           all[k] = v.count
         end
       end
-
     end
   end
 end

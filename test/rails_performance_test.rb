@@ -1,7 +1,6 @@
-require 'test_helper'
+require "test_helper"
 
 class RailsPerformance::Test < ActiveSupport::TestCase
-
   test "datastore" do
     setup_db
     ds = RailsPerformance::DataSource.new(q: {}, type: :requests)
@@ -38,5 +37,4 @@ class RailsPerformance::Test < ActiveSupport::TestCase
     RailsPerformance::Models::TraceRecord.new(request_id: "112233", value: [{x: 1}, {y: 2}]).save
     assert_equal RailsPerformance::Reports::TraceReport.new(request_id: "112233").data, [{"x" => 1}, {"y" => 2}]
   end
-
 end

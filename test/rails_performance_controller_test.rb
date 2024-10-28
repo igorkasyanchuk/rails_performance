@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -16,30 +16,30 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
     assert_equal requests_report_data.size, 0
     setup_db
     assert_equal requests_report_data.size, 1
-    get '/'
+    get "/"
     assert_equal requests_report_data.size, 2
     assert_response :success
   end
 
   test "should respect ignored_endpoints configuration value" do
     assert_equal requests_report_data.size, 0
-    get '/home/contact'
+    get "/home/contact"
     assert_equal requests_report_data.size, 1
     assert_equal requests_report_data.first[:group], "HomeController#contact|html"
     reset_redis
     assert_equal requests_report_data.size, 0
 
     original_ignored_endpoints = RailsPerformance.ignored_endpoints
-    RailsPerformance.ignored_endpoints = ['HomeController#contact']
-    get '/home/contact'
+    RailsPerformance.ignored_endpoints = ["HomeController#contact"]
+    get "/home/contact"
     assert_equal requests_report_data.size, 0
     RailsPerformance.ignored_endpoints = original_ignored_endpoints
   end
 
   test "should respect ignored_paths configuration value" do
     original_ignored_paths = RailsPerformance.ignored_paths
-    RailsPerformance.ignored_paths = ['/home']
-    get '/home/contact'
+    RailsPerformance.ignored_paths = ["/home"]
+    get "/home/contact"
     assert_equal requests_report_data.size, 0
     RailsPerformance.ignored_paths = original_ignored_paths
   end
@@ -47,7 +47,7 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     setup_db
     assert_equal requests_report_data.size, 1
-    get '/rails/performance'
+    get "/rails/performance"
     # make sure rails/performance paths are ignored
     assert_equal requests_report_data.size, 1
     assert_response :success
@@ -55,106 +55,106 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
 
   test "should get index with params" do
     setup_db
-    get '/rails/performance', params: { controller_eq: "Home", action_eq: 'index' }
+    get "/rails/performance", params: {controller_eq: "Home", action_eq: "index"}
     assert_response :success
   end
 
   test "should get summary with params" do
     setup_db
-    get '/rails/performance/summary', params: { controller_eq: "Home", action_eq: 'index' }, xhr: true
+    get "/rails/performance/summary", params: {controller_eq: "Home", action_eq: "index"}, xhr: true
     assert_response :success
 
-    get '/rails/performance/summary', params: { controller_eq: "Home", action_eq: 'index' }, xhr: false
+    get "/rails/performance/summary", params: {controller_eq: "Home", action_eq: "index"}, xhr: false
     assert_response :success
   end
 
   test "should get home pages" do
-    get '/home/about'
+    get "/home/about"
     assert_response :success
-    get '/home/blog'
+    get "/home/blog"
     assert_response :success
   end
 
   test "should get about page" do
-    get '/account/site/about'
+    get "/account/site/about"
     assert_response :success
   end
 
   test "should get account other pages" do
-    get '/account/site/not_found'
+    get "/account/site/not_found"
     assert_response :not_found
 
-    get '/account/site/is_redirect'
+    get "/account/site/is_redirect"
     assert_response :redirect
-end
+  end
 
   test "should get crashes with params" do
     begin
-      get '/account/site/crash'
+      get "/account/site/crash"
     rescue
     end
 
-    get '/rails/performance/crashes'
+    get "/rails/performance/crashes"
     assert_response :success
     assert response.body.include?("Account::SiteController")
   end
 
   test "should get requests with params" do
     setup_db
-    get '/rails/performance/requests'
+    get "/rails/performance/requests"
     assert_response :success
   end
 
   test "should get recent with params" do
     setup_db
-    get '/rails/performance/recent'
+    get "/rails/performance/recent"
     assert_response :success
 
-    get '/rails/performance/recent', xhr: true
+    get "/rails/performance/recent", xhr: true
     assert_response :success
   end
 
   test "should get slow with params" do
     setup_db
-    get '/rails/performance/slow'
+    get "/rails/performance/slow"
     assert_response :success
   end
 
   test "should get sidekiq with params" do
     setup_db
     setup_sidekiq_db
-    get '/rails/performance/sidekiq'
+    get "/rails/performance/sidekiq"
     assert_response :success
   end
 
   test "should get delayed_job with params" do
     setup_db
     setup_sidekiq_db
-    get '/rails/performance/delayed_job'
+    get "/rails/performance/delayed_job"
     assert_response :success
   end
 
   test "should get rake" do
     setup_db
     setup_rake_db
-    get '/rails/performance/rake'
+    get "/rails/performance/rake"
     assert_response :success
   end
 
   test "should get custom" do
     setup_db
-    get '/'
-    get '/rails/performance/custom'
+    get "/"
+    get "/rails/performance/custom"
     assert_response :success
   end
 
   test "should get grape page" do
     setup_db
     setup_grape_db
-    get '/api/users'
-    get '/api/ping'
-    get '/api/crash'
-    get '/rails/performance/grape'
+    get "/api/users"
+    get "/api/ping"
+    get "/api/crash"
+    get "/rails/performance/grape"
     assert_response :success
   end
 
@@ -165,10 +165,10 @@ end
       {group: :view, message: "rendering (Duration: 11.3ms)"}
     ]).save
 
-    get '/rails/performance/trace/112233', xhr: true
+    get "/rails/performance/trace/112233", xhr: true
     assert_response :success
 
-    get '/rails/performance/trace/112233', xhr: false
+    get "/rails/performance/trace/112233", xhr: false
     assert_response :success
   end
 end

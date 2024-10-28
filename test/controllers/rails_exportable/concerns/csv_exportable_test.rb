@@ -10,15 +10,15 @@ module RailsPerformance
     setup do
       @mock_controller = MockController.new
       @data = [
-        { datetime: "2024-10-25 12:00:00",
-          controller_action: "TestController#show",
-          method: "GET",
-          format: "html",
-          path: "/test_path",
-          status: 200,
-          duration: 123.45,
-          views: 67.89,
-          db: 12.34 },
+        {datetime: "2024-10-25 12:00:00",
+         controller_action: "TestController#show",
+         method: "GET",
+         format: "html",
+         path: "/test_path",
+         status: 200,
+         duration: 123.45,
+         views: 67.89,
+         db: 12.34},
         {
           datetime: "2024-10-25 12:01:00",
           controller_action: "TestController#edit",
@@ -32,7 +32,7 @@ module RailsPerformance
         }
       ]
       @headers = ["datetime", "controller_action", "method", "format", "path",
-                  "status", "duration", "views", "db"]
+        "status", "duration", "views", "db"]
     end
 
     test "generate_csv returns valid CSV content" do

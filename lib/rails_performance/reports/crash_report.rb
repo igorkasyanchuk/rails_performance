@@ -7,11 +7,9 @@ module RailsPerformance
 
       def data
         db.data
-          .collect{|e| e.record_hash}
-          .sort{|a, b| b[sort] <=> a[sort]}
+          .collect { |e| e.record_hash }
+          .sort { |a, b| b[sort] <=> a[sort] }
       end
     end
-
-
   end
 end
