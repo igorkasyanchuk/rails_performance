@@ -38,5 +38,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_01_083434) do
     t.datetime "remember_created_at"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
-
 end

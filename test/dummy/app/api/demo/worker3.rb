@@ -1,8 +1,8 @@
 module Demo
   class Worker3 < Grape::API
-    desc 'Make crash'
+    desc "Make crash"
     get :crash do
-      1/0
+      1 / 0
     end
   end
 end

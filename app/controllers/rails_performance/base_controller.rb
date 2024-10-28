@@ -13,9 +13,9 @@ module RailsPerformance
 
     private
 
-      def verify_access
-        result = RailsPerformance.verify_access_proc.call(self)
-        redirect_to("/", error: "Access Denied", status: 401) unless result
-      end
+    def verify_access
+      result = RailsPerformance.verify_access_proc.call(self)
+      redirect_to("/", error: "Access Denied", status: 401) unless result
+    end
   end
 end

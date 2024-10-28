@@ -4,22 +4,22 @@ module RailsPerformance
       attr_reader :db, :group, :sort, :title
 
       def initialize(db, group: nil, sort: nil, title: nil)
-        @db     = db
-        @group  = group
-        @sort   = sort
-        @title  = title
+        @db = db
+        @group = group
+        @sort = sort
+        @title = title
 
         set_defaults
       end
 
       def collect
-        db.group_by(group).inject([]) do |res, (k,v)|
+        db.group_by(group).each_with_object([]) do |(k, v), res|
           res << yield(k, v)
-          res
         end
       end
 
-      def set_defaults; end
+      def set_defaults
+      end
 
       def self.time_in_app_time_zone(time)
         app_time_zone = ::Rails.application.config.time_zone
@@ -31,13 +31,13 @@ module RailsPerformance
       end
 
       def calculate_data
-        now        = Time.current
-        stop       = Time.at(60 * ((now.to_i)/ 60))
-        offset     = RailsPerformance::Reports::BaseReport::time_in_app_time_zone(now).utc_offset
-        current    = stop - RailsPerformance.duration
+        now = Time.current
+        stop = Time.at(60 * (now.to_i / 60))
+        offset = RailsPerformance::Reports::BaseReport.time_in_app_time_zone(now).utc_offset
+        current = stop - RailsPerformance.duration
 
-        @data      = []
-        all        = {}
+        @data = []
+        all = {}
 
         # read current values
         db.group_by(group).each do |(k, v)|
@@ -46,7 +46,7 @@ module RailsPerformance
 
         # add blank columns
         while current <= stop
-          key   = (current).strftime(RailsPerformance::FORMAT)
+          key = current.strftime(RailsPerformance::FORMAT)
           views = all[key].presence || 0
           @data << [(current.to_i + offset) * 1000, views.round(2)]
           current += 1.minute

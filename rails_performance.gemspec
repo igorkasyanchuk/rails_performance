@@ -5,14 +5,14 @@ require "rails_performance/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
-  spec.name        = "rails_performance"
-  spec.version     = RailsPerformance::VERSION
-  spec.authors     = ["Igor Kasyanchuk"]
-  spec.email       = ["igorkasyanchuk@gmail.com"]
-  spec.homepage    = "https://github.com/igorkasyanchuk/rails_performance"
-  spec.summary     = "Simple Rails Performance tracker. Alternative to the NewRelic, Datadog or other services."
+  spec.name = "rails_performance"
+  spec.version = RailsPerformance::VERSION
+  spec.authors = ["Igor Kasyanchuk"]
+  spec.email = ["igorkasyanchuk@gmail.com"]
+  spec.homepage = "https://github.com/igorkasyanchuk/rails_performance"
+  spec.summary = "Simple Rails Performance tracker. Alternative to the NewRelic, Datadog or other services."
   spec.description = "3rd party dependency-free solution how to monitor performance of your Rails applications."
-  spec.license     = "MIT"
+  spec.license = "MIT"
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
@@ -34,4 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "wrapped_print"
   spec.add_development_dependency "puma"
   spec.add_development_dependency "sprockets-rails"
+  spec.add_development_dependency "standardrb"
 end

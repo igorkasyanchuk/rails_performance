@@ -1,5 +1,4 @@
 class HomeController < ApplicationController
-
   def index
     rand(10).times { AdvancedWorker.perform_async }
     SecondWorker.perform_async
@@ -7,7 +6,7 @@ class HomeController < ApplicationController
     10.times { User.where(first_name: "X#{rand(100)}").count }
     RailsPerformance.measure "index", "home controller" do
       sleep(0.1)
-      50+50
+      50 + 50
     end
   end
 

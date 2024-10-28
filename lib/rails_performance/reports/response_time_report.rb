@@ -7,7 +7,7 @@ module RailsPerformance
 
       def data
         calculate_data do |all, k, v|
-          durations = v.collect{|e| e["duration"]}.compact
+          durations = v.collect { |e| e["duration"] }.compact
           next if durations.empty?
           all[k] = durations.sum.to_f / durations.count
         end

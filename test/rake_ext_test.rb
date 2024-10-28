@@ -1,13 +1,13 @@
-require 'test_helper'
-require 'rake'
+require "test_helper"
+require "rake"
 
 APP_RAKEFILE = File.expand_path("../test/dummy/Rakefile", __dir__)
-load 'rails/tasks/engine.rake'
-load 'rails/tasks/statistics.rake'
-require 'bundler/gem_tasks'
-require 'rake'
-require 'rake/testtask'
-require_relative '../lib/rails_performance/gems/rake_ext.rb'
+load "rails/tasks/engine.rake"
+load "rails/tasks/statistics.rake"
+
+require "bundler/gem_tasks"
+require "rake/testtask"
+require_relative "../lib/rails_performance/gems/rake_ext"
 
 RailsPerformance::Gems::RakeExt.init
 
@@ -30,6 +30,6 @@ class RakeExtTest < ActiveSupport::TestCase
   def count_records_in_redis
     datasource = RailsPerformance::DataSource.new(q: {}, type: :rake)
     db = datasource.db
-    count_before = RailsPerformance::Reports::RecentRequestsReport.new(db).data.size
+    RailsPerformance::Reports::RecentRequestsReport.new(db).data.size
   end
 end

@@ -30,7 +30,6 @@ module RailsPerformance
         end
         result
       end
-
     end
   end
 end

@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+    :recoverable, :rememberable, :validatable
 
   # for test purposes
   before_validation do
@@ -12,7 +12,7 @@ class User < ApplicationRecord
   end
 
   def say_hello
-    sleep(rand(1.0))
+    sleep(rand(30) / 10.0)
     Rails.logger.info(" ==================" * 10)
     Rails.logger.info(" ~~~~~~~~~~~~~~~~  === hello world" * 10)
     Rails.logger.info(" ==================" * 10)

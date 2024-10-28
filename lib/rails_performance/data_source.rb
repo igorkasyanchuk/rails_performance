@@ -6,22 +6,22 @@ module RailsPerformance
       delayed_job: RailsPerformance::Models::DelayedJobRecord,
       grape: RailsPerformance::Models::GrapeRecord,
       rake: RailsPerformance::Models::RakeRecord,
-      custom: RailsPerformance::Models::CustomRecord,
+      custom: RailsPerformance::Models::CustomRecord
     }
 
     attr_reader :q, :klass, :type
 
-    def initialize(q: {}, type:)
-      @type    = type
-      @klass   = KLASSES[type]
+    def initialize(type:, q: {})
+      @type = type
+      @klass = KLASSES[type]
       q[:on] ||= Date.today
-      @q       = q
+      @q = q
     end
 
     def db
       result = RailsPerformance::Models::Collection.new
-      (0..(RailsPerformance::Utils.days + 1)).to_a.reverse.each do |e|
-        RailsPerformance::DataSource.new(q: self.q.merge({ on: (Time.current - e.days).to_date }), type: type).add_to(result)
+      (0..(RailsPerformance::Utils.days + 1)).to_a.reverse_each do |e|
+        RailsPerformance::DataSource.new(q: q.merge({on: (Time.current - e.days).to_date}), type: type).add_to(result)
       end
       result
     end
@@ -74,7 +74,7 @@ module RailsPerformance
       str << "action|#{q[:action]}|" if q[:action].present?
       str << "format|#{q[:format]}|" if q[:format].present?
       str << "status|#{q[:status]}|" if q[:status].present?
-      str << "datetime|#{q[:on].strftime('%Y%m%d')}*|" if q[:on].present?
+      str << "datetime|#{q[:on].strftime("%Y%m%d")}*|" if q[:on].present?
       str << "method|#{q[:method]}|" if q[:method].present?
       str << "path|#{q[:path]}|" if q[:path].present?
       str.join("*")
@@ -84,38 +84,37 @@ module RailsPerformance
       str = []
       str << "queue|#{q[:queue]}|" if q[:queue].present?
       str << "worker|#{q[:worker]}|" if q[:worker].present?
-      str << "datetime|#{q[:on].strftime('%Y%m%d')}*|" if q[:on].present?
+      str << "datetime|#{q[:on].strftime("%Y%m%d")}*|" if q[:on].present?
       str << "status|#{q[:status]}|" if q[:status].present?
       str.join("*")
     end
 
     def compile_delayed_job_query
       str = []
-      str << "datetime|#{q[:on].strftime('%Y%m%d')}*|" if q[:on].present?
+      str << "datetime|#{q[:on].strftime("%Y%m%d")}*|" if q[:on].present?
       str << "status|#{q[:status]}|" if q[:status].present?
       str.join("*")
     end
 
     def compile_rake_query
       str = []
-      str << "datetime|#{q[:on].strftime('%Y%m%d')}*|" if q[:on].present?
+      str << "datetime|#{q[:on].strftime("%Y%m%d")}*|" if q[:on].present?
       str << "status|#{q[:status]}|" if q[:status].present?
       str.join("*")
     end
 
     def compile_custom_query
       str = []
-      str << "datetime|#{q[:on].strftime('%Y%m%d')}*|" if q[:on].present?
+      str << "datetime|#{q[:on].strftime("%Y%m%d")}*|" if q[:on].present?
       str << "status|#{q[:status]}|" if q[:status].present?
       str.join("*")
     end
 
     def compile_grape_query
       str = []
-      str << "datetime|#{q[:on].strftime('%Y%m%d')}*|" if q[:on].present?
+      str << "datetime|#{q[:on].strftime("%Y%m%d")}*|" if q[:on].present?
       str << "status|#{q[:status]}|" if q[:status].present?
       str.join("*")
     end
-
   end
 end
