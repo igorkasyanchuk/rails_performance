@@ -1,7 +1,8 @@
 - Unreleased
 
 - 1.3.0
-  - added csv export
+  - added csv export https://github.com/igorkasyanchuk/rails_performance/pull/100
+  - hide empty tooltips https://github.com/igorkasyanchuk/rails_performance/pull/101
 
 - 1.2.3
   - typo fix https://github.com/igorkasyanchuk/rails_performance/pull/91

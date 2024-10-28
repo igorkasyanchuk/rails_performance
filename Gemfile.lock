@@ -117,7 +117,7 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.1.5)
-    mini_portile2 (2.8.5)
+    mini_portile2 (2.8.7)
     minitest (5.18.0)
     mustermann (3.0.0)
       ruby2_keywords (~> 0.0.1)
@@ -132,8 +132,8 @@ GEM
       timeout
     net-smtp (0.4.0)
       net-protocol
-    nio4r (2.5.8)
-    nokogiri (1.15.0)
+    nio4r (2.7.4)
+    nokogiri (1.16.7)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     orm_adapter (0.5.0)
@@ -145,7 +145,7 @@ GEM
       method_source (~> 1.0)
     puma (6.2.1)
       nio4r (~> 2.0)
-    racc (1.7.1)
+    racc (1.8.1)
     rack (2.2.6.4)
     rack-accept (0.4.5)
       rack (>= 0.4)
