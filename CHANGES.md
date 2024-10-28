@@ -3,6 +3,7 @@
 - 1.3.0
   - added csv export https://github.com/igorkasyanchuk/rails_performance/pull/100
   - hide empty tooltips https://github.com/igorkasyanchuk/rails_performance/pull/101
+  - added standardrb https://github.com/igorkasyanchuk/rails_performance/pull/103
 
 - 1.2.3
   - typo fix https://github.com/igorkasyanchuk/rails_performance/pull/91
