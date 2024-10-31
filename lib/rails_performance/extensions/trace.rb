@@ -1,6 +1,8 @@
 module RailsPerformance
   module Extensions
     module View
+      # in env
+      # this works if config.log_level = :info
       def info(&block)
         CurrentRequest.current.trace({
           group: :view,
@@ -15,6 +17,8 @@ end
 module RailsPerformance
   module Extensions
     module Db
+      # in env
+      # this works if config.log_level = :debug
       def sql(event)
         CurrentRequest.current.trace({
           group: :db,

@@ -51,7 +51,7 @@ Create `config/initializers/rails_performance.rb` in your app:
 
 ```ruby
 RailsPerformance.setup do |config|
-  config.redis    = Redis::Namespace.new("#{Rails.env}-rails-performance", redis: Redis.new)
+  config.redis    = Redis::Namespace.new("#{Rails.env}-rails-performance", redis: Redis.new(url: ENV["REDIS_URL"].presence || "redis://127.0.0.1:6379/0"))
   config.duration = 4.hours
 
   config.debug    = false # currently not used>
@@ -85,7 +85,7 @@ RailsPerformance.setup do |config|
 
   # You can ignore request paths by specifying the beginning of the path.
   # For example, all routes starting with '/admin' can be ignored:
-  # config.ignored_paths = ['/admin']
+  config.ignored_paths = ['/rails/performance', '/admin']
 
   # store custom data for the request
   # config.custom_data_proc = proc do |env|
