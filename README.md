@@ -244,17 +244,9 @@ If "schema" how records are stored i Redis is changed, and this is a breaking ch
 
 ## Big thanks to contributors
 
-- https://github.com/synth
-- https://github.com/alagos
-- https://github.com/klondaiker
-- https://github.com/jules2689
-- https://github.com/PedroAugustoRamalhoDuarte
-- https://github.com/haffla
-- https://github.com/D1ceWard
-- https://github.com/carl-printreleaf
-- https://github.com/langalex
-- https://github.com/olleolleolle
-- https://github.com/desheikh
+https://github.com/igorkasyanchuk/rails_performance/graphs/contributors
+
+## Other
 
 [<img src="https://opensource-heroes.com/svg/embed/igorkasyanchuk/rails_performance"
 />](https://opensource-heroes.com/r/igorkasyanchuk/rails_performance)
