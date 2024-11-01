@@ -78,7 +78,7 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
 
     get '/account/site/is_redirect'
     assert_response :redirect
-end
+  end
 
   test "should get crashes with params" do
     begin
@@ -162,5 +162,24 @@ end
 
     get '/rails/performance/trace/112233', xhr: false
     assert_response :success
+  end
+
+  test "should detect inconsistency between Time.now and Time.current in Redis operations" do
+    original_time_zone = Time.zone
+    begin
+      Time.zone = 'UTC'
+      reset_redis
+
+      travel_to Time.utc(2023, 12, 31, 23, 10, 0) do
+        # Time.current  2023-12-31 23:10:00 UTC
+        # Time.now      2024-01-01 00:10:00 +0100
+        get '/home/index'
+
+        data = RailsPerformance::DataSource.new(type: :requests).db.data
+        assert_equal 1, data.size
+      end
+    ensure
+      Time.zone = original_time_zone
+    end
   end
 end
