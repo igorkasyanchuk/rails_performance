@@ -24,6 +24,8 @@ module Dummy
     config.active_support.cache_format_version = 7.1
 
     config.active_job.queue_adapter = :solid_queue
-    config.solid_queue.connects_to = { database: { writing: :queue } }
+    config.solid_queue.connects_to = {database: {writing: :queue}}
   end
 end
+
+require_relative "../app/api/api"

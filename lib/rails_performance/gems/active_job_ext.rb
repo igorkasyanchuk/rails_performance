@@ -6,30 +6,29 @@ module RailsPerformance
 
         included do
           around_perform do |job, block|
-            now       = Time.now
+            now = Time.now
             exception = nil
-            record    = RailsPerformance::Models::ActiveJobRecord.new(
+            record = RailsPerformance::Models::ActiveJobRecord.new(
               worker: job.class.name,
               queue: job.queue_name,
               enqueued_ati: job.enqueued_at.to_i,
               datetimei: job.scheduled_at.to_i,
               jid: job.job_id,
               start_timei: now.to_i,
-              datetime: now.strftime(RailsPerformance::FORMAT),
+              datetime: now.strftime(RailsPerformance::FORMAT)
             )
-            result        = block.call
+            result = block.call
             record.status = "success"
             result
-          rescue Exception => ex
-            record.status  = "exception"
+          rescue Exception => ex # rubocop:disable Lint/RescueException
+            record.status = "exception"
             record.message = ex.message
-            exception      = ex
+            exception = ex
           ensure
             # store in ms instead of seconds
             record.duration = (Time.current - now) * 1000
             record.save
             raise exception if exception
-            result
           end
         end
       end

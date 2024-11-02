@@ -6,7 +6,7 @@ module RailsPerformance
       attr_accessor :queue, :worker, :jid, :datetimei, :enqueued_ati, :datetime, :start_timei, :duration, :status, :message
 
       # deserialize from redis
-      def ActiveJobRecord.from_db(key, value)
+      def self.from_db(key, value)
         items = key.split("|")
 
         ActiveJobRecord.new(
@@ -23,41 +23,40 @@ module RailsPerformance
       end
 
       def initialize(queue:, worker:, jid:, datetime:, datetimei:, enqueued_ati:, start_timei:, duration: nil, status: nil, message: nil, json: "{}")
-        @queue        = queue
-        @worker       = worker
-        @jid          = jid
-        @datetime     = datetime
-        @datetimei    = datetimei.to_i
-        @start_timei  = start_timei
+        @queue = queue
+        @worker = worker
+        @jid = jid
+        @datetime = datetime
+        @datetimei = datetimei.to_i
+        @start_timei = start_timei
         @enqueued_ati = enqueued_ati
-        @duration     = duration
-        @status       = status
-        @message      = message
-        @json         = json
+        @duration = duration
+        @status = status
+        @message = message
+        @json = json
       end
 
       # For UI
       def record_hash
         {
-          worker: self.worker,
-          queue: self.queue,
-          jid: self.jid,
+          worker: worker,
+          queue: queue,
+          jid: jid,
           datetimei: datetimei,
-          datetime: Time.at(self.datetimei),
-          start_timei: self.start_timei,
-          duration: self.value['duration'],
-          message: self.value['message'],
-          status: self.status
+          datetime: Time.at(datetimei),
+          start_timei: start_timei,
+          duration: value["duration"],
+          message: value["message"],
+          status: status
         }
       end
 
       # serialize to redis
       def save
-        key   = "active_job|queue|#{queue}|worker|#{worker}|jid|#{jid}|datetime|#{datetime}|datetimei|#{datetimei}|enqueued_ati|#{enqueued_ati}|start_timei|#{start_timei}|status|#{status}|END|#{SCHEMA}"
-        value = { duration:, message: }
+        key = "active_job|queue|#{queue}|worker|#{worker}|jid|#{jid}|datetime|#{datetime}|datetimei|#{datetimei}|enqueued_ati|#{enqueued_ati}|start_timei|#{start_timei}|status|#{status}|END|#{SCHEMA}"
+        value = {duration:, message:}
         Utils.save_to_redis(key, value)
       end
-
     end
   end
 end

@@ -143,11 +143,11 @@ type: :requests)
       end
 
       def jobs
-        @datasource                = RailsPerformance::DataSource.new(**prepare_query, type: :jobs)
-        db                         = @datasource.db
-        @throughput_report_data    = RailsPerformance::Reports::ThroughputReport.new(db).data
+        @datasource = RailsPerformance::DataSource.new(**prepare_query, type: :jobs)
+        db = @datasource.db
+        @throughput_report_data = RailsPerformance::Reports::ThroughputReport.new(db).data
         @response_time_report_data = RailsPerformance::Reports::ResponseTimeReport.new(db).data
-        @recent_report_data        = RailsPerformance::Reports::RecentRequestsReport.new(db).data
+        @recent_report_data = RailsPerformance::Reports::RecentRequestsReport.new(db).data
       end
 
       def custom

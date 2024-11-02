@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_01_093648) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_01_093648) do
   create_table "solid_queue_blocked_executions", force: :cascade do |t|
     t.bigint "job_id", null: false
     t.string "queue_name", null: false

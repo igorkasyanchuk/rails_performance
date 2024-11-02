@@ -198,8 +198,10 @@ Just clone the repo, setup dummy app (`rails db:migrate`).
 
 After this:
 
-- rails s
-- rake test
+- `rails s`
+- `cd test/dummy` and `bundle exec rails db:migrate:queue`
+- `cd test/dummy` and `bundle exec bin/jobs` (if you want to test ActiveJob)
+- `rake test`
 
 Like a regular web development.
 

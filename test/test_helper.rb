@@ -54,7 +54,7 @@ def dummy_sidekiq_event(worker: "Worker", queue: "default", jid: "jxzet-#{Time.c
   )
 end
 
-def dummy_active_job_event(worker: 'AAWorker', queue: 'default', jid: "jxzet-#{Time.current.to_i}", datetimei: Time.current.to_i, enqueued_ati: Time.current.to_i, start_timei: Time.current.to_i, duration: rand(60), status: 'success')
+def dummy_active_job_event(worker: "AAWorker", queue: "default", jid: "jxzet-#{Time.current.to_i}", datetimei: Time.current.to_i, enqueued_ati: Time.current.to_i, start_timei: Time.current.to_i, duration: rand(60), status: "success")
   RailsPerformance::Models::ActiveJobRecord.new(
     queue: queue,
     worker: worker,
@@ -64,7 +64,7 @@ def dummy_active_job_event(worker: 'AAWorker', queue: 'default', jid: "jxzet-#{T
     datetime: Time.at(datetimei).strftime(RailsPerformance::FORMAT),
     start_timei: start_timei,
     duration: duration,
-    status: status,
+    status: status
   )
 end
 

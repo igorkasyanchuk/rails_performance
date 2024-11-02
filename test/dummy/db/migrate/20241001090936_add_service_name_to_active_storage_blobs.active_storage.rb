@@ -6,7 +6,7 @@ class AddServiceNameToActiveStorageBlobs < ActiveRecord::Migration[6.0]
     unless column_exists?(:active_storage_blobs, :service_name)
       add_column :active_storage_blobs, :service_name, :string
 
-      if configured_service = ActiveStorage::Blob.service.name
+      if configured_service = ActiveStorage::Blob.service.name # rubocop:disable Lint/AssignmentInCondition
         ActiveStorage::Blob.unscoped.update_all(service_name: configured_service)
       end
 

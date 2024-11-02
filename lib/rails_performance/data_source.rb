@@ -103,7 +103,7 @@ module RailsPerformance
       str = []
       str << "queue|#{q[:queue]}|" if q[:queue].present?
       str << "worker|#{q[:worker]}|" if q[:worker].present?
-      str << "datetime|#{q[:on].strftime('%Y%m%d')}*|" if q[:on].present?
+      str << "datetime|#{q[:on].strftime("%Y%m%d")}*|" if q[:on].present?
       str << "status|#{q[:status]}|" if q[:status].present?
       str.join("*")
     end

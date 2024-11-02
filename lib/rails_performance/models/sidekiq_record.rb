@@ -57,8 +57,8 @@ module RailsPerformance
       end
 
       def save
-        key   = "sidekiq|queue|#{queue}|worker|#{worker}|jid|#{jid}|datetime|#{datetime}|datetimei|#{datetimei}|enqueued_ati|#{enqueued_ati}|start_timei|#{start_timei}|status|#{status}|END|#{RailsPerformance::SCHEMA}"
-        value = { message:, duration: }
+        key = "sidekiq|queue|#{queue}|worker|#{worker}|jid|#{jid}|datetime|#{datetime}|datetimei|#{datetimei}|enqueued_ati|#{enqueued_ati}|start_timei|#{start_timei}|status|#{status}|END|#{RailsPerformance::SCHEMA}"
+        value = {message:, duration:}
         Utils.save_to_redis(key, value)
       end
     end

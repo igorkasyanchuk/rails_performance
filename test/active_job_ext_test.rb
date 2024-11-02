@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class ActiveJobExtTest < ActiveSupport::TestCase
   test "storing" do
@@ -9,14 +9,14 @@ class ActiveJobExtTest < ActiveSupport::TestCase
   test "record" do
     RailsPerformance.duration = 3.hours
 
-    key   = "active_job|queue|default|worker|SimpleWorker|jid|7d48fbf20976c224510dbc60|datetime|1583146613|datetimei|1583146614|enqueued_ati|1583146615|start_timei|1583146616|status|success|END|#{RailsPerformance::Models::ActiveJobRecord::SCHEMA}"
+    key = "active_job|queue|default|worker|SimpleWorker|jid|7d48fbf20976c224510dbc60|datetime|1583146613|datetimei|1583146614|enqueued_ati|1583146615|start_timei|1583146616|status|success|END|#{RailsPerformance::Models::ActiveJobRecord::SCHEMA}"
 
-    value  = '{"duration": 123, "message":"hello"}'
+    value = '{"duration": 123, "message":"hello"}'
 
     record = RailsPerformance::Models::ActiveJobRecord.from_db(key, value)
     assert_equal record.queue, "default"
     assert_equal record.worker, "SimpleWorker"
-    assert_equal record.value["message"], 'hello'
+    assert_equal record.value["message"], "hello"
     assert_equal record.value["duration"], 123
     assert_equal record.jid, "7d48fbf20976c224510dbc60"
     assert_equal record.datetimei, 1583146614
@@ -32,7 +32,7 @@ class ActiveJobExtTest < ActiveSupport::TestCase
 
     begin
       MyJob.perform_now
-    rescue => e
+    rescue
     end
 
     @datasource = RailsPerformance::DataSource.new(q: {}, type: :jobs)

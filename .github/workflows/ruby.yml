@@ -58,5 +58,7 @@ jobs:
 #         redis version: # optional, default is latest
 #         # Number of Redis databases
 #         number of databases: # optional, default is 16
+    - name: Run standard checks
+      run: standardrb
     - name: Run tests
       run: bundle exec rake test

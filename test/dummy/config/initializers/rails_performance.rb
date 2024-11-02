@@ -3,7 +3,7 @@ if defined?(RailsPerformance)
     config.redis = Redis::Namespace.new("#{Rails.env}-rails-performance", redis: Redis.new)
     config.duration = 6.hours
 
-    config.debug = true # currently not used>
+    config.debug = false # currently not used>
     config.enabled = true
 
     config.recent_requests_time_window = 60.minutes

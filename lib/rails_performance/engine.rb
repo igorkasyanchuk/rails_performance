@@ -1,7 +1,7 @@
-require 'action_view/log_subscriber'
-require_relative './rails/middleware.rb'
-require_relative './models/collection.rb'
-require_relative './instrument/controller_metrics_collector.rb'
+require "action_view/log_subscriber"
+require_relative "rails/middleware"
+require_relative "models/collection"
+require_relative "instrument/controller_metrics_collector"
 
 module RailsPerformance
   class Engine < ::Rails::Engine
@@ -51,7 +51,7 @@ module RailsPerformance
       )
 
       if defined?(::ActiveJob)
-        require_relative './gems/active_job_ext.rb'
+        require_relative "gems/active_job_ext"
         RailsPerformance::Gems::ActiveJobExt.init
       end
     end

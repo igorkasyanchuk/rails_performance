@@ -83,8 +83,6 @@ module RailsPerformance
         "tag is-success"
       when /success/
         "tag is-success"
-      else
-        nil
       end
       content_tag(:span, class: klass) do
         status

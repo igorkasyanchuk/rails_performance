@@ -1,3 +1,7 @@
+development:
+  my_job:
+    class: MyJob
+    schedule: every 5 seconds
 # production:
 #   periodic_cleanup:
 #     class: CleanSoftDeletedRecordsJob

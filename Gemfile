@@ -14,10 +14,10 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
-gem 'rails', '~> 7.2.0'
+gem "rails", "~> 7.2.0"
 
-gem 'pry'
-gem 'sqlite3'
+gem "pry"
+gem "sqlite3"
 
 gem "simplecov", require: false, group: :test
 
@@ -39,3 +39,5 @@ gem "solid_queue"
 gem "devise"
 
 gem "standard"
+gem "ostruct"
+gem "csv"
