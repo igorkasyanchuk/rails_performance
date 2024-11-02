@@ -15,7 +15,9 @@ module Dummy
     config.hosts.clear
 
     config.paths.add "app/api", glob: "**/*.rb"
+    config.paths.add "app/api/demo", glob: "**/*.rb"
     config.autoload_paths += Dir["#{Rails.root}/app/api/*"]
+    config.autoload_paths += Dir["#{Rails.root}/app/api/**/*"]
     config.eager_load_paths += Dir["#{Rails.root}/app/api/*"]
     config.eager_load_paths += Dir["#{Rails.root}/app/api/**/*"]
 
