@@ -353,6 +353,7 @@ PLATFORMS
   arm-linux
   arm-linux-musl
   arm64-darwin
+  linux
   x86-linux
   x86-linux
   x86-linux-musl
