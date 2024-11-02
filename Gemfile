@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # Declare your gem's dependencies in rails_performance.gemspec.
@@ -14,27 +14,28 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
-gem 'rails', '~> 7.1.0'
+gem 'rails', '~> 7.2.0'
 
 gem 'pry'
 gem 'sqlite3'
 
-gem 'simplecov', require: false, group: :test
+gem "simplecov", require: false, group: :test
 
-gem 'sidekiq'
-gem 'grape'
+gem "sidekiq"
+gem "grape"
 
-gem 'mimemagic', '0.4.3'
+gem "mimemagic", "0.4.3"
 
 # gem 'elasticsearch-model'
 # gem 'elasticsearch-rails'
-gem 'delayed_job_active_record'
+gem "delayed_job_active_record"
 gem "daemons"
 
-gem 'puma'
+gem "puma"
 
-gem 'sprockets-rails'
-
-gem 'devise'
+gem "sprockets-rails"
 
 gem "solid_queue"
+gem "devise"
+
+gem "standard"

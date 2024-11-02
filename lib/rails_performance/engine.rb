@@ -23,7 +23,7 @@ module RailsPerformance
       app.middleware.insert_before RailsPerformance::Rails::Middleware, RailsPerformance::Rails::MiddlewareTraceStorerAndCleanup
 
       if defined?(::Sidekiq)
-        require_relative './gems/sidekiq_ext.rb'
+        require_relative "gems/sidekiq_ext"
         Sidekiq.configure_server do |config|
           config.server_middleware do |chain|
             chain.add RailsPerformance::Gems::SidekiqExt
@@ -32,12 +32,12 @@ module RailsPerformance
       end
 
       if defined?(::Grape)
-        require_relative './gems/grape_ext.rb'
+        require_relative "gems/grape_ext"
         RailsPerformance::Gems::GrapeExt.init
       end
 
       if defined?(::Delayed::Job)
-        require_relative './gems/delayed_job_ext.rb'
+        require_relative "gems/delayed_job_ext"
         RailsPerformance::Gems::DelayedJobExt.init
       end
     end
@@ -63,7 +63,7 @@ module RailsPerformance
       ActiveRecord::LogSubscriber.send :prepend, RailsPerformance::Extensions::Db if defined?(ActiveRecord)
 
       if defined?(::Rake::Task) && RailsPerformance.include_rake_tasks
-        require_relative './gems/rake_ext.rb'
+        require_relative "gems/rake_ext"
         RailsPerformance::Gems::RakeExt.init
       end
     end

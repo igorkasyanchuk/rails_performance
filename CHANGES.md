@@ -1,5 +1,15 @@
 - Unreleased
 
+- 1.3.0
+  - added csv export https://github.com/igorkasyanchuk/rails_performance/pull/100
+  - hide empty tooltips https://github.com/igorkasyanchuk/rails_performance/pull/101
+  - added standardrb https://github.com/igorkasyanchuk/rails_performance/pull/103
+
+- 1.2.3
+  - typo fix https://github.com/igorkasyanchuk/rails_performance/pull/91
+  - added ignored_paths https://github.com/igorkasyanchuk/rails_performance/pull/96
+  - CI for new versions of Ruby
+
 - 1.2.2
   - fixed issue with undefined helpers https://github.com/igorkasyanchuk/rails_performance/pull/78
   - configuration for include_rake_tasks, include_custom_events monitoring

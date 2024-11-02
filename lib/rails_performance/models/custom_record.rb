@@ -3,7 +3,7 @@ module RailsPerformance
     class CustomRecord < BaseRecord
       attr_accessor :tag_name, :namespace_name, :duration, :datetime, :datetimei, :status, :json
 
-      def CustomRecord.from_db(key, value)
+      def self.from_db(key, value)
         items = key.split("|")
 
         CustomRecord.new(
@@ -16,33 +16,32 @@ module RailsPerformance
         )
       end
 
-      def initialize(tag_name:, namespace_name: nil, duration: nil, datetime:, datetimei:, status:, json: '{}')
-        @tag_name       = tag_name
+      def initialize(tag_name:, datetime:, datetimei:, status:, namespace_name: nil, duration: nil, json: "{}")
+        @tag_name = tag_name
         @namespace_name = namespace_name
-        @duration       = duration
-        @datetime       = datetime
-        @datetimei      = datetimei.to_i
-        @status         = status
-        @json           = json
+        @duration = duration
+        @datetime = datetime
+        @datetimei = datetimei.to_i
+        @status = status
+        @json = json
       end
 
       def record_hash
         {
-          tag_name: self.tag_name,
-          namespace_name: self.namespace_name,
-          status: self.status,
+          tag_name: tag_name,
+          namespace_name: namespace_name,
+          status: status,
           datetimei: datetimei,
-          datetime: Time.at(self.datetimei.to_i),
-          duration: self.value['duration'],
+          datetime: Time.at(datetimei.to_i),
+          duration: value["duration"]
         }
       end
 
       def save
-        key   = "custom|tag_name|#{tag_name}|namespace_name|#{namespace_name}|datetime|#{datetime}|datetimei|#{datetimei}|status|#{status}|END|#{RailsPerformance::SCHEMA}"
-        value = { duration: duration }
+        key = "custom|tag_name|#{tag_name}|namespace_name|#{namespace_name}|datetime|#{datetime}|datetimei|#{datetimei}|status|#{status}|END|#{RailsPerformance::SCHEMA}"
+        value = {duration: duration}
         Utils.save_to_redis(key, value)
       end
-
     end
   end
 end

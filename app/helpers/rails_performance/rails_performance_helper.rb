@@ -1,6 +1,5 @@
 module RailsPerformance
   module RailsPerformanceHelper
-
     def round_it(value, limit = 1)
       return nil unless value
       return value if value.is_a?(Integer)
@@ -12,22 +11,22 @@ module RailsPerformance
       if duration_str.to_s =~ /(\d+.?\d+?)/
         duration = $1.to_f
         if duration >= 500
-          'has-background-danger has-text-white-bis'
+          "has-background-danger has-text-white-bis"
         elsif duration >= 200
-          'has-background-warning has-text-black-ter'
+          "has-background-warning has-text-black-ter"
         else
-          'has-background-success has-text-white-bis'
+          "has-background-success has-text-white-bis"
         end
       else
-        'has-background-light'
+        "has-background-light"
       end
     end
 
     def extract_duration(str)
-      if (str =~ /Duration: (\d+.?\d+?ms)/i)
+      if str =~ /Duration: (\d+.?\d+?ms)/i
         $1
       else
-        '-'
+        "-"
       end
     end
 
@@ -37,9 +36,9 @@ module RailsPerformance
 
     def ms(value, limit = 1)
       result = round_it(value, limit)
-      return '-' if result.nil?
+      return "-" if result.nil?
 
-      result && result != 0 ? "#{result} ms" : '< 0 ms'
+      (result && result != 0) ? "#{result} ms" : "< 0 ms"
     end
 
     def short_path(path, length: 55)
@@ -49,8 +48,8 @@ module RailsPerformance
     end
 
     def link_to_path(e)
-      if e[:method] == 'GET'
-        link_to(short_path(e[:path]), e[:path], target: '_blank', title: short_path(e[:path]))
+      if e[:method] == "GET"
+        link_to(short_path(e[:path]), e[:path], target: "_blank", title: short_path(e[:path]))
       else
         short_path(e[:path])
       end
@@ -60,13 +59,13 @@ module RailsPerformance
       h.except(:on).collect do |k, v|
         next if v.blank?
 
-        %Q{
+        %(
         <div class="control">
           <span class="tags has-addons">
             <span class="tag">#{k}</span>
             <span class="tag is-info is-light">#{v}</span>
           </span>
-        </div>}
+        </div>)
       end.compact.join.html_safe
     end
 
@@ -109,10 +108,9 @@ module RailsPerformance
 
     def icon(name)
       @icons ||= {}
-      @icons[name] ||= begin
-        # https://www.iconfinder.com/iconsets/vivid
-        raw File.read(File.expand_path(File.dirname(__FILE__) +  "/../../assets/images/#{name}.svg"))
-      end
+
+      # https://www.iconfinder.com/iconsets/vivid
+      @icons[name] ||= raw File.read(File.expand_path(File.dirname(__FILE__) + "/../../assets/images/#{name}.svg"))
     end
 
     def insert_css_file(file)
@@ -124,7 +122,7 @@ module RailsPerformance
     end
 
     def format_datetime(e)
-      dt = RailsPerformance::Reports::BaseReport::time_in_app_time_zone(e)
+      dt = RailsPerformance::Reports::BaseReport.time_in_app_time_zone(e)
       I18n.l(dt, format: "%Y-%m-%d %H:%M:%S")
     end
 

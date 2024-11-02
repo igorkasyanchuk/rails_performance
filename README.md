@@ -2,7 +2,6 @@
 
 [![Tests](https://github.com/igorkasyanchuk/rails_performance/actions/workflows/ruby.yml/badge.svg)](https://github.com/igorkasyanchuk/rails_performance/actions/workflows/ruby.yml)
 [![RailsJazz](https://github.com/igorkasyanchuk/rails_time_travel/blob/main/docs/my_other.svg?raw=true)](https://www.railsjazz.com)
-[![https://www.patreon.com/igorkasyanchuk](https://github.com/igorkasyanchuk/rails_time_travel/blob/main/docs/patron.svg?raw=true)](https://www.patreon.com/igorkasyanchuk)
 [![Listed on OpenSource-Heroes.com](https://opensource-heroes.com/badge-v1.svg)](https://opensource-heroes.com/r/igorkasyanchuk/rails_performance)
 
 A self-hosted tool to monitor the performance of your Ruby on Rails application.
@@ -52,7 +51,7 @@ Create `config/initializers/rails_performance.rb` in your app:
 
 ```ruby
 RailsPerformance.setup do |config|
-  config.redis    = Redis::Namespace.new("#{Rails.env}-rails-performance", redis: Redis.new)
+  config.redis    = Redis::Namespace.new("#{Rails.env}-rails-performance", redis: Redis.new(url: ENV["REDIS_URL"].presence || "redis://127.0.0.1:6379/0"))
   config.duration = 4.hours
 
   config.debug    = false # currently not used>
@@ -80,6 +79,13 @@ RailsPerformance.setup do |config|
   config.verify_access_proc = proc { |controller| true }
   # for example when you have `current_user`
   # config.verify_access_proc = proc { |controller| controller.current_user && controller.current_user.admin? }
+
+  # You can ignore endpoints with Rails standard notation controller#action
+  # config.ignored_endpoints = ['HomeController#contact']
+
+  # You can ignore request paths by specifying the beginning of the path.
+  # For example, all routes starting with '/admin' can be ignored:
+  config.ignored_paths = ['/rails/performance', '/admin']
 
   # store custom data for the request
   # config.custom_data_proc = proc do |env|
@@ -238,17 +244,9 @@ If "schema" how records are stored i Redis is changed, and this is a breaking ch
 
 ## Big thanks to contributors
 
-- https://github.com/synth
-- https://github.com/alagos
-- https://github.com/klondaiker
-- https://github.com/jules2689
-- https://github.com/PedroAugustoRamalhoDuarte
-- https://github.com/haffla
-- https://github.com/D1ceWard
-- https://github.com/carl-printreleaf
-- https://github.com/langalex
-- https://github.com/olleolleolle
-- https://github.com/desheikh
+https://github.com/igorkasyanchuk/rails_performance/graphs/contributors
+
+## Other
 
 [<img src="https://opensource-heroes.com/svg/embed/igorkasyanchuk/rails_performance"
 />](https://opensource-heroes.com/r/igorkasyanchuk/rails_performance)

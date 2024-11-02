@@ -1,8 +1,7 @@
 module RailsPerformance
   module Gems
     class SidekiqExt
-
-      def initialize(options=nil)
+      def initialize(options = nil)
       end
 
       def call(worker, msg, queue)
@@ -15,7 +14,7 @@ module RailsPerformance
           queue: queue,
           start_timei: now.to_i,
           datetime: now.strftime(RailsPerformance::FORMAT),
-          worker: msg['wrapped'.freeze] || worker.class.to_s
+          worker: msg["wrapped".freeze] || worker.class.to_s
         )
         begin
           result        = yield
@@ -33,7 +32,6 @@ module RailsPerformance
           result
         end
       end
-
     end
   end
 end

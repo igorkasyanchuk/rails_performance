@@ -1,12 +1,11 @@
-require 'test_helper'
+require "test_helper"
 
 class RakeRecordTest < ActiveSupport::TestCase
-
   test "rake_record" do
     RailsPerformance.duration = 3.hours
 
-    key    = 'rake|task|["task3"]|datetime|20210416T1254|datetimei|1618602843|status|error|END'
-    value  = '{"duration":0.00012442}'
+    key = 'rake|task|["task3"]|datetime|20210416T1254|datetimei|1618602843|status|error|END'
+    value = '{"duration":0.00012442}'
 
     record = RailsPerformance::Models::RakeRecord.from_db(key, value)
     assert_equal record.task, ["task3"]

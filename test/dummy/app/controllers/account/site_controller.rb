@@ -14,7 +14,7 @@ class Account::SiteController < ApplicationController
   end
 
   def crash
-    1/0
+    1 / 0
   end
 
   def not_found

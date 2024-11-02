@@ -4,15 +4,15 @@ module RailsPerformance
     attr_accessor :data
     attr_accessor :record
 
-    def CurrentRequest.init
+    def self.init
       Thread.current[:rp_current_request] ||= CurrentRequest.new(SecureRandom.hex(16))
     end
 
-    def CurrentRequest.current
+    def self.current
       CurrentRequest.init
     end
 
-    def CurrentRequest.cleanup
+    def self.cleanup
       RailsPerformance.log "----------------------------------------------------> CurrentRequest.cleanup !!!!!!!!!!!! -------------------------\n\n"
       RailsPerformance.skip = false
       Thread.current[:rp_current_request] = nil
@@ -20,15 +20,14 @@ module RailsPerformance
 
     def initialize(request_id)
       @request_id = request_id
-      @tracings   = []
-      @ignore     = Set.new
-      @data       = nil
-      @record     = nil
+      @tracings = []
+      @ignore = Set.new
+      @data = nil
+      @record = nil
     end
 
     def trace(options = {})
       @tracings << options.merge(time: Time.current.to_i)
     end
-
   end
 end

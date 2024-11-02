@@ -1,6 +1,7 @@
 module RailsPerformance
   class BaseController < ActionController::Base
-    layout 'rails_performance/layouts/rails_performance'
+    include RailsPerformance::Concerns::CsvExportable
+    layout "rails_performance/layouts/rails_performance"
 
     before_action :verify_access
 
@@ -14,8 +15,7 @@ module RailsPerformance
 
     def verify_access
       result = RailsPerformance.verify_access_proc.call(self)
-      redirect_to('/', error: 'Access Denied', status: 401) unless result
+      redirect_to("/", error: "Access Denied", status: 401) unless result
     end
-
   end
 end

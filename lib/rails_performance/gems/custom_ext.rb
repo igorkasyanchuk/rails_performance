@@ -8,12 +8,12 @@ module RailsPerformance
         return yield unless RailsPerformance.include_custom_events
 
         begin
-          now    = Time.current
-          status = 'success'
+          now = Time.current
+          status = "success"
           result = yield
           result
-        rescue Exception => ex
-          status = 'error'
+        rescue Exception => ex # rubocop:disable Lint/RescueException
+          status = "error"
           raise(ex)
         ensure
           RailsPerformance::Models::CustomRecord.new(
@@ -22,13 +22,10 @@ module RailsPerformance
             status: status,
             duration: (Time.current - now) * 1000,
             datetime: now.strftime(RailsPerformance::FORMAT),
-            datetimei: now.to_i,
+            datetimei: now.to_i
           ).save
-
-          result
         end
       end
-
     end
   end
 end

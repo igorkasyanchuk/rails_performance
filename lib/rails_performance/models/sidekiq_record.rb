@@ -13,7 +13,7 @@ module RailsPerformance
       # |start_timei|1583146614
       # |status|success|END|1.0.0
       # value = JSON
-      def SidekiqRecord.from_db(key, value)
+      def self.from_db(key, value)
         items = key.split("|")
 
         SidekiqRecord.new(
@@ -30,29 +30,29 @@ module RailsPerformance
       end
 
       def initialize(queue:, worker:, jid:, datetime:, datetimei:, enqueued_ati:, start_timei:, status: nil, duration: nil, json: "{}")
-        @queue        = queue
-        @worker       = worker
-        @jid          = jid
-        @datetime     = datetime
-        @datetimei    = datetimei.to_i
+        @queue = queue
+        @worker = worker
+        @jid = jid
+        @datetime = datetime
+        @datetimei = datetimei.to_i
         @enqueued_ati = enqueued_ati
-        @start_timei  = start_timei
-        @status       = status
-        @duration     = duration
-        @json         = json
+        @start_timei = start_timei
+        @status = status
+        @duration = duration
+        @json = json
       end
 
       # For UI
       def record_hash
         {
-          worker: self.worker,
-          queue: self.queue,
-          jid: self.jid,
-          status: self.status,
+          worker: worker,
+          queue: queue,
+          jid: jid,
+          status: status,
           datetimei: datetimei,
-          datetime: Time.at(self.start_timei.to_i),
-          duration: self.value['duration'],
-          message: value['message']
+          datetime: Time.at(start_timei.to_i),
+          duration: value["duration"],
+          message: value["message"]
         }
       end
 
@@ -61,7 +61,6 @@ module RailsPerformance
         value = { message:, duration: }
         Utils.save_to_redis(key, value)
       end
-
     end
   end
 end

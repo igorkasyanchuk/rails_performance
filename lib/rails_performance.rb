@@ -68,21 +68,27 @@ module RailsPerformance
 
   # Enable http basic authentication
   mattr_accessor :http_basic_authentication_user_name
-  @@http_basic_authentication_user_name = 'rails_performance'
+  @@http_basic_authentication_user_name = "rails_performance"
 
   # Enable http basic authentication
   mattr_accessor :http_basic_authentication_password
-  @@http_basic_authentication_password = 'password12'
+  @@http_basic_authentication_password = "password12"
 
   # If you want to enable access by specific conditions
   mattr_accessor :verify_access_proc
   @@verify_access_proc = proc { |controller| true }
 
   mattr_reader :ignored_endpoints
-  def RailsPerformance.ignored_endpoints=(endpoints)
+  def self.ignored_endpoints=(endpoints)
     @@ignored_endpoints = Set.new(endpoints)
   end
   @@ignored_endpoints = []
+
+  mattr_reader :ignored_paths
+  def self.ignored_paths=(paths)
+    @@ignored_paths = Set.new(paths)
+  end
+  @@ignored_paths = []
 
   # skip requests if it's inside Rails Performance view
   mattr_accessor :skip
@@ -90,7 +96,7 @@ module RailsPerformance
 
   # config home button link
   mattr_accessor :home_link
-  @@home_link = '/'
+  @@home_link = "/"
 
   # skip performance tracking for these rake tasks
   mattr_accessor :skipable_rake_tasks
@@ -108,11 +114,11 @@ module RailsPerformance
   mattr_accessor :include_custom_events
   @@include_custom_events = true
 
-  def RailsPerformance.setup
+  def self.setup
     yield(self)
   end
 
-  def RailsPerformance.log(message)
+  def self.log(message)
     return unless RailsPerformance.debug
 
     if ::Rails.logger
@@ -122,10 +128,9 @@ module RailsPerformance
       puts(message)
     end
   end
-
 end
 
 require "rails_performance/engine"
 
-require_relative './rails_performance/gems/custom_ext.rb'
+require_relative "rails_performance/gems/custom_ext"
 RailsPerformance.send :extend, RailsPerformance::Gems::CustomExtension
