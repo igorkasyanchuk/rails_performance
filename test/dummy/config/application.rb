@@ -8,7 +8,7 @@ require "rails_performance"
 module Dummy
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults 7.2
 
     config.time_zone = "Kyiv"
 
@@ -22,7 +22,7 @@ module Dummy
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-    config.active_support.cache_format_version = 7.2
+    config.active_support.cache_format_version = 7.1
 
     config.active_job.queue_adapter = :solid_queue
     config.solid_queue.connects_to = {database: {writing: :queue}}
