@@ -121,12 +121,8 @@ module RailsPerformance
   def self.log(message)
     return unless RailsPerformance.debug
 
-    if ::Rails.logger
-      puts(message)
-      ::Rails.logger.debug(message)
-    else
-      puts(message)
-    end
+    puts(message)
+    # ::Rails.logger.debug(message)
   end
 end
 
