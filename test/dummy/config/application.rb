@@ -15,17 +15,14 @@ module Dummy
     config.hosts.clear
 
     config.paths.add "app/api", glob: "**/*.rb"
-    config.paths.add "app/api/demo", glob: "**/*.rb"
     config.autoload_paths += Dir["#{Rails.root}/app/api/*"]
-    config.autoload_paths += Dir["#{Rails.root}/app/api/**/*"]
     config.eager_load_paths += Dir["#{Rails.root}/app/api/*"]
-    config.eager_load_paths += Dir["#{Rails.root}/app/api/**/*"]
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-    config.active_support.cache_format_version = 7.1
+    config.active_support.cache_format_version = 7.2
 
     config.active_job.queue_adapter = :solid_queue
     config.solid_queue.connects_to = {database: {writing: :queue}}
