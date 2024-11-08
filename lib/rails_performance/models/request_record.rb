@@ -30,6 +30,8 @@ module RailsPerformance
       def self.from_db(key, value)
         items = key.split("|")
 
+        parsed_value = JSON.parse(value) rescue {}
+
         RequestRecord.new(
           controller: items[2],
           action: items[4],
@@ -40,7 +42,10 @@ module RailsPerformance
           method: items[14],
           path: items[16],
           request_id: items[18],
-          json: value
+          json: value,
+          duration: parsed_value["duration"],
+          view_runtime: parsed_value["view_runtime"],
+          db_runtime: parsed_value["db_runtime"],
         )
       end
 

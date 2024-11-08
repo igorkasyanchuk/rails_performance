@@ -13,6 +13,7 @@ module RailsPerformance
 
         @throughput_report_data = RailsPerformance::Reports::ThroughputReport.new(db).data
         @response_time_report_data = RailsPerformance::Reports::ResponseTimeReport.new(db).data
+        @percentile_report_data = RailsPerformance::Reports::PercentileReport.new(db).data
       end
 
       def summary

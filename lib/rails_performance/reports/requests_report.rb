@@ -18,7 +18,10 @@ module RailsPerformance
             db_runtime_average: db_runtimes.sum.to_f / db_runtimes.size,
             duration_slowest: durations.max,
             view_runtime_slowest: view_runtimes.max,
-            db_runtime_slowest: db_runtimes.max
+            db_runtime_slowest: db_runtimes.max,
+            p50_duration: RailsPerformance::Utils.percentile(durations, 50),
+            p95_duration: RailsPerformance::Utils.percentile(durations, 95),
+            p99_duration: RailsPerformance::Utils.percentile(durations, 99),
           }
         end.sort_by { |e| -e[sort].to_f } # to_f because could ne NaN or nil
       end

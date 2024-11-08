@@ -4,6 +4,35 @@
   <%#= link_to raw("&larr; Back"), rails_performance_path, class: "back_link" %>
 <% end %>
 
+<div class="columns">
+  <div class="column">
+    <div class="card">
+      <div class="card-content">
+        <h2 class="subtitle is-size-1"><%= ms @percentile_report_data[:p50] %></h2>
+        <p class="content is-size-4">p50</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <div class="card-content">
+        <h2 class="subtitle is-size-1"><%= ms @percentile_report_data[:p95] %></h2>
+        <p class="content is-size-4">p95</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <div class="card-content">
+        <h2 class="subtitle is-size-1"><%= ms @percentile_report_data[:p99] %></h2>
+        <p class="content is-size-4">p99</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="card">
   <div class="card-content">
     <h2 class="subtitle">Throughput Report</h2>

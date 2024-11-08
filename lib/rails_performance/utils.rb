@@ -49,5 +49,16 @@ module RailsPerformance
         sorted[center]
       end
     end
+
+    def self.percentile(values, percentile)
+      return nil if values.empty?
+
+      sorted = values.sort
+      rank = (percentile.to_f / 100) * (sorted.size - 1)
+
+      lower = sorted[rank.floor]
+      upper = sorted[rank.ceil]
+      lower + (upper - lower) * (rank - rank.floor)
+    end
   end
 end
