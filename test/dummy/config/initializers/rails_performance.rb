@@ -1,9 +1,9 @@
 if defined?(RailsPerformance)
   RailsPerformance.setup do |config|
-    config.redis = Redis::Namespace.new("#{Rails.env}-rails-performance", redis: Redis.new)
+    config.redis = Redis.new(url: ENV["REDIS_URL"].presence || "redis://127.0.0.1:6379/#{Rails.env.to_s == "test" ? 1 : 0}")
     config.duration = 6.hours
 
-    config.debug = true # currently not used>
+    config.debug = false # currently not used>
     config.enabled = true
 
     config.recent_requests_time_window = 60.minutes

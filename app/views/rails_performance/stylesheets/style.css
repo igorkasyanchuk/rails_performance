@@ -121,3 +121,7 @@ table th[data-sort] {
   font-size: 7px !important;
   line-height: 20px !important;
 }
+
+.attention {
+  background-color: #f6f5f5;
+}

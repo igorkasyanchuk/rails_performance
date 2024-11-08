@@ -1,5 +1,4 @@
 require "redis"
-require "redis-namespace"
 require "browser"
 require "active_support/core_ext/integer"
 require_relative "rails_performance/version"
@@ -24,6 +23,7 @@ require_relative "rails_performance/reports/recent_requests_report"
 require_relative "rails_performance/reports/slow_requests_report"
 require_relative "rails_performance/reports/breakdown_report"
 require_relative "rails_performance/reports/trace_report"
+require_relative "rails_performance/reports/percentile_report"
 require_relative "rails_performance/extensions/trace"
 require_relative "rails_performance/thread/current_request"
 
@@ -31,7 +31,7 @@ module RailsPerformance
   FORMAT = "%Y%m%dT%H%M"
 
   mattr_accessor :redis
-  @@redis = Redis::Namespace.new("{#{::Rails.env}-rails-performance}", redis: Redis.new)
+  @@redis = Redis.new
 
   mattr_accessor :duration
   @@duration = 4.hours
