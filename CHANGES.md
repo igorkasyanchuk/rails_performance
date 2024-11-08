@@ -1,5 +1,9 @@
 - Unreleased
 
+- 1.3.2
+  - small UI improvements
+  - added option to ignore "ignore_trace_headers" (details we show in trace report in header)
+
 - 1.3.1
   - added percentile report https://github.com/igorkasyanchuk/rails_performance/pull/108
   - removed "redis-namespace" gem as depenedency

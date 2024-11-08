@@ -9,24 +9,36 @@
     <%= render '/rails_performance/stylesheets/stylesheets' %>
     <link rel="shortcut icon" href="/favicon.ico">
   </head>
-  <body>
+
+  <body class="has-sticky-footer">
     <div class="loader-wrapper">
         <div class="loader is-loading"></div>
     </div>
-    <section class="section">
-      <div class="container is-fluid is-size-7">
-        <%= render '/rails_performance/shared/header' %>
-        <%= yield %>
-        <div class="footer-box">
-          © Rails Performance <span class='red'><i class="fas fa-heart"></i></span> <%= link_to 'https://github.com/igorkasyanchuk/rails_performance', 'https://github.com/igorkasyanchuk/rails_performance', target: '_blank' %>
-          <div class="is-pulled-right">v.<%= RailsPerformance::VERSION %></div>
-        </div>
-      </div>
-    </section>
-    <%= render '/rails_performance/panel' %>
-    <div class="panel-overlay">
-    <%= render '/rails_performance/javascripts/javascripts' %>
-    <%= yield :on_load %>
 
+    <div class="main-content">
+      <section class="section">
+        <div class="container is-fluid is-size-7">
+          <%= render '/rails_performance/shared/header' %>
+          <%= yield %>
+        </div>
+      </section>
+    </div>
+
+    <footer class="footer footer-box">
+      <div class="container is-fluid is-size-7">
+        © Rails Performance <span class='red'><i class="fas fa-heart"></i></span>
+        <%= link_to 'https://github.com/igorkasyanchuk/rails_performance', 'https://github.com/igorkasyanchuk/rails_performance', target: '_blank' %>
+        <div class="is-pulled-right">v.<%= RailsPerformance::VERSION %></div>
+      </div>
+    </footer>
+
+    <%= render '/rails_performance/panel' %>
+
+    <div class="panel-overlay"></div>
+
+    <%= render '/rails_performance/javascripts/javascripts' %>
+
+    <%= yield :on_load %>
   </body>
+
 </html>

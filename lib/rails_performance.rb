@@ -113,6 +113,10 @@ module RailsPerformance
   mattr_accessor :include_custom_events
   @@include_custom_events = true
 
+  # Trace details view configuration
+  mattr_accessor :ignore_trace_headers
+  @@ignore_trace_headers = ["datetimei"]
+
   def self.setup
     yield(self)
   end

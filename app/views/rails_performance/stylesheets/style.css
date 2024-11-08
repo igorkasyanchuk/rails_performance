@@ -72,11 +72,11 @@
 }
 
 .chart {
-  height: 245px;
+  height: 300px;
 }
 
 .chart_mini {
-  height: 150px;
+  height: 200px;
   width: 720px;
 }
 
@@ -124,4 +124,19 @@ table th[data-sort] {
 
 .attention {
   background-color: #f6f5f5;
+}
+
+body.has-sticky-footer {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+}
+
+.footer-box {
+  background-color: #f5f5f5;
+  padding: 1rem 0;
 }
