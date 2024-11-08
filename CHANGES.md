@@ -1,5 +1,8 @@
 - Unreleased
 
+- 1.3.1
+  - added percentile report https://github.com/igorkasyanchuk/rails_performance/pull/108
+
 - 1.3.0
   - added csv export https://github.com/igorkasyanchuk/rails_performance/pull/100
   - hide empty tooltips https://github.com/igorkasyanchuk/rails_performance/pull/101

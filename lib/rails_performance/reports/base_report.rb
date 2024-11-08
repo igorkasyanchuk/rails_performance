@@ -12,13 +12,13 @@ module RailsPerformance
         set_defaults
       end
 
+      def set_defaults
+      end
+
       def collect
         db.group_by(group).each_with_object([]) do |(k, v), res|
           res << yield(k, v)
         end
-      end
-
-      def set_defaults
       end
 
       def self.time_in_app_time_zone(time)
