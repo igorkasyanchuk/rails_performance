@@ -2,6 +2,7 @@
 
 - 1.3.1
   - added percentile report https://github.com/igorkasyanchuk/rails_performance/pull/108
+  - removed "redis-namespace" gem as depenedency
 
 - 1.3.0
   - added csv export https://github.com/igorkasyanchuk/rails_performance/pull/100
