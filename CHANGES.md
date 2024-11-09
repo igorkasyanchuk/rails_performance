@@ -1,5 +1,9 @@
 - Unreleased
 
+- 1.3.3
+  - little improvements and bug fixes
+  - changes in the readme
+
 - 1.3.2
   - small UI improvements
   - added option to ignore "ignore_trace_headers" (details we show in trace report in header)

@@ -1,6 +1,6 @@
 if defined?(RailsPerformance)
   RailsPerformance.setup do |config|
-    config.redis = Redis.new(url: ENV["REDIS_URL"].presence || "redis://127.0.0.1:6379/#{Rails.env.to_s == "test" ? 1 : 0}")
+    config.redis = Redis.new(url: ENV["REDIS_URL"].presence || "redis://127.0.0.1:6379/#{(Rails.env.to_s == "test") ? 1 : 0}")
     config.duration = 6.hours
 
     config.debug = false # currently not used>
@@ -34,6 +34,6 @@ if defined?(RailsPerformance)
     config.home_link = "/"
 
     config.include_rake_tasks = true
-    config.include_custom_events = false
+    config.include_custom_events = true
   end
 end

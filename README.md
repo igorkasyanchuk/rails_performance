@@ -51,7 +51,7 @@ Create `config/initializers/rails_performance.rb` in your app:
 
 ```ruby
 RailsPerformance.setup do |config|
-  config.redis    = Redis::Namespace.new("#{Rails.env}-rails-performance", redis: Redis.new(url: ENV["REDIS_URL"].presence || "redis://127.0.0.1:6379/0"))
+  config.redis    = Redis.new(url: ENV["REDIS_URL"].presence || "redis://127.0.0.1:6379/0") # or Redis::Namespace.new("rails-performance", redis: Redis.new), see below in README
   config.duration = 4.hours
 
   config.debug    = false # currently not used>
@@ -171,6 +171,18 @@ You need to configure `config.custom_data_proc`. And you can capture current_use
 RailsPerformance.measure("some label", "some namespace") do
    # your code
 end
+```
+
+## Using with Rails Namespace
+
+```ruby
+  config.redis = Redis::Namespace.new("#{Rails.env}-rails-performance", redis: Redis.new(url: ENV["REDIS_URL"].presence || "redis://127.0.0.1:6379/0"))
+```
+
+and add a gem dependency to the Gemfile:
+
+```ruby
+gem 'redis-namespace'
 ```
 
 ## How it works

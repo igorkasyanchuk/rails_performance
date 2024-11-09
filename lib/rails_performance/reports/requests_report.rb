@@ -21,7 +21,7 @@ module RailsPerformance
             db_runtime_slowest: db_runtimes.max,
             p50_duration: RailsPerformance::Utils.percentile(durations, 50),
             p95_duration: RailsPerformance::Utils.percentile(durations, 95),
-            p99_duration: RailsPerformance::Utils.percentile(durations, 99),
+            p99_duration: RailsPerformance::Utils.percentile(durations, 99)
           }
         end.sort_by { |e| -e[sort].to_f } # to_f because could ne NaN or nil
       end
