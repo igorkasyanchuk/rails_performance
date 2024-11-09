@@ -13,6 +13,7 @@ This is a **simple and free alternative** to the New Relic APM, Datadog or other
 It allows you to track:
 
 - real-time monitoring on the Recent tab
+- see your p50, p90, p99 response time
 - monitor slow requests
 - throughput report (see amount of RPM (requests per minute))
 - an average response time
