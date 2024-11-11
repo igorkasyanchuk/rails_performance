@@ -10,6 +10,10 @@ This is a **simple and free alternative** to the New Relic APM, Datadog or other
 
 ![Demo](docs/rails_performance.gif)
 
+A new version with P50, P90, P99, throughput, and more is available.
+
+![Home](docs/rails_performance_updated_home.png)
+
 It allows you to track:
 
 - real-time monitoring on the Recent tab
