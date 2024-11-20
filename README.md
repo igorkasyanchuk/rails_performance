@@ -14,6 +14,10 @@ A new version with P50, P90, P99, throughput, and more is available.
 
 ![Home](docs/rails_performance_updated_home.png)
 
+Detailed p50, p90, p99 response time information.
+
+![Home](docs/rails_performance_recent_requests.png)
+
 It allows you to track:
 
 - real-time monitoring on the Recent tab
