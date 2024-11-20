@@ -1,12 +1,12 @@
-require_relative "demo/worker1"
-require_relative "demo/worker2"
-require_relative "demo/worker3"
+require_relative "worker1"
+require_relative "worker2"
+require_relative "worker3"
 
 class API < Grape::API
   prefix "api"
   format :json
 
-  mount Demo::Worker1
-  mount Demo::Worker2
-  mount Demo::Worker3
+  mount Worker1
+  mount Worker2
+  mount Worker3
 end

@@ -1,6 +1,6 @@
 module RailsPerformance
   module Instrument
-    class MetricsCollector
+    class ControllerMetricsCollector
       # payload
       # {
       #   controller: "PostsController",

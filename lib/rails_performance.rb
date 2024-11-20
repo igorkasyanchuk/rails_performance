@@ -12,6 +12,7 @@ require_relative "rails_performance/models/grape_record"
 require_relative "rails_performance/models/trace_record"
 require_relative "rails_performance/models/rake_record"
 require_relative "rails_performance/models/custom_record"
+require_relative "rails_performance/models/active_job_record"
 require_relative "rails_performance/data_source"
 require_relative "rails_performance/utils"
 require_relative "rails_performance/reports/base_report"
@@ -124,12 +125,8 @@ module RailsPerformance
   def self.log(message)
     return unless RailsPerformance.debug
 
-    if ::Rails.logger
-      # puts(message)
-      ::Rails.logger.debug(message)
-    else
-      puts(message)
-    end
+    puts(message)
+    # ::Rails.logger.debug(message)
   end
 end
 

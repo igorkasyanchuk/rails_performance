@@ -6,6 +6,7 @@ module RailsPerformance
 
       def call(worker, msg, queue)
         now = Time.current
+        exception = nil
         record = RailsPerformance::Models::SidekiqRecord.new(
           enqueued_ati: msg["enqueued_at"].to_i,
           datetimei: msg["created_at"].to_i,
@@ -22,11 +23,12 @@ module RailsPerformance
         rescue Exception => ex # rubocop:disable Lint/RescueException
           record.status = "exception"
           record.message = ex.message
-          raise ex
+          exception = ex
         ensure
           # store in ms instead of seconds
           record.duration = (Time.current - now) * 1000
           record.save
+          raise exception if exception
         end
       end
     end
