@@ -14,6 +14,7 @@ RailsPerformance::Engine.routes.draw do
   get "/grape" => "rails_performance#grape", :as => :rails_performance_grape
   get "/rake" => "rails_performance#rake", :as => :rails_performance_rake
   get "/custom" => "rails_performance#custom", :as => :rails_performance_custom
+  get "/resources" => "rails_performance#resources", :as => :rails_performance_resources
 end
 
 Rails.application.routes.draw do

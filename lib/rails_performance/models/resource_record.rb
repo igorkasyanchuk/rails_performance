@@ -3,12 +3,12 @@ module RailsPerformance
     class ResourceRecord < BaseRecord
       attr_accessor :server, :context, :role, :datetime, :datetimei, :json
 
-      def initialize(server:, context:, role:, datetime: Time.current, json:)
+      def initialize(server:, context:, role:, datetime:, datetimei:, json:)
         @server = server
         @context = context
         @role = role
         @datetime = datetime
-        @datetimei = datetime.to_i
+        @datetimei = datetimei
         @json = json
       end
 
@@ -20,20 +20,18 @@ module RailsPerformance
           context: items[4],
           role: items[6],
           datetime: items[8],
+          datetimei: items[10],
           json: value
         )
       end
 
       def record_hash
-
-        puts value
-
         {
           server: server,
           role: role,
           context: context,
           datetime: datetime,
-          datetimei: datetimei,
+          datetimei: Time.at(datetimei.to_i),
           cpu: value["cpu"],
           memory: value["memory"],
           disk: value["disk"]
@@ -41,11 +39,11 @@ module RailsPerformance
       end
 
       def combined_key
-        "server|#{server}|context|#{context}|role|#{role}"
+        "#{server}__________#{context}__________#{role}"
       end
 
       def save
-        key = "resource|server|#{server}|context|#{context}|role|#{role}|datetime|#{datetime}|datetimei|#{datetimei}|END|#{RailsPerformance::SCHEMA}"
+        key = "resource|server|#{server}|context|#{context}|role|#{role}|datetime|#{datetime}|datetimei|#{datetimei}|combined_key|#{combined_key}|END|#{RailsPerformance::SCHEMA}"
         Utils.save_to_redis(key, json)
       end
     end

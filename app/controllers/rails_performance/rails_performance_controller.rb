@@ -14,6 +14,13 @@ module RailsPerformance
         @percentile_report_data = RailsPerformance::Reports::PercentileReport.new(db).data
       end
 
+      def resources
+        @datasource = RailsPerformance::DataSource.new(**prepare_query(params), type: :resource)
+        db = @datasource.db
+
+        @resources_report = RailsPerformance::Reports::ResourcesReport.new(db)
+      end
+
       def summary
         @datasource = RailsPerformance::DataSource.new(**prepare_query(params), type: :requests)
         db = @datasource.db
@@ -151,7 +158,7 @@ module RailsPerformance
 
       private
 
-      def prepare_query(query)
+      def prepare_query(query = {})
         RailsPerformance::Rails::QueryBuilder.compose_from(query)
       end
     end

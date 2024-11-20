@@ -132,6 +132,8 @@ module RailsPerformance
         "is-active" if controller_name == "rails_performance" && action_name == "crashes"
       when :requests
         "is-active" if controller_name == "rails_performance" && action_name == "requests"
+      when :resources
+        "is-active" if controller_name == "rails_performance" && action_name == "resources"
       when :recent
         "is-active" if controller_name == "rails_performance" && action_name == "recent"
       when :slow

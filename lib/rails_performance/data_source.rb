@@ -21,8 +21,9 @@ module RailsPerformance
 
     def db
       result = RailsPerformance::Models::Collection.new
-      (0..(RailsPerformance::Utils.days + 1)).to_a.reverse_each do |e|
-        RailsPerformance::DataSource.new(q: q.merge({on: (Time.current - e.days).to_date}), type: type).add_to(result)
+      now = Time.current
+      (0..(RailsPerformance::Utils.days)).to_a.reverse_each do |e|
+        RailsPerformance::DataSource.new(q: q.merge({on: (now - e.days).to_date}), type: type).add_to(result)
       end
       result
     end
@@ -97,6 +98,7 @@ module RailsPerformance
       str << "server|#{q[:server]}|" if q[:server].present?
       str << "context|#{q[:context]}|" if q[:context].present?
       str << "role|#{q[:role]}|" if q[:role].present?
+      str << "datetime|#{q[:on].strftime("%Y%m%d")}*|" if q[:on].present?
       str.join("*")
     end
 

@@ -20,15 +20,11 @@ module RailsPerformance
           @thread = Thread.new do
             loop do
               begin
-                cpu = fetch_process_cpu_usage
-                memory = fetch_process_memory_usage
-                disk = fetch_disk_usage
-
-                store_data({cpu:, memory:, disk:})
+                run
               rescue => e
                 ::Rails.logger.error "Monitor error: #{e.message}"
               ensure
-                sleep 2
+                sleep 60
               end
             end
           end
@@ -43,6 +39,14 @@ module RailsPerformance
           @thread.kill
           @thread = nil
         end
+      end
+
+      def run
+        cpu = fetch_process_cpu_usage
+        memory = fetch_process_memory_usage
+        disk = fetch_disk_usage
+
+        store_data({cpu:, memory:, disk:})
       end
 
       def fetch_process_cpu_usage
@@ -79,11 +83,14 @@ module RailsPerformance
       def store_data(data)
         ::Rails.logger.info("Server: #{server_id}, Context: #{context}, Role: #{role}, data: #{data}")
 
+        now = Time.current
         RailsPerformance::Models::ResourceRecord.new(
           server: server_id,
           context: context,
           role: role,
-          json: data.to_json
+          datetime: now.strftime(RailsPerformance::FORMAT),
+          datetimei: now.to_i,
+          json: data
         ).save
       end
 

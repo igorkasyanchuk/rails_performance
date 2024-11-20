@@ -39,7 +39,6 @@ module RailsPerformance
         @data = []
         all = {}
 
-        # read current values
         db.group_by(group).each do |(k, v)|
           yield(all, k, v)
         end
@@ -48,12 +47,39 @@ module RailsPerformance
         while current <= stop
           key = current.strftime(RailsPerformance::FORMAT)
           views = all[key].presence || 0
-          @data << [(current.to_i + offset) * 1000, views.round(2)]
+          @data << [(current.to_i + offset) * 1000, views.is_a?(Numeric) ? views.round(2) : views]
           current += 1.minute
         end
 
         # sort by time
         @data.sort!
+      end
+
+      def nil_data
+        @nil_data ||= begin
+          result = {}
+          now = Time.current
+          stop = Time.at(60 * (now.to_i / 60))
+          offset = RailsPerformance::Reports::BaseReport.time_in_app_time_zone(now).utc_offset
+          current = stop - RailsPerformance.duration
+
+          while current <= stop
+            key = current.strftime(RailsPerformance::FORMAT)
+            result[(current.to_i + offset) * 1000] = 0
+            current += 1.minute
+          end
+
+          result
+        end
+      end
+
+      # {
+      #   1732125540000 => 1,
+      #   1732125550000 => 0,
+      # }
+      def nullify_data(input)
+        # nil_data.merge(input).sort
+        input.sort
       end
     end
   end
