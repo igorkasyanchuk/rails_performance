@@ -2,10 +2,19 @@ require "action_view/log_subscriber"
 require_relative "rails/middleware"
 require_relative "models/collection"
 require_relative "instrument/metrics_collector"
+require_relative "extensions/resources_monitor"
 
 module RailsPerformance
   class Engine < ::Rails::Engine
     isolate_namespace RailsPerformance
+
+    initializer "rails_performance.resource_monitor" do
+      next unless RailsPerformance.enabled
+      next if $rails_performance_running_mode == :console
+
+      # start monitoring
+      RailsPerformance._resource_monitor = RailsPerformance::Extensions::ResourceMonitor.new("rails", "web")
+    end
 
     initializer "rails_performance.middleware" do |app|
       next unless RailsPerformance.enabled
@@ -24,9 +33,21 @@ module RailsPerformance
 
       if defined?(::Sidekiq)
         require_relative "gems/sidekiq_ext"
+
         Sidekiq.configure_server do |config|
           config.server_middleware do |chain|
             chain.add RailsPerformance::Gems::SidekiqExt
+          end
+
+          config.on(:startup) do
+            if $rails_performance_running_mode != :console
+              # stop web monitoring
+              # when we run sidekiq it also starts web monitoring (see above)
+              RailsPerformance._resource_monitor.stop_monitoring
+              RailsPerformance._resource_monitor = nil
+              # start background monitoring
+              RailsPerformance._resource_monitor = RailsPerformance::Extensions::ResourceMonitor.new("sidekiq", "background")
+            end
           end
         end
       end
@@ -61,6 +82,10 @@ module RailsPerformance
         require_relative "gems/rake_ext"
         RailsPerformance::Gems::RakeExt.init
       end
+    end
+
+    if defined?(::Rails::Console)
+      $rails_performance_running_mode = :console
     end
   end
 end

@@ -34,4 +34,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "puma"
   spec.add_development_dependency "sprockets-rails"
   spec.add_development_dependency "standardrb"
+
+  spec.add_development_dependency "sys-filesystem"
+  spec.add_development_dependency "sys-cpu"
+  spec.add_development_dependency "get_process_mem"
 end

@@ -36,3 +36,7 @@ gem "sprockets-rails"
 gem "devise"
 
 gem "standard"
+
+gem "sys-filesystem"
+gem "sys-cpu"
+gem "get_process_mem"

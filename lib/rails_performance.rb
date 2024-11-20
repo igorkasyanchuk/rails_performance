@@ -11,6 +11,7 @@ require_relative "rails_performance/models/delayed_job_record"
 require_relative "rails_performance/models/grape_record"
 require_relative "rails_performance/models/trace_record"
 require_relative "rails_performance/models/rake_record"
+require_relative "rails_performance/models/resource_record"
 require_relative "rails_performance/models/custom_record"
 require_relative "rails_performance/data_source"
 require_relative "rails_performance/utils"
@@ -116,6 +117,13 @@ module RailsPerformance
   # Trace details view configuration
   mattr_accessor :ignore_trace_headers
   @@ignore_trace_headers = ["datetimei"]
+
+
+  mattr_accessor :_resource_monitor
+  @@_resource_monitor = nil
+
+  mattr_accessor :_running_mode
+  @@_running_mode = nil
 
   def self.setup
     yield(self)

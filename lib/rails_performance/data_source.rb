@@ -6,7 +6,8 @@ module RailsPerformance
       delayed_job: RailsPerformance::Models::DelayedJobRecord,
       grape: RailsPerformance::Models::GrapeRecord,
       rake: RailsPerformance::Models::RakeRecord,
-      custom: RailsPerformance::Models::CustomRecord
+      custom: RailsPerformance::Models::CustomRecord,
+      resource: RailsPerformance::Models::ResourceRecord
     }
 
     attr_reader :q, :klass, :type
@@ -53,6 +54,8 @@ module RailsPerformance
       case type
       when :requests
         "performance|*#{compile_requests_query}*|END|#{RailsPerformance::SCHEMA}"
+      when :resource
+        "resource|*#{compile_resource_query}*|END|#{RailsPerformance::SCHEMA}"
       when :sidekiq
         "sidekiq|*#{compile_sidekiq_query}*|END|#{RailsPerformance::SCHEMA}"
       when :delayed_job
@@ -86,6 +89,14 @@ module RailsPerformance
       str << "worker|#{q[:worker]}|" if q[:worker].present?
       str << "datetime|#{q[:on].strftime("%Y%m%d")}*|" if q[:on].present?
       str << "status|#{q[:status]}|" if q[:status].present?
+      str.join("*")
+    end
+
+    def compile_resource_query
+      str = []
+      str << "server|#{q[:server]}|" if q[:server].present?
+      str << "context|#{q[:context]}|" if q[:context].present?
+      str << "role|#{q[:role]}|" if q[:role].present?
       str.join("*")
     end
 
