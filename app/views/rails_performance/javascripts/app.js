@@ -1,349 +1,238 @@
-Highcharts.setOptions({
-  time: {
-    timezone: window.APP_TIME_ZONE
-  }
-});
-
-function showTIRChart(div, data, addon, name) {
-  Highcharts.chart(div, {
+function showChart(element_id, type, options) {
+  const chart = new ApexCharts(
+    document.getElementById(element_id), 
+    {
+      ...options,
       chart: {
-          type: 'area',
-          zoomType: 'x',
+        type: type,
+        height: 300,
+        zoom: {
+          type: 'x',
+        },
       },
-      title: {
-          text: ''
+      colors: ['#ff5b5b'],
+      stroke: {
+        width: 1,
       },
-      tooltip: {
-          borderWidth: 0,
-          backgroundColor: 'yellow',
-          pointFormat: '{point.y}',
-          //headerFormat: '',
-          shadow: false,
-          style: {
-              fontSize: '16px',
-              color: '#000',
-          },
-          formatter: function() {
-              if (this.y == 0) {
-                return false;
-              }
-            return this.y + addon;
-          }
-      },
-      xAxis: {
-          crosshair: true,
-          type: 'datetime',
-          labels: {
-            style: {
-              color: "#a6b0cf"
-            }
-          }
-      },
-      yAxis: {
-          min: 0,
-          title: {
-              text: 'RPM',
-              style: {
-                color: "#f6f6f6"
-              }
-          },
-          labels: {
-            style: {
-              color: "#a6b0cf"
-            }
-          }
+      dataLabels: {
+        enabled: false
       },
       legend: {
-          enabled: false
-      },
-      exporting: {
-        buttons: {
-          contextButton: {
-            theme: {
-              fill: "#eee"
-            }
-          }
-        }
-      },
-      plotOptions: {
-          area: {
-            color: '#ff5b5b',
-          }
-      },
-      series: [{
-          type: 'area',
-          name: name,
-          data: data,
-          fillOpacity: 0.3,
-          lineWidth: 1,
-          states: {
-            hover: {
-              lineWidth: 1
-            }
-          }
-      }]
-  });
-};
-
-function showRTChart(div, data) {
-  Highcharts.chart(div, {
-      chart: {
-          type: 'area',
-          zoomType: 'x',
-      },
-      title: {
-          text: ''
-      },
-
-      tooltip: {
-          borderWidth: 0,
-          backgroundColor: 'yellow',
-          pointFormat: '{point.y}',
-          //headerFormat: '',
-          shadow: false,
-          style: {
-              fontSize: '16px',
-              color: '#000',
-          },
-          formatter: function() {
-              if (this.y == 0) {
-                return false;
-              }
-              return this.y + ' ms';
-          }
-      },
-      xAxis: {
-          crosshair: false,
-          type: 'datetime',
-          labels: {
-            style: {
-              color: "#a6b0cf"
-            }
-          }
-      },
-      yAxis: {
-          min: 0,
-          title: {
-              text: 'Time',
-              style: {
-                color: "#f6f6f6"
-              }
-          },
-          labels: {
-            style: {
-              color: "#a6b0cf"
-            }
-          }
-      },
-      legend: {
-          enabled: false
-      },
-      exporting: {
-        buttons: {
-          contextButton: {
-            theme: {
-              fill: "#eee"
-            }
-          }
-        }
-      },
-      plotOptions: {
-          area: {
-            color: '#ff5b5b',
-          }
-      },
-      series: [{
-          type: 'area',
-          name: 'Response Time',
-          data: data,
-          fillOpacity: 0.3,
-          lineWidth: 1,
-          states: {
-            hover: {
-              lineWidth: 1
-            }
-          }
-      }]
-  });
-};
-
-function showPercentageChart(div, data, addon, name) {
-  Highcharts.chart(div, {
-      chart: {
-          type: 'line',
-          zoomType: 'x',
-      },
-      title: {
-          text: ''
-      },
-      tooltip: {
-          borderWidth: 0,
-          backgroundColor: 'yellow',
-          pointFormat: '{point.y}',
-          //headerFormat: '',
-          shadow: false,
-          style: {
-              fontSize: '16px',
-              color: '#000',
-          },
-          formatter: function() {
-            if (this.y == 0) {
-              return false;
-            }
-            return this.y + ' %';
-        }
-      },
-      xAxis: {
-          crosshair: true,
-          type: 'datetime',
-          labels: {
-            style: {
-              color: "#a6b0cf"
-            }
-          }
-      },
-      yAxis: {
-          min: 0,
-          title: {
-              text: '%',
-              style: {
-                color: "#f6f6f6"
-              }
-          },
-          labels: {
-            style: {
-              color: "#a6b0cf"
-            }
-          }
-      },
-      legend: {
-          enabled: false
-      },
-      exporting: {
-        buttons: {
-          contextButton: {
-            theme: {
-              fill: "#eee"
-            }
-          }
-        }
-      },
-      plotOptions: {
-          area: {
-            color: '#ff5b5b',
-          }
-      },
-      series: [{
-          type: 'line',
-          name: name,
-          data: data,
-          fillOpacity: 0.3,
-          lineWidth: 1,
-          states: {
-            hover: {
-              lineWidth: 2
-            }
-          }
-      }]
-  });
-};
-
-
-function showUsageChart(div, data, addon, name) {
-  Highcharts.chart(div, {
-      chart: {
-          type: 'line',
-          zoomType: 'x',
-      },
-      title: {
-          text: ''
-      },
-      tooltip: {
-          borderWidth: 0,
-          backgroundColor: 'yellow',
-          pointFormat: '{point.y}',
-          //headerFormat: '',
-          shadow: false,
-          style: {
-              fontSize: '16px',
-              color: '#000',
-          },
-          formatter: function() {
-              if (this.y == 0) {
-                return false;
-              }
-            return bytes(this.y, true);
-          }
-      },
-      xAxis: {
-          crosshair: true,
-          type: 'datetime',
-          labels: {
-            style: {
-              color: "#a6b0cf"
-            }
-          }
-      },
-      yAxis: {
-          min: 0,
-          title: {
-              text: '',
-              style: {
-                color: "#f6f6f6"
-              }
-          },
-          labels: {
-            style: {
-              color: "#a6b0cf"
-            }
-          }
-      },
-      legend: {
-          enabled: false
-      },
-      exporting: {
-        buttons: {
-          contextButton: {
-            theme: {
-              fill: "#eee"
-            }
-          }
-        }
-      },
-      plotOptions: {
-          area: {
-            color: '#ff5b5b',
-          }
-      },
-      series: [{
-          type: 'line',
-          name: name,
-          data: data,
-          fillOpacity: 0.3,
-          lineWidth: 1,
-          states: {
-            hover: {
-              lineWidth: 2
-            }
-          }
-      }]
-  });
-};
-
-function bytes(bytes, label) {
-  if (bytes == 0) return '';
-  var s = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
-  var e = Math.floor(Math.log(bytes)/Math.log(1024));
-  var value = ((bytes/Math.pow(1024, Math.floor(e))).toFixed(2));
-  e = (e<0) ? (-e) : e;
-  if (label) value += ' ' + s[e];
-  return value;
+        show: false
+      }  
+    }
+  );
+  chart.render();
 }
 
-const recent = document.getElementById("recent")
-const autoupdate = document.getElementById("autoupdate")
+function showTIRChart(element_id, data, addon, name) {
+  showChart(element_id, 'area', {
+    tooltip: {
+      style: {
+        fontSize: '16px'
+      },
+      x: {
+        show: false,
+        format: 'dd/MM/yy HH:mm'
+      },
+      y: {
+        formatter: value => (value ? value + addon : undefined)
+      },
+    },
+    xaxis: {
+      crosshairs: {
+        show: true
+      },
+      type: 'datetime',
+      labels: {
+        datetimeUTC: false,
+        style: {
+          colors: ["#a6b0cf"]
+        }
+      }
+    },
+    yaxis: {
+      min: 0,
+      opposite: true,
+      title: {
+        text: 'RPM',
+        style: {
+          color: "#f6f6f6"
+        }
+      },
+      labels: {
+        style: {
+          colors: ["#a6b0cf"]
+        }
+      }
+    },
+    series: [{
+      name: name,
+      data: data
+    }]
+  });
+}
 
-if(autoupdate) {
+function showRTChart(element_id, data) {
+  showChart(element_id, 'area', {
+    tooltip: {
+      style: {
+        fontSize: '16px',
+      },
+      x: {
+        show: false,
+        format: 'dd/MM/yy HH:mm'
+      },
+      y: {
+        formatter: value => (value ? value + ' ms': undefined)
+      }
+    },
+    xaxis: {
+      crosshairs: {
+        show: false
+      },
+      type: 'datetime',
+      labels: {
+        datetimeUTC: false,
+        style: {
+          colors: ["#a6b0cf"]
+        }
+      }
+    },
+    yaxis: {
+      min: 0,
+      opposite: true,
+      title: {
+        text: 'Time',
+        style: {
+          color: "#f6f6f6"
+        }
+      },
+      labels: {
+        style: {
+          colors: ["#a6b0cf"]
+        }
+      }
+    },
+    series: [{
+      name: 'Response Time',
+      data: data,
+    }],
+  });
+}
+
+function showPercentageChart(element_id, data, name) {
+  showChart(element_id, 'line', {
+    tooltip: {
+      style: {
+        fontSize: '16px',
+      },
+      x: {
+        show: false,
+        format: 'dd/MM/yy HH:mm'
+      },
+      y: {
+        formatter: value => (value ? value + ' %' : undefined)
+      }
+    },
+    xaxis: {
+      crosshairs: {
+        show: true
+      },
+      type: 'datetime',
+      labels: {
+        datetimeUTC: false,
+        style: {
+          colors: ["#a6b0cf"]
+        }
+      }
+    },
+    yaxis: {
+      min: 0,
+      opposite: true,
+      title: {
+        text: '%',
+        style: {
+          color: "#f6f6f6"
+        }
+      },
+      labels: {
+        style: {
+          colors: ["#a6b0cf"]
+        }
+      }
+    },
+    series: [{
+      name: name,
+      data: data,
+    }]
+  });
+}
+
+function showUsageChart(element_id, data, name, pow) {
+  showChart(element_id, 'line', {
+    markers: {
+      size: 0,
+      hover: {
+        size: 2
+      }
+    },
+    tooltip: {
+      style: {
+        fontSize: '16px',
+      },
+      x: {
+        show: false,
+        format: 'dd/MM/yy HH:mm'
+      },
+      y: {
+        formatter: value => human_bytes(value, pow)
+      }
+    },
+    xaxis: {
+      crosshairs: {
+        show: true
+      },
+      type: 'datetime',
+      labels: {
+        datetimeUTC: false,
+        style: {
+          colors: ["#a6b0cf"]
+        }
+      }
+    },
+    yaxis: {
+      min: 0,
+      opposite: true,
+      title: {
+        text: name,
+        style: {
+          color: "#f6f6f6"
+        }
+      },
+      labels: {
+        style: {
+          colors: ["#a6b0cf"]
+        }
+      }
+    },
+    series: [{
+      name: name,
+      data: data.map(([t, b]) => [t, (b / Math.pow(1024, pow)).toFixed(2)]),
+    }]
+  });
+}
+
+function human_bytes(value, pow = 0) {
+  if (!value) return;
+  const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
+  return `${value} ${units[pow]}`;
+}
+
+const recent = document.getElementById("recent");
+const autoupdate = document.getElementById("autoupdate");
+
+if (autoupdate) {
   // set autoupdate checked from localStorage is missing
   if (localStorage.getItem("autoupdate") === null) {
     localStorage.setItem("autoupdate", "true");
@@ -354,12 +243,12 @@ if(autoupdate) {
   });
 }
 
-if(recent) {
-  const tbody = recent.querySelector("tbody")
+if (recent) {
+  const tbody = recent.querySelector("tbody");
 
   setInterval(() => {
-    tr = tbody.children[0];
-    from_timei = tr.getAttribute("from_timei") || ''
+    const tr = tbody.children[0];
+    const from_timei = tr.getAttribute("from_timei") || '';
 
     if (!autoupdate.checked) {
       return;
@@ -373,6 +262,6 @@ if(recent) {
       .then(res => res.text())
       .then(html => {
         tbody.innerHTML = html + tbody.innerHTML;
-    })
+      });
   }, 3000);
 }
