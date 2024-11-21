@@ -185,6 +185,31 @@ gem "sys-cpu"
 gem "get_process_mem"
 ```
 
+Once you add these gems, it will track and show you the system resources on the dashboard.
+
+If you have multiple servers running the same app, it will use store metrics per server. You can configure the the env variable ENV["RAILS_PERFORMANCE_SERVER_ID"] or using `hostname` command.
+
+Basically using this code:
+
+```ruby
+      def server_id
+        @server_id ||= ENV["RAILS_PERFORMANCE_SERVER_ID"] || `hostname`.strip
+      end
+```
+
+You can also specifify custom "context" and "role" for monitoring, by changing the env variables:
+
+```ruby
+RailsPerformance::Extensions::ResourceMonitor.new(
+  ENV["RAILS_PERFORMANCE_SERVER_CONTEXT"].presence || "rails",
+  ENV["RAILS_PERFORMANCE_SERVER_ROLE"].presence || "web"
+)
+```
+
+More information here: `lib/rails_performance/engine.rb`.
+
+PS: right now it can only distinguish between web app servers and the sidekiq servers.
+
 ### Custom events
 
 ```ruby
@@ -269,6 +294,7 @@ The idea of this gem grew from curiosity how many RPM my app receiving per day. 
 - searchkiq
 - sinatra?
 - tests to check what is actually stored in redis db after request
+- upgrade bulma
 
 ## Contributing
 

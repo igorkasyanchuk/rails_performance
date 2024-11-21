@@ -16,7 +16,10 @@ module RailsPerformance
       next if $rails_performance_running_mode == :console # rubocop:disable Style/GlobalVars
 
       # start monitoring
-      RailsPerformance._resource_monitor = RailsPerformance::Extensions::ResourceMonitor.new("rails", "web")
+      RailsPerformance._resource_monitor = RailsPerformance::Extensions::ResourceMonitor.new(
+        ENV["RAILS_PERFORMANCE_SERVER_CONTEXT"].presence || "rails",
+        ENV["RAILS_PERFORMANCE_SERVER_ROLE"].presence || "web"
+      )
     end
 
     initializer "rails_performance.middleware" do |app|

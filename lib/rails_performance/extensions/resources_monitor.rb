@@ -96,7 +96,7 @@ module RailsPerformance
       end
 
       def server_id
-        @server_id ||= ENV["SERVER_ID"] || `hostname`.strip
+        @server_id ||= ENV["RAILS_PERFORMANCE_SERVER_ID"] || `hostname`.strip
       end
     end
   end
