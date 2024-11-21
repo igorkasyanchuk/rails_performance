@@ -30,6 +30,7 @@ module RailsPerformance
         end
       end
 
+      # TODO: simplify this method, and combine with nullify_data
       def calculate_data
         now = Time.current
         now = now.change(sec: 0, usec: 0)
@@ -48,7 +49,7 @@ module RailsPerformance
         while current <= stop
           key = current.strftime(RailsPerformance::FORMAT)
           views = all[key].presence || 0
-          @data << [(current.to_i + offset) * 1000, views.is_a?(Numeric) ? views.round(2) : views]
+          @data << [(current.to_i + offset) * 1000, views.round(2)]
           current += 1.minute
         end
 

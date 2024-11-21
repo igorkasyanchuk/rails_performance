@@ -18,7 +18,6 @@ module RailsPerformance
         @mutex.synchronize do
           return if @thread
 
-          # puts "Starting monitoring for #{context} - #{role}"
           @thread = Thread.new do
             loop do
               run
@@ -35,7 +34,6 @@ module RailsPerformance
         @mutex.synchronize do
           return unless @thread
 
-          # puts "Stopping monitoring"
           @thread.kill
           @thread = nil
         end
