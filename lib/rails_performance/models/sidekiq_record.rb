@@ -49,7 +49,7 @@ module RailsPerformance
           jid: jid,
           status: status,
           datetimei: datetimei,
-          datetime: Time.at(start_timei.to_i),
+          datetime: RailsPerformance::Utils.from_datetimei(start_timei.to_i),
           duration: value["duration"],
           message: value["message"]
         }

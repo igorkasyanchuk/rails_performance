@@ -6,7 +6,7 @@ module RailsPerformance
           # TODO change to set
           CurrentRequest.current.ignore.add(:performance)
 
-          now = Time.current
+          now = RailsPerformance::Utils.time
           CurrentRequest.current.data ||= {}
           CurrentRequest.current.record ||= RailsPerformance::Models::GrapeRecord.new(request_id: CurrentRequest.current.request_id)
           CurrentRequest.current.record.datetimei ||= now.to_i

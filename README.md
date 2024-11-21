@@ -270,6 +270,8 @@ After this:
 - rails s
 - rake test
 
+If you need quickly clear Redis data, you can use `rails runner 'RailsPerformance.redis.flushdb'`.
+
 Like a regular web development.
 
 Please note that to simplify integration with other apps all CSS/JS are bundled inside, and delivered in body of the request. This is to avoid integration with assets pipeline or webpacker.

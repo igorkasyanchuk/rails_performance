@@ -41,7 +41,7 @@ module RailsPerformance
       def call!(env)
         @status, @headers, @response = @app.call(env)
 
-        # t = Time.current
+        # t = RailsPerformance::Utils.time
         if !RailsPerformance.skip
           if !CurrentRequest.current.ignore.include?(:performance) # grape is executed first, and than ignore regular future storage of "controller"-like request
             if (data = CurrentRequest.current.data)
@@ -66,7 +66,7 @@ module RailsPerformance
             end
           end
         end
-        # puts "==> store performance data: #{(Time.current - t).round(3)}ms"
+        # puts "==> store performance data: #{(RailsPerformance::Utils.time - t).round(3)}ms"
 
         [@status, @headers, @response]
       end

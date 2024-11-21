@@ -32,7 +32,7 @@ module RailsPerformance
           namespace_name: namespace_name,
           status: status,
           datetimei: datetimei,
-          datetime: Time.at(datetimei.to_i),
+          datetime: RailsPerformance::Utils.from_datetimei(datetimei.to_i),
           duration: value["duration"]
         }
       end

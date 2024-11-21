@@ -8,7 +8,7 @@ module RailsPerformance
         return yield unless RailsPerformance.include_custom_events
 
         begin
-          now = Time.current
+          now = RailsPerformance::Utils.time
           status = "success"
           result = yield
           result
@@ -20,7 +20,7 @@ module RailsPerformance
             tag_name: tag_name,
             namespace_name: namespace_name,
             status: status,
-            duration: (Time.current - now) * 1000,
+            duration: (RailsPerformance::Utils.time - now) * 1000,
             datetime: now.strftime(RailsPerformance::FORMAT),
             datetimei: now.to_i
           ).save

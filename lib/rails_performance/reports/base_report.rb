@@ -32,10 +32,10 @@ module RailsPerformance
 
       # TODO: simplify this method, and combine with nullify_data
       def calculate_data
-        now = Time.current
+        now = RailsPerformance::Utils.time
         now = now.change(sec: 0, usec: 0)
-        stop = Time.at(60 * (now.to_i / 60))
-        offset = RailsPerformance::Reports::BaseReport.time_in_app_time_zone(now).utc_offset
+        stop = now # Time.at(60 * (now.to_i / 60), in:)
+        offset = 0 # RailsPerformance::Reports::BaseReport.time_in_app_time_zone(now).utc_offset
         current = stop - RailsPerformance.duration
 
         @data = []
@@ -66,10 +66,10 @@ module RailsPerformance
       def nil_data
         @nil_data ||= begin
           result = {}
-          now = Time.current
+          now = RailsPerformance::Utils.time
           now = now.change(sec: 0, usec: 0)
-          stop = Time.at(60 * (now.to_i / 60))
-          offset = RailsPerformance::Reports::BaseReport.time_in_app_time_zone(now).utc_offset
+          stop = now # Time.at(60 * (now.to_i / 60))
+          offset = 0 # RailsPerformance::Reports::BaseReport.time_in_app_time_zone(now).utc_offset
           current = stop - RailsPerformance.duration
 
           while current <= stop
