@@ -120,6 +120,14 @@ RailsPerformance.setup do |config|
 end if defined?(RailsPerformance)
 ```
 
+Additionally you might need to configure app time zone. You can do it in `config/application.rb`:
+
+```ruby
+config.time_zone = 'Eastern Time (US & Canada)'
+```
+
+Gem will present charts/tables in the app timezone. If it's not set, it will use UTC.
+
 ## Installation
 
 Add this line to your application's Gemfile:
