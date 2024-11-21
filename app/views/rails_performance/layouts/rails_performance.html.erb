@@ -6,6 +6,9 @@
     <title>Rails Performance</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag if ::Rails::VERSION::STRING.to_f >= 5.2 %>
+    <script>
+      window.APP_TIME_ZONE = '<%= Rails.application.config.time_zone.presence || 'UTC' %>';
+    </script>
     <%= render '/rails_performance/stylesheets/stylesheets' %>
     <link rel="shortcut icon" href="/favicon.ico">
   </head>

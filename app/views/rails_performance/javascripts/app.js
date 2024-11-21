@@ -1,3 +1,9 @@
+// Highcharts.setOptions({
+//   time: {
+//       timezone: window.APP_TIME_ZONE
+//   }
+// });
+
 function showTIRChart(div, data, addon, name) {
   Highcharts.chart(div, {
       chart: {
