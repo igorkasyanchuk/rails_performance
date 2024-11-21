@@ -158,6 +158,16 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "resources tab" do
+    setup_db
+
+    RailsPerformance::Extensions::ResourceMonitor.new("rails", "web123").run
+
+    get "/rails/performance/resources"
+    assert_response :success
+    assert response.body.include?("web123")
+  end
+
   test "should get trace with params" do
     setup_db(dummy_event(request_id: "112233"))
     RailsPerformance::Models::TraceRecord.new(request_id: "112233", value: [

@@ -11,6 +11,7 @@ require_relative "rails_performance/models/delayed_job_record"
 require_relative "rails_performance/models/grape_record"
 require_relative "rails_performance/models/trace_record"
 require_relative "rails_performance/models/rake_record"
+require_relative "rails_performance/models/resource_record"
 require_relative "rails_performance/models/custom_record"
 require_relative "rails_performance/data_source"
 require_relative "rails_performance/utils"
@@ -24,6 +25,7 @@ require_relative "rails_performance/reports/slow_requests_report"
 require_relative "rails_performance/reports/breakdown_report"
 require_relative "rails_performance/reports/trace_report"
 require_relative "rails_performance/reports/percentile_report"
+require_relative "rails_performance/reports/resources_report"
 require_relative "rails_performance/extensions/trace"
 require_relative "rails_performance/thread/current_request"
 
@@ -116,6 +118,17 @@ module RailsPerformance
   # Trace details view configuration
   mattr_accessor :ignore_trace_headers
   @@ignore_trace_headers = ["datetimei"]
+
+  mattr_accessor :_resource_monitor
+  @@_resource_monitor = nil
+
+  # to check if we are running in console mode
+  mattr_accessor :_running_mode
+  @@_running_mode = nil
+
+  # by default we don't want to monitor resources, but we can enable it by adding required gems
+  mattr_accessor :_resource_monitor_enabled
+  @@_resource_monitor_enabled = false
 
   def self.setup
     yield(self)

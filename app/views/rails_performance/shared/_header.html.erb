@@ -17,6 +17,9 @@
       <%= link_to 'Dashboard', rails_performance.rails_performance_url, class: "navbar-item #{active?(:dashboard)}" %>
       <%= link_to 'Requests Analysis', rails_performance.rails_performance_requests_url, class: "navbar-item #{active?(:requests)}" %>
       <%= link_to 'Recent Requests', rails_performance.rails_performance_recent_url, class: "navbar-item #{active?(:recent)}" %>
+      <% if RailsPerformance._resource_monitor_enabled %>
+        <%= link_to 'System', rails_performance.rails_performance_resources_url, class: "navbar-item #{active?(:resources)}" %>
+      <% end %>
       <%= link_to 'Slow Requests', rails_performance.rails_performance_slow_url, class: "navbar-item #{active?(:slow)}" %>
       <%= link_to '500 Errors', rails_performance.rails_performance_crashes_url, class: "navbar-item #{active?(:crashes)}" %>
       <% if defined?(Sidekiq) %>

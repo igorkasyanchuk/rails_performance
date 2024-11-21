@@ -22,6 +22,7 @@ It allows you to track:
 
 - real-time monitoring on the Recent tab
 - see your p50, p90, p99 response time
+- monitor system resources (CPU, memory, disk)
 - monitor slow requests
 - throughput report (see amount of RPM (requests per minute))
 - an average response time
@@ -174,6 +175,49 @@ You need to configure `config.custom_data_proc`. And you can capture current_use
 ![Custom Data](docs/custom_data.png)
 
 
+### System Monitoring
+
+You can monitor system resources (CPU, memory, disk) by adding a gem to your Gemfile:
+
+```ruby
+gem "sys-filesystem"
+gem "sys-cpu"
+gem "get_process_mem"
+```
+
+Once you add these gems, it will track and show you the system resources on the dashboard.
+
+If you have multiple servers running the same app, it will use store metrics per server. You can configure the the env variable ENV["RAILS_PERFORMANCE_SERVER_ID"] or using `hostname` command.
+
+Basically using this code:
+
+```ruby
+      def server_id
+        @server_id ||= ENV["RAILS_PERFORMANCE_SERVER_ID"] || `hostname`.strip
+      end
+```
+
+For Kamal for example:
+
+```yaml
+env:
+  clear:
+    RAILS_PERFORMANCE_SERVER_ID: "server"
+```
+
+You can also specifify custom "context" and "role" for monitoring, by changing the env variables:
+
+```ruby
+RailsPerformance::Extensions::ResourceMonitor.new(
+  ENV["RAILS_PERFORMANCE_SERVER_CONTEXT"].presence || "rails",
+  ENV["RAILS_PERFORMANCE_SERVER_ROLE"].presence || "web"
+)
+```
+
+More information here: `lib/rails_performance/engine.rb`.
+
+PS: right now it can only distinguish between web app servers and the sidekiq servers.
+
 ### Custom events
 
 ```ruby
@@ -183,6 +227,8 @@ end
 ```
 
 ## Using with Rails Namespace
+
+If you want to use Redis namespace (for example when you have multiple apps running on the same server), you can configure it like this:
 
 ```ruby
   config.redis = Redis::Namespace.new("#{Rails.env}-rails-performance", redis: Redis.new(url: ENV["REDIS_URL"].presence || "redis://127.0.0.1:6379/0"))
@@ -256,6 +302,7 @@ The idea of this gem grew from curiosity how many RPM my app receiving per day. 
 - searchkiq
 - sinatra?
 - tests to check what is actually stored in redis db after request
+- upgrade bulma
 
 ## Contributing
 

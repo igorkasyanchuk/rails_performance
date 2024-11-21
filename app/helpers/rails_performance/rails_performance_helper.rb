@@ -30,10 +30,6 @@ module RailsPerformance
       end
     end
 
-    def mss(value, limit = 1)
-      ms(value.to_f * 1000, limit)
-    end
-
     def ms(value, limit = 1)
       result = round_it(value, limit)
       return "-" if result.nil?
@@ -132,6 +128,8 @@ module RailsPerformance
         "is-active" if controller_name == "rails_performance" && action_name == "crashes"
       when :requests
         "is-active" if controller_name == "rails_performance" && action_name == "requests"
+      when :resources
+        "is-active" if controller_name == "rails_performance" && action_name == "resources"
       when :recent
         "is-active" if controller_name == "rails_performance" && action_name == "recent"
       when :slow

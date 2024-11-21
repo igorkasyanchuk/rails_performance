@@ -1,8 +1,5 @@
 function showTIRChart(div, data, addon, name) {
   Highcharts.chart(div, {
-      // time: {
-      //   timezone: 'Europe/Kiev'
-      // },
       chart: {
           type: 'area',
           zoomType: 'x',
@@ -22,7 +19,7 @@ function showTIRChart(div, data, addon, name) {
           },
           formatter: function() {
               if (this.y == 0) {
-                return false; 
+                return false;
               }
             return this.y + addon;
           }
@@ -84,9 +81,6 @@ function showTIRChart(div, data, addon, name) {
 
 function showRTChart(div, data) {
   Highcharts.chart(div, {
-      // time: {
-      //   timezone: 'Europe/Kiev'
-      // },
       chart: {
           type: 'area',
           zoomType: 'x',
@@ -166,6 +160,179 @@ function showRTChart(div, data) {
       }]
   });
 };
+
+function showPercentageChart(div, data, addon, name) {
+  Highcharts.chart(div, {
+      chart: {
+          type: 'line',
+          zoomType: 'x',
+      },
+      title: {
+          text: ''
+      },
+      tooltip: {
+          borderWidth: 0,
+          backgroundColor: 'yellow',
+          pointFormat: '{point.y}',
+          //headerFormat: '',
+          shadow: false,
+          style: {
+              fontSize: '16px',
+              color: '#000',
+          },
+          formatter: function() {
+            if (this.y == 0) {
+              return false;
+            }
+            return this.y + ' %';
+        }
+      },
+      xAxis: {
+          crosshair: true,
+          type: 'datetime',
+          labels: {
+            style: {
+              color: "#a6b0cf"
+            }
+          }
+      },
+      yAxis: {
+          min: 0,
+          title: {
+              text: '%',
+              style: {
+                color: "#f6f6f6"
+              }
+          },
+          labels: {
+            style: {
+              color: "#a6b0cf"
+            }
+          }
+      },
+      legend: {
+          enabled: false
+      },
+      exporting: {
+        buttons: {
+          contextButton: {
+            theme: {
+              fill: "#eee"
+            }
+          }
+        }
+      },
+      plotOptions: {
+          area: {
+            color: '#ff5b5b',
+          }
+      },
+      series: [{
+          type: 'line',
+          name: name,
+          data: data,
+          fillOpacity: 0.3,
+          lineWidth: 1,
+          states: {
+            hover: {
+              lineWidth: 2
+            }
+          }
+      }]
+  });
+};
+
+
+function showUsageChart(div, data, addon, name) {
+  Highcharts.chart(div, {
+      chart: {
+          type: 'line',
+          zoomType: 'x',
+      },
+      title: {
+          text: ''
+      },
+      tooltip: {
+          borderWidth: 0,
+          backgroundColor: 'yellow',
+          pointFormat: '{point.y}',
+          //headerFormat: '',
+          shadow: false,
+          style: {
+              fontSize: '16px',
+              color: '#000',
+          },
+          formatter: function() {
+              if (this.y == 0) {
+                return false;
+              }
+            return bytes(this.y, true);
+          }
+      },
+      xAxis: {
+          crosshair: true,
+          type: 'datetime',
+          labels: {
+            style: {
+              color: "#a6b0cf"
+            }
+          }
+      },
+      yAxis: {
+          min: 0,
+          title: {
+              text: '',
+              style: {
+                color: "#f6f6f6"
+              }
+          },
+          labels: {
+            style: {
+              color: "#a6b0cf"
+            }
+          }
+      },
+      legend: {
+          enabled: false
+      },
+      exporting: {
+        buttons: {
+          contextButton: {
+            theme: {
+              fill: "#eee"
+            }
+          }
+        }
+      },
+      plotOptions: {
+          area: {
+            color: '#ff5b5b',
+          }
+      },
+      series: [{
+          type: 'line',
+          name: name,
+          data: data,
+          fillOpacity: 0.3,
+          lineWidth: 1,
+          states: {
+            hover: {
+              lineWidth: 2
+            }
+          }
+      }]
+  });
+};
+
+function bytes(bytes, label) {
+  if (bytes == 0) return '';
+  var s = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
+  var e = Math.floor(Math.log(bytes)/Math.log(1024));
+  var value = ((bytes/Math.pow(1024, Math.floor(e))).toFixed(2));
+  e = (e<0) ? (-e) : e;
+  if (label) value += ' ' + s[e];
+  return value;
+}
 
 const recent = document.getElementById("recent")
 const autoupdate = document.getElementById("autoupdate")
