@@ -175,7 +175,9 @@ You need to configure `config.custom_data_proc`. And you can capture current_use
 ![Custom Data](docs/custom_data.png)
 
 
-### System Monitoring
+### Server Monitoring
+
+![Server Monitoring](docs/rails_performance_cpu_memory_storage.png)
 
 You can monitor system resources (CPU, memory, disk) by adding a gem to your Gemfile:
 
