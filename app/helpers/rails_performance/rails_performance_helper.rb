@@ -30,10 +30,6 @@ module RailsPerformance
       end
     end
 
-    def mss(value, limit = 1)
-      ms(value.to_f * 1000, limit)
-    end
-
     def ms(value, limit = 1)
       result = round_it(value, limit)
       return "-" if result.nil?
