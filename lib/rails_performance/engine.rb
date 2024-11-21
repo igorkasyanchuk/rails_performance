@@ -52,7 +52,10 @@ module RailsPerformance
               RailsPerformance._resource_monitor.stop_monitoring
               RailsPerformance._resource_monitor = nil
               # start background monitoring
-              RailsPerformance._resource_monitor = RailsPerformance::Extensions::ResourceMonitor.new("sidekiq", "background")
+              RailsPerformance._resource_monitor = RailsPerformance::Extensions::ResourceMonitor.new(
+                ENV["RAILS_PERFORMANCE_SERVER_CONTEXT"].presence || "sidekiq",
+                ENV["RAILS_PERFORMANCE_SERVER_ROLE"].presence || "background"
+              )
             end
           end
         end
