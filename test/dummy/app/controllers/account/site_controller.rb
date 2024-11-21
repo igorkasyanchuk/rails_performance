@@ -3,7 +3,7 @@ class Account::SiteController < ApplicationController
 
   def about
     SecondWorker.perform_async
-    sleep(rand(2.0))
+    sleep(rand(500) * 0.001)
     5.times { User.where(first_name: "X#{rand(100)}").count }
     User.create.say_hello
     User.create.say_hello_without_delay
@@ -24,7 +24,7 @@ class Account::SiteController < ApplicationController
 
   def is_redirect
     SecondWorker.perform_async
-    sleep(rand(2.0))
+    sleep(rand(500) * 0.001)
     redirect_to "/"
   end
 end
