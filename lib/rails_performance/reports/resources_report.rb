@@ -1,13 +1,6 @@
 module RailsPerformance
   module Reports
     class ResourcesReport < BaseReport
-      def self.x
-        @datasource = RailsPerformance::DataSource.new(type: :resources)
-        db = @datasource.db
-        @data = RailsPerformance::Reports::ResourcesReport.new(db)
-        # RailsPerformance::Reports::ResourcesReport.x
-      end
-
       def data
         @data ||= db.data
           .collect { |e| e.record_hash }
