@@ -197,6 +197,14 @@ Basically using this code:
       end
 ```
 
+For Kamal for example:
+
+```yaml
+env:
+  clear:
+    RAILS_PERFORMANCE_SERVER_ID: "server"
+```
+
 You can also specifify custom "context" and "role" for monitoring, by changing the env variables:
 
 ```ruby
