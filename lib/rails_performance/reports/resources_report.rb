@@ -1,9 +1,8 @@
 module RailsPerformance
   module Reports
     class ResourcesReport < BaseReport
-
       def self.x
-        @datasource = RailsPerformance::DataSource.new(type: :resource)
+        @datasource = RailsPerformance::DataSource.new(type: :resources)
         db = @datasource.db
         @data = RailsPerformance::Reports::ResourcesReport.new(db)
         # RailsPerformance::Reports::ResourcesReport.x
@@ -14,7 +13,7 @@ module RailsPerformance
           .collect { |e| e.record_hash }
           .group_by { |e| e[:server] + "///" + e[:context] + "///" + e[:role] }
           .transform_values { |v| v.sort { |a, b| b[sort] <=> a[sort] } }
-          .transform_values { |v| v.map { |e| e.merge({ datetimei: e[:datetimei].to_i }) } }
+          .transform_values { |v| v.map { |e| e.merge({datetimei: e[:datetimei].to_i}) } }
       end
 
       def cpu

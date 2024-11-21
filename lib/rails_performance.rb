@@ -119,12 +119,16 @@ module RailsPerformance
   mattr_accessor :ignore_trace_headers
   @@ignore_trace_headers = ["datetimei"]
 
-
   mattr_accessor :_resource_monitor
   @@_resource_monitor = nil
 
+  # to check if we are running in console mode
   mattr_accessor :_running_mode
   @@_running_mode = nil
+
+  # by default we don't want to monitor resources, but we can enable it by adding required gems
+  mattr_accessor :_resource_monitor_enabled
+  @@_resource_monitor_enabled = false
 
   def self.setup
     yield(self)

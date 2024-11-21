@@ -1,13 +1,13 @@
-<title>Server Resources</title>
+<title>System Resources</title>
 
 <% @resources_report.data.keys.each do |server_key| %>
-  <h1 class="title"><%= server_key.split("///"). join(", ") %></h1>
+  <h1 class="title mt-8 pt-8"><%= server_key.split("///"). join(", ") %></h1>
 
   <div class="card">
     <div class="card-content">
       <h2 class="subtitle">CPU</h2>
       <div id="cpu_report_<%= server_key.parameterize %>" class="chart"></div>
-      <p class="content is-small">CPU Load %, average per 1 minute</p>
+      <p class="content is-small">CPU usage %, average per 1 minute</p>
     </div>
   </div>
 
@@ -17,7 +17,7 @@
     <div class="card-content">
       <h2 class="subtitle">Memory</h2>
       <div id="memory_report_<%= server_key.parameterize %>" class="chart"></div>
-      <p class="content is-small">Memory used</p>
+      <p class="content is-small">App memory usage</p>
     </div>
   </div>
 
@@ -27,9 +27,11 @@
     <div class="card-content">
       <h2 class="subtitle">Disk</h2>
       <div id="disk_report_<%= server_key.parameterize %>" class="chart"></div>
-      <p class="content is-small">Disk size available</p>
+      <p class="content is-small">Available disk size</p>
     </div>
   </div>
+
+  <br>
 <% end %>
 
 <% content_for :on_load do %>
@@ -39,10 +41,10 @@
       showPercentageChart('cpu_report_<%= server_key.parameterize %>', data1, ' %', '%');
 
       var data2 = <%= raw @resources_report.memory[server_key].to_json %>;
-      showColumnChart('memory_report_<%= server_key.parameterize %>', data2, ' Mb', 'Mb');
+      showUsageChart('memory_report_<%= server_key.parameterize %>', data2, ' Mb', 'Mb');
 
       var data3 = <%= raw @resources_report.disk[server_key].to_json %>;
-      showColumnChart('disk_report_<%= server_key.parameterize %>', data3, ' Gb', 'Gb');
+      showUsageChart('disk_report_<%= server_key.parameterize %>', data3, ' Gb', 'Gb');
     <% end %>
   </script>
 <% end %>

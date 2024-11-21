@@ -15,7 +15,7 @@ module RailsPerformance
       end
 
       def resources
-        @datasource = RailsPerformance::DataSource.new(**prepare_query(params), type: :resource)
+        @datasource = RailsPerformance::DataSource.new(**prepare_query(params), type: :resources)
         db = @datasource.db
 
         @resources_report = RailsPerformance::Reports::ResourcesReport.new(db)

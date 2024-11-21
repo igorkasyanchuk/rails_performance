@@ -7,7 +7,7 @@ module RailsPerformance
       grape: RailsPerformance::Models::GrapeRecord,
       rake: RailsPerformance::Models::RakeRecord,
       custom: RailsPerformance::Models::CustomRecord,
-      resource: RailsPerformance::Models::ResourceRecord
+      resources: RailsPerformance::Models::ResourceRecord
     }
 
     attr_reader :q, :klass, :type
@@ -55,7 +55,7 @@ module RailsPerformance
       case type
       when :requests
         "performance|*#{compile_requests_query}*|END|#{RailsPerformance::SCHEMA}"
-      when :resource
+      when :resources
         "resource|*#{compile_resource_query}*|END|#{RailsPerformance::SCHEMA}"
       when :sidekiq
         "sidekiq|*#{compile_sidekiq_query}*|END|#{RailsPerformance::SCHEMA}"

@@ -1,8 +1,5 @@
 function showTIRChart(div, data, addon, name) {
   Highcharts.chart(div, {
-      // time: {
-      //   timezone: 'Europe/Kiev'
-      // },
       chart: {
           type: 'area',
           zoomType: 'x',
@@ -84,9 +81,6 @@ function showTIRChart(div, data, addon, name) {
 
 function showRTChart(div, data) {
   Highcharts.chart(div, {
-      // time: {
-      //   timezone: 'Europe/Kiev'
-      // },
       chart: {
           type: 'area',
           zoomType: 'x',
@@ -169,9 +163,6 @@ function showRTChart(div, data) {
 
 function showPercentageChart(div, data, addon, name) {
   Highcharts.chart(div, {
-      // time: {
-      //   timezone: 'Europe/Kiev'
-      // },
       chart: {
           type: 'line',
           zoomType: 'x',
@@ -208,7 +199,7 @@ function showPercentageChart(div, data, addon, name) {
       yAxis: {
           min: 0,
           title: {
-              text: 'RPM',
+              text: '%',
               style: {
                 color: "#f6f6f6"
               }
@@ -240,11 +231,11 @@ function showPercentageChart(div, data, addon, name) {
           type: 'line',
           name: name,
           data: data,
-          // fillOpacity: 0.3,
-          // lineWidth: 4,
+          fillOpacity: 0.3,
+          lineWidth: 1,
           states: {
             hover: {
-              lineWidth: 6
+              lineWidth: 2
             }
           }
       }]
@@ -252,11 +243,8 @@ function showPercentageChart(div, data, addon, name) {
 };
 
 
-function showColumnChart(div, data, addon, name) {
+function showUsageChart(div, data, addon, name) {
   Highcharts.chart(div, {
-      // time: {
-      //   timezone: 'Europe/Kiev'
-      // },
       chart: {
           type: 'line',
           zoomType: 'x',
@@ -293,7 +281,7 @@ function showColumnChart(div, data, addon, name) {
       yAxis: {
           min: 0,
           title: {
-              text: 'RPM',
+              text: '',
               style: {
                 color: "#f6f6f6"
               }
@@ -325,11 +313,11 @@ function showColumnChart(div, data, addon, name) {
           type: 'line',
           name: name,
           data: data,
-          // fillOpacity: 0.3,
-          // lineWidth: 4,
+          fillOpacity: 0.3,
+          lineWidth: 1,
           states: {
             hover: {
-              lineWidth: 6
+              lineWidth: 2
             }
           }
       }]

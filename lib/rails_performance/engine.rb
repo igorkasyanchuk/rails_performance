@@ -9,8 +9,11 @@ module RailsPerformance
     isolate_namespace RailsPerformance
 
     initializer "rails_performance.resource_monitor" do
+      # check required gems are available
+      RailsPerformance._resource_monitor_enabled = !!(defined?(Sys::Filesystem) && defined?(Sys::CPU) && defined?(GetProcessMem))
+
       next unless RailsPerformance.enabled
-      next if $rails_performance_running_mode == :console
+      next if $rails_performance_running_mode == :console # rubocop:disable Style/GlobalVars
 
       # start monitoring
       RailsPerformance._resource_monitor = RailsPerformance::Extensions::ResourceMonitor.new("rails", "web")
@@ -40,7 +43,7 @@ module RailsPerformance
           end
 
           config.on(:startup) do
-            if $rails_performance_running_mode != :console
+            if $rails_performance_running_mode != :console # rubocop:disable Style/GlobalVars
               # stop web monitoring
               # when we run sidekiq it also starts web monitoring (see above)
               RailsPerformance._resource_monitor.stop_monitoring
@@ -85,7 +88,7 @@ module RailsPerformance
     end
 
     if defined?(::Rails::Console)
-      $rails_performance_running_mode = :console
+      $rails_performance_running_mode = :console # rubocop:disable Style/GlobalVars
     end
   end
 end

@@ -38,12 +38,8 @@ module RailsPerformance
         }
       end
 
-      def combined_key
-        "#{server}__________#{context}__________#{role}"
-      end
-
       def save
-        key = "resource|server|#{server}|context|#{context}|role|#{role}|datetime|#{datetime}|datetimei|#{datetimei}|combined_key|#{combined_key}|END|#{RailsPerformance::SCHEMA}"
+        key = "resource|server|#{server}|context|#{context}|role|#{role}|datetime|#{datetime}|datetimei|#{datetimei}|END|#{RailsPerformance::SCHEMA}"
         Utils.save_to_redis(key, json)
       end
     end

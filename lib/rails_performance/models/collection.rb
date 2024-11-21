@@ -13,7 +13,7 @@ module RailsPerformance
 
       def group_by(type)
         case type
-        when :controller_action, :controller_action_format, :datetime, :path, :combined_key
+        when :controller_action, :controller_action_format, :datetime, :path
           fetch_values @data.group_by(&type)
         else
           {}

@@ -32,6 +32,7 @@ module RailsPerformance
 
       def calculate_data
         now = Time.current
+        now = now.change(sec: 0, usec: 0)
         stop = Time.at(60 * (now.to_i / 60))
         offset = RailsPerformance::Reports::BaseReport.time_in_app_time_zone(now).utc_offset
         current = stop - RailsPerformance.duration
@@ -55,17 +56,24 @@ module RailsPerformance
         @data.sort!
       end
 
+      # Generate series for our time range -> (now - duration)..now
+      # {
+      #   1732125540000 => 0,
+      #   1732125550000 => 0,
+      #   ....
+      # }
       def nil_data
         @nil_data ||= begin
           result = {}
           now = Time.current
+          now = now.change(sec: 0, usec: 0)
           stop = Time.at(60 * (now.to_i / 60))
           offset = RailsPerformance::Reports::BaseReport.time_in_app_time_zone(now).utc_offset
           current = stop - RailsPerformance.duration
 
           while current <= stop
-            key = current.strftime(RailsPerformance::FORMAT)
-            result[(current.to_i + offset) * 1000] = 0
+            current.strftime(RailsPerformance::FORMAT)
+            result[(current.to_i + offset) * 1000] = nil
             current += 1.minute
           end
 
@@ -78,8 +86,7 @@ module RailsPerformance
       #   1732125550000 => 0,
       # }
       def nullify_data(input)
-        # nil_data.merge(input).sort
-        input.sort
+        nil_data.merge(input).sort
       end
     end
   end
