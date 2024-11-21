@@ -1,5 +1,8 @@
 - Unreleased
 
+- 1.4.0 (unreleased)
+  - track CPU, memory, storage: https://github.com/igorkasyanchuk/rails_performance/pull/111
+
 - 1.3.3
   - little improvements and bug fixes
   - changes in the readme
