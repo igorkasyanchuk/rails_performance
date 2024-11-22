@@ -35,5 +35,9 @@ if defined?(RailsPerformance)
 
     config.include_rake_tasks = true
     config.include_custom_events = true
+
+    # If enabled, the system monitor will be displayed on the dashboard
+    # to enabled add required gems (see README)
+    config.system_monitor_duration = 24.hours
   end
 end

@@ -63,14 +63,14 @@ module RailsPerformance
       #   1732125550000 => 0,
       #   ....
       # }
-      def nil_data
+      def nil_data(duration = RailsPerformance.duration)
         @nil_data ||= begin
           result = {}
           now = RailsPerformance::Utils.time
           now = now.change(sec: 0, usec: 0)
           stop = now # Time.at(60 * (now.to_i / 60))
           offset = 0 # RailsPerformance::Reports::BaseReport.time_in_app_time_zone(now).utc_offset
-          current = stop - RailsPerformance.duration
+          current = stop - duration
 
           while current <= stop
             current.strftime(RailsPerformance::FORMAT)
@@ -86,8 +86,8 @@ module RailsPerformance
       #   1732125540000 => 1,
       #   1732125550000 => 0,
       # }
-      def nullify_data(input)
-        nil_data.merge(input).sort
+      def nullify_data(input, duration = RailsPerformance.duration)
+        nil_data(duration).merge(input).sort
       end
     end
   end

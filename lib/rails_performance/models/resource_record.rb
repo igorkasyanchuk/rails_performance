@@ -40,7 +40,8 @@ module RailsPerformance
 
       def save
         key = "resource|server|#{server}|context|#{context}|role|#{role}|datetime|#{datetime}|datetimei|#{datetimei}|END|#{RailsPerformance::SCHEMA}"
-        Utils.save_to_redis(key, json)
+        # with longer expiration time
+        Utils.save_to_redis(key, json, RailsPerformance.system_monitor_duration.to_i)
       end
     end
   end

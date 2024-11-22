@@ -52,5 +52,9 @@ if defined?(RailsPerformance)
     config.skipable_rake_tasks = ["webpacker:compile"]
     config.include_rake_tasks = false
     config.include_custom_events = true
+
+    # If enabled, the system monitor will be displayed on the dashboard
+    # to enabled add required gems (see README)
+    # config.system_monitor_duration = 24.hours
   end
 end
