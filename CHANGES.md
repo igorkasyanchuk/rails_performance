@@ -3,6 +3,7 @@
 - 1.4.0 (unreleased)
   - track CPU, memory, storage: https://github.com/igorkasyanchuk/rails_performance/pull/111
   - use UTC time: https://github.com/igorkasyanchuk/rails_performance/pull/114
+  - custom expiration time for system monitoring report: https://github.com/igorkasyanchuk/rails_performance/pull/115/files
 
 - 1.3.3
   - little improvements and bug fixes
