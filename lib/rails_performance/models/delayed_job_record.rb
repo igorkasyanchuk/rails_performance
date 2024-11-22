@@ -41,7 +41,7 @@ module RailsPerformance
       def record_hash
         {
           jid: jid,
-          datetime: Time.at(datetimei),
+          datetime: RailsPerformance::Utils.from_datetimei(datetimei),
           datetimei: datetimei,
           duration: value["duration"],
           status: status,

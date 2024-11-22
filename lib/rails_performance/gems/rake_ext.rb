@@ -4,7 +4,7 @@ module RailsPerformance
       def self.init
         ::Rake::Task.class_eval do
           def invoke_with_rails_performance(*args)
-            now = Time.current
+            now = RailsPerformance::Utils.time
             status = "success"
             invoke_without_new_rails_performance(*args)
           rescue Exception => ex # rubocop:disable Lint/RescueException
@@ -18,7 +18,7 @@ module RailsPerformance
                 task: task_info,
                 datetime: now.strftime(RailsPerformance::FORMAT),
                 datetimei: now.to_i,
-                duration: (Time.current - now) * 1000,
+                duration: (RailsPerformance::Utils.time - now) * 1000,
                 status: status
               ).save
             end

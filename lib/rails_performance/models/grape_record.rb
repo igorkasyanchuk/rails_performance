@@ -43,7 +43,7 @@ module RailsPerformance
           status: status,
           method: method,
           path: path,
-          datetime: Time.at(datetimei.to_i),
+          datetime: RailsPerformance::Utils.from_datetimei(datetimei.to_i),
           datetimei: datetimei.to_i,
           request_id: request_id
         }.merge(value)

@@ -4,7 +4,7 @@ module RailsPerformance
       class Plugin < ::Delayed::Plugin
         callbacks do |lifecycle|
           lifecycle.around(:invoke_job) do |job, *args, &block|
-            now = Time.current
+            now = RailsPerformance::Utils.time
             block.call(job, *args)
             status = "success"
           rescue Exception => error # rubocop:disable Lint/RescueException
@@ -14,7 +14,7 @@ module RailsPerformance
             meta_data = RailsPerformance::Gems::DelayedJobExt::Plugin.meta(job.payload_object)
             record = RailsPerformance::Models::DelayedJobRecord.new(
               jid: job.id,
-              duration: (Time.current - now) * 1000,
+              duration: (RailsPerformance::Utils.time - now) * 1000,
               datetime: now.strftime(RailsPerformance::FORMAT),
               datetimei: now.to_i,
               source_type: meta_data[0],

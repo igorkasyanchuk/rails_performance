@@ -25,6 +25,8 @@ module RailsPerformance
         return if RailsPerformance.ignored_endpoints.include? "#{event.payload[:controller]}##{event.payload[:action]}"
         return if RailsPerformance.ignored_paths.any? { |p| event.payload[:path].start_with?(p) }
 
+        finished = finished.utc
+
         record = {
           controller: event.payload[:controller],
           action: event.payload[:action],

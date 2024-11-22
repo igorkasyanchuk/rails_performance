@@ -31,7 +31,7 @@ module RailsPerformance
           role: role,
           context: context,
           datetime: datetime,
-          datetimei: Time.at(datetimei.to_i),
+          datetimei: RailsPerformance::Utils.from_datetimei(datetimei.to_i),
           cpu: value["cpu"],
           memory: value["memory"],
           disk: value["disk"]

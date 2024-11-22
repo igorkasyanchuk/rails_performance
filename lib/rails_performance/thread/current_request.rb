@@ -27,7 +27,7 @@ module RailsPerformance
     end
 
     def trace(options = {})
-      @tracings << options.merge(time: Time.current.to_i)
+      @tracings << options.merge(time: RailsPerformance::Utils.time.to_i)
     end
   end
 end
