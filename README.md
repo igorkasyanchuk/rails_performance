@@ -117,6 +117,10 @@ RailsPerformance.setup do |config|
 
   # To monitor custom events with `RailsPerformance.measure` block
   # config.include_custom_events = true
+
+  # To monitor system resources (CPU, memory, disk)
+  # to enabled add required gems (see README)
+  # config.system_monitor_duration = 24.hours
 end if defined?(RailsPerformance)
 ```
 

@@ -13,7 +13,7 @@ module RailsPerformance
         @cpu ||= data.transform_values do |v|
           nullify_data(v.each_with_object({}) do |e, res|
             res[e[:datetimei] * 1000] = e[:cpu]["one_min"].to_f.round(2)
-          end)
+          end, RailsPerformance.system_monitor_duration)
         end
       end
 
@@ -21,7 +21,7 @@ module RailsPerformance
         @memory ||= data.transform_values do |v|
           nullify_data(v.each_with_object({}) do |e, res|
             res[e[:datetimei] * 1000] = e[:memory].to_f.round(2)
-          end)
+          end, RailsPerformance.system_monitor_duration)
         end
       end
 
@@ -29,7 +29,7 @@ module RailsPerformance
         @disk ||= data.transform_values do |v|
           nullify_data(v.each_with_object({}) do |e, res|
             res[e[:datetimei] * 1000] = e[:disk]["available"].to_f.round(2)
-          end)
+          end, RailsPerformance.system_monitor_duration)
         end
       end
     end

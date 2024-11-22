@@ -10,19 +10,20 @@ module RailsPerformance
       resources: RailsPerformance::Models::ResourceRecord
     }
 
-    attr_reader :q, :klass, :type
+    attr_reader :q, :klass, :type, :days
 
-    def initialize(type:, q: {})
+    def initialize(type:, q: {}, days: RailsPerformance::Utils.days(RailsPerformance.duration))
       @type = type
       @klass = KLASSES[type]
       q[:on] ||= Date.today
       @q = q
+      @days = days
     end
 
     def db
       result = RailsPerformance::Models::Collection.new
       now = RailsPerformance::Utils.time
-      (0..(RailsPerformance::Utils.days)).to_a.reverse_each do |e|
+      (0..days).to_a.reverse_each do |e|
         RailsPerformance::DataSource.new(q: q.merge({on: (now - e.days).to_date}), type: type).add_to(result)
       end
       result

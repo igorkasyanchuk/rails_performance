@@ -40,8 +40,8 @@ module RailsPerformance
       RailsPerformance.redis.set(key, value.to_json, ex: expire.to_i)
     end
 
-    def self.days
-      (RailsPerformance.duration / 1.day) + 1
+    def self.days(duration = RailsPerformance.duration)
+      (duration / 1.day) + 1
     end
 
     def self.median(array)

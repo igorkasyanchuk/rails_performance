@@ -119,6 +119,14 @@ module RailsPerformance
   mattr_accessor :ignore_trace_headers
   @@ignore_trace_headers = ["datetimei"]
 
+  # System monitor duration (expiration time)
+  mattr_accessor :system_monitor_duration
+  @@system_monitor_duration = 24.hours
+
+  # -- internal usage --
+  #
+  #
+  # to store the resource monitor instance
   mattr_accessor :_resource_monitor
   @@_resource_monitor = nil
 
