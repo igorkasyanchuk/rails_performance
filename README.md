@@ -18,6 +18,8 @@ Detailed p50, p90, p99 response time information.
 
 ![Home](docs/rails_performance_recent_requests.png)
 
+(more screenshots below)
+
 It allows you to track:
 
 - real-time monitoring on the Recent tab
