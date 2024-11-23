@@ -10,3 +10,7 @@ test/dummy/tmp/
 
 *.gem
 coverage/
+
+.DS_Store
+
+*/**/.DS_Store

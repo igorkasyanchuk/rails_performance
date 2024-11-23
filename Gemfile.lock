@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails_performance (1.4.0.alpha5)
+    rails_performance (1.4.0)
       browser
       railties
       redis
