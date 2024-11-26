@@ -69,7 +69,7 @@ module RailsPerformance
       when :custom
         "custom|*#{compile_custom_query}*|END|#{RailsPerformance::SCHEMA}"
       else
-        raise "wrong type for datasource query builder"
+        raise "wrong type: \"#{type}\" for datasource query builder"
       end
     end
 

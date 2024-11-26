@@ -3,6 +3,8 @@ module RailsPerformance
     class RakeExt
       def self.init
         ::Rake::Task.class_eval do
+          next if method_defined?(:invoke_with_rails_performance)
+
           def invoke_with_rails_performance(*args)
             now = RailsPerformance::Utils.time
             status = "success"

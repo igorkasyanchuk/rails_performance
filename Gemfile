@@ -13,6 +13,7 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
+gem "rails", "~> 7.2.0"
 
 gem "pry"
 gem "sqlite3"
@@ -40,3 +41,6 @@ gem "standard"
 gem "sys-filesystem"
 gem "sys-cpu"
 gem "get_process_mem"
+
+gem "ostruct"
+gem "csv"
