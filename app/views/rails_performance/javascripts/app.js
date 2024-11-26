@@ -1,6 +1,6 @@
-function showChart(element_id, type, options) {
+function showChart(element_id, type, title, options) {
   const chart = new ApexCharts(
-    document.getElementById(element_id), 
+    document.getElementById(element_id),
     {
       ...options,
       chart: {
@@ -19,53 +19,58 @@ function showChart(element_id, type, options) {
       },
       legend: {
         show: false
-      }  
+      },
+      xaxis: {
+        crosshairs: {
+          show: true
+        },
+        type: 'datetime',
+        labels: {
+          datetimeUTC: false,
+          style: {
+            colors: ["#a6b0cf"]
+          }
+        }
+      },
+      yaxis: {
+        min: 0,
+        opposite: true,
+        title: {
+          text: title,
+          style: {
+            color: "#f6f6f6"
+          }
+        },
+        labels: {
+          style: {
+            colors: ["#a6b0cf"]
+          }
+        }
+      }
     }
   );
   chart.render();
 }
 
+function tooltipOptions(formatter) {
+  return {
+    style: {
+      fontSize: '16px'
+    },
+    x: {
+      show: false,
+      format: 'dd/MM/yy HH:mm'
+    },
+    y: {
+      formatter: formatter
+    },
+  };
+}
+
 function showTIRChart(element_id, data, addon, name) {
-  showChart(element_id, 'area', {
-    tooltip: {
-      style: {
-        fontSize: '16px'
-      },
-      x: {
-        show: false,
-        format: 'dd/MM/yy HH:mm'
-      },
-      y: {
-        formatter: value => (value ? value + addon : undefined)
-      },
-    },
-    xaxis: {
-      crosshairs: {
-        show: true
-      },
-      type: 'datetime',
-      labels: {
-        datetimeUTC: false,
-        style: {
-          colors: ["#a6b0cf"]
-        }
-      }
-    },
-    yaxis: {
-      min: 0,
-      opposite: true,
-      title: {
-        text: 'RPM',
-        style: {
-          color: "#f6f6f6"
-        }
-      },
-      labels: {
-        style: {
-          colors: ["#a6b0cf"]
-        }
-      }
-    },
+  console.dir(data);
+  showChart(element_id, 'area', 'RPM', {
+    tooltip: tooltipOptions(value => (value ? value + addon : undefined)),
     series: [{
       name: name,
       data: data
@@ -74,46 +79,8 @@ function showTIRChart(element_id, data, addon, name) {
 }
 
 function showRTChart(element_id, data) {
-  showChart(element_id, 'area', {
-    tooltip: {
-      style: {
-        fontSize: '16px',
-      },
-      x: {
-        show: false,
-        format: 'dd/MM/yy HH:mm'
-      },
-      y: {
-        formatter: value => (value ? value + ' ms': undefined)
-      }
-    },
-    xaxis: {
-      crosshairs: {
-        show: false
-      },
-      type: 'datetime',
-      labels: {
-        datetimeUTC: false,
-        style: {
-          colors: ["#a6b0cf"]
-        }
-      }
-    },
-    yaxis: {
-      min: 0,
-      opposite: true,
-      title: {
-        text: 'Time',
-        style: {
-          color: "#f6f6f6"
-        }
-      },
-      labels: {
-        style: {
-          colors: ["#a6b0cf"]
-        }
-      }
-    },
+  showChart(element_id, 'area', 'Time', {
+    tooltip: tooltipOptions(value => (value ? value + ' ms' : undefined)),
     series: [{
       name: 'Response Time',
       data: data,
@@ -122,46 +89,8 @@ function showRTChart(element_id, data) {
 }
 
 function showPercentageChart(element_id, data, name) {
-  showChart(element_id, 'line', {
-    tooltip: {
-      style: {
-        fontSize: '16px',
-      },
-      x: {
-        show: false,
-        format: 'dd/MM/yy HH:mm'
-      },
-      y: {
-        formatter: value => (value ? value + ' %' : undefined)
-      }
-    },
-    xaxis: {
-      crosshairs: {
-        show: true
-      },
-      type: 'datetime',
-      labels: {
-        datetimeUTC: false,
-        style: {
-          colors: ["#a6b0cf"]
-        }
-      }
-    },
-    yaxis: {
-      min: 0,
-      opposite: true,
-      title: {
-        text: '%',
-        style: {
-          color: "#f6f6f6"
-        }
-      },
-      labels: {
-        style: {
-          colors: ["#a6b0cf"]
-        }
-      }
-    },
+  showChart(element_id, 'line', '%', {
+    tooltip: tooltipOptions(value => (value ? value + ' %' : undefined)),
     series: [{
       name: name,
       data: data,
@@ -170,63 +99,22 @@ function showPercentageChart(element_id, data, name) {
 }
 
 function showUsageChart(element_id, data, name, pow) {
-  showChart(element_id, 'line', {
+  const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'][pow];
+  const bytes = Math.pow(1024, pow);
+
+  showChart(element_id, 'line', name, {
+    tooltip: tooltipOptions(value => (value ? `${value} ${units}` : undefined)),
     markers: {
       size: 0,
       hover: {
         size: 2
       }
     },
-    tooltip: {
-      style: {
-        fontSize: '16px',
-      },
-      x: {
-        show: false,
-        format: 'dd/MM/yy HH:mm'
-      },
-      y: {
-        formatter: value => human_bytes(value, pow)
-      }
-    },
-    xaxis: {
-      crosshairs: {
-        show: true
-      },
-      type: 'datetime',
-      labels: {
-        datetimeUTC: false,
-        style: {
-          colors: ["#a6b0cf"]
-        }
-      }
-    },
-    yaxis: {
-      min: 0,
-      opposite: true,
-      title: {
-        text: name,
-        style: {
-          color: "#f6f6f6"
-        }
-      },
-      labels: {
-        style: {
-          colors: ["#a6b0cf"]
-        }
-      }
-    },
     series: [{
       name: name,
-      data: data.map(([t, b]) => [t, (b / Math.pow(1024, pow)).toFixed(2)]),
+      data: data.map(([timestamp, value]) => [timestamp, (value / bytes).toFixed(2)]),
     }]
   });
-}
-
-function human_bytes(value, pow = 0) {
-  if (!value) return;
-  const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
-  return `${value} ${units[pow]}`;
 }
 
 const recent = document.getElementById("recent");
