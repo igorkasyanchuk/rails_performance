@@ -34,7 +34,6 @@ function showChart(element_id, type, title, options) {
       },
       yaxis: {
         min: 0,
-        opposite: true,
         title: {
           text: title,
           style: {
