@@ -57,13 +57,19 @@ function tooltipOptions(formatter) {
     style: {
       fontSize: '16px'
     },
+    marker: {
+      show: false,
+    },
     x: {
       show: false,
       format: 'dd/MM/yy HH:mm'
     },
     y: {
-      formatter: formatter
-    },
+      formatter: formatter,
+      title: {
+        formatter: () => '',
+      }
+    }
   };
 }
 
@@ -104,15 +110,9 @@ function showUsageChart(element_id, data, name, pow) {
 
   showChart(element_id, 'line', name, {
     tooltip: tooltipOptions(value => (value ? `${value} ${units}` : undefined)),
-    markers: {
-      size: 0,
-      hover: {
-        size: 2
-      }
-    },
     series: [{
       name: name,
-      data: data.map(([timestamp, value]) => [timestamp, (value / bytes).toFixed(2)]),
+      data: data.map(([timestamp, value]) => [timestamp, typeof value === 'number' ? (value / bytes).toFixed(2) : null]),
     }]
   });
 }
