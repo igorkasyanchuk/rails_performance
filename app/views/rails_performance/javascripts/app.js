@@ -73,7 +73,6 @@ function tooltipOptions(formatter) {
 }
 
 function showTIRChart(element_id, data, addon, name) {
-  console.dir(data);
   showChart(element_id, 'area', 'RPM', {
     tooltip: tooltipOptions(value => (value ? value + addon : undefined)),
     series: [{
