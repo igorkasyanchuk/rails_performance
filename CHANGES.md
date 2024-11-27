@@ -2,6 +2,7 @@
 
 - 1.4.1
   - switch to ApexCharts https://github.com/igorkasyanchuk/rails_performance/pull/117
+  - upgraded dummy app to rails 8 https://github.com/igorkasyanchuk/rails_performance/pull/119
 
 - 1.4.0
   - track CPU, memory, storage: https://github.com/igorkasyanchuk/rails_performance/pull/111
