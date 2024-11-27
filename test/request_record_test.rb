@@ -2,8 +2,10 @@ require "test_helper"
 
 class RequestRecordTest < ActiveSupport::TestCase
   test "storing" do
-    record = dummy_event
-    record.save
+    assert_nothing_raised do
+      record = dummy_event
+      record.save
+    end
   end
 
   test "record" do

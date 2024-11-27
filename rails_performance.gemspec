@@ -25,7 +25,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "simplecov"
   spec.add_development_dependency "grape"
-  spec.add_development_dependency "otr-activerecord"
   spec.add_development_dependency "sidekiq"
   spec.add_development_dependency "mimemagic"
   spec.add_development_dependency "delayed_job_active_record"

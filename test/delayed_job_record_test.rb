@@ -2,12 +2,16 @@ require "test_helper"
 
 class DelayedJobRecordTest < ActiveSupport::TestCase
   test "base works" do
-    User.create.say_hello
-    Delayed::Worker.new.work_off
+    assert_nothing_raised do
+      User.create.say_hello
+      Delayed::Worker.new.work_off
+    end
   end
 
   test "storage" do
-    dummy_delayed_job_record.save
+    assert_nothing_raised do
+      dummy_delayed_job_record.save
+    end
   end
 
   test "delayed job record test" do

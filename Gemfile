@@ -13,7 +13,7 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
-gem "rails", "~> 7.2.0"
+gem "rails", "8.0.0"
 
 gem "pry"
 gem "sqlite3"
