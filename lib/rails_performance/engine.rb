@@ -25,15 +25,7 @@ module RailsPerformance
     initializer "rails_performance.middleware" do |app|
       next unless RailsPerformance.enabled
 
-      if ::Rails::VERSION::MAJOR.to_i >= 5
-        app.middleware.insert_after ActionDispatch::Executor, RailsPerformance::Rails::Middleware
-      else
-        begin
-          app.middleware.insert_after ActionDispatch::Static, RailsPerformance::Rails::Middleware
-        rescue
-          app.middleware.insert_after Rack::SendFile, RailsPerformance::Rails::Middleware
-        end
-      end
+      app.middleware.insert_after ActionDispatch::Executor, RailsPerformance::Rails::Middleware
       # look like it works in reverse order?
       app.middleware.insert_before RailsPerformance::Rails::Middleware, RailsPerformance::Rails::MiddlewareTraceStorerAndCleanup
 

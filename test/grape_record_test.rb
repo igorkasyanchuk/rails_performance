@@ -2,8 +2,10 @@ require "test_helper"
 
 class GrapeRecordTest < ActiveSupport::TestCase
   test "storing" do
-    record = dummy_grape_record
-    record.save
+    assert_nothing_raised do
+      record = dummy_grape_record
+      record.save
+    end
   end
 
   test "record" do
