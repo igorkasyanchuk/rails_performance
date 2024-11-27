@@ -38,13 +38,13 @@
   <script>
     <% @resources_report.data.keys.each do |server_key| %>
       var data1 = <%= raw @resources_report.cpu[server_key].to_json %>;
-      showPercentageChart('cpu_report_<%= server_key.parameterize %>', data1, ' %', '%');
+      showPercentageChart('cpu_report_<%= server_key.parameterize %>', data1, 'CPU');
 
       var data2 = <%= raw @resources_report.memory[server_key].to_json %>;
-      showUsageChart('memory_report_<%= server_key.parameterize %>', data2, ' Mb', 'Mb');
+      showUsageChart('memory_report_<%= server_key.parameterize %>', data2, 'Usage', 2);
 
       var data3 = <%= raw @resources_report.disk[server_key].to_json %>;
-      showUsageChart('disk_report_<%= server_key.parameterize %>', data3, ' Gb', 'Gb');
+      showUsageChart('disk_report_<%= server_key.parameterize %>', data3, 'Available', 3);
     <% end %>
   </script>
 <% end %>
