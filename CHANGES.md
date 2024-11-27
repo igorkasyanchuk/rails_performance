@@ -1,5 +1,8 @@
 - Unreleased
 
+- 1.4.1
+  - switch to ApexCharts https://github.com/igorkasyanchuk/rails_performance/pull/117
+
 - 1.4.0
   - track CPU, memory, storage: https://github.com/igorkasyanchuk/rails_performance/pull/111
   - use UTC time: https://github.com/igorkasyanchuk/rails_performance/pull/114
