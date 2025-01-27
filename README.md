@@ -242,7 +242,7 @@ RailsPerformance.measure("some label", "some namespace") do
 end
 ```
 
-## Using with Rails Namespace
+## Using with Redis Namespace
 
 If you want to use Redis namespace (for example when you have multiple apps running on the same server), you can configure it like this:
 
