@@ -8,11 +8,11 @@ if defined?(RailsPerformance)
 
     # Recent Requests configuration
     config.recent_requests_time_window = 60.minutes
-    # confog.recent_requests_limit = nil # numnber of recent requests
+    # config.recent_requests_limit = nil # number of recent requests
 
     # Slow Requests configuration
     config.slow_requests_time_window = 4.hours
-    # config.slow_requests_limit = 500 # numnber of slow requests
+    # config.slow_requests_limit = 500 # number of slow requests
     config.slow_requests_threshold = 500 # ms
 
     config.debug = false # currently not used>
