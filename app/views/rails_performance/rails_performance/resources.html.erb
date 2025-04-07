@@ -1,18 +1,14 @@
 <title>System Resources</title>
 
-<% @resources_report.data.keys.each do |server_key| %>
-  <h1 class="title mt-8 pt-8"><%= server_key.split("///"). join(", ") %></h1>
+<% @resources_report.servers.each do |server| %>
+  <h1 class="title mt-8 pt-8"><%= server.name %></h1>
 
-  <% {
-    cpu: ["CPU", "CPU usage %, average per 1 minute", "Percentage", "CPU"],
-    memory: ["Memory", "App memory usage", "Usage", "Usage"],
-    disk: ["Storage", "Available storage size (local disk size)", "Usage", "Available"],
-  }.each.with_index do |(key, (subtitle, description, chart_type, legend)), index| %>
+  <% server.charts.each.with_index do |chart, index| %>
     <div class="card">
       <div class="card-content">
-        <h2 class="subtitle"><%= subtitle %></h2>
-        <div id="<%= key %>_report_<%= server_key.parameterize %>" class="chart"></div>
-        <p class="content is-small"><%= description %></p>
+        <h2 class="subtitle"><%= chart.subtitle %></h2>
+        <div class="chart" id="<%= chart.id %>"></div>
+        <p class="content is-small"><%= chart.description %></p>
       </div>
     </div>
 
@@ -20,10 +16,7 @@
 
     <% content_for :on_load do %>
       <script>
-        <% @resources_report.data.keys.each do |server_key| %>
-          var data = <%= raw @resources_report.send(key)[server_key].to_json %>;
-          show<%= chart_type %>Chart('<%= key %>_report_<%= server_key.parameterize %>', data, '<%= legend %>', <%= index %>);
-        <% end %>
+        show<%= chart.type %>Chart('<%= chart.id %>', <%= raw chart.data.to_json %>, '<%= chart.legend %>', <%= index %>);
       </script>
     <% end %>
   <% end %>

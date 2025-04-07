@@ -1,6 +1,36 @@
 module RailsPerformance
   module Reports
     class ResourcesReport < BaseReport
+      Server = Struct.new(:report, :key) do
+        def name
+          key.split("///").join(", ")
+        end
+
+        def charts
+          [
+            Chart.new(self, :cpu, "CPU", "CPU usage %, average per 1 minute", "Percentage", "CPU"),
+            Chart.new(self, :memory, "Memory", "App memory usage", "Usage", "Usage"),
+            Chart.new(self, :disk, "Storage", "Available storage size (local disk size)", "Usage", "Available"),
+          ]
+        end
+      end
+
+      Chart = Struct.new(:server, :key, :subtitle, :description, :type, :legend) do
+        def id
+          [key, "report", server.key.parameterize].join("_")
+        end
+
+        def data
+          server.report.send(key)[server.key]
+        end
+      end
+
+      def servers
+        data.keys.map do |key|
+          Server.new(self, key)
+        end
+      end
+
       def data
         @data ||= db.data
           .collect { |e| e.record_hash }
