@@ -8,14 +8,35 @@ module RailsPerformance
 
         def charts
           [
-            Chart.new(self, :cpu, "CPU", "CPU usage %, average per 1 minute", "Percentage", "CPU"),
-            Chart.new(self, :memory, "Memory", "App memory usage", "Usage", "Usage"),
-            Chart.new(self, :disk, "Storage", "Available storage size (local disk size)", "Usage", "Available"),
+            Chart.new(
+              server: self,
+              key: :cpu,
+              type: "Percentage",
+              subtitle: "CPU",
+              description: "CPU usage %, average per 1 minute",
+              legend: "CPU",
+            ),
+            Chart.new(
+              server: self,
+              key: :memory,
+              type: "Usage",
+              subtitle: "Memory",
+              description: "App memory usage",
+              legend: "Usage",
+            ),
+            Chart.new(
+              server: self,
+              key: :disk,
+              type: "Usage",
+              subtitle: "Storage",
+              description: "Available storage size (local disk size)",
+              legend: "Usage",
+            ),
           ]
         end
       end
 
-      Chart = Struct.new(:server, :key, :subtitle, :description, :type, :legend) do
+      Chart = Struct.new(:server, :key, :type, :subtitle, :description, :legend, keyword_init: true) do
         def id
           [key, "report", server.key.parameterize].join("_")
         end
