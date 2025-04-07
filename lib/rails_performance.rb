@@ -123,6 +123,13 @@ module RailsPerformance
   mattr_accessor :system_monitor_duration
   @@system_monitor_duration = 24.hours
 
+  mattr_accessor :system_monitor_charts
+  @@system_monitor_charts = [
+    "CPUChart",
+    "MemoryChart",
+    "DiskChart",
+  ]
+
   # -- internal usage --
   #
   #
