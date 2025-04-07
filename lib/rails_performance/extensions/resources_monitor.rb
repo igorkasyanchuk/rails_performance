@@ -39,12 +39,15 @@ module RailsPerformance
         end
       end
 
-      def run
+      def payload
         cpu = fetch_process_cpu_usage
         memory = fetch_process_memory_usage
         disk = fetch_disk_usage
+        {cpu:, memory:, disk:}
+      end
 
-        store_data({cpu:, memory:, disk:})
+      def run
+        store_data(payload)
       end
 
       def fetch_process_cpu_usage
