@@ -126,6 +126,13 @@ module RailsPerformance
   mattr_accessor :url_options
   @@url_options = nil
 
+  mattr_accessor :system_monitor_charts
+  @@system_monitor_charts = [
+    "CPUChart",
+    "MemoryChart",
+    "DiskChart",
+  ]
+
   # -- internal usage --
   #
   #

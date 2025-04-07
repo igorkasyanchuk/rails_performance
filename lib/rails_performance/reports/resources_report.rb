@@ -7,11 +7,9 @@ module RailsPerformance
         end
 
         def charts
-          [
-            CPUChart.new(self),
-            MemoryChart.new(self),
-            DiskChart.new(self),
-          ]
+          RailsPerformance.system_monitor_charts.map do |class_name|
+            ResourcesReport.const_get(class_name).new(self)
+          end
         end
       end
 
