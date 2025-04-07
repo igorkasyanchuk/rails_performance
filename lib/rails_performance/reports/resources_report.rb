@@ -8,41 +8,10 @@ module RailsPerformance
 
         def charts
           [
-            Chart.new(
-              server: self,
-              key: :cpu,
-              type: "Percentage",
-              subtitle: "CPU",
-              description: "CPU usage %, average per 1 minute",
-              legend: "CPU",
-            ),
-            Chart.new(
-              server: self,
-              key: :memory,
-              type: "Usage",
-              subtitle: "Memory",
-              description: "App memory usage",
-              legend: "Usage",
-            ),
-            Chart.new(
-              server: self,
-              key: :disk,
-              type: "Usage",
-              subtitle: "Storage",
-              description: "Available storage size (local disk size)",
-              legend: "Usage",
-            ),
+            CPUChart.new(self),
+            MemoryChart.new(self),
+            DiskChart.new(self),
           ]
-        end
-      end
-
-      Chart = Struct.new(:server, :key, :type, :subtitle, :description, :legend, keyword_init: true) do
-        def id
-          [key, "report", server.key.parameterize].join("_")
-        end
-
-        def data
-          server.report.send(key)[server.key]
         end
       end
 
@@ -52,19 +21,67 @@ module RailsPerformance
         end
       end
 
-      def cpu
-        @cpu ||= extract_signal { |e| e[:cpu]["one_min"].to_f.round(2) }
+      Chart = Struct.new(:server, :key, :type, :subtitle, :description, :legend, keyword_init: true) do
+        def id
+          [key, "report", server.key.parameterize].join("_")
+        end
+
+        def data
+          all_data = server.report.extract_signal { |e| signal(e) }
+          all_data[server.key]
+        end
       end
 
-      def memory
-        @memory ||= extract_signal { |e| e[:memory].to_f.round(2) }
+      class CPUChart < Chart
+        def initialize server
+          super(
+            server:,
+            key: :cpu,
+            type: "Percentage",
+            subtitle: "CPU",
+            description: "CPU load average (1 min), average per 1 minute",
+            legend: "CPU",
+          )
+        end
+
+        def signal e
+          e[:cpu]["one_min"].to_f.round(2)
+        end
       end
 
-      def disk
-        @disk ||= extract_signal { |e| e[:disk]["available"].to_f.round(2) }
+      class MemoryChart < Chart
+        def initialize server
+          super(
+            server:,
+            key: :memory,
+            type: "Usage",
+            subtitle: "Memory",
+            description: "App memory usage",
+            legend: "Usage",
+          )
+        end
+
+        def signal e
+          e[:memory].to_f.round(2)
+        end
       end
 
-      private
+      class DiskChart < Chart
+        def initialize server
+          super(
+            server:,
+            key: :disk,
+            type: "Usage",
+            subtitle: "Storage",
+            description: "Available storage size (local disk size)",
+            legend: "Usage",
+          )
+        end
+
+        def signal e
+          e[:disk]["available"].to_f.round(2)
+        end
+      end
 
       def extract_signal &block
         data.transform_values do |v|
@@ -73,6 +90,8 @@ module RailsPerformance
           end)
         end
       end
+
+      private
 
       def data
         @data ||= db.data
