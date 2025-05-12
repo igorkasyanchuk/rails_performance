@@ -4,6 +4,8 @@
 [![RailsJazz](https://github.com/igorkasyanchuk/rails_time_travel/blob/main/docs/my_other.svg?raw=true)](https://www.railsjazz.com)
 [My Cheatsheets](https://cheatsheetshero.com/user/igor-kasyanchuk)
 
+[!["Buy Me A Coffee"](https://github.com/igorkasyanchuk/get-smart/blob/main/docs/snapshot-bmc-button-small.png?raw=true)](https://buymeacoffee.com/igorkasyanchuk)
+
 A self-hosted tool to monitor the performance of your Ruby on Rails application.
 
 This is a **simple and free alternative** to the New Relic APM, Datadog or other similar services.
@@ -332,14 +334,11 @@ If "schema" how records are stored i Redis is changed, and this is a breaking ch
 
 https://github.com/igorkasyanchuk/rails_performance/graphs/contributors
 
-## Other
-
-[<img src="https://opensource-heroes.com/svg/embed/igorkasyanchuk/rails_performance"
-/>](https://opensource-heroes.com/r/igorkasyanchuk/rails_performance)
-
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
 [<img src="https://github.com/igorkasyanchuk/rails_time_travel/blob/main/docs/more_gems.png?raw=true"
 />](https://www.railsjazz.com/?utm_source=github&utm_medium=bottom&utm_campaign=rails_performance)
+
+[!["Buy Me A Coffee"](https://github.com/igorkasyanchuk/get-smart/blob/main/docs/snapshot-bmc-button.png?raw=true)](https://buymeacoffee.com/igorkasyanchuk)
