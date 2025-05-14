@@ -23,6 +23,10 @@ module RailsPerformance
     end
 
     def extract_duration(str)
+      if str.is_a?(Hash)
+        return str[:duration].to_s if str[:duration]
+      end
+
       if str =~ /Duration: (\d+.?\d+?ms)/i
         $1
       else
