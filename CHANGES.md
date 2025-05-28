@@ -1,10 +1,11 @@
 - Unreleased
 
 - 1.4.2
-  - added support for Ruby 3.4 (on CI)
   - Filter out slow requests with no duration set https://github.com/igorkasyanchuk/rails_performance/pull/138
   - fix: handle Hash input in extract_duration to prevent =~ error on traces https://github.com/igorkasyanchuk/rails_performance/pull/137
   - Add permissive CSP https://github.com/igorkasyanchuk/rails_performance/pull/139
+  - added support for Ruby 3.4 (on CI)
+  - fixed compatibility with older Ruby hash syntax
 
 - 1.4.1
   - switch to ApexCharts https://github.com/igorkasyanchuk/rails_performance/pull/117
