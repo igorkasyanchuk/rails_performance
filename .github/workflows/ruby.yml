@@ -34,7 +34,7 @@ jobs:
 
     strategy:
       matrix:
-        ruby-version: ['3.2', '3.3']
+        ruby-version: ['3.3', '3.4']
 
     steps:
     - name: Setup System
