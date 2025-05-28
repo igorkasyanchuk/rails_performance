@@ -44,7 +44,7 @@ module RailsPerformance
         memory = fetch_process_memory_usage
         disk = fetch_disk_usage
 
-        store_data({cpu:, memory:, disk:})
+        store_data({cpu: cpu, memory: memory, disk: disk})
       end
 
       def fetch_process_cpu_usage
