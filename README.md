@@ -45,7 +45,7 @@ All data are stored in `local` Redis and not sent to any 3rd party servers.
 
 ## Production
 
-Gem is production-ready. At least on my 2 applications with ~800 unique users per day it works perfectly.
+Gem is production-ready. At least in my 2 applications with ~800 unique users per day it works perfectly.
 
 Just don't forget to protect performance dashboard with http basic auth or check of current_user.
 
@@ -68,7 +68,7 @@ RailsPerformance.setup do |config|
   config.redis    = Redis.new(url: ENV["REDIS_URL"].presence || "redis://127.0.0.1:6379/0") # or Redis::Namespace.new("rails-performance", redis: Redis.new), see below in README
   config.duration = 4.hours
 
-  config.debug    = false # currently not used>
+  config.debug    = false # currently not used
   config.enabled  = true
 
   # configure Recent tab (time window and limit of requests)
@@ -223,7 +223,7 @@ env:
     RAILS_PERFORMANCE_SERVER_ID: "server"
 ```
 
-You can also specifify custom "context" and "role" for monitoring, by changing the env variables:
+You can also specify custom "context" and "role" for monitoring, by changing the env variables:
 
 ```ruby
 RailsPerformance::Extensions::ResourceMonitor.new(
