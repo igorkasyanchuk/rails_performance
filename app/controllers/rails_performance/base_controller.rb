@@ -13,7 +13,7 @@ module RailsPerformance
     end
 
     def url_options
-      return RailsPerformance.url_options.nil? ? super : RailsPerformance.url_options
+      RailsPerformance.url_options.nil? ? super : RailsPerformance.url_options
     end
 
     private

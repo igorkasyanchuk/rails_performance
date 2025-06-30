@@ -172,6 +172,7 @@ After installation and configuration, start your Rails application, make a few r
 
 If you, for whatever reason (company policy, devise, ...) need to mount RailsPerformance yourself, feel free to do so by using the following snippet as inspiration.
 You can skip the `mount_at` and `http_basic_authentication_*` configurations then, if you like.
+Under certain constraints (i.e. subdomains) it may be necessary to set `url_options` in the config so that RailsPeformance can generate links correctly.
 
 ```ruby
 # config/routes.rb
