@@ -123,6 +123,9 @@ module RailsPerformance
   mattr_accessor :system_monitor_duration
   @@system_monitor_duration = 24.hours
 
+  mattr_accessor :url_options
+  @@url_options = nil
+
   # -- internal usage --
   #
   #

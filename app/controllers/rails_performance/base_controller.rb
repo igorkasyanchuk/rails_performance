@@ -12,6 +12,10 @@ module RailsPerformance
         password: RailsPerformance.http_basic_authentication_password
     end
 
+    def url_options
+      return RailsPerformance.url_options.nil? ? super : RailsPerformance.url_options
+    end
+
     private
 
     def verify_access

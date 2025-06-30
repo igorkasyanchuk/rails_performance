@@ -31,6 +31,9 @@ if defined?(RailsPerformance)
     # for example when you have `current_user`
     # config.verify_access_proc = proc { |controller| controller.current_user && controller.current_user.admin? }
 
+    # Override engine url options, necessary if hosting under a unique domain
+    # config.url_options = {host: "sub.example.com"}
+
     # You can ignore endpoints with Rails standard notation controller#action
     # config.ignored_endpoints = ['HomeController#contact']
 
