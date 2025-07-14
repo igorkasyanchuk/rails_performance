@@ -119,12 +119,19 @@ module RailsPerformance
   mattr_accessor :ignore_trace_headers
   @@ignore_trace_headers = ["datetimei"]
 
+  mattr_accessor :url_options
+  @@url_options = nil
+
   # System monitor duration (expiration time)
   mattr_accessor :system_monitor_duration
   @@system_monitor_duration = 24.hours
 
-  mattr_accessor :url_options
-  @@url_options = nil
+  mattr_accessor :system_monitors
+  @@system_monitors = [
+    "CPULoad",
+    "MemoryUsage",
+    "DiskUsage"
+  ]
 
   # -- internal usage --
   #

@@ -26,16 +26,13 @@ module RailsPerformance
       end
 
       def record_hash
-        {
+        value.symbolize_keys.merge({
           server: server,
           role: role,
           context: context,
           datetime: datetime,
-          datetimei: RailsPerformance::Utils.from_datetimei(datetimei.to_i),
-          cpu: value["cpu"],
-          memory: value["memory"],
-          disk: value["disk"]
-        }
+          datetimei: RailsPerformance::Utils.from_datetimei(datetimei.to_i)
+        })
       end
 
       def save

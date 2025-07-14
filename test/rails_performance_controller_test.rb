@@ -161,7 +161,7 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
   test "resources tab" do
     setup_db
 
-    RailsPerformance::Extensions::ResourceMonitor.new("rails", "web123").run
+    RailsPerformance::SystemMonitor::ResourcesMonitor.new("rails", "web123").run
 
     get "/rails/performance/resources"
     assert_response :success
