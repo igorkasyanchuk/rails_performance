@@ -1,9 +1,7 @@
-require "rails_performance/monitors/cpu_monitor"
-require "rails_performance/monitors/disk_monitor"
-require "rails_performance/monitors/memory_monitor"
+require "rails_performance/system_monitor/resource_chart"
 
 module RailsPerformance
-  module Monitors
+  module SystemMonitor
     class ResourcesMonitor
       attr_reader :context, :role
 
@@ -45,13 +43,13 @@ module RailsPerformance
 
       def payload
         monitors.reduce({}) do |data, monitor|
-          data.merge(monitor.call)
+          data.merge(monitor.key => monitor.measure)
         end
       end
 
       def monitors
-        @monitors ||= RailsPerformance.resource_monitors.map do |class_name|
-          RailsPerformance::Monitors.const_get(class_name).new
+        @monitors ||= RailsPerformance.system_monitors.map do |class_name|
+          RailsPerformance::SystemMonitor.const_get(class_name).new(nil)
         end
       end
 

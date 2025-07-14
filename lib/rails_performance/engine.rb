@@ -2,7 +2,7 @@ require "action_view/log_subscriber"
 require_relative "rails/middleware"
 require_relative "models/collection"
 require_relative "instrument/metrics_collector"
-require_relative "monitors/resources_monitor"
+require_relative "system_monitor/resources_monitor"
 
 module RailsPerformance
   class Engine < ::Rails::Engine
@@ -16,7 +16,7 @@ module RailsPerformance
       next if $rails_performance_running_mode == :console # rubocop:disable Style/GlobalVars
 
       # start monitoring
-      RailsPerformance._resource_monitor = RailsPerformance::Monitors::ResourcesMonitor.new(
+      RailsPerformance._resource_monitor = RailsPerformance::SystemMonitor::ResourcesMonitor.new(
         ENV["RAILS_PERFORMANCE_SERVER_CONTEXT"].presence || "rails",
         ENV["RAILS_PERFORMANCE_SERVER_ROLE"].presence || "web"
       )
@@ -44,7 +44,7 @@ module RailsPerformance
               RailsPerformance._resource_monitor.stop_monitoring
               RailsPerformance._resource_monitor = nil
               # start background monitoring
-              RailsPerformance._resource_monitor = RailsPerformance::Monitors::ResourcesMonitor.new(
+              RailsPerformance._resource_monitor = RailsPerformance::SystemMonitor::ResourcesMonitor.new(
                 ENV["RAILS_PERFORMANCE_SERVER_CONTEXT"].presence || "sidekiq",
                 ENV["RAILS_PERFORMANCE_SERVER_ROLE"].presence || "background"
               )

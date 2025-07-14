@@ -7,8 +7,8 @@ module RailsPerformance
         end
 
         def charts
-          RailsPerformance.system_monitor_charts.map do |class_name|
-            ResourcesReport.const_get(class_name).new(self)
+          RailsPerformance.system_monitors.map do |class_name|
+            SystemMonitor.const_get(class_name).new(self)
           end
         end
       end
@@ -16,68 +16,6 @@ module RailsPerformance
       def servers
         data.keys.map do |key|
           Server.new(self, key)
-        end
-      end
-
-      Chart = Struct.new(:server, :key, :type, :subtitle, :description, :legend, keyword_init: true) do
-        def id
-          [key, "report", server.key.parameterize].join("_")
-        end
-
-        def data
-          all_data = server.report.extract_signal { |e| signal(e) }
-          all_data[server.key]
-        end
-      end
-
-      class CPUChart < Chart
-        def initialize server
-          super(
-            server:,
-            key: :cpu,
-            type: "Percentage",
-            subtitle: "CPU",
-            description: "CPU load average (1 min), average per 1 minute",
-            legend: "CPU",
-          )
-        end
-
-        def signal e
-          e[:cpu]["one_min"].to_f.round(2)
-        end
-      end
-
-      class MemoryChart < Chart
-        def initialize server
-          super(
-            server:,
-            key: :memory,
-            type: "Usage",
-            subtitle: "Memory",
-            description: "App memory usage",
-            legend: "Usage",
-          )
-        end
-
-        def signal e
-          e[:memory].to_f.round(2)
-        end
-      end
-
-      class DiskChart < Chart
-        def initialize server
-          super(
-            server:,
-            key: :disk,
-            type: "Usage",
-            subtitle: "Storage",
-            description: "Available storage size (local disk size)",
-            legend: "Usage",
-          )
-        end
-
-        def signal e
-          e[:disk]["available"].to_f.round(2)
         end
       end
 
