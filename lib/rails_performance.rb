@@ -130,7 +130,7 @@ module RailsPerformance
   @@system_monitor_charts = [
     "CPUChart",
     "MemoryChart",
-    "DiskChart",
+    "DiskChart"
   ]
 
   # -- internal usage --
