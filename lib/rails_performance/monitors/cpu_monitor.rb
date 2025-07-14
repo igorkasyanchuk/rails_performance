@@ -2,7 +2,7 @@ module RailsPerformance
   module Monitors
     class CPUMonitor
       def call
-        { cpu: payload }
+        {cpu: payload}
       end
 
       private
@@ -21,4 +21,3 @@ module RailsPerformance
     end
   end
 end
-

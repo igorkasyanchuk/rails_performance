@@ -2,7 +2,7 @@ module RailsPerformance
   module Monitors
     class DiskMonitor
       def call
-        { disk: payload }
+        {disk: payload}
       end
 
       private

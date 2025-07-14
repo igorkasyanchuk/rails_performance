@@ -2,7 +2,7 @@ module RailsPerformance
   module Monitors
     class MemoryMonitor
       def call
-        { memory: payload }
+        {memory: payload}
       end
 
       private

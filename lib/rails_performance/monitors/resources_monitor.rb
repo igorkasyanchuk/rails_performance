@@ -80,4 +80,3 @@ module RailsPerformance
     end
   end
 end
-
