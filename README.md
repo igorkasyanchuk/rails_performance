@@ -227,7 +227,7 @@ env:
 You can also specify custom "context" and "role" for monitoring, by changing the env variables:
 
 ```ruby
-RailsPerformance::Extensions::ResourceMonitor.new(
+RailsPerformance::Monitors::ResourcesMonitor.new(
   ENV["RAILS_PERFORMANCE_SERVER_CONTEXT"].presence || "rails",
   ENV["RAILS_PERFORMANCE_SERVER_ROLE"].presence || "web"
 )

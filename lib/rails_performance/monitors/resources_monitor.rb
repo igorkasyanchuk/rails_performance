@@ -1,6 +1,10 @@
+require "rails_performance/monitors/cpu_monitor"
+require "rails_performance/monitors/disk_monitor"
+require "rails_performance/monitors/memory_monitor"
+
 module RailsPerformance
-  module Extensions
-    class ResourceMonitor
+  module Monitors
+    class ResourcesMonitor
       attr_reader :context, :role
 
       def initialize(context, role)
@@ -40,45 +44,19 @@ module RailsPerformance
       end
 
       def payload
-        cpu = fetch_process_cpu_usage
-        memory = fetch_process_memory_usage
-        disk = fetch_disk_usage
-        {cpu: cpu, memory: memory, disk: disk}
+        monitors.reduce({}) do |data, monitor|
+          data.merge(monitor.call)
+        end
+      end
+
+      def monitors
+        @monitors ||= RailsPerformance.resource_monitors.map do |class_name|
+          RailsPerformance::Monitors.const_get(class_name).new
+        end
       end
 
       def run
         store_data(payload)
-      end
-
-      def fetch_process_cpu_usage
-        load_averages = Sys::CPU.load_avg
-        {
-          one_min: load_averages[0],
-          five_min: load_averages[1],
-          fifteen_min: load_averages[2]
-        }
-      rescue => e
-        ::Rails.logger.error "Error fetching CPU usage: #{e.message}"
-        {one_min: 0.0, five_min: 0.0, fifteen_min: 0.0}
-      end
-
-      def fetch_process_memory_usage
-        GetProcessMem.new.bytes
-      rescue => e
-        ::Rails.logger.error "Error fetching memory usage: #{e.message}"
-        0
-      end
-
-      def fetch_disk_usage(path = "/")
-        stat = Sys::Filesystem.stat(path)
-        {
-          available: stat.blocks_available * stat.block_size,
-          total: stat.blocks * stat.block_size,
-          used: (stat.blocks - stat.blocks_available) * stat.block_size
-        }
-      rescue => e
-        ::Rails.logger.error "Error fetching disk space: #{e.message}"
-        {available: 0, total: 0, used: 0}
       end
 
       def store_data(data)
@@ -102,3 +80,4 @@ module RailsPerformance
     end
   end
 end
+
