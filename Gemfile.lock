@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails_performance (1.4.2)
+    rails_performance (1.4.3)
       browser
       railties
       redis
@@ -270,7 +270,7 @@ GEM
       docile (~> 1.1)
       simplecov-html (~> 0.11)
       simplecov_json_formatter (~> 0.1)
-    simplecov-html (0.13.1)
+    simplecov-html (0.13.2)
     simplecov_json_formatter (0.1.4)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)

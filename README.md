@@ -324,6 +324,15 @@ The idea of this gem grew from curiosity how many RPM my app receiving per day. 
 - sinatra?
 - tests to check what is actually stored in redis db after request
 - upgrade bulma
+- optimize svg icons, remove inline svg (switch to base64 or assets)
+
+## Development
+
+1. Clone the repo
+2. Run `bundle install`
+3. Setup dummy app `cd test/dummy && bundle install && rails db:create && rails db:migrate`
+4. Run `rails s` in the root folder
+5. Run `rails test` to run tests
 
 ## Contributing
 

@@ -6,6 +6,7 @@ function showChart(element_id, type, title, options) {
       chart: {
         type: type,
         height: 300,
+        width: '100%',
         zoom: {
           type: 'x',
         },

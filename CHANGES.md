@@ -1,5 +1,10 @@
 - Unreleased
 
+- 1.4.3
+  - Parameterize resources charts https://github.com/igorkasyanchuk/rails_performance/pull/134
+  - added more icons
+  - wider summary panel
+
 - 1.4.2
   - Filter out slow requests with no duration set https://github.com/igorkasyanchuk/rails_performance/pull/138
   - fix: handle Hash input in extract_duration to prevent =~ error on traces https://github.com/igorkasyanchuk/rails_performance/pull/137

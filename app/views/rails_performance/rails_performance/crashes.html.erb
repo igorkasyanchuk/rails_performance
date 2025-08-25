@@ -35,11 +35,25 @@
         <% @data.each do |e| %>
           <tr>
             <td><%= format_datetime e[:datetime] %></td>
-            <td><%= link_to e[:controller] + '#' + e[:action], rails_performance.rails_performance_summary_path({controller_eq: e[:controller], action_eq: e[:action]}), remote: true %></td>
+            <td>
+              <%= link_to rails_performance.rails_performance_summary_path({controller_eq: e[:controller], action_eq: e[:action]}), remote: true do %>
+                <span class="details_icon">
+                  <%= icon 'details' %>
+                </span>
+                <%= e[:controller] + '#' + e[:action] %>
+              <% end %>
+            </td>
             <td><%= e[:method] %></td>
             <td><%= e[:format] %></td>
             <td><%= bot_icon e["user_agent"] %></td>
-            <td><%= link_to_path(e) %></td>
+            <td>
+              <span class="with_external_icon">
+                <%= link_to_path(e) %>
+                <span class="icon external_icon">
+                  <%= icon('external') %>
+                </span>
+              </span>
+            </td>
             <td><%= e[:exception] %></td>
             <td class="very-small-text">
               <%= raw e[:backtrace]&.join("<br/>") %>

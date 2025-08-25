@@ -32,11 +32,23 @@
 .cd-panel__container {
   z-index: 100;
   position: fixed;
-  width: 800px;
+  width: 1200px;
   height: 100%;
   top: 0;
   transition: transform 0.3s 0s;
   overflow: scroll;
+}
+
+@media (max-width: 1200px) {
+  .cd-panel__container {
+    width: 800px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cd-panel__container {
+    width: 500px;
+  }
 }
 
 .cd-panel--from-right .cd-panel__container {
