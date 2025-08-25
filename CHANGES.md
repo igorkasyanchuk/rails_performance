@@ -2,7 +2,7 @@
 
 - 1.4.3
   - Parameterize resources charts https://github.com/igorkasyanchuk/rails_performance/pull/134
-  - allow overiding url options https://github.com/igorkasyanchuk/rails_performance/pull/143/files
+  - allow overriding url options https://github.com/igorkasyanchuk/rails_performance/pull/143/files
   - added more icons
   - wider summary panel
 
@@ -149,4 +149,5 @@
 
 0.1.X
   - working prototype
+
 
