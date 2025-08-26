@@ -79,7 +79,8 @@ function showTIRChart(element_id, data, addon, name) {
     series: [{
       name: name,
       data: data
-    }]
+    }],
+    annotations: window?.annotationsData || {}
   });
 }
 
@@ -90,6 +91,7 @@ function showRTChart(element_id, data) {
       name: 'Response Time',
       data: data,
     }],
+    annotations: window?.annotationsData || {}
   });
 }
 
