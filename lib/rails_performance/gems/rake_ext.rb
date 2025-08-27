@@ -23,6 +23,7 @@ module RailsPerformance
                 duration: (RailsPerformance::Utils.time - now) * 1000,
                 status: status
               ).save
+              CurrentRequest.cleanup
             end
           end
 

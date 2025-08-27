@@ -25,6 +25,7 @@ module RailsPerformance
 
           if name == "format_response.grape"
             CurrentRequest.current.record.save
+            CurrentRequest.cleanup
           end
         end
       end

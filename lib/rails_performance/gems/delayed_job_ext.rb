@@ -23,6 +23,7 @@ module RailsPerformance
               status: status
             )
             record.save
+            CurrentRequest.cleanup
           end
         end
 
