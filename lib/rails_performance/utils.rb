@@ -1,7 +1,13 @@
 module RailsPerformance
   class Utils
+    DEFAULT_TIME_OFFSET = 1.minute
+
     def self.time
       Time.now.utc
+    end
+
+    def self.kind_of_now
+      time + DEFAULT_TIME_OFFSET
     end
 
     def self.from_datetimei(datetimei)

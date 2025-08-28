@@ -22,7 +22,7 @@ module RailsPerformance
 
     def db
       result = RailsPerformance::Models::Collection.new
-      now = RailsPerformance::Utils.time
+      now = RailsPerformance::Utils.kind_of_now
       (0..days).to_a.reverse_each do |e|
         RailsPerformance::DataSource.new(q: q.merge({on: (now - e.days).to_date}), type: type).add_to(result)
       end
