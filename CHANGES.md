@@ -1,5 +1,9 @@
 - Unreleased
 
+- 1.5.0
+  - added support for deployment events https://github.com/igorkasyanchuk/rails_performance/pull/150
+  - clear memory for sidekiq + other gems https://github.com/igorkasyanchuk/rails_performance/pull/149
+
 - 1.4.3
   - Parameterize resources charts https://github.com/igorkasyanchuk/rails_performance/pull/134
   - allow overriding url options https://github.com/igorkasyanchuk/rails_performance/pull/143/files
@@ -149,5 +153,3 @@
 
 0.1.X
   - working prototype
-
-
