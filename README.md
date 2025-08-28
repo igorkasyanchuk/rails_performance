@@ -237,6 +237,12 @@ More information here: `lib/rails_performance/engine.rb`.
 
 PS: right now it can only distinguish between web app servers and the sidekiq servers.
 
+#### Deployment Events
+
+#### For Kamal
+
+
+
 ### Custom events
 
 ```ruby
