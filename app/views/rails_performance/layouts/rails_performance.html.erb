@@ -8,6 +8,9 @@
     <%= csp_meta_tag if ::Rails::VERSION::STRING.to_f >= 5.2 %>
     <%= render '/rails_performance/stylesheets/stylesheets' %>
     <link rel="shortcut icon" href="/favicon.ico">
+    <script>
+      window.annotationsData = <%= raw RailsPerformance::Reports::AnnotationsReport.new.data.to_json %>;
+    </script>
   </head>
 
   <body class="has-sticky-footer">

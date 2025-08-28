@@ -15,7 +15,7 @@ gemspec
 # gem 'byebug', group: [:development, :test]
 gem "rails", "8.0.0"
 
-gem "pry"
+gem "debug"
 gem "sqlite3"
 
 gem "simplecov", require: false, group: :test

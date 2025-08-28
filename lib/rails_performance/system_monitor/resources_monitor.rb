@@ -60,7 +60,7 @@ module RailsPerformance
       def store_data(data)
         ::Rails.logger.info("Server: #{server_id}, Context: #{context}, Role: #{role}, data: #{data}")
 
-        now = RailsPerformance::Utils.time
+        now = RailsPerformance::Utils.kind_of_now
         now = now.change(sec: 0, usec: 0)
         RailsPerformance::Models::ResourceRecord.new(
           server: server_id,

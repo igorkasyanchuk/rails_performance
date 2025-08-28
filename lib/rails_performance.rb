@@ -26,10 +26,15 @@ require_relative "rails_performance/reports/breakdown_report"
 require_relative "rails_performance/reports/trace_report"
 require_relative "rails_performance/reports/percentile_report"
 require_relative "rails_performance/reports/resources_report"
+require_relative "rails_performance/reports/annotations_report"
+require_relative "rails_performance/events/record"
 require_relative "rails_performance/extensions/trace"
 require_relative "rails_performance/thread/current_request"
+require_relative "rails_performance/interface"
 
 module RailsPerformance
+  extend RailsPerformance::Interface
+
   FORMAT = "%Y%m%dT%H%M"
 
   mattr_accessor :redis

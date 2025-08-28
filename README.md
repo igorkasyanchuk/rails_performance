@@ -34,6 +34,7 @@ It allows you to track:
 - total duration of time spent per request, views rendering, DB
 - SQL queries, rendering logs in "Recent Requests" section
 - simple 500-crashes reports
+- deployment events (or custom events)
 - Sidekiq jobs
 - Delayed Job jobs
 - Grape API inside Rails app
@@ -236,6 +237,31 @@ RailsPerformance::SystemMonitor::ResourcesMonitor.new(
 More information here: `lib/rails_performance/engine.rb`.
 
 PS: right now it can only distinguish between web app servers and the sidekiq servers.
+
+#### Deployment Events + Custom Events on the Charts
+
+![Deployments](docs/deploys.png)
+
+#### For Kamal
+
+- edit `.kamal/hooks/post-deploy` (rename .sample if needed)
+- add `kamal app exec -p './bin/rails runner "RailsPerformance.create_event(name: \"Deploy\")"'`
+- kamal deploy
+
+#### Custom Events on the Charts
+
+You can specify colors, orientation for the event label.
+
+```ruby
+RailsPerformance.create_event(name: "Deploy", options: {
+  borderColor: "#00E396",
+  label: {
+    borderColor: "#00E396",
+    orientation: "horizontal",
+    text: "Deploy"
+  }
+})
+```
 
 ### Custom events
 
