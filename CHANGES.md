@@ -1,5 +1,8 @@
 - Unreleased
 
+- 1.5.1
+  - hover tooltip for charts
+
 - 1.5.0
   - added support for deployment events https://github.com/igorkasyanchuk/rails_performance/pull/150
   - clear memory for sidekiq + other gems https://github.com/igorkasyanchuk/rails_performance/pull/149
