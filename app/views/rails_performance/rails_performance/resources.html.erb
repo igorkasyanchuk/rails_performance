@@ -3,7 +3,7 @@
 <% @resources_report.servers.each do |server| %>
   <h1 class="title mt-8 pt-8"><%= server.name %></h1>
 
-  <% server.charts.each.with_index do |chart, index| %>
+  <% server.charts.each.with_index(1) do |chart, index| %>
     <div class="card">
       <div class="card-content">
         <h2 class="subtitle"><%= chart.subtitle %></h2>
@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <br/>
+    <br>
 
     <% content_for :on_load do %>
       <script>
