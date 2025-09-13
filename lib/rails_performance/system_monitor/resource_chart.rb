@@ -84,7 +84,7 @@ module RailsPerformance
         )
       end
 
-      def signal measurement
+      def format measurement
         measurement["available"].to_f.round(2)
       end
 
