@@ -1,5 +1,5 @@
 module RailsPerformance
-  VERSION = "1.5.1"
+  VERSION = "1.5.2"
   SCHEMA = "1.0.2"
   EVENTS_SCHEMA = "1.0.0"
 end

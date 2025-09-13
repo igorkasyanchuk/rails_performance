@@ -1,5 +1,8 @@
 - Unreleased
 
+- 1.5.2
+  - Fix resource chart method name https://github.com/igorkasyanchuk/rails_performance/pull/153
+
 - 1.5.1
   - hover tooltip for charts
 
