@@ -4,10 +4,15 @@ class Worker3 < Grape::API
     1 / 0
   end
 
+  desc "Make no content with content"
+  get :no_content_with_content do
+    status 204
+    'No Content'
+  end
+
   desc "Make no content"
   get :no_content do
     status 204
-    'No Content'
   end
 
   desc "Make conflict"
