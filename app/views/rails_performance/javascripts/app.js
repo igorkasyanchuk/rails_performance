@@ -103,7 +103,8 @@ function showPercentageChart(element_id, data, name) {
     series: [{
       name: name,
       data: data,
-    }]
+    }],
+    annotations: window?.annotationsData || {}
   });
 }
 
@@ -116,7 +117,8 @@ function showUsageChart(element_id, data, name, pow) {
     series: [{
       name: name,
       data: data.map(([timestamp, value]) => [timestamp, typeof value === 'number' ? (value / bytes).toFixed(2) : null]),
-    }]
+    }],
+    annotations: window?.annotationsData || {}
   });
 }
 
