@@ -107,7 +107,14 @@ function showPercentageChart(element_id, data, name) {
   });
 }
 
-function showUsageChart(element_id, data, name, pow) {
+function showUsageChart(element_id, data, name) {
+  let max = data.reduce((acc, [_, value]) => (value > acc ? value : acc), -Infinity);
+  let pow = 0;
+  while (max >= 1024 && pow < 5) {
+    max /= 1024;
+    pow += 1;
+  }
+
   const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'][pow];
   const bytes = Math.pow(1024, pow);
 
