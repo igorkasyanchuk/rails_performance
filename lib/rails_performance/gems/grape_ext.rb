@@ -25,7 +25,7 @@ module RailsPerformance
 
           expects_no_content = Rack::Utils::STATUS_WITH_NO_ENTITY_BODY.include?(CurrentRequest.current.record.status)
           if name == "format_response.grape" ||
-             (name == "endpoint_run.grape" && (payload[:endpoint]&.body.nil? || expects_no_content))
+              (name == "endpoint_run.grape" && (payload[:endpoint]&.body.nil? || expects_no_content))
             CurrentRequest.current.record.save
             CurrentRequest.cleanup
           end
