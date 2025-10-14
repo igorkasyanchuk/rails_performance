@@ -1,6 +1,7 @@
 module RailsPerformance
   class BaseController < ActionController::Base
     include RailsPerformance::Concerns::CsvExportable
+
     layout "rails_performance/layouts/rails_performance"
 
     before_action :verify_access
