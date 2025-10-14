@@ -111,14 +111,6 @@ module RailsPerformance
       @icons[name] ||= raw File.read(File.expand_path(File.dirname(__FILE__) + "/../../assets/images/#{name}.svg"))
     end
 
-    def insert_css_file(file)
-      raw "<style>#{raw File.read File.expand_path(File.dirname(__FILE__) + "/../../views/rails_performance/stylesheets/#{file}")}</style>"
-    end
-
-    def insert_js_file(file)
-      raw "<script>#{raw File.read File.expand_path(File.dirname(__FILE__) + "/../../views/rails_performance/javascripts/#{file}")}</script>"
-    end
-
     def format_datetime(e)
       dt = RailsPerformance::Reports::BaseReport.time_in_app_time_zone(e)
       I18n.l(dt, format: "%Y-%m-%d %H:%M:%S")

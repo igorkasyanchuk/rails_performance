@@ -6,8 +6,20 @@
     <title>Rails Performance</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag if ::Rails::VERSION::STRING.to_f >= 5.2 %>
-    <%= render '/rails_performance/stylesheets/stylesheets' %>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <%= engine_stylesheet_link_tag "style" %>
+    <%= engine_stylesheet_link_tag "panel" %>
+    <%= engine_stylesheet_link_tag "responsive" %>
+
     <link rel="shortcut icon" href="/favicon.ico">
+
+    <%= engine_javascript_importmap_tags "application", {
+      "jquery" => "https://cdn.jsdelivr.net/npm/jquery@3.7.1/+esm",
+      "apexcharts" => "https://cdn.jsdelivr.net/npm/apexcharts@3.45.0/+esm",
+      "stupid-table-plugin" => "https://cdn.jsdelivr.net/npm/stupid-table-plugin@1.1.3/+esm"
+    } %>
+
     <script>
       window.annotationsData = <%= raw RailsPerformance::Reports::AnnotationsReport.new.data.to_json %>;
     </script>
@@ -38,8 +50,6 @@
     <%= render '/rails_performance/panel' %>
 
     <div class="panel-overlay"></div>
-
-    <%= render '/rails_performance/javascripts/javascripts' %>
 
     <%= yield :on_load %>
   </body>

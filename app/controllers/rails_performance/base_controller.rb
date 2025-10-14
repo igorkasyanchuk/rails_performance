@@ -3,6 +3,8 @@ module RailsPerformance
     include RailsPerformance::Concerns::CsvExportable
     layout "rails_performance/layouts/rails_performance"
 
+    helper RailsPerformance.engine_assets.helper
+
     before_action :verify_access
     after_action :set_permissive_csp
 
