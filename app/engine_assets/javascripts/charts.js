@@ -1,14 +1,13 @@
 import ApexCharts from 'apexcharts';
 
-function showChart(element_id, type, title, options) {
+function showChart(element, type, title, options) {
   const chart = new ApexCharts(
-    document.getElementById(element_id),
+    element,
     {
       ...options,
       chart: {
         type: type,
         height: 300,
-        id: element_id,
         width: '100%',
         group: 'chart',
         zoom: {
@@ -54,6 +53,7 @@ function showChart(element_id, type, title, options) {
     }
   );
   chart.render();
+  return chart;
 }
 
 function tooltipOptions(formatter) {
@@ -77,9 +77,9 @@ function tooltipOptions(formatter) {
   };
 }
 
-function showTIRChart(element_id, data, addon, name) {
-  showChart(element_id, 'area', 'RPM', {
-    tooltip: tooltipOptions(value => (value ? value + addon : undefined)),
+export function showTIRChart(element, data, addon, name) {
+  return showChart(element, 'area', 'RPM', {
+    tooltip: tooltipOptions(value => (value ? `${value} ${addon}` : undefined)),
     series: [{
       name: name,
       data: data
@@ -88,8 +88,8 @@ function showTIRChart(element_id, data, addon, name) {
   });
 }
 
-function showRTChart(element_id, data) {
-  showChart(element_id, 'area', 'Time', {
+export function showRTChart(element, data) {
+  return showChart(element, 'area', 'Time', {
     tooltip: tooltipOptions(value => (value ? value + ' ms' : undefined)),
     series: [{
       name: 'Response Time',
@@ -99,8 +99,8 @@ function showRTChart(element_id, data) {
   });
 }
 
-function showPercentageChart(element_id, data, name) {
-  showChart(element_id, 'line', '%', {
+export function showPercentageChart(element, data, name) {
+  return showChart(element, 'line', '%', {
     tooltip: tooltipOptions(value => (value ? value + ' %' : undefined)),
     series: [{
       name: name,
@@ -110,7 +110,7 @@ function showPercentageChart(element_id, data, name) {
   });
 }
 
-function showUsageChart(element_id, data, name) {
+export function showUsageChart(element, data, name) {
   let max = data.reduce((acc, [_, value]) => (value > acc ? value : acc), -Infinity);
   let pow = 0;
   while (max >= 1024 && pow < 5) {
@@ -121,7 +121,7 @@ function showUsageChart(element_id, data, name) {
   const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'][pow];
   const bytes = Math.pow(1024, pow);
 
-  showChart(element_id, 'line', name, {
+  return showChart(element, 'line', name, {
     tooltip: tooltipOptions(value => (value ? `${value} ${units}` : undefined)),
     series: [{
       name: name,
@@ -130,11 +130,6 @@ function showUsageChart(element_id, data, name) {
     annotations: window?.annotationsData || {}
   });
 }
-
-window.showTIRChart = showTIRChart;
-window.showRTChart = showRTChart;
-window.showPercentageChart = showPercentageChart;
-window.showUsageChart = showUsageChart;
 
 const recent = document.getElementById("recent");
 const autoupdate = document.getElementById("autoupdate");

@@ -41,17 +41,9 @@
 <div class="card">
   <div class="card-content">
     <h2 class="subtitle">Rake Throughput Report</h2>
-    <div id="throughput_report_chart" class="chart"></div>
+    <rails-performance-chart id="throughput_report_chart" type="TIR" legend="Tasks" units="tasks / minute" class="chart">
+      <%= raw @throughput_report_data.to_json %>
+    </rails-performance-chart>
     <p class="content is-small">All rake tasks in the application</p>
   </div>
 </div>
-
-
-<% content_for :on_load do %>
-  <script>
-    whenReady(function() {
-      var data1 = <%= raw @throughput_report_data.to_json %>;
-      showTIRChart('throughput_report_chart', data1, ' tasks / minute', 'Tasks');
-    });
-  </script>
-<% end %>

@@ -56,7 +56,9 @@
 <div class="card">
   <div class="card-content">
     <h2 class="subtitle">Custom Events Throughput Report</h2>
-    <div id="throughput_report_chart" class="chart"></div>
+    <rails-performance-chart id="throughput_report_chart" type="TIR" legend="Events" units="events / minute" class="chart">
+      <%= raw @throughput_report_data.to_json %>
+    </rails-performance-chart>
     <p class="content is-small">All custom events in the application</p>
   </div>
 </div>
@@ -66,20 +68,9 @@
 <div class="card">
   <div class="card-content">
     <h2 class="subtitle">Average Execution Time</h2>
-    <div id="response_time_report_chart" class="chart"></div>
+    <rails-performance-chart id="response_time_report_chart" type="RT" legend="Response Time" class="chart">
+      <%= raw @response_time_report_data.to_json %>
+    </rails-performance-chart>
     <p class="content is-small">All custom events in the application</p>
   </div>
 </div>
-
-
-<% content_for :on_load do %>
-  <script>
-    whenReady(function() {
-      var data1 = <%= raw @throughput_report_data.to_json %>;
-      showTIRChart('throughput_report_chart', data1, ' events / minute', 'Events');
-
-      var data2 = <%= raw @response_time_report_data.to_json %>;
-      showRTChart('response_time_report_chart', data2);
-    });
-  </script>
-<% end %>
