@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 function hidePanel() {
   $('.cd-panel').removeClass('cd-panel--is-visible');
   $('body').removeClass('panel-visible');
@@ -11,6 +13,9 @@ function showPanel() {
   $('body').addClass('panel-visible');
   $('.cd-panel__content table').stupidtable();
 }
+
+window.hidePanel = hidePanel;
+window.showPanel = showPanel;
 
 $(function() {
   var panel = {};
@@ -36,4 +41,3 @@ $(function() {
   });
 
 });
-

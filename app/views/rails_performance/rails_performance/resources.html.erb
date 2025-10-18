@@ -16,7 +16,9 @@
 
     <% content_for :on_load do %>
       <script>
-        show<%= chart.type %>Chart('<%= chart.id %>', <%= raw chart.data.to_json %>, '<%= chart.legend %>');
+        whenReady(function() {
+          show<%= chart.type %>Chart('<%= chart.id %>', <%= raw chart.data.to_json %>, '<%= chart.legend %>');
+        })
       </script>
     <% end %>
   <% end %>

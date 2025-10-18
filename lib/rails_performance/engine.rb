@@ -8,6 +8,10 @@ module RailsPerformance
   class Engine < ::Rails::Engine
     isolate_namespace RailsPerformance
 
+    initializer "rails_performance.engine_assets", before: :set_routes_reloader do
+      RailsPerformance.engine_assets = EngineAssets.new(engine: self)
+    end
+
     initializer "rails_performance.resource_monitor" do
       # check required gems are available
       RailsPerformance._resource_monitor_enabled = !!(defined?(Sys::Filesystem) && defined?(Sys::CPU) && defined?(GetProcessMem))
