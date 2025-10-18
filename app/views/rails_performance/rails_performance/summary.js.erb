@@ -1,10 +1,7 @@
 window.panel.header.html(window.panel.close + '<%= j report_name(@datasource.q) %>');
 window.panel.content.html("<%= j render '/rails_performance/rails_performance/summary', title: "Requests" %>");
 
-var data1 = <%= raw @throughput_report_data.to_json %>;
-showTIRChart('throughput_report_chart_mini', data1, ' rpm', 'RPM');
-
-var data2 = <%= raw @response_time_report_data.to_json %>;
-showRTChart('response_time_report_chart_mini', data2);
+document.getElementById('throughput_report_chart_mini').updateData(<%= raw @throughput_report_data.to_json %>);
+document.getElementById('response_time_report_chart_mini').updateData(<%= raw @response_time_report_data.to_json %>);
 
 showPanel();
