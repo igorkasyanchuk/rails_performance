@@ -1,12 +1,91 @@
 import ApexCharts from 'apexcharts';
 
-function showChart(element, type, title, options) {
+class RailsPerformanceChart extends HTMLElement {
+  connectedCallback() {
+    this.legend = this.getAttribute('legend');
+    this.units = this.getAttribute('units');
+
+    const dataText = this.textContent.trim();
+    const data = dataText ? JSON.parse(dataText) : [];
+    this.textContent = '';
+
+    const chartDiv = document.createElement('div');
+    this.appendChild(chartDiv);
+
+    const type = this.getAttribute('type');
+    const renderMethod = this[`render${type}Chart`];
+    this.chart = renderMethod.call(this, chartDiv, data);
+  }
+
+  updateData(data) {
+    this.chart.updateSeries([{ data: data }], false);
+  }
+
+  renderTIRChart(element, data) {
+    return renderChart(element, data, {
+      chartType: 'area',
+      yAxisTitle: 'RPM',
+      seriesName: this.legend,
+      units: this.units
+    });
+  }
+
+  renderRTChart(element, data) {
+    return renderChart(element, data, {
+      chartType: 'area',
+      yAxisTitle: 'Time',
+      seriesName: 'Response Time',
+      units: 'ms'
+    });
+  }
+
+  renderPercentageChart(element, data) {
+    return renderChart(element, data, {
+      chartType: 'line',
+      yAxisTitle: '%',
+      seriesName: this.legend,
+      units: '%'
+    });
+  }
+
+  renderUsageChart(element, data) {
+    const { units, bytes } = calculateByteUnit(data);
+    return renderChart(element, data, {
+      chartType: 'line',
+      yAxisTitle: this.legend,
+      seriesName: this.legend,
+      units: this.units,
+      dataTransform: (data) => {
+        return data.map(([timestamp, value]) => {
+          return [timestamp, typeof value === 'number' ? (value / bytes).toFixed(2) : null];
+        });
+      },
+    });
+  }
+}
+
+customElements.define('rails-performance-chart', RailsPerformanceChart);
+
+function calculateByteUnit(data) {
+  let max = data.reduce((acc, [_, value]) => (value > acc ? value : acc), -Infinity);
+  let pow = 0;
+  while (max >= 1024 && pow < 5) {
+    max /= 1024;
+    pow += 1;
+  }
+
+  const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'][pow];
+  const bytes = Math.pow(1024, pow);
+
+  return { units, bytes };
+}
+
+function renderChart(element, data, { chartType = 'area', yAxisTitle, seriesName, units, dataTransform = x => x } = {}) {
   const chart = new ApexCharts(
     element,
     {
-      ...options,
       chart: {
-        type: type,
+        type: chartType,
         height: 300,
         width: '100%',
         group: 'chart',
@@ -39,7 +118,7 @@ function showChart(element, type, title, options) {
       yaxis: {
         min: 0,
         title: {
-          text: title,
+          text: yAxisTitle,
           style: {
             color: "#f6f6f6"
           }
@@ -49,88 +128,37 @@ function showChart(element, type, title, options) {
             colors: ["#a6b0cf"]
           }
         }
-      }
+      },
+      tooltip: {
+        style: {
+          fontSize: '16px'
+        },
+        marker: {
+          show: false,
+        },
+        x: {
+          show: false,
+          format: 'dd/MM/yy HH:mm'
+        },
+        y: {
+          formatter: (value) => value ? `${value} ${units}`.trim() : undefined,
+          title: {
+            formatter: () => '',
+          }
+        }
+      },
+      series: [{
+        name: seriesName,
+        data: dataTransform(data),
+      }],
+      annotations: window?.annotationsData || {}
     }
   );
   chart.render();
   return chart;
 }
 
-function tooltipOptions(formatter) {
-  return {
-    style: {
-      fontSize: '16px'
-    },
-    marker: {
-      show: false,
-    },
-    x: {
-      show: false,
-      format: 'dd/MM/yy HH:mm'
-    },
-    y: {
-      formatter: formatter,
-      title: {
-        formatter: () => '',
-      }
-    }
-  };
-}
-
-export function showTIRChart(element, data, addon, name) {
-  return showChart(element, 'area', 'RPM', {
-    tooltip: tooltipOptions(value => (value ? `${value} ${addon}` : undefined)),
-    series: [{
-      name: name,
-      data: data
-    }],
-    annotations: window?.annotationsData || {}
-  });
-}
-
-export function showRTChart(element, data) {
-  return showChart(element, 'area', 'Time', {
-    tooltip: tooltipOptions(value => (value ? value + ' ms' : undefined)),
-    series: [{
-      name: 'Response Time',
-      data: data,
-    }],
-    annotations: window?.annotationsData || {}
-  });
-}
-
-export function showPercentageChart(element, data, name) {
-  return showChart(element, 'line', '%', {
-    tooltip: tooltipOptions(value => (value ? value + ' %' : undefined)),
-    series: [{
-      name: name,
-      data: data,
-    }],
-    annotations: window?.annotationsData || {}
-  });
-}
-
-export function showUsageChart(element, data, name) {
-  let max = data.reduce((acc, [_, value]) => (value > acc ? value : acc), -Infinity);
-  let pow = 0;
-  while (max >= 1024 && pow < 5) {
-    max /= 1024;
-    pow += 1;
-  }
-
-  const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'][pow];
-  const bytes = Math.pow(1024, pow);
-
-  return showChart(element, 'line', name, {
-    tooltip: tooltipOptions(value => (value ? `${value} ${units}` : undefined)),
-    series: [{
-      name: name,
-      data: data.map(([timestamp, value]) => [timestamp, typeof value === 'number' ? (value / bytes).toFixed(2) : null]),
-    }],
-    annotations: window?.annotationsData || {}
-  });
-}
-
+// autoupdate for recent requests table - TODO: extract
 const recent = document.getElementById("recent");
 const autoupdate = document.getElementById("autoupdate");
 
