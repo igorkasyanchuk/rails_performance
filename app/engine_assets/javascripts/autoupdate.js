@@ -1,7 +1,8 @@
+import { Idiomorph } from 'idiomorph';
+
 class RailsPerformanceAutoupdate extends HTMLElement {
   connectedCallback() {
     this.checkbox = this.querySelector('input[type="checkbox"]');
-    this.recentTable = document.getElementById('recent');
     this.initializeCheckboxState();
     this.setupCheckboxListener();
     this.startPolling();
@@ -21,24 +22,44 @@ class RailsPerformanceAutoupdate extends HTMLElement {
   }
 
   startPolling() {
-    const tbody = this.recentTable.querySelector('tbody');
+    setInterval(() => this.poll(), 3000);
+  }
 
-    setInterval(() => {
-      if(!this.checkbox.checked) return;
+  async poll() {
+    if (!this.checkbox.checked) return;
 
-      const tr = tbody.children[0];
-      const from_timei = tr.getAttribute('from_timei') || '';
+    const html = await this.fetchPage();
+    const newDoc = this.parseHtml(html);
+    this.morphPage(newDoc);
+  }
 
-      fetch(`recent.js?from_timei=${from_timei}`, {
-        headers: {
-          'X-CSRF-Token': document.querySelector("[name='csrf-token']").content,
-        },
-      })
-        .then(res => res.text())
-        .then(html => {
-          tbody.innerHTML = html + tbody.innerHTML;
-        });
-    }, 3000);
+  async fetchPage() {
+    const res = await fetch(window.location.href, {
+      headers: {
+        'X-CSRF-Token': document.querySelector("[name='csrf-token']").content,
+      },
+    });
+    return await res.text();
+  }
+
+  parseHtml(html) {
+    const parser = new DOMParser();
+    return parser.parseFromString(html, 'text/html');
+  }
+
+  morphPage(newDoc) {
+    Idiomorph.morph(document.body, newDoc.body, {
+      callbacks: {
+        beforeNodeMorphed: (oldNode, newNode) => {
+          if (oldNode === this) {
+            return false;
+          }
+          if (oldNode.hasAttribute && oldNode.hasAttribute('data-skip-autoupdate')) {
+            return false;
+          }
+        }
+      }
+    });
   }
 }
 
