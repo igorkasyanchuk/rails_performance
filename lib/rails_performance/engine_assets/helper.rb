@@ -39,22 +39,8 @@ module RailsPerformance
           tag.script(type: "importmap") do
             JSON.pretty_generate({"imports" => imports.merge(engine_imports)}).html_safe
           end,
-          tag.script(<<~JS.html_safe, type: "module"),
-            await import('#{engine_assets.engine.engine_name}/#{entry_point}');
-
-            // Signal that modules are loaded
-            window.engineAssetsReady = true;
-            document.dispatchEvent(new Event('engineAssetsReady'));
-          JS
-          tag.script(<<~JS.html_safe)
-            // Helper to run code after modules are loaded
-            function whenReady(fn) {
-              if (window.engineAssetsReady) {
-                fn();
-              } else {
-                document.addEventListener('engineAssetsReady', fn, { once: true });
-              }
-            }
+          tag.script(<<~JS.html_safe, type: "module")
+            import "#{engine_assets.engine.engine_name}/#{entry_point}"
           JS
         ].join("\n").html_safe
       end
