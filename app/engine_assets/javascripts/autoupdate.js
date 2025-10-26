@@ -1,28 +1,35 @@
 import { Idiomorph } from 'idiomorph';
+import ms from 'ms';
 
 class RailsPerformanceAutoupdate extends HTMLElement {
   connectedCallback() {
     this.checkbox = this.querySelector('input[type="checkbox"]');
+    this.intervalMs = this.parseIntervalAttribute();
     this.initializeCheckboxState();
     this.setupCheckboxListener();
     this.startPolling();
   }
 
+  parseIntervalAttribute() {
+    return ms(this.getAttribute('interval') || '3s');
+  }
+
   initializeCheckboxState() {
-    if (localStorage.getItem('autoupdate') === null) {
-      localStorage.setItem('autoupdate', 'true');
+    const key = this.storageKey();
+    if (localStorage.getItem(key) === null) {
+      localStorage.setItem(key, 'true');
     }
-    this.checkbox.checked = localStorage.getItem('autoupdate') === 'true';
+    this.checkbox.checked = localStorage.getItem(key) === 'true';
   }
 
   setupCheckboxListener() {
     this.checkbox.addEventListener('change', () => {
-      localStorage.setItem('autoupdate', this.checkbox.checked);
+      localStorage.setItem(this.storageKey(), this.checkbox.checked);
     });
   }
 
   startPolling() {
-    setInterval(() => this.poll(), 3000);
+    setInterval(() => this.poll(), this.intervalMs);
   }
 
   async poll() {
@@ -51,6 +58,7 @@ class RailsPerformanceAutoupdate extends HTMLElement {
     Idiomorph.morph(document.body, newDoc.body, {
       callbacks: {
         beforeNodeMorphed: (oldNode, newNode) => {
+          // skip morphing the autoupdate component itself
           if (oldNode === this) {
             return false;
           }
@@ -60,6 +68,10 @@ class RailsPerformanceAutoupdate extends HTMLElement {
         }
       }
     });
+  }
+
+  storageKey() {
+    return `rails-performance-autoupdate:${window.location.pathname}`;
   }
 }
 

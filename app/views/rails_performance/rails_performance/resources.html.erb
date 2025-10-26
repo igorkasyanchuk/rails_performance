@@ -1,5 +1,13 @@
 <title>System Resources</title>
 
+<div class="has-text-right mb-4">
+  <rails-performance-autoupdate interval="10s">
+    <label id="autoupdate_label">
+      <input type="checkbox" /> Auto-update
+    </label>
+  </rails-performance-autoupdate>
+</div>
+
 <% @resources_report.servers.each do |server| %>
   <h1 class="title mt-8 pt-8"><%= server.name %></h1>
 
