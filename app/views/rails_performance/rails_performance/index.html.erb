@@ -4,6 +4,14 @@
   <%#= link_to raw("&larr; Back"), rails_performance_path, class: "back_link" %>
 <% end %>
 
+<div class="has-text-right mb-4">
+  <rails-performance-autoupdate interval="10s">
+    <label id="autoupdate_label">
+      <input type="checkbox" /> Auto-update
+    </label>
+  </rails-performance-autoupdate>
+</div>
+
 <div class="columns">
   <div class="column">
     <div class="card">

@@ -75,7 +75,7 @@ module RailsPerformance
       def recent
         @datasource = RailsPerformance::DataSource.new(**prepare_query(params), type: :requests)
         db = @datasource.db
-        @data = RailsPerformance::Reports::RecentRequestsReport.new(db).data(params[:from_timei])
+        @data = RailsPerformance::Reports::RecentRequestsReport.new(db).data
 
         # example
         # :controller=>"HomeController",
@@ -98,7 +98,6 @@ module RailsPerformance
 
         respond_to do |format|
           format.html
-          format.js
           format.csv do
             export_to_csv "recent_requests_report", @data
           end

@@ -1,24 +1,60 @@
-import ApexCharts from 'apexcharts';
+import ApexCharts from "rails_performance/apex_ext"
+import ms from "ms"
 
 class RailsPerformanceChart extends HTMLElement {
   connectedCallback() {
     this.legend = this.getAttribute('legend');
     this.units = this.getAttribute('units');
-
-    const dataText = this.textContent.trim();
-    const data = dataText ? JSON.parse(dataText) : [];
-    this.textContent = '';
-
-    const chartDiv = document.createElement('div');
-    this.appendChild(chartDiv);
-
-    const type = this.getAttribute('type');
-    const renderMethod = this[`render${type}Chart`];
-    this.chart = renderMethod.call(this, chartDiv, data);
+    this.type = this.getAttribute('type');
+    this.dataText = this.textContent.trim();
+    this.chart = this.buildChart();
+    this.observeDataChanges();
   }
 
-  updateData(data) {
-    this.chart.updateSeries([{ data: data }], false);
+  buildChart() {
+    if (!this.shadowRoot) {
+      this.attachShadow({ mode: 'open' });
+    }
+
+    const chartDiv = document.createElement('div');
+    this.shadowRoot.innerHTML = '';
+    this.shadowRoot.appendChild(chartDiv);
+
+    const data = this.safeParseJson(this.dataText);
+    const renderMethod = this[`render${this.type}Chart`];
+    return renderMethod.call(this, chartDiv, data);
+  }
+
+  safeParseJson(text, defaultValue = []) {
+    try { return JSON.parse(text); } catch(e) { return defaultValue; }
+  }
+
+  observeDataChanges() {
+    this.mutationObserver = new MutationObserver(() => {
+      const currentText = this.textContent.trim();
+      if (currentText === this.dataText) return;
+      this.dataText = currentText;
+      const data = this.safeParseJson(currentText);
+      this.updateChart(data);
+    });
+    this.mutationObserver.observe(this, { childList: true, characterData: true, subtree: true });
+  }
+
+  updateChart(newData) {
+    let incoming = newData;
+    if (this.type === 'Usage') {
+      const { units, bytes } = calculateByteUnit(newData);
+      incoming = newData.map(([t, v]) => [t, typeof v === 'number' ? (v / bytes).toFixed(2) : null]);
+    }
+    this.chart.updateRollingWindow(incoming, { windowSizeMs: this.windowSizeMs });
+  }
+
+  get windowSizeMs() {
+    if (this.type === 'TIR' || this.type === 'RT') {
+      return ms("4h")
+    } else {
+      return ms("24h")
+    }
   }
 
   renderTIRChart(element, data) {
@@ -54,11 +90,9 @@ class RailsPerformanceChart extends HTMLElement {
       chartType: 'line',
       yAxisTitle: this.legend,
       seriesName: this.legend,
-      units: this.units,
+      units: units,
       dataTransform: (data) => {
-        return data.map(([timestamp, value]) => {
-          return [timestamp, typeof value === 'number' ? (value / bytes).toFixed(2) : null];
-        });
+        return data.map(([timestamp, value]) => [timestamp, typeof value === 'number' ? (value / bytes).toFixed(2) : null]);
       },
     });
   }
@@ -156,41 +190,4 @@ function renderChart(element, data, { chartType = 'area', yAxisTitle, seriesName
   );
   chart.render();
   return chart;
-}
-
-// autoupdate for recent requests table - TODO: extract
-const recent = document.getElementById("recent");
-const autoupdate = document.getElementById("autoupdate");
-
-if (autoupdate) {
-  if (localStorage.getItem("autoupdate") === null) {
-    localStorage.setItem("autoupdate", "true");
-  }
-  autoupdate.checked = localStorage.getItem("autoupdate") === "true";
-  autoupdate.addEventListener('change', () => {
-    localStorage.setItem("autoupdate", autoupdate.checked);
-  });
-}
-
-if (recent) {
-  const tbody = recent.querySelector("tbody");
-
-  setInterval(() => {
-    const tr = tbody.children[0];
-    const from_timei = tr.getAttribute("from_timei") || '';
-
-    if (!autoupdate.checked) {
-      return;
-    }
-
-    fetch(`recent.js?from_timei=${from_timei}`, {
-      headers: {
-        "X-CSRF-Token": document.querySelector("[name='csrf-token']").content,
-      },
-    })
-      .then(res => res.text())
-      .then(html => {
-        tbody.innerHTML = html + tbody.innerHTML;
-      });
-  }, 3000);
 }
