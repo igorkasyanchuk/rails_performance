@@ -1,9 +1,11 @@
 <h2 class="subtitle">Throughput</h2>
 <rails-performance-chart id="throughput_report_chart_mini" type="TIR" legend="RPM" units="rpm" class="chart_mini">
+  <%= raw @throughput_report_data.to_json %>
 </rails-performance-chart>
 
 <h2 class="subtitle">Average Response Time</h2>
 <rails-performance-chart id="response_time_report_chart_mini" type="RT" legend="Response Time" class="chart_mini">
+  <%= raw @response_time_report_data.to_json %>
 </rails-performance-chart>
 
 <h2 class="subtitle"><%= title %></h2>

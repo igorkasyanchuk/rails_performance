@@ -1,7 +1,3 @@
 window.panel.header.html(window.panel.close + '<%= j report_name(@datasource.q) %>');
 window.panel.content.html("<%= j render '/rails_performance/rails_performance/summary', title: "Requests" %>");
-
-document.getElementById('throughput_report_chart_mini').updateData(<%= raw @throughput_report_data.to_json %>);
-document.getElementById('response_time_report_chart_mini').updateData(<%= raw @response_time_report_data.to_json %>);
-
 showPanel();
