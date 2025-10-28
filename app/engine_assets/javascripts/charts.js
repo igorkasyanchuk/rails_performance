@@ -122,6 +122,7 @@ function renderChart(element, data, { chartType = 'area', yAxisTitle, seriesName
         type: chartType,
         height: 300,
         width: '100%',
+        id: `chart-${Math.random().toFixed(10)}`,
         group: 'chart',
         zoom: {
           type: 'x',
