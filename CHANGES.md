@@ -2,6 +2,21 @@
 
 - 1.6.0
 
+* Fix UsageChart units by @botandrose in https://github.com/igorkasyanchuk/rails_performance/pull/160
+* Add events to usage and percentage charts, too by @botandrose in https://github.com/igorkasyanchuk/rails_performance/pull/161
+* Add unlogged endpoints by @braktar in https://github.com/igorkasyanchuk/rails_performance/pull/158
+* add .gitattributes to prevent issues with differing line endings. by @botandrose in https://github.com/igorkasyanchuk/rails_performance/pull/163
+* Appease standardrb lint job in CI by @botandrose in https://github.com/igorkasyanchuk/rails_performance/pull/164
+* Bump dependencies by @botandrose in https://github.com/igorkasyanchuk/rails_performance/pull/167
+* Run standardrb checks after tests in default rake task by @botandrose in https://github.com/igorkasyanchuk/rails_performance/pull/168
+* Assets revamp by @botandrose in https://github.com/igorkasyanchuk/rails_performance/pull/166
+* Restore rails ujs functionality. by @botandrose in https://github.com/igorkasyanchuk/rails_performance/pull/170
+* Refactor charts to <rails-performance-chart> custom element  by @botandrose in https://github.com/igorkasyanchuk/rails_performance/pull/169
+* Revamp autoupdate mechanism, add it to Dashboard and System pages by @botandrose in https://github.com/igorkasyanchuk/rails_performance/pull/171
+* fix ci by @botandrose in https://github.com/igorkasyanchuk/rails_performance/pull/173
+* Fix summary charts by adding the data via the html by @botandrose in https://github.com/igorkasyanchuk/rails_performance/pull/172
+* Remove executable permissions bit from non-executable files by @botandrose in https://github.com/igorkasyanchuk/rails_performance/pull/174
+
 
 - 1.5.2
   - Fix resource chart method name https://github.com/igorkasyanchuk/rails_performance/pull/153
