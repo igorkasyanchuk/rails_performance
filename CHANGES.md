@@ -1,5 +1,8 @@
 - Unreleased
 
+- 1.6.0
+
+
 - 1.5.2
   - Fix resource chart method name https://github.com/igorkasyanchuk/rails_performance/pull/153
 

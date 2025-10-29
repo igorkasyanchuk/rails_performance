@@ -101,7 +101,7 @@ class GrapeEndpointsTest < ActionDispatch::IntegrationTest
   test "logs 422 unprocessable entity response with correct data" do
     assert_equal 0, grape_count
     get "/api/unprocessable_entity"
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_equal 1, grape_count
 
     record = grape_records.first
