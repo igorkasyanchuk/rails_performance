@@ -1,6 +1,11 @@
 module RailsPerformance
   class EngineAssets
-    class Controller < ActionController::Base
+    class Controller < ActionController::Metal
+      include ActionController::DataStreaming
+      include ActionController::ConditionalGet
+      include ActionController::Head
+      include ActionController::Caching
+
       def show
         file_path = safe_file_path
 
@@ -29,13 +34,6 @@ module RailsPerformance
       def content_type
         format = params[:format] || request.format.symbol.to_s
         engine_assets.content_type(format)
-      end
-
-      # Override to allow cross-origin JavaScript embedding
-      # This is really dumb because it IS the same origin, but Chrome's import apparently doesn't send the Origin header.
-      # Is there a better way to resolve this?
-      def verify_same_origin_request
-        # no-op
       end
     end
   end

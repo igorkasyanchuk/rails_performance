@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get "home/blog"
   get "home/about.csv", to: "home#about"
 
+  resources :users, only: [:index], defaults: {format: :json}
+
   mount API => "/"
 
   root to: "home#index"

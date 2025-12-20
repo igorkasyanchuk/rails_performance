@@ -32,6 +32,7 @@ gem "daemons"
 
 gem "puma"
 
+gem "jbuilder"
 gem "sprockets-rails"
 
 gem "devise"

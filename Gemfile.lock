@@ -147,6 +147,9 @@ GEM
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
+    jbuilder (2.14.1)
+      actionview (>= 7.0.0)
+      activesupport (>= 7.0.0)
     json (2.15.1)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
@@ -347,6 +350,7 @@ DEPENDENCIES
   devise
   get_process_mem
   grape
+  jbuilder
   mimemagic (>= 0, = 0.4.3)
   ostruct
   puma
