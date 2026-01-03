@@ -43,7 +43,7 @@ class RailsPerformanceChart extends HTMLElement {
   updateChart(newData) {
     let incoming = newData;
     if (this.type === 'Usage') {
-      const { units, bytes } = calculateByteUnit(newData);
+      const { bytes } = calculateByteUnit(newData);
       incoming = newData.map(([t, v]) => [t, typeof v === 'number' ? (v / bytes).toFixed(2) : null]);
     }
     this.chart.updateRollingWindow(incoming, { windowSizeMs: this.windowSizeMs });
@@ -51,9 +51,9 @@ class RailsPerformanceChart extends HTMLElement {
 
   get windowSizeMs() {
     if (this.type === 'TIR' || this.type === 'RT') {
-      return ms("4h")
+      return window.railsPerformanceDuration || ms("4h");
     } else {
-      return ms("24h")
+      return ms("24h");
     }
   }
 
