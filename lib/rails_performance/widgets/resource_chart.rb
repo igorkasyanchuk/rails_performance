@@ -1,6 +1,17 @@
 module RailsPerformance
-  module SystemMonitor
-    ResourceChart = Struct.new(:server, :key, :type, :subtitle, :description, :legend, keyword_init: true) do
+  module Widgets
+    class ResourceChart < Chart
+      attr_reader :server, :key, :type, :subtitle, :description, :legend
+
+      def initialize(server:, key:, type:, subtitle:, description:, legend:)
+        @server = server
+        @key = key
+        @type = type
+        @subtitle = subtitle
+        @description = description
+        @legend = legend
+      end
+
       def id
         [key, "report", server.key.parameterize].join("_")
       end

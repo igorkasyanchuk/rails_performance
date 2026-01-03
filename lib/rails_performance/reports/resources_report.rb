@@ -8,7 +8,7 @@ module RailsPerformance
 
         def charts
           RailsPerformance.system_monitors.map do |class_name|
-            SystemMonitor.const_get(class_name).new(self)
+            Widgets.const_get(class_name).new(self)
           end
         end
       end

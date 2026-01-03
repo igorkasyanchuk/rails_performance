@@ -1,12 +1,6 @@
 module RailsPerformance
-  module DashboardCharts
-    class Base
-      attr_reader :datasource
-
-      def initialize(datasource)
-        @datasource = datasource
-      end
-
+  module Widgets
+    class Chart < Base
       def id
         raise NotImplementedError
       end

@@ -1,6 +1,6 @@
 module RailsPerformance
-  module DashboardCharts
-    class ResponseTimeChart < Base
+  module Widgets
+    class ResponseTimeChart < Chart
       def id
         "response_time_report_chart"
       end

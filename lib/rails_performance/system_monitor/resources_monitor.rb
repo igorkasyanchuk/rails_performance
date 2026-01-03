@@ -1,5 +1,3 @@
-require "rails_performance/system_monitor/resource_chart"
-
 module RailsPerformance
   module SystemMonitor
     class ResourcesMonitor
@@ -49,7 +47,7 @@ module RailsPerformance
 
       def monitors
         @monitors ||= RailsPerformance.system_monitors.map do |class_name|
-          RailsPerformance::SystemMonitor.const_get(class_name).new(nil)
+          RailsPerformance::Widgets.const_get(class_name).new(nil)
         end
       end
 

@@ -10,9 +10,9 @@ module RailsPerformance
 
         @widgets = RailsPerformance.dashboard_charts.map do |row|
           if row.is_a?(Array)
-            row.map { |class_name| DashboardCharts.const_get(class_name).new(@datasource) }
+            row.map { |class_name| Widgets.const_get(class_name).new(@datasource) }
           else
-            DashboardCharts.const_get(row).new(@datasource)
+            Widgets.const_get(row).new(@datasource)
           end
         end
       end
