@@ -39,5 +39,9 @@ module RailsPerformance
         false
       end
     end
+
+    def card?
+      false
+    end
   end
 end

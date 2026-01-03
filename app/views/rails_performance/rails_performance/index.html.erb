@@ -12,44 +12,43 @@
   </rails-performance-autoupdate>
 </div>
 
-<div class="columns">
-  <div class="column">
+<% @widgets.each do |row| %>
+  <% if row.is_a?(Array) %>
+    <div class="columns">
+      <% row.each do |widget| %>
+        <div class="column">
+          <div class="card">
+            <div class="card-content">
+              <% if widget.card? %>
+                <h2 class="subtitle is-size-1"><%= ms widget.value %></h2>
+                <p class="content is-size-4"><%= widget.label %></p>
+              <% else %>
+                <h2 class="subtitle"><%= widget.subtitle %></h2>
+                <rails-performance-chart id="<%= widget.id %>" type="<%= widget.type %>" legend="<%= widget.legend %>" <%= %(units="#{widget.units}") if widget.units %> class="chart">
+                  <%= raw widget.data.to_json %>
+                </rails-performance-chart>
+                <p class="content is-small"><%= widget.description %></p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
     <div class="card">
       <div class="card-content">
-        <h2 class="subtitle is-size-1"><%= ms @percentile_report_data[:p50] %></h2>
-        <p class="content is-size-4">p50</p>
+        <% if row.card? %>
+          <h2 class="subtitle is-size-1"><%= ms row.value %></h2>
+          <p class="content is-size-4"><%= row.label %></p>
+        <% else %>
+          <h2 class="subtitle"><%= row.subtitle %></h2>
+          <rails-performance-chart id="<%= row.id %>" type="<%= row.type %>" legend="<%= row.legend %>" <%= %(units="#{row.units}") if row.units %> class="chart">
+            <%= raw row.data.to_json %>
+          </rails-performance-chart>
+          <p class="content is-small"><%= row.description %></p>
+        <% end %>
       </div>
     </div>
-  </div>
-
-  <div class="column">
-    <div class="card">
-      <div class="card-content">
-        <h2 class="subtitle is-size-1"><%= ms @percentile_report_data[:p95] %></h2>
-        <p class="content is-size-4">p95</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="column">
-    <div class="card">
-      <div class="card-content">
-        <h2 class="subtitle is-size-1"><%= ms @percentile_report_data[:p99] %></h2>
-        <p class="content is-size-4">p99</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<% @charts.each do |chart| %>
-  <div class="card">
-    <div class="card-content">
-      <h2 class="subtitle"><%= chart.subtitle %></h2>
-      <rails-performance-chart id="<%= chart.id %>" type="<%= chart.type %>" legend="<%= chart.legend %>" <%= %(units="#{chart.units}") if chart.units %> class="chart">
-        <%= raw chart.data.to_json %>
-      </rails-performance-chart>
-      <p class="content is-small"><%= chart.description %></p>
-    </div>
-  </div>
-  <br/>
+    <br/>
+  <% end %>
 <% end %>

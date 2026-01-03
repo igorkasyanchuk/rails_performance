@@ -7,11 +7,13 @@ module RailsPerformance
     if RailsPerformance.enabled
       def index
         @datasource = RailsPerformance::DataSource.new(**prepare_query(params), type: :requests)
-        db = @datasource.db
 
-        @percentile_report_data = RailsPerformance::Reports::PercentileReport.new(db).data
-        @charts = RailsPerformance.dashboard_charts.map do |class_name|
-          RailsPerformance.const_get(class_name).new(@datasource)
+        @widgets = RailsPerformance.dashboard_charts.map do |row|
+          if row.is_a?(Array)
+            row.map { |class_name| DashboardCharts.const_get(class_name).new(@datasource) }
+          else
+            DashboardCharts.const_get(row).new(@datasource)
+          end
         end
       end
 

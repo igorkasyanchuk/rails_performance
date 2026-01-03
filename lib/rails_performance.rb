@@ -31,6 +31,7 @@ require_relative "rails_performance/events/record"
 require_relative "rails_performance/dashboard_charts/base"
 require_relative "rails_performance/dashboard_charts/throughput_chart"
 require_relative "rails_performance/dashboard_charts/response_time_chart"
+require_relative "rails_performance/dashboard_charts/percentile_card"
 require_relative "rails_performance/extensions/trace"
 require_relative "rails_performance/thread/current_request"
 require_relative "rails_performance/interface"
@@ -144,8 +145,9 @@ module RailsPerformance
 
   mattr_accessor :dashboard_charts
   @@dashboard_charts = [
-    "DashboardCharts::ThroughputChart",
-    "DashboardCharts::ResponseTimeChart"
+    ["P50Card", "P95Card", "P99Card"],
+    "ThroughputChart",
+    "ResponseTimeChart"
   ]
 
   # -- internal usage --
