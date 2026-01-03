@@ -41,24 +41,15 @@
   </div>
 </div>
 
-<div class="card">
-  <div class="card-content">
-    <h2 class="subtitle">Throughput Report</h2>
-    <rails-performance-chart id="throughput_report_chart" type="TIR" legend="RPM" units="rpm" class="chart">
-      <%= raw @throughput_report_data.to_json %>
-    </rails-performance-chart>
-    <p class="content is-small">All requests (site visitors, search engines, bots, etc)</p>
+<% @charts.each do |chart| %>
+  <div class="card">
+    <div class="card-content">
+      <h2 class="subtitle"><%= chart.subtitle %></h2>
+      <rails-performance-chart id="<%= chart.id %>" type="<%= chart.type %>" legend="<%= chart.legend %>" <%= %(units="#{chart.units}") if chart.units %> class="chart">
+        <%= raw chart.data.to_json %>
+      </rails-performance-chart>
+      <p class="content is-small"><%= chart.description %></p>
+    </div>
   </div>
-</div>
-
-<br/>
-
-<div class="card">
-  <div class="card-content">
-    <h2 class="subtitle">Average Response Time Report</h2>
-    <rails-performance-chart id="response_time_report_chart" type="RT" legend="Response Time" class="chart">
-      <%= raw @response_time_report_data.to_json %>
-    </rails-performance-chart>
-    <p class="content is-small">All requests (site visitors, search engines, bots, etc)</p>
-  </div>
-</div>
+  <br/>
+<% end %>

@@ -9,9 +9,10 @@ module RailsPerformance
         @datasource = RailsPerformance::DataSource.new(**prepare_query(params), type: :requests)
         db = @datasource.db
 
-        @throughput_report_data = RailsPerformance::Reports::ThroughputReport.new(db).data
-        @response_time_report_data = RailsPerformance::Reports::ResponseTimeReport.new(db).data
         @percentile_report_data = RailsPerformance::Reports::PercentileReport.new(db).data
+        @charts = RailsPerformance.dashboard_charts.map do |class_name|
+          RailsPerformance.const_get(class_name).new(@datasource)
+        end
       end
 
       def resources

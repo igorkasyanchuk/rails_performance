@@ -28,6 +28,9 @@ require_relative "rails_performance/reports/percentile_report"
 require_relative "rails_performance/reports/resources_report"
 require_relative "rails_performance/reports/annotations_report"
 require_relative "rails_performance/events/record"
+require_relative "rails_performance/dashboard_charts/base"
+require_relative "rails_performance/dashboard_charts/throughput_chart"
+require_relative "rails_performance/dashboard_charts/response_time_chart"
 require_relative "rails_performance/extensions/trace"
 require_relative "rails_performance/thread/current_request"
 require_relative "rails_performance/interface"
@@ -137,6 +140,12 @@ module RailsPerformance
     "CPULoad",
     "MemoryUsage",
     "DiskUsage"
+  ]
+
+  mattr_accessor :dashboard_charts
+  @@dashboard_charts = [
+    "DashboardCharts::ThroughputChart",
+    "DashboardCharts::ResponseTimeChart"
   ]
 
   # -- internal usage --
