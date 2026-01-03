@@ -1,0 +1,7 @@
+<div class="card">
+  <div class="card-content">
+    <h2 class="subtitle"><%= chart.subtitle %></h2>
+    <%= tag.rails_performance_chart(chart.data.to_json.html_safe, id: chart.id, type: chart.type, legend: chart.legend, units: chart.units, class: "chart") %>
+    <p class="content is-small"><%= chart.description %></p>
+  </div>
+</div>

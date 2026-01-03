@@ -16,39 +16,10 @@
   <% if row.is_a?(Array) %>
     <div class="columns">
       <% row.each do |widget| %>
-        <div class="column">
-          <div class="card">
-            <div class="card-content">
-              <% if widget.card? %>
-                <h2 class="subtitle is-size-1"><%= ms widget.value %></h2>
-                <p class="content is-size-4"><%= widget.label %></p>
-              <% else %>
-                <h2 class="subtitle"><%= widget.subtitle %></h2>
-                <rails-performance-chart id="<%= widget.id %>" type="<%= widget.type %>" legend="<%= widget.legend %>" <%= %(units="#{widget.units}") if widget.units %> class="chart">
-                  <%= raw widget.data.to_json %>
-                </rails-performance-chart>
-                <p class="content is-small"><%= widget.description %></p>
-              <% end %>
-            </div>
-          </div>
-        </div>
+        <div class="column"><%= render widget %></div>
       <% end %>
     </div>
   <% else %>
-    <div class="card">
-      <div class="card-content">
-        <% if row.card? %>
-          <h2 class="subtitle is-size-1"><%= ms row.value %></h2>
-          <p class="content is-size-4"><%= row.label %></p>
-        <% else %>
-          <h2 class="subtitle"><%= row.subtitle %></h2>
-          <rails-performance-chart id="<%= row.id %>" type="<%= row.type %>" legend="<%= row.legend %>" <%= %(units="#{row.units}") if row.units %> class="chart">
-            <%= raw row.data.to_json %>
-          </rails-performance-chart>
-          <p class="content is-small"><%= row.description %></p>
-        <% end %>
-      </div>
-    </div>
-    <br/>
+    <%= render row %><br/>
   <% end %>
 <% end %>

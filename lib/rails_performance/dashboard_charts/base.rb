@@ -35,13 +35,9 @@ module RailsPerformance
         raise NotImplementedError
       end
 
-      def card?
-        false
+      def to_partial_path
+        "rails_performance/rails_performance/chart"
       end
-    end
-
-    def card?
-      false
     end
   end
 end

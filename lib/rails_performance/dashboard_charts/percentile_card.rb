@@ -1,8 +1,8 @@
 module RailsPerformance
   module DashboardCharts
     class PercentileCard < Base
-      def card?
-        true
+      def to_partial_path
+        "rails_performance/rails_performance/card"
       end
 
       def percentile
