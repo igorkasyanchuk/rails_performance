@@ -13,13 +13,7 @@
 </div>
 
 <% @widgets.each do |row| %>
-  <% if row.is_a?(Array) %>
-    <div class="columns">
-      <% row.each do |widget| %>
-        <div class="column"><%= render widget %></div>
-      <% end %>
-    </div>
-  <% else %>
-    <%= render row %><br/>
-  <% end %>
+  <div class="row">
+    <%= render row %>
+  </div>
 <% end %>
