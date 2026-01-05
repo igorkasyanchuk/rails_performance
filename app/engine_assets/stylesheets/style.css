@@ -189,3 +189,15 @@ body.has-sticky-footer {
 .apexcharts-tooltip {
   background: yellow !important;
 }
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.row > .widget {
+  flex: 1;
+  min-width: 0;
+}
