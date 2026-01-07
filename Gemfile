@@ -38,9 +38,13 @@ gem "devise"
 
 gem "standard"
 
+gem "appraisal"
+
 gem "sys-filesystem"
 gem "sys-cpu"
 gem "get_process_mem"
 
 gem "ostruct"
 gem "csv"
+
+gem "minitest", "~> 5.0"
