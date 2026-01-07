@@ -1,0 +1,24 @@
+<div class="card">
+  <div class="card-content">
+    <div class="columns is-vcentered">
+      <div class="column">
+        <h2 class="subtitle"><%= table.subtitle %></h2>
+      </div>
+      <% if table.show_export? %>
+        <div class="column is-narrow">
+          <%= render "export" %>
+        </div>
+      <% end %>
+    </div>
+    <% if table.auto_update_interval %>
+      <div class="has-text-right">
+        <rails-performance-autoupdate interval="<%= table.auto_update_interval %>">
+          <label>
+            <input type="checkbox" /> Auto-update
+          </label>
+        </rails-performance-autoupdate>
+      </div>
+    <% end %>
+    <%= render table.content_partial_path, table: table %>
+  </div>
+</div>

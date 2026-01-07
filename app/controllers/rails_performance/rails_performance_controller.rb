@@ -52,110 +52,93 @@ module RailsPerformance
 
       def crashes
         @datasource = RailsPerformance::DataSource.new(**prepare_query({status_eq: 500}), type: :requests)
-        db = @datasource.db
-        @data = RailsPerformance::Reports::CrashReport.new(db).data
+        @table = Widgets::CrashesTable.new(@datasource)
 
         respond_to do |format|
           format.html
           format.csv do
-            export_to_csv "error_report", @data
+            export_to_csv "error_report", @table.data
           end
         end
       end
 
       def requests
         @datasource = RailsPerformance::DataSource.new(**prepare_query(params), type: :requests)
-        db = @datasource.db
-        @data = RailsPerformance::Reports::RequestsReport.new(db, group: :controller_action_format, sort: :count).data
+        @table = Widgets::RequestsTable.new(@datasource)
+
         respond_to do |format|
           format.html
           format.csv do
-            export_to_csv "requests_report", @data
+            export_to_csv "requests_report", @table.data
           end
         end
       end
 
       def recent
         @datasource = RailsPerformance::DataSource.new(**prepare_query(params), type: :requests)
-        db = @datasource.db
-        @data = RailsPerformance::Reports::RecentRequestsReport.new(db).data
-
-        # example
-        # :controller=>"HomeController",
-        # :action=>"index",
-        # :format=>"html",
-        # :status=>"200",
-        # :method=>"GET",
-        # :path=>"/",
-        # :request_id=>"9c9bff5f792a5b3f77cb07fa325f8ddf",
-        # :datetime=>2023-06-24 21:22:46 +0300,
-        # :datetimei=>1687630966,
-        # :duration=>207.225830078125,
-        # :db_runtime=>2.055999994277954,
-        # :view_runtime=>67.8370000096038,
-        # :exception=>nil,
-        # :backtrace=>nil,
-        # :http_referer=>nil,
-        # "email"=>nil,
-        # "user_agent"=>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"}]
+        @table = Widgets::RecentRequestsTable.new(@datasource)
 
         respond_to do |format|
           format.html
           format.csv do
-            export_to_csv "recent_requests_report", @data
+            export_to_csv "recent_requests_report", @table.data
           end
         end
       end
 
       def slow
         @datasource = RailsPerformance::DataSource.new(**prepare_query(params), type: :requests)
-        db = @datasource.db
-        @data = RailsPerformance::Reports::SlowRequestsReport.new(db).data
+        @table = Widgets::SlowRequestsTable.new(@datasource)
 
         respond_to do |format|
           format.html
           format.csv do
-            export_to_csv "slow_requests_report", @data
+            export_to_csv "slow_requests_report", @table.data
           end
         end
       end
 
       def sidekiq
         @datasource = RailsPerformance::DataSource.new(**prepare_query(params), type: :sidekiq)
-        db = @datasource.db
-        @throughput_report_data = RailsPerformance::Reports::ThroughputReport.new(db).data
-        @response_time_report_data = RailsPerformance::Reports::ResponseTimeReport.new(db).data
-        @recent_report_data = RailsPerformance::Reports::RecentRequestsReport.new(db).data
+        @widgets = [
+          Widgets::ThroughputChart.new(@datasource, subtitle: "Sidekiq Workers Throughput Report", legend: "Jobs", units: "jobs / minute"),
+          Widgets::ResponseTimeChart.new(@datasource, subtitle: "Average Execution Time"),
+          Widgets::SidekiqJobsTable.new(@datasource)
+        ]
       end
 
       def delayed_job
         @datasource = RailsPerformance::DataSource.new(**prepare_query(params), type: :delayed_job)
-        db = @datasource.db
-        @throughput_report_data = RailsPerformance::Reports::ThroughputReport.new(db).data
-        @response_time_report_data = RailsPerformance::Reports::ResponseTimeReport.new(db).data
-        @recent_report_data = RailsPerformance::Reports::RecentRequestsReport.new(db).data
+        @widgets = [
+          Widgets::ThroughputChart.new(@datasource, subtitle: "Delayed::Job Workers Throughput Report", legend: "Jobs", units: "jobs / minute"),
+          Widgets::ResponseTimeChart.new(@datasource, subtitle: "Average Execution Time"),
+          Widgets::DelayedJobTable.new(@datasource)
+        ]
       end
 
       def custom
         @datasource = RailsPerformance::DataSource.new(**prepare_query(params), type: :custom)
-        db = @datasource.db
-        @throughput_report_data = RailsPerformance::Reports::ThroughputReport.new(db).data
-        @response_time_report_data = RailsPerformance::Reports::ResponseTimeReport.new(db).data
-        @recent_report_data = RailsPerformance::Reports::RecentRequestsReport.new(db).data
+        @widgets = [
+          Widgets::CustomEventsTable.new(@datasource),
+          Widgets::ThroughputChart.new(@datasource, subtitle: "Custom Events Throughput Report", legend: "Events", units: "events / minute"),
+          Widgets::ResponseTimeChart.new(@datasource, subtitle: "Average Execution Time")
+        ]
       end
 
       def grape
         @datasource = RailsPerformance::DataSource.new(**prepare_query(params), type: :grape)
-        db = @datasource.db
-        @throughput_report_data = RailsPerformance::Reports::ThroughputReport.new(db).data
-        @recent_report_data = RailsPerformance::Reports::RecentRequestsReport.new(db).data
+        @widgets = [
+          Widgets::ThroughputChart.new(@datasource, subtitle: "Grape Throughput Report"),
+          Widgets::GrapeRequestsTable.new(@datasource)
+        ]
       end
 
       def rake
         @datasource = RailsPerformance::DataSource.new(**prepare_query(params), type: :rake)
-        db = @datasource.db
-        @throughput_report_data = RailsPerformance::Reports::ThroughputReport.new(db).data
-        @recent_report_data = RailsPerformance::Reports::RecentRequestsReport.new(db).data
+        @widgets = [
+          Widgets::RakeTasksTable.new(@datasource),
+          Widgets::ThroughputChart.new(@datasource, subtitle: "Rake Throughput Report", legend: "Tasks", units: "tasks / minute")
+        ]
       end
 
       private

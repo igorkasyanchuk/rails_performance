@@ -1,0 +1,31 @@
+<table class="<%= table.table_classes %>">
+  <thead>
+    <tr>
+      <th data-sort="string">Datetime</th>
+      <th data-sort="string">Queue</th>
+      <th data-sort="string">Worker</th>
+      <th data-sort="string">Job ID</th>
+      <th data-sort="string">Status</th>
+      <th data-sort="float">Duration</th>
+      <th>Message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if table.data.empty? %>
+      <tr>
+        <td colspan="7"><%= table.empty_message %></td>
+      </tr>
+    <% end %>
+    <% table.data.each do |e| %>
+      <tr>
+        <td><%= format_datetime e[:datetime] %></td>
+        <td><%= e[:queue] %></td>
+        <td><%= e[:worker] %></td>
+        <td><%= e[:jid] %></td>
+        <td><%= status_tag e[:status] %></td>
+        <td class="nowrap"><%= ms e[:duration] %></td>
+        <td><%= e[:message].presence || '-' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
