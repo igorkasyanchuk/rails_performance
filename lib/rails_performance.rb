@@ -38,7 +38,7 @@ require_relative "rails_performance/widgets/resource_chart"
 require_relative "rails_performance/extensions/trace"
 require_relative "rails_performance/thread/current_request"
 require_relative "rails_performance/interface"
-require_relative "rails_performance/engine_assets"
+require "isolate_assets"
 
 module RailsPerformance
   extend RailsPerformance::Interface
@@ -167,8 +167,6 @@ module RailsPerformance
   # by default we don't want to monitor resources, but we can enable it by adding required gems
   mattr_accessor :_resource_monitor_enabled
   @@_resource_monitor_enabled = false
-
-  mattr_accessor :engine_assets
 
   def self.setup
     yield(self)
