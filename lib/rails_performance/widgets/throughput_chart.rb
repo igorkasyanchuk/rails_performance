@@ -1,6 +1,6 @@
 module RailsPerformance
-  module DashboardCharts
-    class ThroughputChart < Base
+  module Widgets
+    class ThroughputChart < Chart
       def id
         "throughput_report_chart"
       end
