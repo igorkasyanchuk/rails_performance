@@ -15,7 +15,7 @@ if defined?(RailsPerformance)
     # config.slow_requests_limit = 500 # number of slow requests
     config.slow_requests_threshold = 500 # ms
 
-    config.debug = false # currently not used>
+    config.debug = false
     config.enabled = true
 
     # default path where to mount gem

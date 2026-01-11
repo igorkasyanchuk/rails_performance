@@ -56,7 +56,7 @@ module RailsPerformance
       end
 
       def store_data(data)
-        ::Rails.logger.info("Server: #{server_id}, Context: #{context}, Role: #{role}, data: #{data}")
+        RailsPerformance.log("Server: #{server_id}, Context: #{context}, Role: #{role}, data: #{data}")
 
         now = RailsPerformance::Utils.kind_of_now
         now = now.change(sec: 0, usec: 0)
