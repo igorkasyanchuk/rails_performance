@@ -25,6 +25,7 @@
 
     <script>
       window.annotationsData = <%= raw RailsPerformance::Reports::AnnotationsReport.new.data.to_json %>;
+      window.railsPerformanceDuration = <%= RailsPerformance.duration.to_i * 1000 %>;
     </script>
   </head>
 

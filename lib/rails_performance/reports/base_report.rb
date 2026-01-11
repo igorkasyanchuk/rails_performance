@@ -64,7 +64,8 @@ module RailsPerformance
       #   ....
       # }
       def nil_data(duration = RailsPerformance.duration)
-        @nil_data ||= begin
+        @nil_data_cache ||= {}
+        @nil_data_cache[duration] ||= begin
           result = {}
           now = RailsPerformance::Utils.kind_of_now
           now = now.change(sec: 0, usec: 0)
