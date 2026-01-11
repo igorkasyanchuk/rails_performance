@@ -33,8 +33,13 @@ jobs:
           - 6379:6379
 
     strategy:
+      fail-fast: false
       matrix:
-        ruby-version: ['3.3', '3.4']
+        ruby-version: ['3.2', '3.3', '3.4', '4.0']
+        rails-version: ['7.2', '8.0', '8.1']
+
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/rails_${{ matrix.rails-version }}.gemfile
 
     steps:
     - name: Setup System

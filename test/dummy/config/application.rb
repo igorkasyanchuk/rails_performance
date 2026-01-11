@@ -8,7 +8,7 @@ require "rails_performance"
 module Dummy
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 8.0
+    config.load_defaults Rails::VERSION::STRING.to_f
 
     config.time_zone = "Europe/Kiev"
 
