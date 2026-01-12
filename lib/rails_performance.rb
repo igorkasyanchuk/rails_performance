@@ -181,8 +181,8 @@ module RailsPerformance
     if ::Rails.logger
       puts(message) if ENV["DEV_LOGS"] == "true"
       ::Rails.logger.debug(message)
-    else
-      puts(message) if ENV["DEV_LOGS"] == "true"
+    elsif ENV["DEV_LOGS"] == "true"
+      puts(message)
     end
   end
 end

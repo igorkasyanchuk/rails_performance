@@ -32,8 +32,7 @@ class ActiveJobExtTest < ActiveSupport::TestCase
 
     begin
       MyJob.perform_now
-    rescue Exception => ex
-      puts "Exception: #{ex.message} !!! Fix it!"
+    rescue
     end
 
     @datasource = RailsPerformance::DataSource.new(q: {}, type: :jobs)
