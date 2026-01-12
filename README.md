@@ -36,6 +36,8 @@ It allows you to track:
 - simple 500-crashes reports
 - deployment events (or custom events)
 - Sidekiq jobs
+- SolidQueue jobs
+- ActiveJob jobs
 - Delayed Job jobs
 - Grape API inside Rails app
 - Rake tasks performance
@@ -310,8 +312,12 @@ Just clone the repo, setup dummy app (`rails db:migrate`).
 
 After this:
 
-- rails s
-- rake test
+- `rails s`
+- `cd test/dummy` and `bundle exec rails db:migrate:queue`
+- `cd test/dummy` and `bundle exec bin/jobs` (if you want to test ActiveJob)
+- `rake test`
+
+If you need to start with solid queue `SOLID_QUEUE_IN_PUMA=true rails s`.
 
 If you need quickly clear Redis data, you can use `rails runner 'RailsPerformance.redis.flushdb'`.
 

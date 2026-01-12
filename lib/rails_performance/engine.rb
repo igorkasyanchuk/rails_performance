@@ -57,6 +57,11 @@ module RailsPerformance
         end
       end
 
+      if defined?(::ActiveJob)
+        require_relative "gems/active_job_ext"
+        RailsPerformance::Gems::ActiveJobExt.init
+      end
+
       if defined?(::Grape)
         require_relative "gems/grape_ext"
         RailsPerformance::Gems::GrapeExt.init

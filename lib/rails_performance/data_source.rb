@@ -7,7 +7,8 @@ module RailsPerformance
       grape: RailsPerformance::Models::GrapeRecord,
       rake: RailsPerformance::Models::RakeRecord,
       custom: RailsPerformance::Models::CustomRecord,
-      resources: RailsPerformance::Models::ResourceRecord
+      resources: RailsPerformance::Models::ResourceRecord,
+      jobs: RailsPerformance::Models::ActiveJobRecord
     }
 
     attr_reader :q, :klass, :type, :days
@@ -68,6 +69,8 @@ module RailsPerformance
         "rake|*#{compile_rake_query}*|END|#{RailsPerformance::SCHEMA}"
       when :custom
         "custom|*#{compile_custom_query}*|END|#{RailsPerformance::SCHEMA}"
+      when :jobs
+        "active_job|*#{compile_active_job_query}*|END|#{RailsPerformance::SCHEMA}"
       else
         raise "wrong type: \"#{type}\" for datasource query builder"
       end
@@ -86,6 +89,15 @@ module RailsPerformance
     end
 
     def compile_sidekiq_query
+      str = []
+      str << "queue|#{q[:queue]}|" if q[:queue].present?
+      str << "worker|#{q[:worker]}|" if q[:worker].present?
+      str << "datetime|#{q[:on].strftime("%Y%m%d")}*|" if q[:on].present?
+      str << "status|#{q[:status]}|" if q[:status].present?
+      str.join("*")
+    end
+
+    def compile_active_job_query
       str = []
       str << "queue|#{q[:queue]}|" if q[:queue].present?
       str << "worker|#{q[:worker]}|" if q[:worker].present?

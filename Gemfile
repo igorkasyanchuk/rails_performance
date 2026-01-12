@@ -48,3 +48,5 @@ gem "ostruct"
 gem "csv"
 
 gem "minitest", "~> 5.0"
+
+gem "solid_queue"

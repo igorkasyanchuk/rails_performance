@@ -71,7 +71,7 @@ module RailsPerformance
 
     def status_tag(status)
       klass = case status.to_s
-      when /error/
+      when /error/, /exception/
         "tag is-danger"
       when /^5/
         "tag is-danger"
@@ -140,6 +140,8 @@ module RailsPerformance
         "is-active" if controller_name == "rails_performance" && action_name == "rake"
       when :custom
         "is-active" if controller_name == "rails_performance" && action_name == "custom"
+      when :jobs
+        "is-active" if controller_name == "rails_performance" && action_name == "jobs"
       end
     end
   end

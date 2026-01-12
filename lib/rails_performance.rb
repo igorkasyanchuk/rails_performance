@@ -13,6 +13,7 @@ require_relative "rails_performance/models/trace_record"
 require_relative "rails_performance/models/rake_record"
 require_relative "rails_performance/models/resource_record"
 require_relative "rails_performance/models/custom_record"
+require_relative "rails_performance/models/active_job_record"
 require_relative "rails_performance/data_source"
 require_relative "rails_performance/utils"
 require_relative "rails_performance/reports/base_report"
@@ -178,10 +179,10 @@ module RailsPerformance
     return unless RailsPerformance.debug
 
     if ::Rails.logger
-      # puts(message)
+      puts(message) if ENV["DEV_LOGS"] == "true"
       ::Rails.logger.debug(message)
     else
-      puts(message)
+      puts(message) if ENV["DEV_LOGS"] == "true"
     end
   end
 end
