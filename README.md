@@ -366,6 +366,14 @@ The idea of this gem grew from curiosity how many RPM my app receiving per day. 
 4. Run `rails s` in the root folder
 5. Run `rails test` to run tests
 
+## Running with different versions of Rails
+
+```bash
+BUNDLE_GEMFILE=gemfiles/rails_7.2.gemfile bundle
+BUNDLE_GEMFILE=gemfiles/rails_8.0.gemfile bundle
+BUNDLE_GEMFILE=gemfiles/rails_8.1.gemfile bundle
+```
+
 ## Contributing
 
 You are welcome to contribute. I've a big list of TODO.
