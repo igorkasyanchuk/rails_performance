@@ -92,11 +92,28 @@ def dummy_delayed_job_record(datetimei: RailsPerformance::Utils.time.to_i, statu
   )
 end
 
+def dummy_active_job_event(worker: "AAWorker", queue: "default", jid: "jxzet-#{Time.current.to_i}", datetimei: Time.current.to_i, enqueued_ati: Time.current.to_i, start_timei: Time.current.to_i, duration: rand(60), status: "success")
+  RailsPerformance::Models::ActiveJobRecord.new(
+    queue: queue,
+    worker: worker,
+    jid: jid,
+    datetimei: datetimei,
+    enqueued_ati: enqueued_ati,
+    datetime: RailsPerformance::Utils.from_datetimei(datetimei).strftime(RailsPerformance::FORMAT),
+    start_timei: start_timei,
+    duration: duration,
+    status: status
+  )
+end
+
 def reset_redis
   RailsPerformance.redis.flushdb
 end
 
 # TODO improve
+def setup_active_jobs_db(event = dummy_active_job_event)
+  event.save
+end
 
 def setup_db(event = dummy_event)
   event.save

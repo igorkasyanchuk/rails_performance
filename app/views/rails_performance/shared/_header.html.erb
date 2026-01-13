@@ -22,6 +22,9 @@
       <% end %>
       <%= link_to 'Slow Requests', rails_performance.rails_performance_slow_url, class: "navbar-item #{active?(:slow)}" %>
       <%= link_to '500 Errors', rails_performance.rails_performance_crashes_url, class: "navbar-item #{active?(:crashes)}" %>
+      <% if defined?(::ActiveJob) %>
+        <%= link_to 'ActiveJob', rails_performance.rails_performance_jobs_url, class: "navbar-item #{active?(:jobs)}" %>
+      <% end %>
       <% if defined?(Sidekiq) %>
         <%= link_to 'Sidekiq', rails_performance.rails_performance_sidekiq_url, class: "navbar-item #{active?(:sidekiq)}" %>
       <% end %>

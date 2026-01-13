@@ -15,6 +15,7 @@ RailsPerformance::Engine.routes.draw do
   get "/rake" => "rails_performance#rake", :as => :rails_performance_rake
   get "/custom" => "rails_performance#custom", :as => :rails_performance_custom
   get "/resources" => "rails_performance#resources", :as => :rails_performance_resources
+  get "/jobs" => "rails_performance#jobs", :as => :rails_performance_jobs
 end
 
 Rails.application.routes.draw do
