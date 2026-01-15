@@ -1,24 +1,16 @@
 module RailsPerformance
   module Widgets
     class ResponseTimeChart < Chart
+      def initialize(datasource, subtitle: "Average Response Time Report", description: "All requests (site visitors, search engines, bots, etc)", legend: "Response Time", units: nil)
+        super
+      end
+
       def id
         "response_time_report_chart"
       end
 
       def type
         "RT"
-      end
-
-      def subtitle
-        "Average Response Time Report"
-      end
-
-      def description
-        "All requests (site visitors, search engines, bots, etc)"
-      end
-
-      def legend
-        "Response Time"
       end
 
       def data

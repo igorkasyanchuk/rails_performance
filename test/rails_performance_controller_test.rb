@@ -181,4 +181,52 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
     get "/rails/performance/trace/112233", xhr: false
     assert_response :success
   end
+
+  # CSV export tests
+
+  test "crashes CSV export" do
+    begin
+      get "/account/site/crash"
+    rescue
+    end
+
+    get "/rails/performance/crashes.csv"
+    assert_response :success
+    assert_equal "text/csv", response.content_type
+    assert_includes response.body, "controller"
+    assert_includes response.body, "Account::SiteController"
+  end
+
+  test "requests CSV export" do
+    setup_db(dummy_event(controller: "Users", action: "show"))
+
+    get "/rails/performance/requests.csv"
+    assert_response :success
+    assert_equal "text/csv", response.content_type
+    assert_includes response.body, "group"
+    assert_includes response.body, "Users#show"
+  end
+
+  test "recent CSV export" do
+    setup_db(dummy_event(controller: "Orders", action: "index", path: "/orders"))
+
+    get "/rails/performance/recent.csv"
+    assert_response :success
+    assert_equal "text/csv", response.content_type
+    assert_includes response.body, "controller"
+    assert_includes response.body, "Orders"
+    assert_includes response.body, "/orders"
+  end
+
+  test "slow CSV export" do
+    event = dummy_event(controller: "Reports", action: "generate")
+    event.duration = 1000 # exceed the 500ms threshold
+    setup_db(event)
+
+    get "/rails/performance/slow.csv"
+    assert_response :success
+    assert_equal "text/csv", response.content_type
+    assert_includes response.body, "controller"
+    assert_includes response.body, "Reports"
+  end
 end

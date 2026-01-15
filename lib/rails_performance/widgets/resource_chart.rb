@@ -1,15 +1,16 @@
 module RailsPerformance
   module Widgets
     class ResourceChart < Chart
-      attr_reader :server, :key, :type, :subtitle, :description, :legend
+      attr_reader :server, :key, :type
 
-      def initialize(server:, key:, type:, subtitle:, description:, legend:)
+      def initialize(server, key:, type:, subtitle: nil, description: nil, legend: nil, units: nil)
         @server = server
         @key = key
         @type = type
         @subtitle = subtitle
         @description = description
         @legend = legend
+        @units = units
       end
 
       def id
@@ -33,7 +34,7 @@ module RailsPerformance
     class CPULoad < ResourceChart
       def initialize server
         super(
-          server:,
+          server,
           key: :cpu,
           type: "Percentage",
           subtitle: "CPU",
@@ -62,7 +63,7 @@ module RailsPerformance
     class MemoryUsage < ResourceChart
       def initialize server
         super(
-          server:,
+          server,
           key: :memory,
           type: "Usage",
           subtitle: "Memory",
@@ -86,7 +87,7 @@ module RailsPerformance
     class DiskUsage < ResourceChart
       def initialize server
         super(
-          server:,
+          server,
           key: :disk,
           type: "Usage",
           subtitle: "Storage",
