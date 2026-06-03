@@ -63,7 +63,7 @@ module RailsPerformance
         <div class="control">
           <span class="tags has-addons">
             <span class="tag">#{k}</span>
-            <span class="tag is-info is-light">#{v}</span>
+            <span class="tag is-info is-light" style="overflow-x: auto; max-width: 300px; justify-content: flex-start;">#{v}</span>
           </span>
         </div>)
       end.compact.join.html_safe
