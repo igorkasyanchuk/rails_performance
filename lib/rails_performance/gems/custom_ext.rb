@@ -24,7 +24,6 @@ module RailsPerformance
             datetime: now.strftime(RailsPerformance::FORMAT),
             datetimei: now.to_i
           ).save
-          CurrentRequest.cleanup
         end
       end
     end

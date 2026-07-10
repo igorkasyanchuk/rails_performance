@@ -1,6 +1,6 @@
 module RailsPerformance
   module Rails
-    class MiddlewareTraceStorerAndCleanup
+    class MiddlewareTraceStorer
       def initialize(app)
         @app = app
       end
@@ -18,12 +18,10 @@ module RailsPerformance
 
         if !RailsPerformance.skip
           RailsPerformance::Models::TraceRecord.new(
-            request_id: CurrentRequest.current.request_id,
-            value: CurrentRequest.current.tracings
+            request_id: CurrentRequest.request_id,
+            value: CurrentRequest.tracings
           ).save
         end
-
-        CurrentRequest.cleanup
 
         [@status, @headers, @response]
       end
@@ -43,9 +41,9 @@ module RailsPerformance
 
         # t = RailsPerformance::Utils.time
         if !RailsPerformance.skip
-          if !CurrentRequest.current.ignore.include?(:performance) # grape is executed first, and than ignore regular future storage of "controller"-like request
-            if (data = CurrentRequest.current.data)
-              record = RailsPerformance::Models::RequestRecord.new(**data.merge({request_id: CurrentRequest.current.request_id}))
+          if !CurrentRequest.ignore.include?(:performance) # grape is executed first, and than ignore regular future storage of "controller"-like request
+            if (data = CurrentRequest.data)
+              record = RailsPerformance::Models::RequestRecord.new(**data.merge({request_id: CurrentRequest.request_id}))
 
               # for 500 errors
               record.status ||= @status

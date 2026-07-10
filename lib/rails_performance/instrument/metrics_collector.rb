@@ -17,35 +17,33 @@ module RailsPerformance
 
       def call(event_name, started, finished, event_id, payload)
         return if RailsPerformance.skip
-        return if CurrentRequest.current.data
+        return if CurrentRequest.data
 
-        # TODO do we need this new?
-        event = ActiveSupport::Notifications::Event.new(event_name, started, finished, event_id, payload)
-
-        return if RailsPerformance.ignored_endpoints.include? "#{event.payload[:controller]}##{event.payload[:action]}"
-        return if RailsPerformance.ignored_paths.any? { |p| event.payload[:path].start_with?(p) }
+        return if RailsPerformance.ignored_endpoints.include? "#{payload[:controller]}##{payload[:action]}"
+        return if RailsPerformance.ignored_paths.any? { |p| payload[:path].start_with?(p) }
 
         finished = finished.utc
 
         record = {
-          controller: event.payload[:controller],
-          action: event.payload[:action],
-          format: event.payload[:format],
-          status: event.payload[:status],
+          controller: payload[:controller],
+          action: payload[:action],
+          format: payload[:format],
+          status: payload[:status],
           datetime: finished.strftime(RailsPerformance::FORMAT),
           datetimei: finished.to_i,
-          method: event.payload[:method],
-          path: event.payload[:path],
-          view_runtime: event.payload[:view_runtime],
-          db_runtime: event.payload[:db_runtime],
-          duration: event.duration,
-          exception: event.payload[:exception],
-          exception_object: event.payload[:exception_object]
+          method: payload[:method],
+          path: payload[:path],
+          view_runtime: payload[:view_runtime],
+          db_runtime: payload[:db_runtime],
+          duration: finished - started,
+          exception: payload[:exception],
+          exception_object: payload[:exception_object]
         }
 
-        # pass the record to Thread.current
+        # pass the record to CurrentRequest
         # and saves later in middleware
-        CurrentRequest.current.data = record
+        CurrentRequest.request_id = event_id
+        CurrentRequest.data = record
       end
     end
   end

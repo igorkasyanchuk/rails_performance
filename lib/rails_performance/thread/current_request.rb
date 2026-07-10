@@ -1,33 +1,29 @@
 module RailsPerformance
-  class CurrentRequest
-    attr_reader :request_id, :tracings, :ignore
-    attr_accessor :data
-    attr_accessor :record
+  class CurrentRequest < ActiveSupport::CurrentAttributes
+    attribute :request_id, :tracings, :ignore
+    attribute :data, :record
 
-    def self.init
-      Thread.current[:rp_current_request] ||= CurrentRequest.new(SecureRandom.hex(16))
+    # Auto-Cleanup
+    resets { RailsPerformance.skip = false }
+
+    # Set defaults
+    def request_id
+      super || self.request_id = SecureRandom.hex(16)
     end
 
-    def self.current
-      CurrentRequest.init
+    def tracings
+      super || self.tracings = []
     end
 
-    def self.cleanup
-      RailsPerformance.log "----------------------------------------------------> CurrentRequest.cleanup !!!!!!!!!!!! -------------------------\n\n"
-      RailsPerformance.skip = false
-      Thread.current[:rp_current_request] = nil
+    def ignore
+      super || self.ignore = Set.new
     end
 
-    def initialize(request_id)
-      @request_id = request_id
-      @tracings = []
-      @ignore = Set.new
-      @data = nil
-      @record = nil
-    end
-
-    def trace(options = {})
-      @tracings << options.merge(time: RailsPerformance::Utils.time.to_i)
+    class << self
+      # Trace request
+      def trace(options = {})
+        tracings << options.merge(time: RailsPerformance::Utils.time.to_i)
+      end
     end
   end
 end

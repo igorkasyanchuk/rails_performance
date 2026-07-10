@@ -27,7 +27,6 @@ module RailsPerformance
           # store in ms instead of seconds
           record.duration = (RailsPerformance::Utils.time - now) * 1000
           record.save
-          CurrentRequest.cleanup
         end
       end
     end

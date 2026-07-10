@@ -29,7 +29,7 @@ module RailsPerformance
 
       app.middleware.insert_after ActionDispatch::Executor, RailsPerformance::Rails::Middleware
       # look like it works in reverse order?
-      app.middleware.insert_before RailsPerformance::Rails::Middleware, RailsPerformance::Rails::MiddlewareTraceStorerAndCleanup
+      app.middleware.insert_before RailsPerformance::Rails::Middleware, RailsPerformance::Rails::MiddlewareTraceStorer
 
       if defined?(::Sidekiq)
         require_relative "gems/sidekiq_ext"
@@ -79,7 +79,16 @@ module RailsPerformance
       next unless RailsPerformance.enabled
 
       ActionView::LogSubscriber.send :prepend, RailsPerformance::Extensions::View
-      ActiveRecord::LogSubscriber.send :prepend, RailsPerformance::Extensions::Db if defined?(ActiveRecord)
+
+      if defined?(ActiveRecord)
+        ActiveSupport::Notifications.subscribe "sql.active_record" do |event|
+          CurrentRequest.trace({
+            group: :db,
+            duration: event.duration.round(2),
+            sql: event.payload[:sql]
+          })
+        end
+      end
 
       if defined?(::Rake::Task) && RailsPerformance.include_rake_tasks
         require_relative "gems/rake_ext"
