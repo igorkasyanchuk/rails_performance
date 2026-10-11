@@ -79,7 +79,14 @@ module RailsPerformance
       next unless RailsPerformance.enabled
 
       ActionView::LogSubscriber.send :prepend, RailsPerformance::Extensions::View
-      ActiveRecord::LogSubscriber.send :prepend, RailsPerformance::Extensions::Db if defined?(ActiveRecord)
+
+      if defined?(ActiveRecord)
+        structured_events = defined?(ActiveSupport::EventReporter::LogSubscriber) &&
+          ActiveRecord::LogSubscriber < ActiveSupport::EventReporter::LogSubscriber
+        db_extension = structured_events ? RailsPerformance::Extensions::StructuredDb : RailsPerformance::Extensions::Db
+
+        ActiveRecord::LogSubscriber.send :prepend, db_extension
+      end
 
       if defined?(::Rake::Task) && RailsPerformance.include_rake_tasks
         require_relative "gems/rake_ext"
