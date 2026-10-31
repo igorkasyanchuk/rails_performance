@@ -2,7 +2,6 @@
 
 [![Tests](https://github.com/igorkasyanchuk/rails_performance/actions/workflows/ruby.yml/badge.svg)](https://github.com/igorkasyanchuk/rails_performance/actions/workflows/ruby.yml)
 [![RailsJazz](https://github.com/igorkasyanchuk/rails_time_travel/blob/main/docs/my_other.svg?raw=true)](https://www.railsjazz.com)
-[My Cheatsheets](https://cheatsheetshero.com/user/igor-kasyanchuk)
 
 <a href="https://igorkasyanchuk.com/apps?ref=rails_performance">
   <picture>
