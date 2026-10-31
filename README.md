@@ -1,7 +1,7 @@
 # Rails Performance
 
 [![Tests](https://github.com/igorkasyanchuk/rails_performance/actions/workflows/ruby.yml/badge.svg)](https://github.com/igorkasyanchuk/rails_performance/actions/workflows/ruby.yml)
-[![RailsJazz](https://github.com/igorkasyanchuk/rails_time_travel/blob/main/docs/my_other.svg?raw=true)](https://www.railsjazz.com)
+[![My other gems](https://github.com/igorkasyanchuk/rails_time_travel/blob/main/docs/my_other.svg?raw=true)](https://www.igorkasyanchuk.com/)
 
 <a href="https://igorkasyanchuk.com/apps?ref=rails_performance">
   <picture>
@@ -379,4 +379,4 @@ https://github.com/igorkasyanchuk/rails_performance/graphs/contributors
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
 [<img src="https://github.com/igorkasyanchuk/rails_time_travel/blob/main/docs/more_gems.png?raw=true"
-/>](https://www.railsjazz.com/?utm_source=github&utm_medium=bottom&utm_campaign=rails_performance)
+/>](https://www.igorkasyanchuk.com/)
