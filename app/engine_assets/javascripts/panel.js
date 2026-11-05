@@ -40,4 +40,19 @@ $(function() {
     hidePanel();
   });
 
+  $(document).on("click", ".rp-copy-tag", function () {
+    var $tag = $(this);
+    var text = $tag.data("value") || $tag.text().trim();
+
+    navigator.clipboard.writeText(text).then(function () {
+      $tag.addClass("is-copied");
+      var originalText = $tag.attr("title");
+      $tag.attr("title", "Copied!");
+
+      setTimeout(function () {
+        $tag.removeClass("is-copied");
+        $tag.attr("title", originalText);
+      }, 1000);
+    });
+  });
 });

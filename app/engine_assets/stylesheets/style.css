@@ -201,3 +201,27 @@ body.has-sticky-footer {
   flex: 1;
   min-width: 0;
 }
+
+.rp-copy-tag {
+    position: relative;
+    padding-right: 24px !important;
+}
+
+.rp-copy-tag.is-copied {
+    background-color: #48c774 !important;
+    color: white !important;
+}
+
+.rp-copy-icon {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.6;
+    display: flex;
+    align-items: center;
+}
+
+.rp-copy-tag:hover .rp-copy-icon {
+    opacity: 1;
+}
