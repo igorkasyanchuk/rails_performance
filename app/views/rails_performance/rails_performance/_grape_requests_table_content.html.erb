@@ -1,6 +1,7 @@
 <table class="<%= table.table_classes %>">
   <thead>
     <tr>
+      <th></th>
       <th data-sort="string">Datetime</th>
       <th data-sort="string">Method</th>
       <th data-sort="string">Path</th>
@@ -13,11 +14,18 @@
   <tbody>
     <% if table.data.empty? %>
       <tr>
-        <td colspan="7"><%= table.empty_message %></td>
+        <td colspan="8"><%= table.empty_message %></td>
       </tr>
     <% end %>
     <% table.data.each do |e| %>
       <tr>
+        <td>
+          <% if e[:request_id].present? %>
+            <%= link_to rails_performance.rails_performance_trace_path(id: e[:request_id]), remote: true do %>
+              <span class="stats_icon_max"><%= icon 'activity' %></span>
+            <% end %>
+          <% end %>
+        </td>
         <td><%= format_datetime e[:datetime] %></td>
         <td><%= e[:method] %></td>
         <td><%= e[:path] %></td>
