@@ -48,3 +48,6 @@ gem "ostruct"
 gem "csv"
 
 gem "minitest", "~> 5.0"
+
+# activesupport still passes quirks_mode to JSON.generate (removed in json 3)
+gem "json", "~> 2.10"

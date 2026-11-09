@@ -27,6 +27,11 @@ module RailsPerformance
           if name == "format_response.grape" ||
               (name == "endpoint_run.grape" && (payload[:endpoint]&.body.nil? || expects_no_content))
             CurrentRequest.current.record.save
+            # Save SQL traces before cleanup — middleware runs too late (cleanup already wiped CurrentRequest)
+            RailsPerformance::Models::TraceRecord.new(
+              request_id: CurrentRequest.current.request_id,
+              value: CurrentRequest.current.tracings
+            ).save
             CurrentRequest.cleanup
           end
         end
