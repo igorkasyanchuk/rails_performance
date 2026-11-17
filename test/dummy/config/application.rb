@@ -10,7 +10,7 @@ module Dummy
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults Rails::VERSION::STRING.to_f
 
-    config.time_zone = "Europe/Kiev"
+    config.time_zone = "Europe/Kyiv"
 
     config.hosts.clear
 
