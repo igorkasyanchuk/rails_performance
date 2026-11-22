@@ -36,6 +36,18 @@ class GrapeEndpointsTest < ActionDispatch::IntegrationTest
     assert_not_nil record.value["format_response.grape"]
   end
 
+  test "stores SQL traces for grape endpoints that hit the DB" do
+    get "/api/users"
+    assert_response :success
+
+    record = grape_records.first
+    traces = RailsPerformance::Reports::TraceReport.new(request_id: record.request_id).data
+    db_traces = traces.select { |t| t["group"] == "db" }
+
+    assert_predicate db_traces, :any?
+    assert db_traces.any? { |t| t["sql"].to_s.match?(/select/i) }
+  end
+
   test "logs 204 no content with content response with correct data" do
     assert_equal 0, grape_count
     get "/api/no_content_with_content"

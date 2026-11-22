@@ -40,7 +40,8 @@ module RailsPerformance
       end
 
       def trace
-        @record = RailsPerformance::Models::RequestRecord.find_by(request_id: params[:id])
+        @record = RailsPerformance::Models::RequestRecord.find_by(request_id: params[:id]) ||
+          RailsPerformance::Models::GrapeRecord.find_by(request_id: params[:id])
         @data = RailsPerformance::Reports::TraceReport.new(request_id: params[:id]).data
         respond_to do |format|
           format.js {}

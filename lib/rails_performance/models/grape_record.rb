@@ -6,6 +6,15 @@ module RailsPerformance
 
       # key = grape|datetime|20210409T1115|datetimei|1617992134|format|json|path|/api/users|status|200|method|GET|request_id|1122|END|1.0.0
       # value = {"endpoint_render.grape"=>0.000643989, "endpoint_run.grape"=>0.002000907, "format_response.grape"=>0.0348967}
+      def self.find_by(request_id:)
+        keys, values = RailsPerformance::Utils.fetch_from_redis("grape|*|request_id|#{request_id}|*")
+
+        return nil if keys.blank?
+        return nil if values.blank?
+
+        from_db(keys[0], values[0])
+      end
+
       def self.from_db(key, value)
         items = key.split("|")
 
