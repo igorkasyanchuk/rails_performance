@@ -47,6 +47,26 @@ class TraceExtensionsTest < ActiveSupport::TestCase
     assert_same event, subscriber.received_event
   end
 
+  test "Db skips queries made by the storage and calls super" do
+    subscriber = NotificationsLogSubscriber.new
+    event = ActiveSupport::Notifications::Event.new("sql.active_record", 0, 0.0125, "1", {sql: "SELECT 1"})
+
+    RailsPerformance::Storage.silence { subscriber.sql(event) }
+
+    assert_empty RailsPerformance::CurrentRequest.current.tracings
+    assert_same event, subscriber.received_event
+  end
+
+  test "StructuredDb skips queries made by the storage and calls super" do
+    subscriber = StructuredLogSubscriber.new
+    event = {name: "active_record.sql", payload: {sql: "SELECT 1", duration_ms: 12.5}}
+
+    RailsPerformance::Storage.silence { subscriber.sql(event) }
+
+    assert_empty RailsPerformance::CurrentRequest.current.tracings
+    assert_same event, subscriber.received_event
+  end
+
   test "a real query is traced through ActiveRecord::LogSubscriber" do
     ActiveRecord::Base.connection.select_value("SELECT 1")
 

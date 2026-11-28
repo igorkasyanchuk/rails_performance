@@ -1,6 +1,11 @@
 if defined?(RailsPerformance)
   RailsPerformance.setup do |config|
-    config.redis = Redis.new(url: ENV["REDIS_URL"].presence || "redis://127.0.0.1:6379/#{(Rails.env.to_s == "test") ? 1 : 0}")
+    config.storage = case ENV["RP_STORAGE"]
+    when "active_record"
+      :active_record_store
+    else
+      [:redis_store, {url: ENV["REDIS_URL"].presence || "redis://127.0.0.1:6379/#{(Rails.env.to_s == "test") ? 1 : 0}"}]
+    end
     config.duration = 6.hours
 
     config.debug = true

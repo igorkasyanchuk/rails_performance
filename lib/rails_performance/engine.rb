@@ -10,6 +10,10 @@ module RailsPerformance
 
     isolate_assets assets_subdir: "engine_assets"
 
+    initializer "rails_performance.deprecator" do |app|
+      app.deprecators[:rails_performance] = RailsPerformance.deprecator if app.respond_to?(:deprecators)
+    end
+
     initializer "rails_performance.resource_monitor" do
       # check required gems are available
       RailsPerformance._resource_monitor_enabled = !!(defined?(Sys::Filesystem) && defined?(Sys::CPU) && defined?(GetProcessMem))

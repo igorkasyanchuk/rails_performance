@@ -2,7 +2,7 @@ require "test_helper"
 
 class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
   setup do
-    reset_redis
+    reset_storage
     RailsPerformance.skip = false
     User.create(first_name: "John", age: 20)
   end
@@ -26,7 +26,7 @@ class RailsPerformanceControllerTest < ActionDispatch::IntegrationTest
     get "/home/contact"
     assert_equal requests_report_data.size, 1
     assert_equal requests_report_data.first[:group], "HomeController#contact|html"
-    reset_redis
+    reset_storage
     assert_equal requests_report_data.size, 0
 
     original_ignored_endpoints = RailsPerformance.ignored_endpoints

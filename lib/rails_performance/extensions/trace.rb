@@ -20,11 +20,13 @@ module RailsPerformance
       # in env
       # this works if config.log_level = :debug
       def sql(event)
-        CurrentRequest.current.trace({
-          group: :db,
-          duration: event.duration.round(2),
-          sql: event.payload[:sql]
-        })
+        unless RailsPerformance::Storage.silenced?
+          CurrentRequest.current.trace({
+            group: :db,
+            duration: event.duration.round(2),
+            sql: event.payload[:sql]
+          })
+        end
         super
       end
     end
@@ -39,11 +41,13 @@ module RailsPerformance
       def sql(event)
         payload = event[:payload]
 
-        CurrentRequest.current.trace({
-          group: :db,
-          duration: payload[:duration_ms].round(2),
-          sql: payload[:sql]
-        })
+        unless RailsPerformance::Storage.silenced?
+          CurrentRequest.current.trace({
+            group: :db,
+            duration: payload[:duration_ms].round(2),
+            sql: payload[:sql]
+          })
+        end
         super
       end
     end

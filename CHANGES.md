@@ -1,5 +1,7 @@
 - Unreleased
 
+* Pluggable storage: Redis or database via `config.storage`. Redis is not a runtime dependency anymore, `config.redis=` and `RailsPerformance.redis` are deprecated
+
 - 1.6.0
 
 * Fix UsageChart units by @botandrose in https://github.com/igorkasyanchuk/rails_performance/pull/160

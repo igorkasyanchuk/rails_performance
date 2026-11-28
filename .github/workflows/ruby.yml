@@ -64,3 +64,7 @@ jobs:
       run: bundle exec standardrb
     - name: Run tests
       run: bundle exec rake test
+    - name: Run tests with ActiveRecord storage
+      run: bundle exec rake test
+      env:
+        RP_STORAGE: active_record

@@ -17,10 +17,10 @@ Gem::Specification.new do |spec|
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
   spec.add_dependency "railties"
-  spec.add_dependency "redis"
   spec.add_dependency "browser"
   spec.add_dependency "isolate_assets", "~> 0.3.0"
 
+  spec.add_development_dependency "redis"
   spec.add_development_dependency "activestorage"
   spec.add_development_dependency "actionmailer"
   spec.add_development_dependency "sqlite3"
