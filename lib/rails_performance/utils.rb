@@ -14,7 +14,7 @@ module RailsPerformance
       Time.at(datetimei, in: "+00:00")
     end
 
-    # date key in redis store
+    # date key in storage
     def self.cache_key(now = Date.today)
       "date-#{now}"
     end
@@ -26,11 +26,10 @@ module RailsPerformance
     end
 
     def self.fetch_from_redis(query)
-      RailsPerformance.log "\n\n   [REDIS QUERY]   -->   #{query}\n\n"
+      RailsPerformance.log "\n\n   [QUERY]   -->   #{query}\n\n"
 
-      keys = RailsPerformance.redis.keys(query)
+      keys, values = RailsPerformance.storage.fetch(query)
       return [] if keys.blank?
-      values = RailsPerformance.redis.mget(keys)
 
       RailsPerformance.log "\n\n   [FOUND]   -->   #{values.size}\n\n"
 
@@ -43,7 +42,7 @@ module RailsPerformance
 
       RailsPerformance.log "  [SAVE]    key  --->  #{key}\n"
       RailsPerformance.log "  [SAVE]    value  --->  #{value.to_json}\n\n"
-      RailsPerformance.redis.set(key, value.to_json, ex: expire.to_i)
+      RailsPerformance.storage.write(key, value.to_json, expires_in: expire.to_i)
     end
 
     def self.days(duration = RailsPerformance.duration)

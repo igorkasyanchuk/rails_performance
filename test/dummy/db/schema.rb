@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_25_100652) do
+ActiveRecord::Schema[7.2].define(version: 2026_11_28_083819) do
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
@@ -24,6 +24,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_25_100652) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
+  create_table "rails_performance_entries", force: :cascade do |t|
+    t.text "key", null: false
+    t.string "key_digest", limit: 64, null: false
+    t.string "bucket"
+    t.text "value", limit: 16777216
+    t.datetime "expires_at", null: false
+    t.index ["bucket", "expires_at"], name: "index_rails_performance_entries_on_bucket_and_expires_at"
+    t.index ["expires_at"], name: "index_rails_performance_entries_on_expires_at"
+    t.index ["key_digest"], name: "index_rails_performance_entries_on_key_digest", unique: true
   end
 
   create_table "users", force: :cascade do |t|

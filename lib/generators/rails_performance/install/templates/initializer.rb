@@ -1,7 +1,9 @@
 if defined?(RailsPerformance)
   RailsPerformance.setup do |config|
-    # Redis configuration
-    config.redis = Redis.new(url: ENV["REDIS_URL"].presence || "redis://127.0.0.1:6379/0")
+    # Storage configuration (requires `gem "redis"`)
+    config.storage = :redis_store, {url: ENV["REDIS_URL"].presence || "redis://127.0.0.1:6379/0"}
+    # or database (run `rails generate rails_performance:active_record_store` first)
+    # config.storage = :active_record_store
 
     # All data we collect
     config.duration = 4.hours

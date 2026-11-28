@@ -14,7 +14,7 @@ class SidekiqTest < ActiveSupport::TestCase
   end
 
   test "sidekiq worker with error" do
-    RailsPerformance.redis.flushdb
+    reset_storage
 
     begin
       s = RailsPerformance::Gems::SidekiqExt.new

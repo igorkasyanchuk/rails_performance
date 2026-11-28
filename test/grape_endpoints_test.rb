@@ -12,7 +12,7 @@ class GrapeEndpointsTest < ActionDispatch::IntegrationTest
   end
 
   setup do
-    reset_redis
+    reset_storage
   end
 
   test "logs successful 200 response with correct data" do

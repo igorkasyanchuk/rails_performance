@@ -9,7 +9,7 @@ module RailsPerformance
 
       def data
         key = "trace|#{request_id}|END|#{RailsPerformance::SCHEMA}"
-        JSON.parse(RailsPerformance.redis.get(key).presence || "[]")
+        JSON.parse(RailsPerformance.storage.read(key).presence || "[]")
       end
     end
   end

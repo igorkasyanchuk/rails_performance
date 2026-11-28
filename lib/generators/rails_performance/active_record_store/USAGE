@@ -1,0 +1,9 @@
+Description:
+    Generates migration for the rails_performance ActiveRecord storage.
+
+Example:
+    rails generate rails_performance:active_record_store
+    rails generate rails_performance:active_record_store --database=performance
+
+    This will create:
+        db/migrate/XXXXXXXXXXXXXX_create_rails_performance_entries.rb

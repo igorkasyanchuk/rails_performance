@@ -1,4 +1,3 @@
-require "redis"
 require "browser"
 require "active_support/core_ext/integer"
 require_relative "rails_performance/version"
@@ -14,6 +13,11 @@ require_relative "rails_performance/models/rake_record"
 require_relative "rails_performance/models/resource_record"
 require_relative "rails_performance/models/custom_record"
 require_relative "rails_performance/data_source"
+require_relative "rails_performance/storage"
+require_relative "rails_performance/storage/base"
+require_relative "rails_performance/storage/index"
+require_relative "rails_performance/storage/redis_store"
+require_relative "rails_performance/storage/active_record_store"
 require_relative "rails_performance/utils"
 require_relative "rails_performance/reports/base_report"
 require_relative "rails_performance/reports/requests_report"
@@ -55,8 +59,28 @@ module RailsPerformance
 
   FORMAT = "%Y%m%dT%H%M"
 
-  mattr_accessor :redis
-  @@redis = Redis.new
+  # where to store collected data, see RailsPerformance::Storage.lookup_store
+  def self.storage=(value)
+    @@storage = RailsPerformance::Storage.lookup_store(*Array.wrap(value))
+  end
+
+  def self.storage
+    @@storage ||= RailsPerformance::Storage.lookup_store
+  end
+  @@storage = nil
+
+  mattr_accessor :deprecator
+  @@deprecator = ActiveSupport::Deprecation.new("2.0", "RailsPerformance")
+
+  def self.redis=(redis)
+    deprecator.warn("config.redis= is deprecated, use config.storage = :redis_store, {redis: Redis.new} instead")
+    self.storage = RailsPerformance::Storage::RedisStore.new(redis: redis)
+  end
+
+  def self.redis
+    deprecator.warn("RailsPerformance.redis is deprecated, use RailsPerformance.storage instead")
+    storage.redis if storage.respond_to?(:redis)
+  end
 
   mattr_accessor :duration
   @@duration = 4.hours

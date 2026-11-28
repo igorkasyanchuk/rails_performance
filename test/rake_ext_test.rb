@@ -13,23 +13,23 @@ require_relative "../lib/rails_performance/gems/rake_ext"
 class RakeExtTest < ActiveSupport::TestCase
   # this test works only when runing "bundle exec rake test"
   test "can exclude rake tasks" do
-    RailsPerformance.redis.flushdb
+    reset_storage
     RailsPerformance::Gems::RakeExt.init
 
     RailsPerformance.skipable_rake_tasks = ["db:version"]
-    count_before = count_records_in_redis
+    count_before = count_records_in_storage
     subject = Rake::Task["db:version"]
     subject.invoke({})
-    assert_equal count_before, count_records_in_redis
+    assert_equal count_before, count_records_in_storage
 
     RailsPerformance.skipable_rake_tasks = []
-    count_before = count_records_in_redis
+    count_before = count_records_in_storage
     subject = Rake::Task["db:version"]
     subject.invoke({})
-    assert_equal count_before + 1, count_records_in_redis
+    assert_equal count_before + 1, count_records_in_storage
   end
 
-  def count_records_in_redis
+  def count_records_in_storage
     datasource = RailsPerformance::DataSource.new(q: {}, type: :rake)
     db = datasource.db
     RailsPerformance::Reports::RecentRequestsReport.new(db).data.size
